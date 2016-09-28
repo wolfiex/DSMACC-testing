@@ -1,0 +1,57 @@
+--------------------Configuration: TUV42 - Win32 Debug--------------------
+Begining build with project "D:\tuv\V4.2\TUV42.dsp", at root.
+Active configuration is Win32 (x86) Console Application (based on Win32 (x86) Console Application)
+
+Project's tools are:
+			"Fortran 90 Compiler for 80x86" with flags "/include:"Debug/" /compile_only /nologo /debug:full /optimize:0 /warn:nofileopt /module:"Debug/" /object:"Debug/" /pdbfile:"Debug/DF50.PDB" "
+			"Win32 Resource Compiler" with flags "/l 0x809 /d "_DEBUG" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/TUV42.bsc" "
+			"COFF Linker for 80x86" with flags "kernel32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/TUV42.pdb" /debug /machine:I386 /out:"Debug/TUV42.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\DOCUME~1\ZADOR~1.KLE\LOCALS~1\Temp\RSP30A.tmp" with contents </include:"Debug/" /compile_only /nologo /debug:full /optimize:0 /warn:nofileopt /module:"Debug/" /object:"Debug/" /pdbfile:"Debug/DF50.PDB" 
+"D:\tuv\V4.2\rxn.f"
+"D:\tuv\V4.2\foil.for"
+>
+Creating temp file "C:\DOCUME~1\ZADOR~1.KLE\LOCALS~1\Temp\RSP30B.tmp" with contents <kernel32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/TUV42.pdb" /debug /machine:I386 /out:"Debug/TUV42.exe" /pdbtype:sept 
+.\Debug\foil.obj
+.\Debug\functs.obj
+.\Debug\grids.obj
+.\Debug\la_srb.obj
+.\Debug\numer.obj
+.\Debug\odo3.obj
+.\Debug\odrl.obj
+.\Debug\orbit.obj
+.\Debug\rdetfl.obj
+.\Debug\rdinp.obj
+.\Debug\rdxs.obj
+.\Debug\rtrans.obj
+.\Debug\rxn.obj
+.\Debug\savout.obj
+.\Debug\setaer.obj
+.\Debug\setalb.obj
+.\Debug\setcld.obj
+.\Debug\setno2.obj
+.\Debug\seto2.obj
+.\Debug\setso2.obj
+.\Debug\sphers.obj
+.\Debug\swbiol.obj
+.\Debug\swbiol2.obj
+.\Debug\swbiol3.obj
+.\Debug\swchem.obj
+.\Debug\swphys.obj
+.\Debug\TUV42.obj
+.\Debug\vpair.obj
+.\Debug\vpo3.obj
+.\Debug\vptmp.obj
+.\Debug\wshift.obj>
+Creating command line "link.exe @C:\DOCUME~1\ZADOR~1.KLE\LOCALS~1\Temp\RSP30B.tmp" 
+Compiling Fortran...
+D:\tuv\V4.2\rxn.f
+D:\tuv\V4.2\foil.for
+Linking...
+
+
+
+TUV42.exe - 0 error(s), 0 warning(s)

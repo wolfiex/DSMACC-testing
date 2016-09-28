@@ -1,0 +1,76 @@
+#DEFFIX
+EMISS=IGNORE;
+#DEFVAR
+O = IGNORE ;
+O1D = IGNORE ;
+N2O5 = IGNORE ;
+HONO = IGNORE ;
+HO2NO2 = IGNORE ;
+HSO3 = IGNORE ;
+DUMMY = IGNORE;
+H = IGNORE;
+O2 = IGNORE;
+MAGIC = IGNORE;
+A = IGNORE;
+O3FT = IGNORE;
+#EQUATIONS
+{1.}	O = O3 :	6.00E-34*O2*O2*((TEMP/300)**-2.6)+5.60E-34*O2*N2*((TEMP/300)**-2.6) ;
+{2.}	O + O3 = DUMMY :	8.00E-12*EXP(-2060/TEMP) ;
+{3.}	O + NO = NO2 :	KMT01 ;
+{4.}	O + NO2 = NO :	5.50E-12*EXP(188/TEMP) ;
+{5.}	O + NO2 = NO3 :	KMT02 ;
+// equations 6 and 7 added
+// {6.}	O1D = O :	3.20E-11*O2*EXP(70/TEMP) ;
+// {7.}	O1D = O :	1.80E-11*N2*EXP(110/TEMP) ;
+{6,7}	O1D = O :	3.20E-11*O2*EXP(67/TEMP)+1.80E-11*N2*EXP(107/TEMP) ;
+{8.}	NO + O3 = NO2 :	1.40E-12*EXP(-1310/TEMP) ;
+{9.}	NO2 + O3 = NO3 :	1.40E-13*EXP(-2470/TEMP) ;
+{10.}	NO + NO = NO2 + NO2 :	3.30E-39*EXP(530/TEMP)*O2 ;
+{11.}	NO + NO3 = NO2 + NO2 :	1.80E-11*EXP(110/TEMP) ;
+{12.}	NO2 + NO3 = NO + NO2 :	4.50E-14*EXP(-1260/TEMP) ;
+{13.}	NO2 + NO3 = N2O5 :	KMT03 ;
+{14.}	N2O5 = NO3 + NO2 :	KMT04+J(5)+J(6) ;
+{15.}	O1D = OH + OH :	2.20E-10*H2O ;
+{16.}	OH + O3 = HO2 :	1.70E-12*EXP(-940/TEMP) ;
+{17.}	OH + H2 = HO2 :	7.70E-12*EXP(-2100/TEMP) ;
+{18.}	OH + CO = HO2 :	1.44E-13*KMT05 ;
+// Changed from = HO2 to = H
+{19.}	OH + H2O2 = HO2 : 2.90E-12*EXP(-160/TEMP) ;
+{20.}	HO2 + O3 = OH :	2.03E-16*((TEMP/300)**4.57)*EXP(693/TEMP) ;
+{21.}	OH + HO2 = DUMMY : 4.80E-11*EXP(250/TEMP) ;
+// equations 22 and 23 added
+// {22.}	HO2 + HO2 = H2O2 :	2.20E-13*KMT06*EXP(600/TEMP) ;
+// {23.}	HO2 + HO2 = H2O2 :	1.90E-33*M*KMT06*EXP(980/TEMP) ;
+{22,23}	HO2 + HO2 = H2O2 :	2.20E-13*KMT06*EXP(600/TEMP)+1.90E-33*M*KMT06*EXP(980/TEMP) ;
+//      	non pres dependant used 1.8E-14*EXP(1500/TEMP)*KMT06  dans pres dependant 6.50E-15*KMT06*EXP(1640/TEMP)+1.70E-33*M*KMT06*EXP(1000/TEMP) ;
+//              IUPAC press dependant used  2.20E-13*KMT06*EXP(600/TEMP)+1.90E-33*M*KMT06*EXP(980/TEMP) ;
+//              JPL press dependant used 3.50E-13*KMT06*EXP(430/TEMP)+1.70E-33*M*KMT06*EXP(1000/TEMP) ;
+{24.}	OH + NO = HONO :	KMT07 ;
+{25.}	OH + NO2 = HNO3 :	KMT08 ;
+{26.}	OH + NO3 = HO2 + NO2 :	2.00E-11*EXP(0./TEMP);
+{27.}	HO2 + NO = OH + NO2 :	3.60E-12*EXP(270/TEMP) ;
+{28.}	HO2 + NO2 = HO2NO2 :	KMT09 ;
+{29.}	HO2NO2 = NO2 + HO2 :	KMT10 + j(1300);
+{30.}	OH + HO2NO2 = NO2 :	3.20E-12*EXP(690/TEMP) ;
+//Rxn 30 is IUPAC, based on Jimenez et al. 2004
+//JPL fit rxn 30 to several, not including Jimenenez, giving 1.30E-12*EXP(380/TEMP), IUPAC is 	3.20E-12*EXP(690/TEMP)
+{31.}	HO2 + NO3 = OH + NO2 :	4.00E-12*EXP(0./TEMP) ;
+{32.}	OH + HONO = NO2 :	2.50E-12*EXP(260/TEMP) ;
+{33.}	OH + HNO3 = NO3 :	KMT11 ;
+{34.}	O + SO2 = SO3 :	4.00E-32*EXP(-1000/TEMP)*M ;
+{35.}	OH + SO2 = HSO3 :	KMT12 ;
+{36.}	HSO3 = HO2 + SO3 :	1.30E-12*EXP(-330/TEMP)*O2 ;
+{40.}	O3 = O1D :	J(1) ;
+{41.}	O3 = O :	J(2) ;
+{42.}	H2O2 = OH + OH :	J(3) ;
+{43.}	NO2 = NO + O :	J(4) ;
+{44.}	NO3 = NO :	J(5) ;
+{45.}	NO3 = NO2 + O :	J(6) ;
+{46.}	HONO = OH + NO :	J(7) ;
+{47.}	HNO3 = OH + NO2 :	J(8) ;
+{50.}   DUMMY = 0.0001DUMMY : 1e-3*EXP(0./TEMP) ;
+{52.}	HO2 	= 	DUMMY + A : 	UPTAKE(0.05D0,TEMP,SAREA,(1D0+16D0+16D0)/1D3) ;
+{53.}	OH 	= 	DUMMY + A : 	UPTAKE(0.51D0,TEMP,SAREA,(1D0+16D0)/1D3) ;
+{57.}   O3FT = O3 : 5.8D-6*EXP(0./TEMP) ;
+{999.} EMISS = EMISS: 1;// need for intial conditions to work
+
