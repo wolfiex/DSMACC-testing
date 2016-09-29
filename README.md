@@ -20,7 +20,7 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 ..+ different columns are different runs
 ..+ depos and emiss are deposition / emission constants, set 1 to enable 0 do disable
 ..+ run names are useful, see +depos etc for examples. 
-2. Run `python begin.py <youricfile.csv` after setting the number of processes inside
+2. Run `python begin.py <youricfile.csv>` after setting the number of processes inside
 ..+ this makes Init_cons.dat
 ..+ generates run files. sdout is in run.sdout, individual run.nc
 ..+ concatenates nc files including initial conditions, and run time into one grouped netcdf
