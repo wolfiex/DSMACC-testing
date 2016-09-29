@@ -25,7 +25,8 @@ start = (time.strftime("%Y%m%d%H%M"))
 if ('.csv' not in ic_file):  ic_file += '.csv' 
 print ic_file
 print 'makefile DISABLED'
-#os.system("./makeics.pl %s"%ic_file)
+os.system("rm Init_cons.dat")
+os.system("./makeics.pl %s"%ic_file)
 ic_open= tuple(open(ic_file))
 numbered = np.array([i for i in enumerate(ic_open[2].strip().split(',')[3:])])
 n_runs=len(numbered)
