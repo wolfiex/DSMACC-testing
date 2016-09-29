@@ -17,17 +17,17 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 
 ## How to run
 1. Create Init cons csv file (methane.csv as a template) 
-..+ different columns are different runs
-..+ depos and emiss are deposition / emission constants, set 1 to enable 0 do disable
-..+ run names are useful, see +depos etc for examples. 
+..* different columns are different runs
+..* depos and emiss are deposition / emission constants, set 1 to enable 0 do disable
+..* run names are useful, see +depos etc for examples. 
 2. Run `python begin.py <youricfile.csv>` after setting the number of processes inside
-..+ this makes Init_cons.dat
-..+ generates run files. sdout is in run.sdout, individual run.nc
-..+ concatenates nc files including initial conditions, and run time into one grouped netcdf
-..+ to see the form of this have a look inside begin, or read_dsmacc
+..* this makes Init_cons.dat
+..* generates run files. sdout is in run.sdout, individual run.nc
+..* concatenates nc files including initial conditions, and run time into one grouped netcdf
+..* to see the form of this have a look inside begin, or read_dsmacc
 3. to view files:
-..+ ipython, then type read_dsmacc <ncfilename> for interactive play
-..+ run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
+..* ipython, then type read_dsmacc <ncfilename> for interactive play
+..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
 
 ### Notes:
 
