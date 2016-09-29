@@ -130,94 +130,134 @@ if (theta .le. 90) then
     d(i)=ds(i,jl)
     enddo
 
-    if (jl .eq.   2)  then 
+
+SELECT CASE (jl)
+    
+ CASE(2)   
         j(1)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O1D
-    else    if (jl .eq.  3)  then 
+    
+ CASE(3)   
         j(2)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O3P
-    else    if (jl .eq. 11)  then 
+    
+ CASE(11)  
         j(3)=seval(n,theta,tmp, tmp2, b,c,d) ! H2O2->2*OH
-    else    if (jl .eq.  4) then 
+    
+ CASE(4)  
         j(4)=seval(n,theta,tmp, tmp2, b,c,d) ! NO2->NO+O3P
-    else    if (jl .eq.  5) then 
+    
+ CASE(5)  
         j(5)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO+O2
-    else    if (jl .eq.  6) then 
+    
+ CASE(6)  
         j(6)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO2+O3P
-    else    if (jl .eq. 12) then 
+    
+ CASE(12)  
         j(7)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO2->OH+NO
-    else    if (jl .eq. 13) then 
+    
+ CASE(13)  
         j(8)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO3->NO2+OH
-    else    if (jl .eq. 14) then 
+    
+ CASE(14)  
         j(1300)=seval(n,theta,tmp, tmp2, b,c,d) 
-    else    if (jl .eq. 15) then 
+    
+ CASE(15)  
         j(11)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 16) then 
+    
+ CASE(16)  
         j(12)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 17) then 
+    
+ CASE(17)  
         j(13)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 20) then 
+    
+ CASE(20)  
         j(14)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 75) then 
+    
+ CASE(75)  
         j(15)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 76) then 
+    
+ CASE(76)  
         j(16)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 77) then 
+    
+ CASE(77)  
         j(17)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 62) then 
+    
+ CASE(62)  
         j(18)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
-        !else    if (jl .eq. 62) then  !same so join
         j(19)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
-    else    if (jl .eq. 25) then 
+    
+ CASE(25)  
         j(21)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 87) then 
+    
+ CASE(87)  
         j(22)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 61) then 
+    
+ CASE(61)  
         j(23)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
-        !else    if (jl .eq. 61) then    !same so join
         j(24)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
-    else    if (jl .eq. 21) then 
+    
+ CASE(21)  
         j(31)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 23) then 
+    
+ CASE(23)  
         j(32)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 22) then 
+    
+ CASE(22)  
         j(33)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 24) then 
+    
+ CASE(24)  
         j(34)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 60) then 
+    
+ CASE(60)  
         j(35)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 26) then 
+    
+ CASE(26)  
         j(41)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 27) then 
+    
+ CASE(27)  
         j(51)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 64) then 
+    
+ CASE(64)  
         j(52)=seval(n,theta,tmp, tmp2, b,c,d)
-        !else    if (jl .eq. 64) then   !same so join
         j(54)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 91) then 
+    
+ CASE(91)  
         j(53)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 94) then 
+    
+ CASE(94)  
         j(55)=seval(n,theta,tmp, tmp2, b,c,d)
-    else    if (jl .eq. 67) then 
+    
+ CASE(67)  
         j(56)=seval(n,theta,tmp, tmp2, b,c,d)*0.75
-        !else    if (jl .eq. 67) then  !same so joins
         j(57)=seval(n,theta,tmp, tmp2, b,c,d)*0.25
-        !!!!!!!!!!Halogens !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    else    if (jl .eq. 72) then 
+!!!!!!!!!!Halogens !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+ CASE(72)  
         j(1001)=seval(n,theta,tmp, tmp2, b,c,d) ! HOBr
-    else    if (jl .eq. 73) then 
+    
+ CASE(73)  
         j(1002)=seval(n,theta,tmp, tmp2, b,c,d) ! BrO
-    else    if (jl .eq. 74) then 
+    
+ CASE(74)  
         j(1003)=seval(n,theta,tmp, tmp2, b,c,d) ! Br2
-    else    if (jl .eq. 50) then 
+    
+ CASE(50)  
         j(1004)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->Br+NO3
-    else    if (jl .eq. 51) then 
+    
+ CASE(51)  
         j(1005)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->BrO+NO2
-    else    if (jl .eq. 30) then 
+    
+ CASE(30)  
         j(1006)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->Cl+NO3
-    else    if (jl .eq. 31) then 
+    
+ CASE(31)  
         j(1007)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->ClO+NO2
-    else    if (jl .eq. 58) then 
+    
+ CASE(58)  
         j(1008)=seval(n,theta,tmp, tmp2, b,c,d) ! Cl2->2Cl
-    end if
+    
+ CASE DEFAULT
+        print*, 'unselected j number'
+END SELECT
 
     enddo
 

@@ -57,54 +57,54 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
     if (FOUND .ne. 1) then 
 
-    if (TRIM(SPEC_NAME(I)) .EQ. 'H2O') then
+    SELECT CASE (TRIM(SPEC_NAME(I)))
+   
+    CASE('H2O') 
     H2O=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'PRESS') then 
+    CASE('PRESS')  
     PRESS=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'NOx') then
+    CASE('NOx') 
     CONSTRAIN_NOX=.TRUE.
     WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'LAT') then
+    CASE('LAT') 
     LAT=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'LON') then 
+    CASE('LON')  
     LON=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'TEMP') then
+    CASE('TEMP') 
     TEMP=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'JDAY') then 
+    CASE('JDAY')  
     JDAY=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'TIME(GMTs)') then 
+    CASE('TIME(GMTs)')  
     continue
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'O3COL') then
+    CASE('O3COL') 
     O3COL=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'ALBEDO') then 
+    CASE('ALBEDO')  
     ALBEDO=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'SAREA') then 
+    CASE('SAREA')  
     SAREA=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'RP1') then 
+    CASE('RP1')  
     RP1=CONCS(I)
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'JNO2') then
+    CASE('JNO2') 
+        if (CONST_METHOD(I) .GE. 1) JNO2=CONCS(I)
+
+        JREPEAT=0
+
+        if (CONST_METHOD(I) .EQ. 2) JREPEAT=1
 
 
-    if (CONST_METHOD(I) .GE. 1) JNO2=CONCS(I)
-
-    JREPEAT=0
-
-    if (CONST_METHOD(I) .EQ. 2) JREPEAT=1
-
-
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'JO1D') then
+    CASE('JO1D') 
 
         if (CONST_METHOD(I) .GE. 1) JO1D=CONCS(I)
 
@@ -113,7 +113,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         if (CONST_METHOD(I) .EQ. 2) JREPEAT=1
 
 
-    else if (TRIM(SPEC_NAME(I)) .EQ. 'DEPOS') then 
+    CASE('DEPOS') 
 
         if (CONCS(I) > 0) then  
             DEPOS = 1.
@@ -121,9 +121,9 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         end if 
 
 
-
+    CASE DEFAULT
     !! for any species in the fixed array 
-    else if (SPEC_NAME(I)(1:1) .EQ. 'F')  then  
+    if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
         SPEC_NAME(i)  = SPEC_NAME(i)(2:)
 
         do J=NVAR+1,NVAR+NFIX    
@@ -148,21 +148,17 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
                     stop 
             endif
             
-            
-
         enddo
-
-    else 
-        if (SPEC_NAME(I)(1:1) .NE. 'X') then 
+    
+    else if (SPEC_NAME(I)(1:1) .NE. 'X') then 
         WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
         WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping '
         stop   
         end if 
         WRITE (OUTPUT_UNIT,*) 'Starts with X => ignored'   
  
-    endif
-
-
+    
+    END SELECT
     endif
     endif
 

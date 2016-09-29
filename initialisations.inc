@@ -147,7 +147,7 @@ full_counter=0
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !NETCDF INITIALISATIONS
-print *, 'ncstart', nspec, nreact ,nvar
+
 
 if (SAVE_LEGACY .eq. .false.) then
         ! netcdf 64bit does not work apparently so cannot handle large runs.
@@ -173,27 +173,19 @@ if (SAVE_LEGACY .eq. .false.) then
         call check(nf90_def_var(ncid, "reactions", NF90_char, rh_dims, rh_id) )
         call check(nf90_def_var(ncid, "species", NF90_char, sh_dims, sh_id) )
 
-        print*,'check2'
-        
         !end def
         call check(nf90_enddef(ncid))  
-
-        print*, 'check3'
         
         !headers 
         s_names(:10) = (/'TIME','LAT','LON','PRESS','TEMP','H2O','M', 'JNO2FACT','JO1DFACT','RO2' /)
         s_names(11:) = SPC_NAMES(:)
-        print*,'spc',size(s_names)
         r_names(1:6) = (/'TIME','LAT','LON','PRESS','TEMP','M'/)
         r_names(7:)= EQN_NAMES(:)
-        print*,'rte',size(r_names)
         call check(nf90_put_var(ncid, sh_id, s_names(:) ))
         call check(nf90_put_var(ncid, rh_id, r_names(:) ))
-        
-        print*, 'check4'
+
 
 end if 
-print *, 'scmade'
 
 
     !previous dsmacc format
