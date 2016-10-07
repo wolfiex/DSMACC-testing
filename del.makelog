@@ -1,9 +1,0 @@
-... extern include file: rate_coeff.inc
-... extern module: netcdf
-... extern include file: rate_coeff.inc
-... extern module: netcdf
-constants.f90(112): error #5102: Cannot open include file 'rate_coeff.inc'
-INCLUDE 'rate_coeff.inc'
---------^
-compilation aborted for constants.f90 (code 1)
-make: *** [constants.o] Error 1

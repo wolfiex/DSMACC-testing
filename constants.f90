@@ -255,8 +255,8 @@ SELECT CASE (jl)
  CASE(58)  
         j(1008)=seval(n,theta,tmp, tmp2, b,c,d) ! Cl2->2Cl
     
- CASE DEFAULT
-        print*, 'unselected j number'
+ !CASE DEFAULT
+ !       print*, 'unselected j number'
 END SELECT
 
     enddo
