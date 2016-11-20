@@ -1,0 +1,31 @@
+# Absorption cross sections for the i-C3 Criegee intermediate acetone oxide
+# measured by Liu et al., J Phys Chem A 118, 2298-2306, 2014.
+# taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+# last checked: 08.02.2016
+#
+# large errors of factor of 2 possible!
+#
+# λ/nm	σ/cm2	error/cm2
+288	7.6725e-18	7.4305e-19
+292	8.8896e-18	9.3454e-19
+296	1.0322e-17	8.9182e-19
+300	1.2486e-17	1.5711e-18
+302	1.4953e-17	2.0970e-18
+304	2.2365e-17	1.6958e-18
+308	2.4325e-17	1.0545e-18
+310	2.7882e-17	1.4555e-18
+312	3.1203e-17	2.0120e-18
+316	2.8664e-17	2.2706e-18
+320	3.4004e-17	2.7305e-18
+324	2.9212e-17	2.9506e-18
+328	3.3989e-17	1.5304e-18
+332	2.5466e-17	1.5149e-18
+336	2.8263e-17	2.2549e-18
+340	2.3351e-17	1.3454e-18
+344	1.6087e-17	6.8230e-19
+348	1.5080e-17	5.2126e-19
+352	1.2927e-17	6.7534e-19
+356	1.0968e-17	2.5465e-19
+360	7.0405e-18	2.0484e-19
+364	6.8146e-18	3.1667e-19
+368	7.8729e-18	8.5290e-19

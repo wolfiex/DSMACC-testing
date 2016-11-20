@@ -1,0 +1,171 @@
+*-----------------------------------------------------------------------------*
+*=    Tropospheric Ultraviolet-Visible (TUV) radiation model                 =*
+*=    Version 5.2.1                                                          =*
+*=    November 2015                                                          =*
+*-----------------------------------------------------------------------------*
+*=    Changes made by Peter Bräuer (pb) compared to TUV5.2                   =*
+*=    downloaded from https://www2.acom.ucar.edu/                            =*
+*=    modeling/tropospheric-ultraviolet-and-visible-tuv-radiation-model      =*
+*-----------------------------------------------------------------------------*
+*=    If you have any questions about the changes contact:                   =*
+*=                                                                           =*
+*=    Peter Bräuer                                                           =*
+*=    Wolfson Atmospheric Chemistry Laboratories                             =*
+*=    Department of Chemistry                                                =*
+*=    University of York                                                     =*
+*=    York, YO10 5DD                                                         =*
+*=                                                                           =*
+*=    email: peter.brauer@york.ac.uk                                         =*
+*=    phone: +44 (0)1904 32 4758                                             =*
+*=    skype: p.braeuer                                                       =*
+*-----------------------------------------------------------------------------*
+
+FIXES/GENERAL UPDATES:
+======================
+
+• qys.f, SR qyacet, l. 73: changed 'w .LT. 327.' to 'w .LE. 327.'
+  (wavelength 327 has never been calculated)
+• in rdinp.f, ll. 128 - 133: '(1:1)' removed from 'inpfil(1:1)'
+  to allow to load file names starting with 1 - 5
+• in rdinp.f, l. 286: '(1:1)' removed from 'savfil(1:1)'
+  to allow output files starting with 1
+• Label in error message for quantum yield interpolation corrected
+  (from j-1 to j) for second CH2O channel; SR pxCH2O, l. 13114 in original rxn.f
+  and from j to j-1 for first channel in obsolete r10, l. 2367/2427 in original rxn.f
+• wrong absorption cross section for MEK from data by Martinez et al. read in by TUV!
+  Corrected to read 3rd col. (MEK) instead of fourth column (propyl methyl ketone)
+• in savout.f, l. 165/631 (SR outpt1/outpt2):
+  correct outfil from character*20 to character*6
+• clearance of unused variables
+• conversion of tabs into spaces
+• corrections of number types (assigning decimal points to all floats)
+• grids.f, SR gridw, l. 192: FLOAT removed (number should be integer)
+• increase character length of wlabel in SR gridw in grids.f
+  to allow full display of all labels
+• removal of unused labels (mostly continue)
+• deletion of unused variables
+• warnings for dummy arguments passed to SRs ignored
+• replaced atrim by internal f90 trim, adjustl, and adjustr function
+  to allow easy extension of p/T-dependent data
+• conversion of ANGCOS from real to 1x1 matrix to avoid
+  rank mismatch when called from SR LEPOLY
+• rxn_mcm.f: SR r14 (CH3COCHO):
+  change wavelength split to '<401' instead of '<402' for IUPAC xs
+• rxn_mcm.f: SR r106 and r141 fused using mabs option
+  (both describing ethyl nitrate photolysis)
+• swchem.f: r106 deleted (now only r141)
+• rxn_mcm.f, SR r110: boundaries of parameterisation removed to
+  use calculated values as better approximation than zero.
+
+OTHER CHANGES IN CODE:
+======================
+
+• switched to non-interactive mode (using switch intrct)
+• introduction of parameter 'vers'
+  - overwrites individual mabs/myld parameters to enforce either TUV
+    or MCM standard datasets for cross sections and quantum yields
+  - parameter is set in 'params'
+• Addition of new data saved in file rxn_mcm.f (see list below)
+• TUV.f renamed to TUV521.f
+• rxn.f renamed to rxn_mcm.f
+• usrinp: output set IUPAC, several parameters change, additional rxns
+• 'MCM4' and 'TUV' added to INPUTS for standard MCM and TUV runs
+• Additional reaction pathways for HNO3 and HNO4 photolysis
+• New subroutine to interpolate matrix elements of 2D matrix with
+  given minimum and maximum values
+  -> subroutine intermat added to numer.f
+• Loading of photochemical data for organic extension in SR mcmext
+• Addition of new subroutines for extended organic chemistry
+  - Aldehydes in file rxn_ald.f
+• Added comment to TUV main screen to change variable nmj
+  to toggle photoreactions on/off
+• Changed warning statement if kj is exceeded.
+• log file:
+  - Renamed to '<outfil>.log'
+  - Added choice of input data
+• Increased Parameter kt in params to 500
+  (used for maximum time steps/sza steps)
+  to allow high resolution output data
+• Increased Parameter kj in params to 250
+  (used for maximum numbers of labels
+   to allow for more reactions)
+• Increased Parameter kw in params to 1200
+  (for use of 0.5 nm resolution of wavelength grid)
+• Comment added: subroutine r10 replaced by pxCH2O
+• Addition of new rxn in usrinp files
+• New usrinp files 'MCM4' and 'TUV' for MCM and TUV standard runs
+• Addition of new screen output with number of reactions
+  to double check completeness of usrinp
+  (printed after call of swchem and mcmext)
+• The character size of 'jlabel' has been made variable.
+• Rearrangement of SR pxCH2O before obsolete SR r10
+
+CHANGES TO MAKEFILE:
+====================
+• compile TUV521.f instead of TUV.f
+• compile rxn_mcm.f instead of rxn.f
+• Additional objects added to Makefile (make_mcm):
+  - mcmext.f: loading of organic extension
+  - rxn_ald.f: extended aldehyde photochemistry
+  - rxn_ket.f: extended ketone photochemistry
+  - rxn_dicar.f: extended dicarbonyl photochemistry
+  - rxn_nit.f: extended organic nitrate photochemistry
+  - rxn_dinit.f: extended organic dinitrate photochemistry
+  - rxn_rooh.f: extended organic hydroperoxide photochemistry
+  - rxn_mult.f: extended photochemistry of
+                organic compounds with multiple chromophores
+  - rxn_rad.f: extended Criegee radical photochemistry
+• use 'make -f make_mcm' to generate tuvmcm with MCM standard dataset
+• run 'tuv' for TUV version and 'tuvmcm' for MCM version
+• Addition of -fcheck=all flag to give warnings for "out-of-bounds" array sizes
+• new variable 'WFLAG'  with warning options for compilation
+  based on -Wall for gfortran
+
+AMMENDMENTS OF PHOTOLYSIS DATA:
+===============================
+
+• Addition/ammendment of IUPAC recommended
+  cross sections, quantum yields and/or photolysis pathways for:
+  - O3 QYs and XS (photolysis data and transmission)
+  - H2O2 QYs and XS
+  - NO2 QYs and XS
+  - NO3 QYs and XS
+  - HNO2 XS
+  - HNO3 XS and QY
+  - HNO4 XS and QY
+  - HCHO XS and QY
+  - CH3CHO  QY
+  - C2H5CHO QY
+  - n-C3H7CHO XS and QY
+  - i-C3H7CHO XS and QY
+  - HOCH2CHO QY
+  - CH3COCHO QY
+  - n-C4H9CHO XS and QY
+  - CH3COCH3 second channel introduced
+  - MEK QY
+  - HOCH2OOH XS
+  - CH3NO3 XS
+  - C2H5NO3 XS
+  - i-C3H7NO3 XS
+  - PAN QY
+  - Pinonaldehyde XS and QY
+  - CH3COCOCH3 QY
+  - CH3COCH2OH QY
+  - CHOCH=CHCHO XS and QY
+  - CH3COCH=CHCHO XS and QY
+  - Criegee intermediate
+
+• Addition of JPL photolysis pathways for:
+  - Pyruvic acid
+
+• Addition cross sections and quantum yields recommended
+  by Calvert et al. 2011 for:
+  - n-C4H9CHO XS and QY
+
+
+ISSUES:
+=======
+
+• SR QGAUSN in rtrans.f, l. 3440:
+  'GWT( K ) = sngl(TWO) / ( sngl(TMP)*( sngl(EN)*PM2 )**2 )'
+  conversion of PM2 into sngl causes TUV to crash

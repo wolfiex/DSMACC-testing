@@ -1,5 +1,5 @@
-  F90        = ifort  -L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
-  FC         = ifort  -L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
+  F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
+  FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
   F90FLAGS   = -cpp  -mcmodel medium -O0 -fpp  #-openmp
@@ -51,8 +51,7 @@ distclean: clean
 kpp:clean
 	./sfmakedepend
 	./makedepos.pl
-	./kpp-2.2.3/bin/kpp model.kpp
-	make all 
+	./kpp-2.2.3/bin/kpp model.kpp 
 	
 
 # all object files *.o depend on their source files *.f90

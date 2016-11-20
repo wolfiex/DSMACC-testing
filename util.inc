@@ -239,7 +239,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !
         ! ****************************************************************
 
-        subroutine SaveNetCD(index_loc)
+        subroutine SaveOut(index_loc)
         USE model_Global
         USE model_Monitor
         USE model_Integrator
@@ -267,7 +267,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         output_r(index_loc,6)=H2O
         output_r(index_loc,7:) = Rconst
  
-        end subroutine saveNetCD
+        end subroutine SaveOut
 
       
         ! ****************************************************************
