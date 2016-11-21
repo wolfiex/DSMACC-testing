@@ -209,7 +209,6 @@
 
 * call rt routine:
 
-
       IF( nstr .LT. 2 ) THEN
 
          CALL ps2str(nz,zen,ag,dt,om,g,
@@ -1227,6 +1226,7 @@ c     ..
 
 
 
+
       IF( PASS1 ) THEN
 
          DITHER = 10.*R1MACH( 4 )
@@ -2074,7 +2074,7 @@ c                ** Look for two consecutive small sub-diagonal elements
 
 C inhibit vectorization by CF77, as this will cause a run time error
 
-C DIR$ NEXTSCALAR
+CDIR$ NEXTSCALAR
       DO 480 J = LB, N2
          I  = N2 + LB - J
          Z  = AAD( I, I )
@@ -2103,7 +2103,7 @@ C DIR$ NEXTSCALAR
 
 c                      ** fpp vectorization of this loop triggers
 c                         array bounds errors, so inhibit
-C FPP$ NOVECTOR L
+CFPP$ NOVECTOR L
       DO 500 J = I + 3, N
          AAD( J, J - 2 ) = ZERO
          AAD( J, J - 3 ) = ZERO
@@ -7235,7 +7235,6 @@ C-----------------------------------------------------------------------
    10 A = A + A
          TEMP = A+ONE
          TEMP1 = TEMP-A
-         IF (A.GE.1.e8) STOP
          IF (TEMP1-ONE .EQ. ZERO) GO TO 10
       B = ONE
    20 B = B + B

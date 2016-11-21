@@ -9,7 +9,7 @@ PROG = model
 
 # complete list of all f90 source files
 SRCS1 = $(wildcard model_*.f90) constants.f90
-SRCS2 = $(wildcard tuv_old/*.f)
+SRCS2 = #$(wildcard tuv_old/*.f)
 
 # the object files are the same as the source files but with suffix ".o"
 OBJS1 := $(SRCS1:.f90=.o) 
@@ -63,12 +63,12 @@ tuv_old/%.o: %.f
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-constants.o: old_rate.inc tuv_old/params
+constants.o: old_rate.inc TUV5.2.1/params
 constants.o: model_Global.o model_Precision.o
 driver.o: initialisations.inc
 driver.o: constants.o model_Global.o model_Integrator.o model_Monitor.o
 driver.o: model_Parameters.o model_Rates.o model_Util.o
-model_Global.o: tuv_old/params
+model_Global.o: TUV5.2.1/params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o

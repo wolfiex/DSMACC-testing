@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Main.f90
-! Time                 : Mon Nov 21 00:39:05 2016
+! Time                 : Mon Nov 21 01:40:39 2016
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -46,14 +46,17 @@ REAL(dp) :: DIURNAL_OLD(NVAR,3000), DIURNAL_NEW(NVAR,3000)
 REAL(dp) :: DIURNAL_RATES(NREACT, 3000)
 REAL(dp) :: FULL_CONCS(NSPEC,999999), concs(NSPEC)
 ! Photolysis calculation variables
-character(len=50), allocatable ::  s_names(:), r_names(:) 
+character(len=50), allocatable ::  s_names(:), r_names(:)
+
+
+! DO NOT NEED ABOVE 
+ 
 REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime 
 character(50) :: counter, cw,filename
 character (3) :: ln
 INTEGER  :: ERROR, IJ, PE ,runtimestep
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
-
-
+character(200) :: dummychar
 integer :: run_counter = 0 
 
 STEPMIN = 0.0_dp
@@ -67,6 +70,7 @@ CONSTRAIN_NOX=.False.
 CONSTRAIN_RUN=.FALSE.
 SAVE_LEGACY=.false.
 time=tstart
+new_tuv=.true.
 !dt is the output timestep and the timestep between times 
 !rate constants and notably photolysis rates are calcualted " 600 = ten minutes
 dt = 600. 

@@ -3,21 +3,22 @@
 * I/O variables:
 
       IMPLICIT NONE
-      INCLUDE 'params'
-      INTEGER i
-      REAL svj_tj(kt,kj), sza(1), n
-      real r03col,albedo,alt,temp
+      INCLUDE './params'
+      INTEGER i,j
+      REAL*8 svj_tj(kt,kj), sza(19), n
+      real*8 r03col,albedo,alt,kelvin
       CHARACTER(len=80) arg, filename
-
-
+      real*8 b(19),c(19),d(19)
+	  real*8 bs(19,kj), cs(19,kj), ds(19,kj)
+      real*8 temp2(19), temp(19)
+      
       sza = 0.
       n = 0.
       
-      !sza(1)=5
-      !DO i = 1,19
-      !  sza(i) = n
-      !  n = n + 5.
-      !ENDDO 
+      DO i = 1,19
+        sza(i) = n
+        n = n + 5.
+      ENDDO 
       
       !r03col 290 - 350
       !albedo 0-1 
@@ -33,35 +34,256 @@
       call getarg(4,arg)
       read(arg,*) r03col
       call getarg(5,arg)
-      read(arg,*) temp      
-      call getarg(6,arg)
-      read(arg,*) sza(1)  
-      print *, 350.,albedo,0.,temp,sza,svj_tj   
-        
-      
+      read(arg,*) kelvin      
+      !call getarg(6,arg)
+      !read(arg,*) sza(1)  
+     
+      print*, 'tuvin' ,filename,'and',arg,alt,albedo,r03col,kelvin
       
       !CALL tuv(350.,.1,0.,288.15,sza,svj_tj) 
-      open(unit=6, file="/dev/null", status="old") !supress  sdout 
-      CALL tuv(r03col,albedo,alt,temp,sza,svj_tj)
+      !open(unit=6, file="/dev/null", status="old") !supress  sdout 
+      
+      CALL tuv(r03col,albedo,alt,kelvin,sza,svj_tj)
       !open(unit=6,file="/dev/stdout", status="old")
 
+
       
-      print*, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+      do j=1,kj
+		do i=1,19 
+			temp(i)=sza(i)
+			temp2(i)=svj_tj(i,j)
+		enddo	
+                                
+        	n=19
+		call spline(n,temp,temp2,b,c,d)
+        	do i=1,19
+			bs(i,j)=b(i)
+			cs(i,j)=c(i)
+			ds(i,j)=d(i)	
+		enddo
+	  enddo
+     
 
 
-      open(unit =15,file = filename,  status="old",form='unformatted')
-      !write(15) svj_tj(:,:)
-      !DO i =1,19
-      !print*,i,svj_tj(i,:5)
-      write(15) svj_tj(1,:)
-      !ENDDO
-      close(15)
+      
+        open(101, file=filename,form="unformatted")
+        write(101) bs 
+        write(101) cs  
+        write(101) ds  
+        write(101) svj_tj       
+        write(101) sza
+        close(101)
+
+
       END PROGRAM main
 
 
 
 
+	subroutine set_up_photol(O3col, albedo, ralt,
+     $       			box_temp, bs, cs, ds, sza, svj_tj)
+	include 'params'
+	real*8 b(19),c(19),d(19)
+	real*8, intent(inout):: bs(19,kj), cs(19,kj), ds(19,kj)
+        REAL*8, intent(in):: O3col, ralt, box_temp, albedo
+	REAL*8 y,dy,x
+	integer i, n, j
+        real*8, intent(inout):: svj_tj(kt,kj), sza(kt)
+	real*8 temp2(19), temp(19)
 
+
+        call tuv(real(o3col), real(albedo),
+     $       real(ralt), real(box_temp), sza, svj_tj)
+        print*,sza(:20)
+
+	do j=1,kj
+		do i=1,17
+			temp(i)=sza(i)
+		enddo
+		temp(18) = 85.
+		temp(19) = 90.
+		temp2(18)= 0.d0
+		temp2(19)= 0.d0
+
+        	n=19
+		call spline(n,temp,temp2,b,c,d)
+        	do i=1,19
+			bs(i,j)=b(i)
+			cs(i,j)=c(i)
+			ds(i,j)=d(i)
+		enddo
+	enddo
+
+
+	return
+        end
+        
+        
+      subroutine spline (n, x, y, b, c, d)
+c======================================================================
+c  the coefficients b(i), c(i), and d(i), i=1,2,...,n are computed
+c  for a cubic interpolating spline
+c
+c    s(x) = y(i) + b(i)*(x-x(i)) + c(i)*(x-x(i))**2 + d(i)*(x-x(i))**3
+c
+c    for  x(i) .le. x .le. x(i+1)
+c
+c  input..
+c
+c    n = the number of data points or knots (n.ge.2)
+c    x = the abscissas of the knots in strictly increasing order
+c    y = the ordinates of the knots
+c
+c  output..
+c
+c    b, c, d  = arrays of spline coefficients as defined above.
+c
+c  using  p  to denote differentiation,
+c
+c    y(i) = s(x(i))
+c    b(i) = sp(x(i))
+c    c(i) = spp(x(i))/2
+c    d(i) = sppp(x(i))/6  (derivative from the right)
+c
+c  the accompanying function subprogram  seval  can be used
+c  to evaluate the spline.
+c======================================================================
+      integer n
+      double precision x(n), y(n), b(n), c(n), d(n)
+      integer nm1, ib, i
+      double precision t
+c
+      nm1 = n-1
+      if ( n .lt. 2 ) return
+      if ( n .lt. 3 ) go to 50
+c
+c  set up tridiagonal system
+c
+c  b = diagonal, d = offdiagonal, c = right hand side.
+c
+      d(1) = x(2) - x(1)
+      c(2) = (y(2) - y(1))/d(1)
+      do 10 i = 2, nm1
+         d(i) = x(i+1) - x(i)
+         b(i) = 2.*(d(i-1) + d(i))
+         c(i+1) = (y(i+1) - y(i))/d(i)
+         c(i) = c(i+1) - c(i)
+  10  continue
+c
+c  end conditions.  third derivatives at  x(1)  and  x(n)
+c  obtained from divided differences
+c
+      b(1) = -d(1)
+      b(n) = -d(n-1)
+      c(1) = 0.
+      c(n) = 0.
+      if ( n .eq. 3 ) go to 15
+      c(1) = c(3)/(x(4)-x(2)) - c(2)/(x(3)-x(1))
+      c(n) = c(n-1)/(x(n)-x(n-2)) - c(n-2)/(x(n-1)-x(n-3))
+      c(1) = c(1)*d(1)**2/(x(4)-x(1))
+      c(n) = -c(n)*d(n-1)**2/(x(n)-x(n-3))
+c
+c  forward elimination
+c
+   15 do 20 i = 2, n
+         t = d(i-1)/b(i-1)
+         b(i) = b(i) - t*d(i-1)
+         c(i) = c(i) - t*c(i-1)
+   20 continue
+c
+c  back substitution
+c
+      c(n) = c(n)/b(n)
+      do 30 ib = 1, nm1
+         i = n-ib
+         c(i) = (c(i) - d(i)*c(i+1))/b(i)
+   30 continue
+c
+c  c(i) is now the sigma(i) of the text
+c
+c  compute polynomial coefficients
+c
+      b(n) = (y(n) - y(nm1))/d(nm1) + d(nm1)*(c(nm1) + 2.*c(n))
+      do 40 i = 1, nm1
+         b(i) = (y(i+1) - y(i))/d(i) - d(i)*(c(i+1) + 2.*c(i))
+         d(i) = (c(i+1) - c(i))/d(i)
+         c(i) = 3.*c(i)
+   40 continue
+      c(n) = 3.*c(n)
+      d(n) = d(n-1)
+      return
+c
+   50 b(1) = (y(2)-y(1))/(x(2)-x(1))
+      c(1) = 0.
+      d(1) = 0.
+      b(2) = b(1)
+      c(2) = 0.
+      d(2) = 0.
+      return
+      end
+
+      double precision function seval(n, u, x, y, b, c, d)
+c======================================================================
+c  this subroutine evaluates the cubic spline function
+c
+c    seval = y(i) + b(i)*(u-x(i)) + c(i)*(u-x(i))**2 + d(i)*(u-x(i))**3
+c
+c    where  x(i) .lt. u .lt. x(i+1), using horner's rule
+c
+c  if  u .lt. x(1) then  i = 1  is used.
+c  if  u .ge. x(n) then  i = n  is used.
+c
+c  input..
+c
+c    n = the number of data points
+c    u = the abscissa at which the spline is to be evaluated
+c    x,y = the arrays of data abscissas and ordinates
+c    b,c,d = arrays of spline coefficients computed by spline
+c
+c  if  u  is not in the same interval as the previous call, then a
+c  binary search is performed to determine the proper interval.
+c========================================================================
+      integer n
+      double precision  u, x(n), y(n), b(n), c(n), d(n)
+      integer i, j, k
+      double precision dx
+      data i/1/
+      if ( i .ge. n ) i = 1
+      if ( u .lt. x(i) ) go to 10
+      if ( u .le. x(i+1) ) go to 30
+c
+c  binary search
+c
+   10 i = 1
+      j = n+1
+   20 k = (i+j)/2
+      if ( u .lt. x(k) ) j = k
+      if ( u .ge. x(k) ) i = k
+      if ( j .gt. i+1 ) go to 20
+c
+c  evaluate spline
+c
+   30 dx = u - x(i)
+      seval = y(i) + dx*(b(i) + dx*(c(i) + dx*d(i)))
+      return
+      end
+
+         subroutine polint(f,a,n,x,r)
+c----------------------------------------------------------
+c service program for fintr
+c----------------------------------------------------------
+       implicit real*8 (a-h,o-z), integer *4 (i-n)
+       dimension f(n),a(n)
+       r=0.0
+       do 1 j=1,n
+       al=1.0
+       do 2 i=1,n
+          if (i-j) 3,2,3
+ 3        al=al*(x-a(i))/(a(j)-a(i))
+ 2     continue
+ 1     r=r+al*f(j)
+       return
+       end
 
 
 
@@ -104,6 +326,8 @@
 * Include parameter file
 
       INCLUDE 'params'
+* I/O:
+      REAL ro3col, ralt, box_temp, ralbedo
 
 * Wavelength grid:
 
@@ -217,10 +441,6 @@
 
       CHARACTER*1 again
 
-* I/O variables:
-
-      REAL ro3col, ralt, box_temp, ralbedo
-
 * Save arrays for output:
 
       LOGICAL lirrad, laflux, lrates, ljvals, lmmech
@@ -252,9 +472,6 @@
        character(5)  :: zone
        integer,dimension(8) :: tval
 
-* internal:
-      INTEGER i,j
-
 * --- END OF DECLARATIONS ---------------------------------------------
 
 * re-entry point
@@ -278,12 +495,9 @@ c      OPEN(UNIT=kout,FILE='tuvlog',STATUS='UNKNOWN')
 * can read interactively (intrct = .TRUE.)
 * or in batch mode (intrct = .FALSE.)
 
-c      intrct = .TRUE.
+!     intrct = .TRUE.
       intrct = .FALSE.
-      IF ( .NOT. intrct) THEN
-        inpfil = 'MCM4'
-        inpfil = TRIM(ADJUSTL(inpfil))
-      ENDIF
+      IF ( .NOT. intrct) inpfil = 'usrinp'
 
       CALL rdinp(intrct,
      $     inpfil, outfil, nstr,   lat,    lon,    tmzone,
@@ -295,6 +509,8 @@ c      intrct = .TRUE.
      $     lirrad, laflux, lmmech, lrates, isfix,  nms,
      $     ljvals, ijfix,  nmj,    iwfix,  itfix,  izfix,
      $     ims,    slabel, imj,    jlabel)
+
+      print*,inpfil,outfil
 
       IF(outfil .EQ. 'screen') THEN
          iout = 6
@@ -425,7 +641,7 @@ c      wstop = 420.
 c      nwint = 140
 c      tstart = 12.
 c      tstop = 20.
-      nt = 1
+c      nt = 5
 c      lzenit = .FALSE.
       alsurf = ralbedo
 c      psurf = -999.
@@ -441,9 +657,9 @@ c      alpha = 1.
 c      dirsun = 1.
 c      difdn = 1.
 c      difup = 0.
-       zout = ralt
+      zout = ralt
 c      zaird = -999.
-       ztemp = box_temp
+      ztemp = box_temp
 c      lirrad = .TRUE.
 c      laflux = .FALSE.
 c      lmmech = .FALSE.
@@ -825,6 +1041,7 @@ c       STOP
 *  normalized actinic fluxes  fdir(iz), fdn(zi), fup(iz)
 *  where
 *  dir = direct beam, dn = down-welling diffuse, up = up-welling diffuse
+
             CALL rtlink(nstr, nz,
      $           iw, albedo(iw), zen,
      $           dsdh,nid,
@@ -902,23 +1119,21 @@ c      enddo
 c 444  format(1pe11.4,1x,a50)
 
 *^^^^^^^^^^^^^^^^ end time/zenith loop
-* ____ SECTION 8: OUTPUT ______________________________________________
-
-!     call outpt1( outfil, iout,
-!    $     lirrad, laflux, lrates, ljvals, lmmech, lzenit,
-!    $     nms, ims, nmj, imj,
-!    $     nz, z, tlev, aircon, izout,
-!    $     nw, wl, etf, iwfix,
-!    $     nt, t, sza, itfix,
-!    $     ns, slabel, isfix, nj, jlabel, ijfix,
-!    $     svj_zj, svj_tj, svj_zt,
-!    $     svr_zs, svr_ts, svr_zt,
-!    $     svf_zw, svf_tw, svf_zt,
-!    $     svi_zw, svi_tw, svi_zt )
-
-*_______________________________________________________________________
-      print*,o3_tc,alsurf,ralt,ztemp
-      print*,sza(:19)
+!* ____ SECTION 8: OUTPUT ______________________________________________
+!
+!      call outpt1( outfil, iout,
+!     $     lirrad, laflux, lrates, ljvals, lmmech, lzenit,
+!     $     nms, ims, nmj, imj,
+!     $     nz, z, tlev, aircon, izout,
+!     $     nw, wl, etf, iwfix,
+!     $     nt, t, sza, itfix,
+!     $     ns, slabel, isfix, nj, jlabel, ijfix,
+!     $     svj_zj, svj_tj, svj_zt,
+!     $     svr_zs, svr_ts, svr_zt,
+!     $     svf_zw, svf_tw, svf_zt,
+!     $     svi_zw, svi_tw, svi_zt )
+!
+!*_______________________________________________________________________
 
       IF(intrct) THEN
          WRITE(*,*) 'do you want to do another calculation?'
@@ -929,8 +1144,11 @@ c 444  format(1pe11.4,1x,a50)
          IF(again .EQ. 'y' .OR. again .EQ. 'Y') GO TO 1000
       ENDIF
 
+      print*,inpfil,outfil
+
       WRITE(rnm,"(3A)") 'cd ..; mv tuvlog.txt ', trim(outfil), '.log'
       CALL SYSTEM (rnm)
+      IF(kout/=6) WRITE(*,'(2A)') 'Output file: ', trim(outfil)//'.txt'
 
       CLOSE(iout)
       CLOSE(kout)
@@ -938,204 +1156,3 @@ c 444  format(1pe11.4,1x,a50)
 
 
 
-
-
-      subroutine spline (n, x, y, b, c, d)
-c======================================================================
-c  the coefficients b(i), c(i), and d(i), i=1,2,...,n are computed
-c  for a cubic interpolating spline
-c
-c    s(x) = y(i) + b(i)*(x-x(i)) + c(i)*(x-x(i))**2 + d(i)*(x-x(i))**3
-c
-c    for  x(i) .le. x .le. x(i+1)
-c
-c  input..
-c
-c    n = the number of data points or knots (n.ge.2)
-c    x = the abscissas of the knots in strictly increasing order
-c    y = the ordinates of the knots
-c
-c  output..
-c
-c    b, c, d  = arrays of spline coefficients as defined above.
-c
-c  using  p  to denote differentiation,
-c
-c    y(i) = s(x(i))
-c    b(i) = sp(x(i))
-c    c(i) = spp(x(i))/2
-c    d(i) = sppp(x(i))/6  (derivative from the right)
-c
-c  the accompanying function subprogram  seval  can be used
-c  to evaluate the spline.
-c======================================================================
-      integer n
-      double precision x(n), y(n), b(n), c(n), d(n)
-      integer nm1, ib, i
-      double precision t
-c
-      nm1 = n-1
-      if ( n .lt. 2 ) return
-      if ( n .lt. 3 ) go to 50
-c
-c  set up tridiagonal system
-c
-c  b = diagonal, d = offdiagonal, c = right hand side.
-c
-      d(1) = x(2) - x(1)
-      c(2) = (y(2) - y(1))/d(1)
-      do 10 i = 2, nm1
-         d(i) = x(i+1) - x(i)
-         b(i) = 2.*(d(i-1) + d(i))
-         c(i+1) = (y(i+1) - y(i))/d(i)
-         c(i) = c(i+1) - c(i)
-  10  continue
-c
-c  end conditions.  third derivatives at  x(1)  and  x(n)
-c  obtained from divided differences
-c
-      b(1) = -d(1)
-      b(n) = -d(n-1)
-      c(1) = 0.
-      c(n) = 0.
-      if ( n .eq. 3 ) go to 15
-      c(1) = c(3)/(x(4)-x(2)) - c(2)/(x(3)-x(1))
-      c(n) = c(n-1)/(x(n)-x(n-2)) - c(n-2)/(x(n-1)-x(n-3))
-      c(1) = c(1)*d(1)**2/(x(4)-x(1))
-      c(n) = -c(n)*d(n-1)**2/(x(n)-x(n-3))
-c
-c  forward elimination
-c
-   15 do 20 i = 2, n
-         t = d(i-1)/b(i-1)
-         b(i) = b(i) - t*d(i-1)
-         c(i) = c(i) - t*c(i-1)
-   20 continue
-c
-c  back substitution
-c
-      c(n) = c(n)/b(n)
-      do 30 ib = 1, nm1
-         i = n-ib
-         c(i) = (c(i) - d(i)*c(i+1))/b(i)
-   30 continue
-c
-c  c(i) is now the sigma(i) of the text
-c
-c  compute polynomial coefficients
-c
-      b(n) = (y(n) - y(nm1))/d(nm1) + d(nm1)*(c(nm1) + 2.*c(n))
-      do 40 i = 1, nm1
-         b(i) = (y(i+1) - y(i))/d(i) - d(i)*(c(i+1) + 2.*c(i))
-         d(i) = (c(i+1) - c(i))/d(i)
-         c(i) = 3.*c(i)
-   40 continue
-      c(n) = 3.*c(n)
-      d(n) = d(n-1)
-      return
-c
-   50 b(1) = (y(2)-y(1))/(x(2)-x(1))
-      c(1) = 0.
-      d(1) = 0.
-      b(2) = b(1)
-      c(2) = 0.
-      d(2) = 0.
-      return
-      end
-
-      double precision function seval(n, u, x, y, b, c, d)
-c======================================================================
-c  this subroutine evaluates the cubic spline function
-c
-c    seval = y(i) + b(i)*(u-x(i)) + c(i)*(u-x(i))**2 + d(i)*(u-x(i))**3
-c
-c    where  x(i) .lt. u .lt. x(i+1), using horner's rule
-c
-c  if  u .lt. x(1) then  i = 1  is used.
-c  if  u .ge. x(n) then  i = n  is used.
-c
-c  input..
-c
-c    n = the number of data points
-c    u = the abscissa at which the spline is to be evaluated
-c    x,y = the arrays of data abscissas and ordinates
-c    b,c,d = arrays of spline coefficients computed by spline
-c
-c  if  u  is not in the same interval as the previous call, then a
-c  binary search is performed to determine the proper interval.
-c========================================================================
-      integer n
-      double precision  u, x(n), y(n), b(n), c(n), d(n)
-      integer i, j, k
-      double precision dx
-      data i/1/
-      if ( i .ge. n ) i = 1
-      if ( u .lt. x(i) ) go to 10
-      if ( u .le. x(i+1) ) go to 30
-c
-c  binary search
-c
-   10 i = 1
-      j = n+1
-   20 k = (i+j)/2
-      if ( u .lt. x(k) ) j = k
-      if ( u .ge. x(k) ) i = k
-      if ( j .gt. i+1 ) go to 20
-c
-c  evaluate spline
-c
-   30 dx = u - x(i)
-      seval = y(i) + dx*(b(i) + dx*(c(i) + dx*d(i)))
-      return
-      end
-
-         subroutine polint(f,a,n,x,r)
-c----------------------------------------------------------
-c service program for fintr
-c----------------------------------------------------------
-       implicit real*8 (a-h,o-z), integer *4 (i-n)
-       dimension f(n),a(n)
-       r=0.0
-       do 1 j=1,n
-       al=1.0
-       do 2 i=1,n
-          if (i-j) 3,2,3
- 3        al=al*(x-a(i))/(a(j)-a(i))
- 2     continue
- 1     r=r+al*f(j)
-       return
-       end
-
-	subroutine set_up_photol(O3col, albedo, ralt,
-     $       			box_temp, bs,cs,ds,sza,svj_tj)
-	incLude 'params'
-	real*8 b(19),c(19),d(19)
-	real*8 bs(19,kj), cs(19,kj), ds(19,kj)
-        REAL*8 O3col, ralt, box_temp, albedo
-	REAL*8 y,dy,x
-	integer i, n, j
-        real svj_tj(kt,kj), sza(kt)
-	real*8 temp2(19), temp(19)
-
-
-
-        call tuv(real(o3col), real(albedo),
-     $       real(ralt), real(box_temp), sza, svj_tj)
-
-	do j=1,kj
-		do i=1,19
-			temp(i)=sza(i)
-			temp2(i)=svj_tj(i,j)
-		enddo
-
-        	n=19
-		call spline(n,temp,temp2,b,c,d)
-        	do i=1,19
-			bs(i,j)=b(i)
-			cs(i,j)=c(i)
-			ds(i,j)=d(i)
-		enddo
-	enddo
-
-	return
-        end

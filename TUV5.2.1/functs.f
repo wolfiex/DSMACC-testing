@@ -95,9 +95,9 @@ C outside the ery spectrum range
 *-----------------------------------------------------------------------------*
 
       IMPLICIT NONE
-      REAL w, t, kt, fo3qy2
-      REAL A(3), X(3), om(3)
-      REAL q1, q2
+      REAL(4) w, t, kt, fo3qy2
+      REAL(4) A(3), X(3), om(3)
+      REAL(4) q1, q2
 
       DATA A/ 0.8036, 8.9061, 0.1192/
       DATA X/ 304.225, 314.957, 310.737/

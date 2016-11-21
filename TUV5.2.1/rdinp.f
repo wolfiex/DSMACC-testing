@@ -131,7 +131,7 @@ CSM         PAUSE
       IF(inpfil .EQ. '5') inpfil = 'defin5'
 
  12   CONTINUE
-      INQUIRE(file='INPUTS/'//inpfil,exist=lexist)
+      INQUIRE(file=inpfil,exist=lexist)
       IF(.NOT. lexist) THEN
          WRITE(*,*) '****** file does not exist: ', inpfil
          GO TO 10
@@ -139,9 +139,9 @@ CSM         PAUSE
 
       IF(inpfil .EQ. 'defin1' .OR. inpfil .EQ. 'defin2' .OR.
      $     inpfil .EQ. 'defin3') THEN
-         OPEN(UNIT=kin,FILE='INPUTS/'//inpfil,STATUS='OLD')
+         OPEN(UNIT=kin,FILE=inpfil,STATUS='OLD')
       ELSE
-         OPEN(UNIT=kin,FILE='INPUTS/'//inpfil,STATUS='UNKNOWN')
+         OPEN(UNIT=kin,FILE=inpfil,STATUS='UNKNOWN')
       ENDIF
       READ(kin,130) avar
  130  FORMAT(A7)
@@ -289,7 +289,7 @@ CSM         PAUSE
          WRITE(*,*) '****** Cannot overwrite default input files'
          GO TO 70
       ENDIF
-      OPEN(UNIT=20,FILE='INPUTS/'//trim(finame),STATUS='UNKNOWN',ERR=70)
+      OPEN(UNIT=20,FILE=trim(finame),STATUS='UNKNOWN',ERR=70)
       GO TO 75
  70   CONTINUE
       CLOSE(20)

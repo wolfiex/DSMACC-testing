@@ -893,11 +893,6 @@ c----------------------------------------------------------
         !print *, 'tuv--------------' , sza
 
 
-        open(101,form="unformatted")
-        write(101) svj_tj       
-        write(101) szas
-        close(101)
-
 
 	do j=1,kj
 		do i=1,19 

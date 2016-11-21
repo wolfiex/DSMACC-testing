@@ -2,7 +2,7 @@
 
       IMPLICIT NONE
 
-      INTEGER        :: i
+      INTEGER        :: i,nrxn
       CHARACTER(80)  :: line,ifile
       CHARACTER(1)   :: reset
 
@@ -35,6 +35,7 @@
         READ(11,'(A)') line
         IF(line(:3) == '===') THEN
           WRITE(12,'(A)') trim(line)
+          nrxn = i-1
           EXIT
         ENDIF
         IF(reset=="T" .or. reset=="t") THEN
@@ -46,9 +47,32 @@
         WRITE(12,'(A)') trim(line)
       ENDDO
 
-      CLOSE(11)
-      CLOSE(12)
+* Adjust parameter nmj
+      OPEN(13,FILE='ofile.dat')
+      REWIND(12)
+      DO i = 1, 16
+        READ(12,'(A)') line
+        WRITE(13,'(A)') trim(line)
+      ENDDO
+      READ(12,'(A)') line
+      WRITE(line(61:66),'(I6)') nrxn
+      WRITE(13,'(A)') trim(line)
+      DO i = 18, 48
+        READ(12,'(A)') line
+        WRITE(13,'(A)') trim(line)
+      ENDDO
+      DO
+        READ(12,'(A)') line
+        WRITE(13,'(A)') trim(line)
+        IF(line(:3) == '===') THEN
+          EXIT
+        ENDIF
+      ENDDO
 
-      CALL SYSTEM('mv ofile.txt '//trim(ifile))
+      CLOSE(11)
+      CLOSE(12,STATUS='DELETE')
+      CLOSE(13)
+
+      CALL SYSTEM('mv ofile.dat '//trim(ifile))
 
       END PROGRAM numTUVrxn

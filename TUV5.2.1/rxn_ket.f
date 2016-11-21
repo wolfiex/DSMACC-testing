@@ -2,7 +2,7 @@
 *= the product (cross section) x (quantum yield) for photo-reactions of
 *= dicarbonyls in MCM-GECKO, which were not yet present in TUV5.2:
 *=
-*=     mk01 through mk19
+*=     mk01 through mk21
 
 *=============================================================================*
 
@@ -1121,7 +1121,7 @@
       j = j+1
       jlabel(j) = '5-Me-2-hexanone -> CH3CO + CH2CH2CH(CH3)2'
       j = j+1
-      jlabel(j) = '5-Me-2-hexanone -> (CH3)2CH2CH2CO + CH3'
+      jlabel(j) = '5-Me-2-hexanone -> (CH3)2CHCH2CH2CO + CH3'
       j = j+1
       jlabel(j) = '5-Me-2-hexanone -> CH2CH2CH(CH3)2 + CO + CH3'
       j = j+1
@@ -2779,3 +2779,111 @@
       END
 
 *=============================================================================*
+
+      SUBROUTINE mk21(nw,wl,wc,nz,tlev,airden,j,sq,jlabel) ! alpha-branched ketones (with Norish II)
+
+*-----------------------------------------------------------------------------*
+*=  PURPOSE:                                                                 =*
+*=  Provide the product (cross section) x (quantum yield) for                =*
+*=  alpha-branched ketone photolysis:                                        =*
+*=                                                                           =*
+*=  Cross section:  same as DIPK                                             =*
+*=  Quantum yield:  same as MIBK                                             =*
+*-----------------------------------------------------------------------------*
+
+
+      IMPLICIT NONE
+      INCLUDE 'params'
+
+* input
+
+      INTEGER nw
+      REAL wl(kw), wc(kw)
+
+      INTEGER nz
+
+      REAL tlev(kz)
+      REAL airden(kz)
+
+* weighting functions
+
+      CHARACTER(lcl) jlabel(kj)
+      REAL sq(kj,kz,kw)
+
+* input/output:
+
+      INTEGER j
+
+* data arrays
+
+      INTEGER kdata
+      PARAMETER(kdata=580)
+
+      INTEGER i, n
+      REAL x1(kdata)
+      REAL y1(kdata)
+
+* local
+
+      REAL yg(kw)
+      REAL qy1, qy2, qy3, qy4
+      REAL sig
+      INTEGER ierr
+      INTEGER iw
+
+      j = j+1
+      jlabel(j) = 'a-br. Ket. -> R1CO + R2'
+      j = j+1
+      jlabel(j) = 'a-br. Ket. -> R2CO + R1'
+      j = j+1
+      jlabel(j) = 'a-br. Ket. -> R1 + R2 + CO'
+      j = j+1
+      jlabel(j) = 'a-br. Ket. -> enol + 1-alkene'
+
+
+* cross sections
+
+      OPEN(UNIT=kin,FILE='DATAJ1/MCMext/KET/di-isopropylket.abs',
+     $     STATUS='old')
+      do i = 1,6
+         read(kin,*)
+      enddo
+
+      n = 111
+      DO i = 1, n
+         READ(kin,*) x1(i), y1(i)
+      ENDDO
+      CLOSE(kin)
+
+      CALL addpnt(x1,y1,kdata,n,x1(1)*(1.-deltax),0.)
+      CALL addpnt(x1,y1,kdata,n,               0.,0.)
+      CALL addpnt(x1,y1,kdata,n,x1(n)*(1.+deltax),0.)
+      CALL addpnt(x1,y1,kdata,n,           1.e+38,0.)
+      CALL inter2(nw,wl,yg,n,x1,y1,ierr)
+      IF (ierr .NE. 0) THEN
+          WRITE(*,*) ierr, jlabel(j)
+          STOP
+      ENDIF
+
+* quantum yields
+
+      qy1 = 0.035
+      qy2 = 0.035
+      qy3 = 0.08
+      qy4 = 0.35
+
+
+* combine xs and qy:
+      DO iw = 1, nw - 1
+        sig = yg(iw)
+        DO i = 1, nz
+          sq(j-3,i,iw) = sig * qy1
+          sq(j-2,i,iw) = sig * qy2
+          sq(j-1,i,iw) = sig * qy3
+          sq(j  ,i,iw) = sig * qy4
+        ENDDO
+      ENDDO
+
+      END
+
+* ============================================================================*

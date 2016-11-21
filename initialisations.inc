@@ -106,8 +106,11 @@ else
 endif       
 !    Calculate the photolysis rates for the run
 
+WRITE(dummychar,'(a,a,e,e,e,e,a)') './TUV5.2.1/tuv ','../fort.101',alta,Albedo,O3col,temp,''
+print*, dummychar
 
-call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
+if (new_tuv) call EXECUTE_COMMAND_LINE(dummychar, wait=.true.)
+!call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
 
 open(101, form='unformatted')
 read(101) bs

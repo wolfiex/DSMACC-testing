@@ -12,9 +12,9 @@
 ! altitude
       PARAMETER(kz=125)
 ! wavelength
-      PARAMETER(kw=1200)
+      PARAMETER(kw=650)
 ! time/sza
-      PARAMETER(kt=500)
+      PARAMETER(kt=100)
 !_________________________________________________
 
 ! Choice of data set for cross sections and quantum yields
@@ -31,15 +31,15 @@
 ! number of weighting functions
       INTEGER ks, kj, lcl
 !  wavelength dependent
-      PARAMETER(ks=60)
+      PARAMETER(ks=120)
 !  wavelength and altitude dependent
-      PARAMETER(kj=500)
+      PARAMETER(kj=120)
 !  length of character of labels
       PARAMETER(lcl=50)
 
 ! delta for adding points at beginning or end of data grids
       REAL deltax
-      PARAMETER (deltax = 1.E-5)
+      PARAMETER (deltax = 1.E-4)
 
 ! some constants...
 
