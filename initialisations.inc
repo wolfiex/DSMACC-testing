@@ -105,7 +105,22 @@ else
     write (OUTPUT_UNIT,*) 'Albedo =', albedo
 endif       
 !    Calculate the photolysis rates for the run
+
+
 call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
+
+open(101, form='unformatted')
+read(101) bs
+read(101) cs
+read(101) ds
+read(101) svj_tj
+read(101) szas
+close(101)
+
+
+
+
+
 write (OUTPUT_UNIT,*) 'Photolysis rates calculated'
 write (OUTPUT_UNIT,*) 'hvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhv'
 time = tstart
@@ -179,7 +194,6 @@ full_counter=0
 
 
          999 FORMAT(*(E24.16,"!"))
-
 
 
 

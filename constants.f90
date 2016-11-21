@@ -259,6 +259,8 @@ SELECT CASE (jl)
  !       print*, 'unselected j number'
 END SELECT
 
+
+
     enddo
 
 else
