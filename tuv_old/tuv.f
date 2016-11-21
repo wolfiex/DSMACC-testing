@@ -872,25 +872,31 @@ c----------------------------------------------------------
        return
        end
 
+
 	subroutine set_up_photol(O3col, albedo, ralt, 
-     $       			box_temp, bs,cs,ds,sza,svj_tj)
+     $       			box_temp, bs,cs,ds,szas,svj_tj)
 	incLude 'params'
 	real*8 b(19),c(19),d(19)
 	real*8 bs(19,kj), cs(19,kj), ds(19,kj)
         REAL*8 O3col, ralt, box_temp, albedo
 	REAL*8 y,dy,x
 	integer i, n, j
-        real svj_tj(kt,kj), sza(kt) 
+        real svj_tj(kt,kj), szas(kt) 
 	real*8 temp2(19), temp(19)
 
        
-       
+        !print *, 'tuv aaa--------------',o3col, albedo, ralt, box_temp, sza
+                
         call tuv(real(o3col), real(albedo),
-     $       real(ralt), real(box_temp), sza, svj_tj)
+     $       real(ralt), real(box_temp), szas, svj_tj)
+     
+        !print *, 'tuv--------------' , sza
+
+
 
 	do j=1,kj
 		do i=1,19 
-			temp(i)=sza(i)
+			temp(i)=szas(i)
 			temp2(i)=svj_tj(i,j)
 		enddo	
                                 
@@ -903,6 +909,15 @@ c----------------------------------------------------------
 		enddo
 	enddo
      
-	return 
+     
+        open(101,form="unformatted")
+        write(101) bs 
+        write(101) cs  
+        write(101) ds  
+        write(101) svj_tj       
+        write(101) szas
+        close(101)
+ 
+	!return 
         end
 

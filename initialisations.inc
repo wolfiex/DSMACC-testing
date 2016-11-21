@@ -58,6 +58,7 @@ if (nc_set .eq. 0)  nc_set = runtimestep
 !!!!!Variable Initialisation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 allocate(output_s(1:nc_set, Nspec+10))
 allocate(output_r(1:nc_set, Nreact+6))
+print*, 'rename ncset'
 allocate(s_names(Nspec+10))
 allocate(r_names(Nreact+6))
 output_s(:,:) = 0. 
@@ -104,7 +105,25 @@ else
     write (OUTPUT_UNIT,*) 'Albedo =', albedo
 endif       
 !    Calculate the photolysis rates for the run
-call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
+
+WRITE(dummychar,'(a,a,e,e,e,e,a)') './TUV5.2.1/tuv ','../fort.101',alta,Albedo,O3col,temp,''
+print*, dummychar
+
+if (new_tuv) call EXECUTE_COMMAND_LINE(dummychar, wait=.true.)
+!call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
+
+open(101, form='unformatted')
+read(101) bs
+read(101) cs
+read(101) ds
+read(101) svj_tj
+read(101) szas
+close(101)
+
+
+
+
+
 write (OUTPUT_UNIT,*) 'Photolysis rates calculated'
 write (OUTPUT_UNIT,*) 'hvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhv'
 time = tstart
@@ -148,61 +167,36 @@ full_counter=0
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !NETCDF INITIALISATIONS
 
-
-if (SAVE_LEGACY .eq. .false.) then
-        ! netcdf 64bit does not work apparently so cannot handle large runs.
-        ! for this the legacy format shall be used for constrained runs 
-
-        !write
-        call check(nf90_create( trim(counter)//'.nc', NF90_64BIT_OFFSET, ncid) )
-        !def dims
-        call check(nf90_def_dim(ncid, 'nspec', Nspec+10 , spec_id) )
-        call check(nf90_def_dim(ncid, 'nrate', Nreact+6 , reac_id) )
-        call check(nf90_def_dim(ncid, 'time', runtimestep+1 , dayid) ) !
-        call check(nf90_def_dim(ncid, 'Char', 50 , char_id) )
-
-        !def vars
-        s_dimids =  (/dayid,spec_id/) !!! NETCDF USES C ORDER :. reverse
-        r_dimids =  (/dayid,reac_id/) !!! NETCDF USES C ORDER :. reverse
-        sh_dims =  (/char_id,spec_id/)
-        rh_dims =  (/char_id,reac_id/)
-
-        !rate ones
-        call check(nf90_def_var(ncid, "Spec", NF90_DOUBLE, s_dimids, s_id) )
-        call check(nf90_def_var(ncid, "Rate", NF90_DOUBLE, r_dimids, r_id) )
-        call check(nf90_def_var(ncid, "reactions", NF90_char, rh_dims, rh_id) )
-        call check(nf90_def_var(ncid, "species", NF90_char, sh_dims, sh_id) )
-
-        !end def
-        call check(nf90_enddef(ncid))  
-        
-        !headers 
-        s_names(:10) = (/'TIME','LAT','LON','PRESS','TEMP','H2O','M', 'JNO2FACT','JO1DFACT','RO2' /)
-        s_names(11:) = SPC_NAMES(:)
-        r_names(1:6) = (/'TIME','LAT','LON','PRESS','TEMP','M'/)
-        r_names(7:)= EQN_NAMES(:)
-        call check(nf90_put_var(ncid, sh_id, s_names(:) ))
-        call check(nf90_put_var(ncid, rh_id, r_names(:) ))
-
-
-end if 
-
-
-    !previous dsmacc format
-    if (SAVE_LEGACY) then 
         filename=trim(counter)//'_'//trim(mechanism)//'.spec'
-        open(SPEC_UNIT, file=filename)
+        open(SPEC_UNIT, file=filename,action="write",form='unformatted')
         filename=trim(counter)//'_'//trim(mechanism)//'.rate'
-        open(RATE_UNIT, file=filename) 
+        open(RATE_UNIT, file=filename,action="write",form='unformatted') 
         
-        write (SPEC_UNIT,'(100000(a25,"!"))') 'TIME','LAT','LON','PRESS','TEMP','H2O'&
-        ,'M', 'JNO2FACT','JO1DFACT','RO2', SPC_NAMES
-        write (RATE_UNIT,'(100000(a50,"!"))') 'TIME','LAT','LON','PRESS','TEMP','M'&
-        ,EQN_NAMES
+        
+        
+        open (100,file='spec.names')
+        write(100,*)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
+        close(100)
+        open (100,file = 'rate.names')
+        write(100,*)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT)
+        close(100)
+
+
+
+
+        !write (SPEC_UNIT,'(100000(a25,"!"))') 'TIME','LAT','LON','PRESS','TEMP','H2O'&
+        !,'M', 'JNO2FACT','JO1DFACT','RO2', SPC_NAMES
+        !write (RATE_UNIT,'(100000(a50,"!"))') 'TIME','LAT','LON','PRESS','TEMP','M'&
+        !,EQN_NAMES
+
+
+        !write (SPEC_UNIT) 'TIME','LAT','LON','PRESS','TEMP','H2O'&
+        !,'M', 'JNO2FACT','JO1DFACT','RO2', SPC_NAMES
+        !write (RATE_UNIT) 'TIME','LAT','LON','PRESS','TEMP','M'&
+        !,EQN_NAMES
+
 
          999 FORMAT(*(E24.16,"!"))
-    end if 
-
 
 
 

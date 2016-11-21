@@ -1,0 +1,71 @@
+Model run from: 21.11.2016,  2:48
+TUV inputs:
+==================================================================
+inpfil =      usrinp   outfil =      usrout   nstr =             4
+lat =          0.000   lon =          0.000   tmzone =         0.0
+iyear =         2005   imonth =           7   iday =             1
+zstart =       0.000   zstop =       80.000   nz =              19
+wstart =     120.000   wstop =      735.000   nwint =         -156
+tstart =       0.000   tstop =       90.000   nt =              19
+lzenit =           T   alsurf =       0.100   psurf =       -999.0
+o3col =      350.000   so2col =       0.000   no2col =       0.000
+taucld =       0.000   zbase =        4.000   ztop =         5.000
+tauaer =       0.235   ssaaer =       0.990   alpha =        1.000
+dirsun =       1.000   difdn =        1.000   difup =        1.000
+zout =         0.000   zaird =   -9.990E+02   ztemp =     -999.000
+lirrad =           F   laflux =           F   lmmech =           F
+lrates =           F   isfix =            0   nms =              0
+ljvals =           T   ijfix =            0   nmj =             37
+iwfix =            0   itfix =            0   izfix =            0
+==================================================================
+==== Spectral weighting functions used:
+==== Photolysis reactions used:
+T  1 O3 -> O2 + O(1D)                                  
+T  2 O3 -> O2 + O(3P)                                  
+T  3 H2O2 -> 2 OH                                      
+T  4 NO2 -> NO + O(3P)                                 
+T  5 NO3 -> NO + O2                                    
+T  6 NO3 -> NO2 + O(3P)                                
+T  7 HNO2 -> OH + NO                                   
+T  8 HNO3 -> OH + NO2                                  
+T  9 HNO4 -> HO2 + NO2                                 
+T 10 CH2O -> H + HCO                                   
+T 11 CH2O -> H2 + CO                                   
+T 12 CH3CHO -> CH3 + HCO                               
+T 13 C2H5CHO -> C2H5 + HCO                             
+T 14 CH3OOH -> CH3O + OH                               
+T 15 CH3ONO2 -> CH3O + NO2                             
+T 16 CH3CH2ONO2 -> CH3CH2O + NO2                       
+T 17 n-C3H7ONO2 -> C3H7O + NO2                         
+T 18 2-C4H9ONO2 -> 2-C4H9O + NO2                       
+T 19 CH3CHONO2CH3 -> CH3CHOCH3 + NO2                   
+T 20 CH3COCH2(ONO2) -> CH3COCH2(O.) + NO2              
+T 21 CH2=C(CH3)CHO -> Products                         
+T 22 CH3COCH=CH2 -> Products                           
+T 23 CH3COCH3 -> CH3CO + CH3                           
+T 24 CH3COCH2CH3 -> CH3CO + CH2CH3                     
+T 25 CHOCHO -> HCO + HCO                               
+T 26 CHOCHO -> H2 + 2CO                                
+T 27 CHOCHO -> CH2O + CO                               
+T 28 CH3COCHO -> CH3CO + HCO                           
+T 29 CH3COCOCH3 -> Products                            
+T 30 Cl2 -> Cl + Cl                                    
+T 31 ClONO2 -> Cl + NO3                                
+T 32 ClONO2 -> ClO + NO2                               
+T 33 Br2 -> Br + Br                                    
+T 34 BrO -> Br + O                                     
+T 35 HOBr -> OH + Br                                   
+T 36 BrONO2 -> BrO + NO2                               
+T 37 BrONO2 -> Br + NO3                                
+==================================================================
+ Discrete ordinates            4 -stream radiative transfer
+ air temperature: USSA, 1976
+ air concentrations: USSA, 1976
+ ozone profile: USSA, 1976
+ DATAE1/SUN/susim_hi.flx
+ DATAE1/SUN/atlas3_1994_317_a.dat        
+ DATAE1/SUN/neckel.flx                   
+ DATAE1/SUN/sao2010.solref.converted     
+ MCM standard set used for cross sections and quantum yields.
+ aerosols:  Elterman (1968) continental profile
+step =    1 sza =     0.000 Earth-sun factor =  1.0000000

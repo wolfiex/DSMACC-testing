@@ -75,13 +75,13 @@ CONTAINS
 
 SUBROUTINE mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 ! calculates rate constants from arrhenius informtion
-USE model_Global,  ONLY:LAT, LON, JDAY, SZAS, SVJ_TJ, bs,cs,ds, jfactno2, jfacto1d,output_unit
+USE model_Global,  ONLY:LAT, LON, JDAY, SZAS, SVJ_TJ, bs,cs,ds, jfactno2, new_tuv, jfacto1d,output_unit
 REAL(dp) time, temp, M, N2, O2, RO2, H2O, THETA, TIME2, LAT2
 REAL*8 y,dy,x,tmp(19), tmp2(19),b(19),c(19),d(19)
 
 integer i,n,jl
 INTEGER LK
-include './tuv_old/params'
+include './TUV5.2.1/params'
 
 ! Time2 is local time in hours
 Time2=mod(Time/(60.*60.), 24.)
@@ -129,6 +129,106 @@ if (theta .le. 90) then
     c(i)=cs(i,jl)
     d(i)=ds(i,jl)
     enddo
+
+
+if (new_tuv) then
+
+
+    if (jl .eq.  2)  then
+        j(1)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O1D
+    else    if (jl .eq.  3)  then
+        j(2)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O3P
+    else    if (jl .eq.  5)  then
+        j(3)=seval(n,theta,tmp, tmp2, b,c,d) ! H2O2->2*OH
+    else    if (jl .eq.  6) then
+        j(4)=seval(n,theta,tmp, tmp2, b,c,d) ! NO2->NO+O3P
+    else    if (jl .eq.  7) then
+        j(5)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO+O2
+    else    if (jl .eq.  8) then
+        j(6)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO2+O3P
+    else    if (jl .eq. 12) then
+        j(7)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO2->OH+NO
+    else    if (jl .eq. 13) then
+        j(8)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO3->NO2+OH
+    else    if (jl .eq. 14) then
+        j(1300)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO4 -> HO2 + NO2
+    else    if (jl .eq. 17) then
+        j(11)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH2O -> H + HCO
+    else    if (jl .eq. 18) then
+        j(12)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH2O -> H2 + CO
+    else    if (jl .eq. 19) then
+        j(13)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3CHO -> CH3 + HCO
+    else    if (jl .eq. 22) then
+        j(14)=seval(n,theta,tmp, tmp2, b,c,d)   ! C2H5CHO -> C2H5 + HCO
+!     else    if (jl .eq. 75) then
+!         j(15)=seval(n,theta,tmp, tmp2, b,c,d)
+!     else    if (jl .eq. 76) then
+!         j(16)=seval(n,theta,tmp, tmp2, b,c,d)
+!     else    if (jl .eq. 77) then
+!         j(17)=seval(n,theta,tmp, tmp2, b,c,d)
+    else    if (jl .eq. 42) then
+        j(18)=seval(n,theta,tmp, tmp2, b,c,d)*0.5 ! CH2=C(CH3)CHO -> Products
+        !else    if (jl .eq. 62) then  !same so join
+        j(19)=seval(n,theta,tmp, tmp2, b,c,d)*0.5 ! CH2=C(CH3)CHO -> Products
+    else    if (jl .eq. 47) then
+        j(21)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3COCH3 -> CH3CO + CH3
+    else    if (jl .eq. 48) then
+        j(22)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3COCH2CH3 -> CH3CO + CH2CH3
+    else    if (jl .eq. 43) then
+        j(23)=seval(n,theta,tmp, tmp2, b,c,d)*0.5 ! CH3COCH=CH2 -> Products
+        !else    if (jl .eq. 61) then    !same so join
+        j(24)=seval(n,theta,tmp, tmp2, b,c,d)*0.5 ! CH3COCH=CH2 -> Products
+    else    if (jl .eq. 52) then
+        j(31)=seval(n,theta,tmp, tmp2, b,c,d)   ! CHOCHO -> 2CO + H2
+    else    if (jl .eq. 53) then
+        j(32)=seval(n,theta,tmp, tmp2, b,c,d)   ! CHOCHO -> CH2O + CO
+    else    if (jl .eq. 51) then
+        j(33)=seval(n,theta,tmp, tmp2, b,c,d)   ! CHOCHO -> HCO + HCO
+    else    if (jl .eq. 54) then
+        j(34)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3COCHO -> CH3CO + HCO
+    else    if (jl .eq. 55) then
+        j(35)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3COCOCH3 -> Products
+    else    if (jl .eq. 23) then
+        j(41)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3OOH -> CH3O + OH
+    else    if (jl .eq. 25) then
+        j(51)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3ONO2 -> CH3O + NO2
+    else    if (jl .eq. 27) then
+        j(52)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3CH2ONO2 -> CH3CH2O + NO2
+    else    if (jl .eq. 32) then
+        j(54)=seval(n,theta,tmp, tmp2, b,c,d)   ! CH3CHONO2CH3 -> CH3CHOCH3 + NO
+    else    if (jl .eq. 29) then
+        j(53)=seval(n,theta,tmp, tmp2, b,c,d)   ! n-C3H7ONO2 -> C3H7O + NO2
+    else    if (jl .eq. 31) then
+        j(55)=seval(n,theta,tmp, tmp2, b,c,d)   ! 2-C4H9ONO2 -> 2-C4H9O + NO2 (t
+    else    if (jl .eq. 34) then
+        j(56)=seval(n,theta,tmp, tmp2, b,c,d)*0.75 ! CH3COCH2(ONO2) -> CH3COCH2(
+        !else    if (jl .eq. 67) then  !same so joins
+        j(57)=seval(n,theta,tmp, tmp2, b,c,d)*0.25
+        !!!!!!!!!!Halogens !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    else    if (jl .eq. 95) then
+        j(1001)=seval(n,theta,tmp, tmp2, b,c,d) ! HOBr
+    else    if (jl .eq. 94) then
+        j(1002)=seval(n,theta,tmp, tmp2, b,c,d) ! BrO
+    else    if (jl .eq. 93) then
+        j(1003)=seval(n,theta,tmp, tmp2, b,c,d) ! Br2
+    else    if (jl .eq.101) then
+        j(1004)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->Br+NO3
+    else    if (jl .eq.100) then
+        j(1005)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->BrO+NO2
+    else    if (jl .eq. 72) then
+        j(1006)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->Cl+NO3
+    else    if (jl .eq. 73) then
+        j(1007)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->ClO+NO2
+    else    if (jl .eq. 61) then
+        j(1008)=seval(n,theta,tmp, tmp2, b,c,d) ! Cl2->2Cl
+    end if
+
+
+
+else !old tuv hard wiring
+
+
+
 
 
 SELECT CASE (jl)
@@ -255,9 +355,12 @@ SELECT CASE (jl)
  CASE(58)  
         j(1008)=seval(n,theta,tmp, tmp2, b,c,d) ! Cl2->2Cl
     
- !CASE DEFAULT
- !       print*, 'unselected j number'
 END SELECT
+
+ 
+ end if 
+ 
+ 
 
     enddo
 
