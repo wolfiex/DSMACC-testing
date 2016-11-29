@@ -37,7 +37,7 @@ clean:
 	rm -f $(OBJS) *.mod *.log *~ depend.mk.old *.o *.sdout
 
 clear:
-	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names
+	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
 	
 distclean: clean
 	rm -f $(PROG)
@@ -57,6 +57,9 @@ kpp: clean
 	cp src/constants.f90 ./model_constants.f90
 	./src/kpp-2.2.3/bin/kpp model.kpp 
 	rm -rf *.kpp
+
+tidy:
+	rm model_* *.mod del* *.del
 
 %.o: %.f90
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<

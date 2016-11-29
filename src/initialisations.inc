@@ -108,9 +108,6 @@ endif
 call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
 
 
-
-
-
 write (OUTPUT_UNIT,*) 'Photolysis rates calculated'
 write (OUTPUT_UNIT,*) 'hvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhv'
 time = tstart
@@ -154,32 +151,17 @@ full_counter=0
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !NETCDF INITIALISATIONS
 
-        filename=trim(counter)//'_'//trim(mechanism)//'.spec'
+        filename='./Outputs/'//trim(counter)//'_'//trim(mechanism)//'.spec'
         open(SPEC_UNIT, file=filename,action="write",form='unformatted')
-        filename=trim(counter)//'_'//trim(mechanism)//'.rate'
-        open(RATE_UNIT, file=filename,action="write",form='unformatted') 
+        filename='./Outputs/'//trim(counter)//'_'//trim(mechanism)//'.rate'
+        open(RATE_UNIT, file=filename,action="write",form='unformatted')  
         
         
-        
-        open (100,file='spec.names')
+        open (100,file='./Outputs/spec.names')
         write(100,*)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         close(100)
-        open (100,file = 'rate.names')
+        open (100,file = './Outputs/rate.names')
         write(100,*)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT) , ',END'
-
-
-
-
-        !write (SPEC_UNIT,'(100000(a25,"!"))') 'TIME','LAT','LON','PRESS','TEMP','H2O'&
-        !,'M', 'JNO2FACT','JO1DFACT','RO2', SPC_NAMES
-        !write (RATE_UNIT,'(100000(a50,"!"))') 'TIME','LAT','LON','PRESS','TEMP','M'&
-        !,EQN_NAMES
-
-
-        !write (SPEC_UNIT) 'TIME','LAT','LON','PRESS','TEMP','H2O'&
-        !,'M', 'JNO2FACT','JO1DFACT','RO2', SPC_NAMES
-        !write (RATE_UNIT) 'TIME','LAT','LON','PRESS','TEMP','M'&
-        !,EQN_NAMES
 
 
          999 FORMAT(*(E24.16,"!"))
