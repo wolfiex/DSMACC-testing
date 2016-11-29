@@ -25,15 +25,15 @@ character(50) :: counter, cw,filename
 character (3) :: ln
 INTEGER  :: ERROR, IJ, PE ,runtimestep
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
-character(200) :: dummychar
+character(200) :: dummychar,tuvfile
 integer :: run_counter = 0 
 
 STEPMIN = 0.0_dp
 STEPMAX = 0.0_dp
-RTOL(:) = 1.0e-5_dp
+RTOL(:) = 1.0e-7_dp
 ATOL(:) = 1.0_dp
 
-mechanism='def'
+mechanism=''
 LAST_POINT=.False.
 CONSTRAIN_NOX=.False.
 CONSTRAIN_RUN=.FALSE.
@@ -51,6 +51,10 @@ nc_set=1!36 ! the grouping factor that decides how often to write to file (modul
 call getarg(1,counter)!name 
 call getarg(2,ln)!location in Init Cons
 read(ln, *) line
+call getarg(3,tuvfile)!location of tuv data
+
+if (tuvfile(:7) .eq. 'tuv_old') new_tuv=.false.
+print*, trim(tuvfile), new_tuv ,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 
 !set OUTPUT_UNIT to 6 in globals file. 
 open(UNIT=output_unit,FILE='./'//trim(counter)//'.sdout')
@@ -113,8 +117,8 @@ END DO
 
 newtime = Jday*86400 + DAYCOUNTER*dt
 
-WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C!(:NSPEC)
-WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RCONST!(:NREACT)
+WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
+WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, M, RCONST(:NREACT)
 
 
 if (run_counter > nc_set) then !increased at start

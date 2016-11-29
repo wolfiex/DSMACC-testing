@@ -4349,15 +4349,15 @@ c         n = 1705
       INTEGER kdata
       PARAMETER(kdata=150)
 
-      INTEGER i, n, n1
-      REAL x1(kdata), x1oh(kdata)
-      REAL y1(kdata), y1oh(kdata)
+      INTEGER i, n
+      REAL x1(kdata)
+      REAL y1(kdata)
 
 * local
 
-      REAL yg(kw), yg1(kw), ygoh(kw)
-      REAL qy1, qy1oh
-      REAL sig, sigoh
+      REAL yg(kw), yg1(kw)
+      REAL qy1
+      REAL sig
       INTEGER ierr
       INTEGER iw
 
@@ -4368,10 +4368,6 @@ c         n = 1705
 
       j = j+1
       jlabel(j) = 'C2H5CHO -> C2H5 + HCO'
-      j = j+1
-      jlabel(j) = 'ALD3OHqy -> R(OH) + HCO'
-      j = j+1
-      jlabel(j) = 'ALD3OHoh -> R(OH) + HCO'
 
 * options
 * mabs for cross sections
@@ -4448,6 +4444,16 @@ c         n = 1705
          ENDDO
          CLOSE(kin)
 
+         CALL addpnt(x1,y1,kdata,n,x1(1)*(1.-deltax),0.)
+         CALL addpnt(x1,y1,kdata,n,               0.,0.)
+         CALL addpnt(x1,y1,kdata,n,x1(n)*(1.+deltax),0.)
+         CALL addpnt(x1,y1,kdata,n,           1.e+38,0.)
+         CALL inter2(nw,wl,yg,n,x1,y1,ierr)
+         IF (ierr .NE. 0) THEN
+            WRITE(*,*) ierr, jlabel(j)
+            STOP
+         ENDIF
+
       ELSEIF(mabs .EQ. 2) THEN
 
 * cross section from KFA tables
@@ -4461,32 +4467,16 @@ c         n = 1705
          ENDDO
          CLOSE (kin)
 
-      ENDIF
+         CALL addpnt(x1,y1,kdata,n,x1(1)*(1.-deltax),0.)
+         CALL addpnt(x1,y1,kdata,n,               0.,0.)
+         CALL addpnt(x1,y1,kdata,n,x1(n)*(1.+deltax),0.)
+         CALL addpnt(x1,y1,kdata,n,           1.e+38,0.)
+         CALL inter2(nw,wl,yg,n,x1,y1,ierr)
+         IF (ierr .NE. 0) THEN
+            WRITE(*,*) ierr, jlabel(j)
+            STOP
+         ENDIF
 
-      x1oh(:) = 0.
-      x1oh(:) = x1(:) - 10.
-      y1oh(:) = y1(:)
-      n1 = n
-
-      CALL addpnt(x1,y1,kdata,n,x1(1)*(1.-deltax),0.)
-      CALL addpnt(x1,y1,kdata,n,               0.,0.)
-      CALL addpnt(x1,y1,kdata,n,x1(n)*(1.+deltax),0.)
-      CALL addpnt(x1,y1,kdata,n,           1.e+38,0.)
-      CALL inter2(nw,wl,yg,n,x1,y1,ierr)
-      IF (ierr .NE. 0) THEN
-        WRITE(*,*) ierr, jlabel(j)
-        STOP
-      ENDIF
-
-      n = n1
-      CALL addpnt(x1oh,y1oh,kdata,n,x1oh(1)*(1.-deltax),0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,               0.,0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,x1oh(n)*(1.+deltax),0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,           1.e+38,0.)
-      CALL inter2(nw,wl,ygoh,n,x1oh,y1oh,ierr)
-      IF (ierr .NE. 0) THEN
-        WRITE(*,*) ierr, jlabel(j)
-        STOP
       ENDIF
 
 * quantum yields
@@ -4561,14 +4551,12 @@ c         n = 1705
          ENDIF
       ENDIF
 
-      qy1OH = 0.75
 
 * combine:
 
       DO iw = 1, nw - 1
 
             sig = yg(iw)
-            sigoh = ygoh(iw)
 
          DO i = 1, nz
 
@@ -4582,9 +4570,7 @@ c         n = 1705
            ENDIF
            qy1 = MIN(qy1,1.)
 
-           sq(j-2,i,iw) = sig * qy1
-           sq(j-1,i,iw) = sigoh * qy1
-           sq(j  ,i,iw) = sigoh * qy1oh
+           sq(j,i,iw) = sig * qy1
 
          ENDDO
       ENDDO
@@ -11240,15 +11226,15 @@ c             sq(j,iz,iw) = qy * EXP(sum)
       PARAMETER(kdata=150)
 
       INTEGER iw
-      INTEGER i, n, n1
-      REAL x1(kdata), x1oh(kdata)
-      REAL y1(kdata), y1oh(kdata)
+      INTEGER i, n
+      REAL x1(kdata)
+      REAL y1(kdata)
 
 * local
 
-      REAL yg(kw), yg1(kw), ygoh(kw), dum
-      real qy, qy1, qy2, qy3, qy4, qyoh
-      REAL sig, sigoh
+      REAL yg(kw), yg1(kw), dum
+      real qy, qy1, qy2, qy3, qy4
+      REAL sig
       INTEGER ierr, idum, myld, mprod
 
 **************** methacrolein photodissociation
@@ -11262,18 +11248,6 @@ c             sq(j,iz,iw) = qy * EXP(sum)
       jlabel(j) = 'CH2=C(CH3)CHO -> CH3C(OO.)CH3 + CO'
       j = j+1
       jlabel(j) = 'CH2=C(CH3)CHO -> CH2=C(CH3)CO + H'
-      j = j+1
-      jlabel(j) = 'MACROHqy -> NI products'
-      j = j+1
-      jlabel(j) = 'MACROHqy -> alkene + CO'
-      j = j+1
-      jlabel(j) = 'MACROHqy -> acyl + H'
-      j = j+1
-      jlabel(j) = 'MACROHoh -> NI products'
-      j = j+1
-      jlabel(j) = 'MACROHoh -> alkene + CO'
-      j = j+1
-      jlabel(j) = 'MACROHoh -> acyl + H'
 
 * cross section from
 *      JPL 2006 (originally from Gierczak et al.), also IUPAC recommended
@@ -11290,11 +11264,6 @@ c             sq(j,iz,iw) = qy * EXP(sum)
       ENDDO
       CLOSE(kin)
 
-      x1oh(:) = 0.
-      x1oh(:) = x1(:) - 10.
-      y1oh(:) = y1(:)
-      n1 = n
-
       CALL addpnt(x1,y1,kdata,n,x1(1)*(1.-deltax),0.)
       CALL addpnt(x1,y1,kdata,n,               0.,0.)
       CALL addpnt(x1,y1,kdata,n,x1(n)*(1.+deltax),0.)
@@ -11303,17 +11272,6 @@ c             sq(j,iz,iw) = qy * EXP(sum)
       IF (ierr .NE. 0) THEN
          WRITE(*,*) ierr, jlabel(j)
          STOP
-      ENDIF
-
-      n = n1
-      CALL addpnt(x1oh,y1oh,kdata,n,x1oh(1)*(1.-deltax),0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,               0.,0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,x1oh(n)*(1.+deltax),0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,           1.e+38,0.)
-      CALL inter2(nw,wl,ygoh,n,x1oh,y1oh,ierr)
-      IF (ierr .NE. 0) THEN
-        WRITE(*,*) ierr, jlabel(j)
-        STOP
       ENDIF
 
 * quantum yields assumed to be 0.01 (upper limit)
@@ -11391,12 +11349,9 @@ c             sq(j,iz,iw) = qy * EXP(sum)
 
       ENDIF
 
-      qyoh = 0.75
-
       DO iw = 1, nw-1
 
         sig = yg(iw)
-        sigoh = ygoh(iw)
         IF(myld==1) THEN
           qy = 0.01
          ELSEIF(myld==2) THEN
@@ -11422,26 +11377,10 @@ c             sq(j,iz,iw) = qy * EXP(sum)
              qy4 = qy*(-0.0217*(airden(i)/1.E19)**2
      &                +0.0788*airden(i)/1.E19+0.1029)
            ENDIF
-           sq(j-9,i,iw) = qy1 * sig
-           sq(j-8,i,iw) = qy2 * sig
-           sq(j-7,i,iw) = qy3 * sig
-           sq(j-6,i,iw) = qy4 * sig
-           sq(j-5,i,iw) = sigoh * qy1
-           sq(j-4,i,iw) = sigoh * qy2
-           sq(j-3,i,iw) = sigoh * qy4
-           sq(j-2,i,iw) = sigoh * qyoh*qy1/(qy1+qy2+qy4)
-           sq(j-1,i,iw) = sigoh * qyoh*qy2/(qy1+qy2+qy4)
-           sq(j  ,i,iw) = sigoh * qyoh*qy4/(qy1+qy2+qy4)
-           IF(qy1+qy2+qy4 > 0.) THEN
-             sq(j-2,i,iw) = sigoh * qyoh*qy1/(qy1+qy2+qy4)
-             sq(j-1,i,iw) = sigoh * qyoh*qy2/(qy1+qy2+qy4)
-             sq(j  ,i,iw) = sigoh * qyoh*qy4/(qy1+qy2+qy4)
-            ELSE
-             sq(j-2,i,iw) = 0.
-             sq(j-1,i,iw) = 0.
-             sq(j  ,i,iw) = 0.
-           ENDIF
-
+           sq(j-3,i,iw) = qy1 * sig
+           sq(j-2,i,iw) = qy2 * sig
+           sq(j-1,i,iw) = qy3 * sig
+           sq(j  ,i,iw) = qy4 * sig
         ENDDO
       ENDDO
 
@@ -13545,15 +13484,15 @@ c            sq(j,iz,iw) = yg(iw)
       PARAMETER(kdata=200)
 
       INTEGER iw
-      INTEGER i, n, n1
-      REAL x1(kdata), x1oh(kdata)
-      REAL y1(kdata), y1oh(kdata)
+      INTEGER i, n
+      REAL x1(kdata)
+      REAL y1(kdata)
 
 * local
 
-      REAL yg(kw), ygoh(kw)
-      real qy, qym1, qy1, qy2, qy3, qy4, qyoh
-      REAL sig, sigoh
+      REAL yg(kw)
+      real qy, qym1, qy1, qy2, qy3, qy4
+      REAL sig
       INTEGER ierr, idum
 
       INTEGER mabs, myld, mprod
@@ -13568,18 +13507,6 @@ c            sq(j,iz,iw) = yg(iw)
       jlabel(j) = 'CH2=CHCHO -> CH3CHOO + CO'
       j = j+1
       jlabel(j) = 'CH2=CHCHO -> CH2=CHCO + H'
-      j = j+1
-      jlabel(j) = 'ACROHqy -> NI products'
-      j = j+1
-      jlabel(j) = 'ACROHqy -> alkene + CO'
-      j = j+1
-      jlabel(j) = 'ACROHqy -> acyl + H'
-      j = j+1
-      jlabel(j) = 'ACROHoh -> NI products'
-      j = j+1
-      jlabel(j) = 'ACROHoh -> alkene + CO'
-      j = j+1
-      jlabel(j) = 'ACROHoh -> acyl + H'
 
 * cross section from
 * 1: JPL 2006 (originally from Magneron et al.)
@@ -13684,11 +13611,6 @@ c            sq(j,iz,iw) = yg(iw)
         CLOSE(kin)
       ENDIF
 
-      x1oh(:) = 0.
-      x1oh(:) = x1(:) - 10.
-      y1oh(:) = y1(:)
-      n1 = n
-
       CALL addpnt(x1,y1,kdata,n,x1(1)*(1.-deltax),0.)
       CALL addpnt(x1,y1,kdata,n,               0.,0.)
       CALL addpnt(x1,y1,kdata,n,x1(n)*(1.+deltax),0.)
@@ -13699,17 +13621,6 @@ c            sq(j,iz,iw) = yg(iw)
          STOP
       ENDIF
 
-      n = n1
-      CALL addpnt(x1oh,y1oh,kdata,n,x1oh(1)*(1.-deltax),0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,               0.,0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,x1oh(n)*(1.+deltax),0.)
-      CALL addpnt(x1oh,y1oh,kdata,n,           1.e+38,0.)
-      CALL inter2(nw,wl,ygoh,n,x1oh,y1oh,ierr)
-      IF (ierr .NE. 0) THEN
-        WRITE(*,*) ierr, jlabel(j)
-        STOP
-      ENDIF
-
 * quantum yields are pressure dependent between air number densities
 * of 8e17 and 2.6e19, Gardner et al.:
 * Product distribution from curve fits of data given in Calvert et al. 2011:
@@ -13717,8 +13628,6 @@ c            sq(j,iz,iw) = yg(iw)
 * product information taken from Calvert et al. 2011
 * (fits to data of fractions of each channel)
 
-
-      qyoh = 0.75
       DO iw = 1, nw-1
         DO i = 1, nz
            if(airden(i) .gt. 2.6e19) then
@@ -13761,23 +13670,10 @@ c            sq(j,iz,iw) = yg(iw)
      &                +0.0788*airden(i)/1.E19+0.1029)
            ENDIF
            sig = yg(iw)
-           sigoh = ygoh(iw)
-           sq(j-9,i,iw) = qy1 * sig
-           sq(j-8,i,iw) = qy2 * sig
-           sq(j-7,i,iw) = qy3 * sig
-           sq(j-6,i,iw) = qy4 * sig
-           sq(j-5,i,iw) = sigoh * qy1
-           sq(j-4,i,iw) = sigoh * qy2
-           sq(j-3,i,iw) = sigoh * qy4
-           IF(qy1+qy2+qy4 > 0.) THEN
-             sq(j-2,i,iw) = sigoh * qyoh*qy1/(qy1+qy2+qy4)
-             sq(j-1,i,iw) = sigoh * qyoh*qy2/(qy1+qy2+qy4)
-             sq(j  ,i,iw) = sigoh * qyoh*qy4/(qy1+qy2+qy4)
-            ELSE
-             sq(j-2,i,iw) = 0.
-             sq(j-1,i,iw) = 0.
-             sq(j  ,i,iw) = 0.
-           ENDIF
+           sq(j-3,i,iw)   = qy1 * sig
+           sq(j-2,i,iw)   = qy2 * sig
+           sq(j-1,i,iw)   = qy3 * sig
+           sq(j  ,i,iw)   = qy4 * sig
         ENDDO
       ENDDO
 

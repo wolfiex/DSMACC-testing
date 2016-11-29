@@ -16,7 +16,7 @@
   character(len=3) :: mechanism
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables
-  include './TUV5.2.1/params'
+  include './params'
   REAL*8::bs(19,kj), cs(19,kj),ds(19,kj)
   REAL::svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables

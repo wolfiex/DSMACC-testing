@@ -81,7 +81,7 @@ REAL*8 y,dy,x,tmp(19), tmp2(19),b(19),c(19),d(19)
 
 integer i,n,jl
 INTEGER LK
-include './TUV5.2.1/params'
+include './params'
 
 ! Time2 is local time in hours
 Time2=mod(Time/(60.*60.), 24.)

@@ -304,7 +304,7 @@
 * do top layer separately
 
       dto2la(nz,1) = 0.
-      IF(rm(nz) .GT. 1.0-100) THEN
+      IF(rm(nz) .GT. 1.D-100) THEN
          o2xsla(nz,1) = sngl(ro2(nz))/sngl(rm(nz))
       ELSE
          o2xsla(nz,1) = xsmin

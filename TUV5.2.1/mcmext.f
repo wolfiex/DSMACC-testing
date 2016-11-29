@@ -65,6 +65,7 @@
 
 
 ******** Aldehyde Photochemistry
+
 *ma01.  n-C3H7CHO + hv -> products (Norish type I + II)
       CALL ma01(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
@@ -98,41 +99,23 @@
 *ma10.  Glycidaldehyde + hv -> products (both channels)
       CALL ma10(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
-*ma11.  Crotonaldehyde + hv -> products (all 3 channels)
+*ma11.  Crotonaldehyde + hv -> products (all 4 channels)
       CALL ma11(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
-*ma12.  2-hexenal + hv -> products (all 3 channels)
+*ma12.  2-hexenal + hv -> products (all 4 channels)
       CALL ma12(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
 *ma14.  C4H9C(C2H5)CHO + hv -> products
       CALL ma14(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
-*ma15.  CH3CH=C(CH3)CHO + hv -> Products (all 3 channels)
+*ma15.  CH3CH=C(CH3)CHO + hv -> Products (all 4 channels)
       CALL ma15(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
-*ma16.  CH3C(CH3)=CHCHO + hv -> Products (all 3 channels)
+*ma16.  CH3C(CH3)=CHCHO + hv -> Products (all 4 channels)
       CALL ma16(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
-*ma17.  2,4-Hexadienal + hv -> Products (all 3 channels)
+*ma17.  (CH3)2C(OH)CHO + hv -> (CH3)2COH + CHO
       CALL ma17(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*ma18.  (CH3)2C(OH)CHO + hv -> (CH3)2COH + CHO
-      CALL ma18(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*ma19.  n-aldehydes + hv -> products
-      CALL ma19(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*ma20.  methyl substituted aldehydes + hv -> products
-      CALL ma20(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*ma21.  alkyl substituted aldehydes + hv -> products
-      CALL ma21(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*ma22.  t-ALD + hv -> products
-      CALL ma22(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*ma23.  linear alpha,beta-unsaturated aldehydes + hv -> products
-      CALL ma23(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
 
 ******** Keto Photochemistry
@@ -188,11 +171,8 @@
 *mk17.  CH3COCH(OH)CH3  + hv -> CH3CO + CH3CHOH
       CALL mk17(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
-*mk20.  RCOR' + hv -> products
+*mk19.  RCOR' + hv -> products
       CALL mk20(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
-
-*mk21.  alpha-branched ketones + hv -> products
-      CALL mk21(nw,wl,wc,nz,tlev,airden,j,sq,jlabel)
 
 
 ******** Ketene Photochemistry

@@ -36,11 +36,13 @@ FOBJS = numer.o functs.o orbit.o
 #        Linux users:  try FC = g77
 #        Cray users :  try FC = f90
 # FC = pgf90
+# FC = gfortran
 FC = ifort
 
 # FFLAGS : command line options to compiler call (if not set, default is
 #          probably some basic optimization level)
-FFLAGS =  -cpp -fp-model strict
+# FFLAGS = -fcheck=all #-Wall
+FFLAGS = -g
 
 # LIBS  : libraries required
 # LIBS =

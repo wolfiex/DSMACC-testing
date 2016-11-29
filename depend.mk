@@ -1,8 +1,8 @@
 # DO NOT DELETE THIS LINE - used by make depend
-constants.o: old_rate.inc TUV5.2.1/params
+constants.o: old_rate.inc params
 constants.o: model_Global.o model_Precision.o
 model_Function.o: model_Parameters.o
-model_Global.o: TUV5.2.1/params
+model_Global.o: params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Function.o model_Global.o model_Jacobian.o

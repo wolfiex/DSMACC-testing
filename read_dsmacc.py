@@ -18,12 +18,14 @@ for i,g in enumerate(nc.groups): print i , ' - ', g
 group = tuple(nc.groups)[int(input('Enter Number \n'))]     
 
 print group, 'took', nc.groups[group].WALL_time, 'seconds to compute.'
-
+ 
 specs = pd.DataFrame(nc.groups[group].variables['Spec'][:])
 specs.columns = nc.groups[group].variables['Spec'].head.split(',')
 
 rates = pd.DataFrame(nc.groups[group].variables['Rate'][:])
-rates.columns = nc.groups[group].variables['Rate'].head.split(',')
+rates.columns = nc.groups[group].variables['Rate'].head.split(',')[:-2]
+
+print 'IGNORING LAST 2 RATES!!!!!!!!!!!!!!!!!!!!!!'
 
 print 'Spec and Rate files loaded'
 

@@ -104,21 +104,31 @@ if (albedo .eq. 0) then
 else
     write (OUTPUT_UNIT,*) 'Albedo =', albedo
 endif       
-!    Calculate the photolysis rates for the run
 
-WRITE(dummychar,'(a,a,e,e,e,e,a)') './TUV5.2.1/tuv ','../fort.101',alta,Albedo,O3col,temp,''
-print*, dummychar
 
-if (new_tuv) call EXECUTE_COMMAND_LINE(dummychar, wait=.true.)
-!call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
-
-open(101, form='unformatted')
+open(101, file = trim(tuvfile), status='old', form='unformatted')
 read(101) bs
 read(101) cs
 read(101) ds
 read(101) svj_tj
-read(101) szas
+!read(101) szas !problem with this apparently 
 close(101)
+
+open(101, file='TUV5.2.1/fort.101', form ='unformatted')
+!read(101) szas
+close(101)
+
+
+!kludge as faster than using another file. 
+      szas = 0.
+      error=0.!lets use this as a variable
+      DO i = 1,19
+        szas(i) = error
+        error = error + 5.
+      ENDDO
+
+
+
 
 
 
@@ -178,8 +188,7 @@ full_counter=0
         write(100,*)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         close(100)
         open (100,file = 'rate.names')
-        write(100,*)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT)
-        close(100)
+        write(100,*)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT) , ',END'
 
 
 

@@ -38,6 +38,8 @@ clean:
 
 clear:
 	rm -f *.nc *.sdout run_* del* *.pdf
+	rm tuv_old/run_bin/*
+	rm TUV5.2.1/run_bin/*
 	
 distclean: clean
 	rm -f $(PROG)
@@ -63,12 +65,12 @@ tuv_old/%.o: %.f
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-constants.o: old_rate.inc TUV5.2.1/params
+constants.o: old_rate.inc params
 constants.o: model_Global.o model_Precision.o
 driver.o: initialisations.inc
 driver.o: constants.o model_Global.o model_Integrator.o model_Monitor.o
 driver.o: model_Parameters.o model_Rates.o model_Util.o
-model_Global.o: TUV5.2.1/params
+model_Global.o: params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
