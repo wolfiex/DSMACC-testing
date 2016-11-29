@@ -5,7 +5,7 @@
 ! output
       PARAMETER(kout=53)
 ! input
-      PARAMETER(kin=12)
+      PARAMETER(kin=13)
 !_________________________________________________
 ! altitude, wavelength, time (or solar zenith angle) grids
       INTEGER kz, kw, kt

@@ -2,14 +2,14 @@
   FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
-  F90FLAGS   = -cpp  -mcmodel medium -O0 -fpp  #-openmp
+  F90FLAGS   = -cpp -mcmodel medium -O0 -fpp  #-openmp
 ##############################################################################
 
 PROG = model 
 
 # complete list of all f90 source files
-SRCS1 = $(wildcard model_*.f90) constants.f90
-SRCS2 = #$(wildcard tuv_old/*.f)
+SRCS1 = $(wildcard model_*.f90) 
+SRCS2 = $(wildcard TUV_5.2.1/*.f)
 
 # the object files are the same as the source files but with suffix ".o"
 OBJS1 := $(SRCS1:.f90=.o) 
@@ -19,7 +19,7 @@ MAKEFILE_INC = depend.mk
 
 # If you don't have the perl script sfmakedepend, get it from:
 # http://www.arsc.edu/~kate/Perl
-F_makedepend = ./sfmakedepend --file=$(MAKEFILE_INC)
+F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
 
 all: $(PROG)
 
@@ -37,9 +37,7 @@ clean:
 	rm -f $(OBJS) *.mod *.log *~ depend.mk.old *.o *.sdout
 
 clear:
-	rm -f *.nc *.sdout run_* del* *.pdf
-	rm tuv_old/run_bin/*
-	rm TUV5.2.1/run_bin/*
+	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names
 	
 distclean: clean
 	rm -f $(PROG)
@@ -49,41 +47,39 @@ distclean: clean
 	rm -f *.o 
 	rm -f model_*
 	rm -f run_*
-
-kpp:clean
-	./sfmakedepend
-	./makedepos.pl
-	./kpp-2.2.3/bin/kpp model.kpp 
 	
+tuv:
+	cd TUV_5.2.1 && make clean && make && cd ../
+    
+kpp: clean
+	cd mechanisms && ./makedepos.pl && cd ../
+	cp src/model.kpp ./
+	cp src/constants.f90 ./model_constants.f90
+	./src/kpp-2.2.3/bin/kpp model.kpp 
+	rm -rf *.kpp
 
-# all object files *.o depend on their source files *.f90
-# the object files are created with the "-c" compiler option
 %.o: %.f90
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
-tuv_old/%.o: %.f
+TUV_5.2.1/%.o: %.f
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
+	
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-constants.o: old_rate.inc params
-constants.o: model_Global.o model_Precision.o
-driver.o: initialisations.inc
-driver.o: constants.o model_Global.o model_Integrator.o model_Monitor.o
-driver.o: model_Parameters.o model_Rates.o model_Util.o
-model_Global.o: params
+model_Global.o: src/params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
 model_Integrator.o: model_Parameters.o model_Rates.o
 model_Jacobian.o: model_JacobianSP.o model_Parameters.o
 model_LinearAlgebra.o: model_JacobianSP.o model_Parameters.o
-model_Main.o: initialisations.inc
-model_Main.o: constants.o model_Global.o model_Integrator.o model_Monitor.o
+model_Main.o: src/initialisations.inc
+model_Main.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Main.o: model_Parameters.o model_Rates.o model_Util.o
 model_Model.o: model_Global.o model_Integrator.o model_Jacobian.o
 model_Model.o: model_LinearAlgebra.o model_Monitor.o model_Parameters.o
 model_Model.o: model_Precision.o model_Rates.o model_Util.o
 model_Parameters.o: model_Precision.o
-model_Rates.o: constants.o model_Global.o model_Parameters.o
+model_Rates.o: model_Global.o model_Parameters.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o

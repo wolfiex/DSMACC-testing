@@ -1,71 +1,4 @@
-      PROGRAM main
-
-* I/O variables:
-
-      IMPLICIT NONE
-      INCLUDE '../params'
-      INTEGER i,j
-      REAL*8 svj_tj(kt,kj), szas(19), n
-      real r03col,albedo,alt,kelvin
-      CHARACTER(len=80) arg, filename
-      real*8 b(19),c(19),d(19)
-	  real*8 bs(19,kj), cs(19,kj), ds(19,kj)
-      real*8 temp2(19), temp(19)
-      r03col=0
-      albedo=0
-      alt=0
-      kelvin=0
-
-      szas = 0.
-      n = 0.
-      DO i = 1,19
-        szas(i) = n
-        n = n + 5.
-      ENDDO
-      
-      call getarg(1,filename)
-      call getarg(2,arg)
-      read(arg,*) alt
-      call getarg(3,arg)
-      read(arg,*) albedo
-      call getarg(4,arg)
-      read(arg,*) r03col
-      call getarg(5,arg)
-      read(arg,*) kelvin   
-      print*, alt , albedo,filename
-      CALL tuv(r03col,alt,albedo,kelvin,szas,svj_tj)
-
-      do j=1,kj
-		do i=1,19 
-			temp(i)=szas(i)
-			temp2(i)=svj_tj(i,j)
-		enddo	
-                                
-        	n=19
-		call spline(n,temp,temp2,b,c,d)
-        	do i=1,19
-			bs(i,j)=b(i)
-			cs(i,j)=c(i)
-			ds(i,j)=d(i)	
-		enddo
-	  enddo
-     
-
-
-      
-        open(101, file=trim(filename),form="unformatted")
-        write(101) bs 
-        write(101) cs  
-        write(101) ds  
-        write(101) svj_tj       
-        write(101) szas
-        write(101) 'end'
-        close(101)
-
-
-      END PROGRAM main
-
-      SUBROUTINE tuv(ro3col, ralbedo, ralt, box_temp, sza, svj_tj)
+      subroutine tuv(ro3col, ralbedo, ralt, box_temp, sza, svj_tj)
 *-----------------------------------------------------------------------------*
 *=    Tropospheric Ultraviolet-Visible (TUV) radiation model                 =*
 *=    Version 4.2                                                            =*
@@ -253,7 +186,7 @@ c      OPEN(UNIT=kout,FILE='tuvlog',STATUS='UNKNOWN')
 
 c      intrct = .TRUE.
       intrct = .FALSE.
-      IF (.NOT.intrct)inpfil='usrinp'
+      IF ( .NOT. intrct) inpfil = 'OLDTUV'
 
 
       CALL rdinp(intrct, 
@@ -632,8 +565,7 @@ c      STOP
 
          zen = sza(it)
 
-         !if (mod(it,5) == 0 ) 
-         WRITE(6,200) zen
+         if (mod(it,5) == 0 ) WRITE(6,200) zen
  
  200     FORMAT('zenith angle = ', F9.3)
 
@@ -923,5 +855,69 @@ c
       return
       end
 
-  
+         subroutine polint(f,a,n,x,r)
+c----------------------------------------------------------
+c service program for fintr
+c----------------------------------------------------------
+       implicit real*8 (a-h,o-z), integer *4 (i-n)
+       dimension f(n),a(n)
+       r=0.0
+       do 1 j=1,n
+       al=1.0
+       do 2 i=1,n
+          if (i-j) 3,2,3
+ 3        al=al*(x-a(i))/(a(j)-a(i))
+ 2     continue
+ 1     r=r+al*f(j)
+       return
+       end
+
+
+	subroutine set_up_photol(O3col, albedo, ralt, 
+     $       			box_temp, bs,cs,ds,szas,svj_tj)
+	incLude 'params'
+	real*8 b(19),c(19),d(19)
+	real*8 bs(19,kj), cs(19,kj), ds(19,kj)
+        REAL*8 O3col, ralt, box_temp, albedo
+	REAL*8 y,dy,x
+	integer i, n, j
+        real svj_tj(kt,kj), szas(kt) 
+	real*8 temp2(19), temp(19)
+
+       
+        !print *, 'tuv aaa--------------',o3col, albedo, ralt, box_temp, sza
+                
+        call tuv(real(o3col), real(albedo),
+     $       real(ralt), real(box_temp), szas, svj_tj)
+     
+        !print *, 'tuv--------------' , sza
+
+
+
+	do j=1,kj
+		do i=1,19 
+			temp(i)=szas(i)
+			temp2(i)=svj_tj(i,j)
+		enddo	
+                                
+        	n=19
+		call spline(n,temp,temp2,b,c,d)
+        	do i=1,19
+			bs(i,j)=b(i)
+			cs(i,j)=c(i)
+			ds(i,j)=d(i)	
+		enddo
+	enddo
+     
+     
+        open(101,form="unformatted")
+        write(101) bs 
+        write(101) cs  
+        write(101) ds  
+        write(101) svj_tj       
+        write(101) szas
+        close(101)
+ 
+	!return 
+        end
 
