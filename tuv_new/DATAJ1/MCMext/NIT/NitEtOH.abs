@@ -1,0 +1,29 @@
+Absorption cross sections for 2-nitrooxy ethanol from least square fit by
+Roberts and Fajer, Environ Sci Technol 23, 945-951, 1989.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 29.01.2016
+
+λ / nm	σ / cm2
+270	1.798e-20
+272	1.691e-20
+274	1.560e-20
+276	1.412e-20
+278	1.255e-20
+280	1.094e-20
+282	9.363e-21
+284	7.862e-21
+286	6.477e-21
+288	5.237e-21
+290	4.155e-21
+292	3.235e-21
+294	2.472e-21
+296	1.853e-21
+298	1.363e-21
+300	9.844e-22
+302	6.974e-22
+304	4.849e-22
+306	3.308e-22
+308	2.215e-22
+310	1.455e-22
+312	9.380e-23
+314	5.934e-23
