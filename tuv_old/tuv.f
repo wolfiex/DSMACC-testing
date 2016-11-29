@@ -186,7 +186,7 @@ c      OPEN(UNIT=kout,FILE='tuvlog',STATUS='UNKNOWN')
 
 c      intrct = .TRUE.
       intrct = .FALSE.
-      IF ( .NOT. intrct) inpfil = 'usrinp'
+      IF ( .NOT. intrct) inpfil = 'OLDTUV'
 
 
       CALL rdinp(intrct, 

@@ -1,6 +1,6 @@
-wmo85 data from WMO (1985) Atmos. Ozone Assessment.
-Columns are:
-bin   wlow      whigh     irradian   rayleigh   O2 Herz    O3(203K)  O3(273K)
+# wmo85 data from WMO (1985) Atmos. Ozone Assessment.
+# Columns are:
+# bin   wlow      whigh     irradian   rayleigh   O2 Herz    O3(203K)  O3(273K)
   1   175.439   176.991   1.74E+11   6.79E-25   4.61E-24   8.11E-19   8.11E-19
   2   176.991   178.571   2.10E+11   6.49E-25   5.03E-24   7.99E-19   7.99E-19
   3   178.571   180.180   2.38E+11   6.20E-25   5.46E-24   7.86E-19   7.86E-19

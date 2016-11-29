@@ -1,0 +1,25 @@
+Wavelength dependent temp. dependency parameters for
+absorption cross sections for n-pentyl nitrate measured by
+Zhu and Kellis, Chem Phys Lett 278, 41-48, 1997.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 28.01.2016
+
+σ(T,λ) = σ(298K,λ)·exp{B(T-298K)}
+
+λ/nm	B/1E-3 K-1
+265	 3.34
+270	 3.65
+275	 3.93
+280	 4.12
+285	 4.25
+290	 4.69
+295	 4.96
+300	 5.42
+305	 5.61
+310	 6.07
+315	 6.98
+320	 7.71
+325	 8.80
+330	 9.75
+335	11.5
+340	14.9

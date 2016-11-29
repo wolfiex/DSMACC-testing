@@ -4,14 +4,13 @@ import pandas as pd
 import numpy as np
 import netCDF4
 from netCDF4 import Dataset
+from scipy.io import FortranFile
 #from StringIO import StringIO
-
-print 'RENAME INITIATE'
 
 '''options'''
 available_cores = 16
 ic_file= sys.argv[1]
-pre_formatted_style=True #slower
+pre_formatted_style=False #slower
 
 
 #run simulations
@@ -21,30 +20,50 @@ start = (time.strftime("%Y%m%d%H%M"))
 
 
 # make ics 
-
 if ('.csv' not in ic_file):  ic_file += '.csv' 
 print ic_file
-print 'makefile DISABLED'
 os.system("rm Init_cons.dat")
-os.system("./makeics.pl %s"%ic_file)
+os.system("./src/makeics.pl %s"%ic_file)
 ic_open= tuple(open(ic_file))
 numbered = np.array([i for i in enumerate(ic_open[2].strip().split(',')[3:])])
 n_runs=len(numbered)
 if (ncores > n_runs): ncores = n_runs
 
 
+def read_fbin(filename):
+    ''' this reads each written binary instance itteratively'''
+    f = FortranFile(filename, 'r')
+    array = []
+    while True:
+        try: 
+            array.append(f.read_reals(dtype=np.float_))
+        except TypeError: 
+            break
+    #array = np.reshape(array, (nspecs,-1))
+    
+    f.close()
+    return array
+    
+
 # run dsmacc
 def simulate (arg_in):
     try:     #each system call has to be on a new line        
         start = time.strftime("%s")
         description="%s_%s"%('run',arg_in[1])
-        linenumber =  "%s"%(int(arg_in[0])+1) 
-        os.system('./model %s %s'%(description,int(linenumber)))
+        linenumber = "%s"%(int(arg_in[0])+1) 
+        print './model %s %s 1'%(description,int(linenumber))
+        os.system('./model %s %s 1'%(description,int(linenumber)))
         return int(time.strftime("%s")) - int(start)
-                
     except: 
         return 'Failed'
 
+
+
+
+
+
+#do runs
+#########################################################################################
 
 out = multiprocessing.Pool(ncores).map( simulate , numbered ) 
 os.system('rm fort*') 
@@ -74,19 +93,19 @@ rate = ncfile.createDimension('rate', None)
 
 for group_name in numbered:
     print group_name
-    nc = Dataset( 'run_'+group_name[1]+'.nc' , mode='r')
+    
     group = ncfile.createGroup(group_name[1])
+    
     specvar = group.createVariable( 'Spec' , "f8"  ,('time','spec',))
     ratevar = group.createVariable( 'Rate' , "f8"  ,('time','rate',))
-    specvar[:] = nc.variables['Spec'][:].T
-    ratevar[:] = nc.variables['Rate'][:].T
-    print group
-    specvar.head = ','.join([''.join(x).strip(' ') for x in nc.variables['species'][:]])
-    ratevar.head = ','.join([''.join(x).strip(' ') for x in nc.variables['reactions'][:]])
-    group.WALL_time = out[int(group_name[0])]
     
-    nc.close()
-
+    specvar[:] = read_fbin('run_%s_.spec'%group_name[1]) 
+    ratevar[:] = read_fbin('run_%s_.rate'%group_name[1])
+    
+    print group
+    specvar.head = ''.join(tuple(open('spec.names'))).replace(' ','').replace('\n','')
+    ratevar.head = ''.join(tuple(open('rate.names'))).replace(' ','').replace('\n','')
+    group.WALL_time = out[int(group_name[0])]
 
 
 # close the file.

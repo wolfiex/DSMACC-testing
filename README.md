@@ -50,6 +50,7 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 + added the output to netcdf (needs netcdf libraries)
 + added emission / deposition switches
 + improved makefile 
++ MCM TUV 5 updated
 
 
 

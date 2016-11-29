@@ -1,0 +1,29 @@
+Absorption cross sections for cyclo-pentyl nitrate from least square fit by
+Roberts and Fajer, Environ Sci Technol 23, 945-951, 1989.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 28.01.2016
+
+λ / nm	σ / cm2
+270    4.32e-20
+272    4.21e-20
+274    4.06e-20
+276    3.87e-20
+278    3.64e-20
+280    3.39e-20
+282    3.12e-20
+284    2.84e-20
+286    2.55e-20
+288    2.27e-20
+290    2.00e-20
+292    1.73e-20
+294    1.49e-20
+296    1.26e-20
+298    1.06e-20
+300    8.80e-21
+302    7.21e-21
+304    5.84e-21
+306    4.68e-21
+308    3.71e-21
+310    2.90e-21
+312    2.25e-21
+314    1.72e-21

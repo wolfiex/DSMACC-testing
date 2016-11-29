@@ -1,0 +1,17 @@
+Absorption cross sections for caronaldehyde photolysis measured by
+Hallquist et al., Environ Sci Technol 31, 3166-3172 (1997).
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 20.01.2016
+
+λ/nm	σ(298) / cm-2
+277.5    1.240e-19
+282.5    1.200e-19
+287.5    1.168e-19
+292.5    1.083e-19
+297.5    9.77e-20
+302.5    8.22e-20
+307.5    6.50e-20
+312.5    4.69e-20
+317.5    3.16e-20
+322.5    1.65e-20
+327.5    7.2e-21
