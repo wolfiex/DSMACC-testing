@@ -1,6 +1,6 @@
 TUV inputs:
 ==================================================================
-inpfil =      MCMTUV   outfil =        MCM4   nstr =             4
+inpfil =      MCMTUV   outfil =        MCM4   nstr =             2
 lat =          0.000   lon =          0.000   tmzone =         0.0
 iyear =         2005   imonth =           7   iday =             1
 zstart =       0.000   zstop =       80.000   nz =              19

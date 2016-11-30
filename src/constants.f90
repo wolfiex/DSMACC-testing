@@ -111,7 +111,8 @@ kalkpxy=1.50d-14*EXP(-200.0/temp)*o2
 
 !INCLUDE 'rate_coeff.inc'
 INCLUDE './src/old_rate.inc'
-
+INCLUDE './src/new_rate.inc' !update the old constants whilst keeping the
+!redundant ones
 
 ! ************************************************************************
 ! define photolysis reaction rates from cubic splines of the TUV output
