@@ -17,6 +17,6 @@ model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: src/old_rate.inc src/params
+model_constants.o: src/old_rate.inc src/params src/new_rate.inc
 model_constants.o: model_Global.o model_Precision.o
 constants.mod: model_constants.o
