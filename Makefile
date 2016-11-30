@@ -46,7 +46,7 @@ distclean: clean
 	rm -f *.dat
 	rm -f *.o 
 	rm -f model_*
-	rm -f run_*
+	rm -f run_
 	
 tuv:
 	cd TUV_5.2.1 && make clean && make && cd ../
