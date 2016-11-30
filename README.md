@@ -59,4 +59,5 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 + Modularise
 + add omp statements to kpp?
 + tidy
-+ fix netcfd write problems
++ dos2unix
++ mcm selector

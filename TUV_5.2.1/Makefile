@@ -41,8 +41,8 @@ FC = ifort
 
 # FFLAGS : command line options to compiler call (if not set, default is
 #          probably some basic optimization level)
-# FFLAGS = -fcheck=all #-Wall
-FFLAGS = -g -cpp -mcmodel medium -O0 -fpp 
+# FFLAGS = -fcheck=all #-Wall -cpp -mcmodel medium -fpp 
+FFLAGS = -cpp -fpp -fp-model strict -O3 -no-prec-div -static -xHost
 
 # LIBS  : libraries required
 # LIBS =
