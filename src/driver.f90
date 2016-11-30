@@ -52,7 +52,7 @@ call getarg(1,counter)!name
 call getarg(2,ln)!location in Init Cons
 read(ln, *) line
 !set OUTPUT_UNIT to 6 in globals file. 
-open(UNIT=output_unit,FILE='./Outputs/'//trim(counter)//'.sdout')
+open(UNIT=output_unit,FILE='Outputs/'//trim(counter)//'.sdout')
 
 
 !all initialisation calculations:
