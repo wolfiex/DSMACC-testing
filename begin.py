@@ -76,7 +76,7 @@ print '\n Calculations complete! \n Concatenating results. \n '
 ic_string='' # get a string format of the intial conditions file
 for line in ic_open[1:]: ic_string+=line
 
-filename= ic_file.split('.')[0]+'_'+ time.strftime("%y%m%d%H%M")+'.nc'
+filename= ic_file.split('/')[-1].split('.')[0]+'_'+ time.strftime("%y%m%d%H%M")+'.nc'
 ncfile = Dataset(filename,'w')
 print 'add to results folder'
 ncfile.initial_conditions_str = ic_string
@@ -99,12 +99,12 @@ for group_name in numbered:
     specvar = group.createVariable( 'Spec' , "f8"  ,('time','spec',))
     ratevar = group.createVariable( 'Rate' , "f8"  ,('time','rate',))
     
-    specvar[:] = read_fbin('run_%s_.spec'%group_name[1]) 
-    ratevar[:] = read_fbin('run_%s_.rate'%group_name[1])
+    specvar[:] = read_fbin('./Outputs/run_%s_.spec'%group_name[1]) 
+    ratevar[:] = read_fbin('./Outputs/run_%s_.rate'%group_name[1])
     
     print group
-    specvar.head = ''.join(tuple(open('spec.names'))).replace(' ','').replace('\n','')
-    ratevar.head = ''.join(tuple(open('rate.names'))).replace(' ','').replace('\n','')
+    specvar.head = ''.join(tuple(open('./Outputs/spec.names'))).replace(' ','').replace('\n','')
+    ratevar.head = ''.join(tuple(open('./Outputs/rate.names'))).replace(' ','').replace('\n','')
     group.WALL_time = out[int(group_name[0])]
 
 
