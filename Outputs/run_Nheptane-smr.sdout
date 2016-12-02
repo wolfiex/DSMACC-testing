@@ -1,0 +1,26 @@
+ Constraining total NOx concentation
+ Starts with X => ignored
+ HONO            IN NOX FAMILY
+ HO2NO2          IN NOX FAMILY
+ NO3             IN NOX FAMILY
+ NO              IN NOX FAMILY
+ NO2             IN NOX FAMILY
+ No CH4 specified assuming 1770 ppbv
+ Initializing model run_Nheptane-smr                                  
+ Starting Jday:   173.000000000000     
+ Starting time:  0.000000000000000E+000
+ Ending time:   259200.000000000     
+ Time step:   600.000000000000     
+ hvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhv
+ Using TUV to calculate photolysis rates as a function of SZA
+ Aerosol surface area  0.000000000000000E+000
+ Aerosol particle radius 1  0.000000000000000E+000
+ Altitude =  2.081239289369042E-003
+ Pressure =   1013.00000000000     
+ Temperature =   298.000000000000     
+ Latitude =   53.9580000000000     
+ Lon =  0.000000000000000E+000
+ Local Time =  0.000000000000000E+000
+ SZA =   102.586426365440     
+ Ozone column not specified using 260 Dobsons
+ Albedo not specified using 0.1

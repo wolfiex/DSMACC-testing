@@ -62,7 +62,7 @@ for group in netCDF_data.groups:
     
     
     
-    columns = ['OH','NO','NO2','CO','CH4','CH3O2','CH3OOH','HCHO','CH3O']
+    #columns = ['OH','NO','NO2','CO','CH4','CH3O2','CH3OOH','HCHO','CH3O']
     
     
     
