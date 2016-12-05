@@ -27,7 +27,8 @@ gen = xrange(len(full))
 ''' Step 1 extract all species '''
 inorganic_species =  set(re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
 all_species =  re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(full))
-
+sarr = pd.Series(index=all_species)
+sarr[:]=-1
 
 #dictionarys for reference
 num2spec = dict(enumerate(all_species))
@@ -52,12 +53,12 @@ gen = xrange(len(equations))
 #make into a class with run number
 ''' get all species formed ''' 
 
-species = {'O3','CH4'} | inorganic_species
+species = {'O3','CH4','C4H6'} | inorganic_species
 counter = 0 
 previous = '' 
 
 while True: 
-    counter +- 1 
+    counter += 1 
     print counter 
 
     dummy = []
@@ -65,9 +66,15 @@ while True:
         if eq_split[i][0].issubset(species): dummy.extend(eq_split[i][1])
 
     species = species | set(dummy)
+    
+    
+    for i in dummy: 
+       
+        if sarr[i] < 0 :
+            print i
+            sarr[spec2num[i]]= counter
+
     dummy = []
-
-
 
     if previous == species: break
     previous = species
