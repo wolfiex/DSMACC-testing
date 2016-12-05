@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Util.f90
-! Time                 : Wed Nov 30 15:32:15 2016
+! Time                 : Mon Dec  5 12:46:25 2016
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -100,8 +100,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     PRESS=CONCS(I)
 
     CASE('NOx') 
-    CONSTRAIN_NOX=.TRUE.
-    WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
+        if (concs(i)>0) then 
+        CONSTRAIN_NOX=.TRUE.
+        WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
+        end if 
 
     CASE('LAT') 
     LAT=CONCS(I)

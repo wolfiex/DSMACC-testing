@@ -66,8 +66,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     PRESS=CONCS(I)
 
     CASE('NOx') 
-    CONSTRAIN_NOX=.TRUE.
-    WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
+        if (concs(i)>0) then 
+        CONSTRAIN_NOX=.TRUE.
+        WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
+        end if 
 
     CASE('LAT') 
     LAT=CONCS(I)
