@@ -113,7 +113,7 @@ END DO
 newtime = Jday*86400 + DAYCOUNTER*dt
 
 WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
-WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, M, RCONST(:NREACT)
+WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP, M, RCONST(:NREACT)
 
 
 if (run_counter > nc_set) then !increased at start

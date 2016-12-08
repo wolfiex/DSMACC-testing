@@ -161,7 +161,7 @@ full_counter=0
         write(100,*)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         close(100)
         open (100,file = './Outputs/rate.names')
-        write(100,*)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT) , ',END'
+        write(100,*)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT)
 
 
          999 FORMAT(*(E24.16,"!"))

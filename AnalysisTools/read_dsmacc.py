@@ -23,7 +23,7 @@ specs = pd.DataFrame(nc.groups[group].variables['Spec'][:])
 specs.columns = nc.groups[group].variables['Spec'].head.split(',')
 
 rates = pd.DataFrame(nc.groups[group].variables['Rate'][:])
-rates.columns = nc.groups[group].variables['Rate'].head.split(',')[:-2]
+rates.columns = nc.groups[group].variables['Rate'].head.split(',')[:]
 
 print 'IGNORING LAST 2 RATES!!!!!!!!!!!!!!!!!!!!!!'
 
