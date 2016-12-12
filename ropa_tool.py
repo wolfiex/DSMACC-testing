@@ -55,7 +55,10 @@ rates = rates[rates.columns[rates.sum()>=0]]
 ''' 3 get conversion factor from molcm-3 to mixing ratio'''
 M = specs['M'].mean()
 
-''' 4 generate reactants and products list '''
+''' 4 convert concentrations to mixing ratio '''
+specs /= M
+
+''' 5 generate reactants and products list '''
 #no nead to clear whitespace as begin.py should take care of that.
 rate_head = '\n'+'\n'.join(rates.columns)+'\n'
 products = [i.split('+') for i in re.findall(r'-->([A-z0-9+]*)',rate_head)]
@@ -94,6 +97,11 @@ for i in xlen(reactants):
 
 
 
+
+''' 
+force graphs 
+
+'''
 
 
 
