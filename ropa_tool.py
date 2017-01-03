@@ -199,7 +199,14 @@ combinations = str(list(flux_data[:,0]))
 src = np.array(flux_data[:,1])
 tar = np.array(flux_data[:,2])
 
+times =  np.array(specs.TIME*M).astype(int)
 
+
+#rateheaders = [x.strip() for x in rate_head.split('\n') if x.strip()]
+#rates = np.array([i.split('-->') for i in rateheaders])
+
+
+rate_head = '[' + rate_head.replace('\n','","').replace('-->','>')[2:-2] +']'
 
 
 from netCDF4 import Dataset
@@ -216,12 +223,20 @@ info_file.createDimension('fluxes', flux.shape[1])
 info_file.createDimension('sourcetarget', len(src))
 info_file.createDimension('dict', len(locs_json))
 info_file.createDimension('comb', len(combinations))
+info_file.createDimension('timestr', len(times))
+info_file.createDimension('rateheader', len(rate_head))
+
+
+
  
 cnc  = info_file.createVariable('concentration', 'f8', ('time', 'specs'))
 cnc[:,:] = conc
 
 flx  = info_file.createVariable('edge-length', 'f8', ('time', 'fluxes'))
 flx[:,:] = flux
+
+rt  = info_file.createVariable('rate', 'c', 'rateheader')
+rt[:] = rate_head
 
 sources  = info_file.createVariable('source', 'i4', 'sourcetarget')
 sources[:] = src
@@ -234,6 +249,10 @@ dictn[:] = locs_json
 
 comb  = info_file.createVariable('combinations', 'c', 'comb')
 comb[:] = combinations
+
+stime  = info_file.createVariable('timeseconds', 'f8', 'time')
+stime[:] = times
+
 
 print 'PRIMARY SPECS'
 
