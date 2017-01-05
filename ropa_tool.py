@@ -22,14 +22,14 @@ ncores = 4
 
 
 ########### read dsmacc data
-myfile = 'nheptane_1612091358.nc'
+myfile = 'geckonhep_1701050054.nc'
 
 
 nc = Dataset(myfile,'r')
 print nc.date, '\n', nc.description,'\n'
 print 'Select Simulation: \n\n'
 for i,g in enumerate(nc.groups): print i , ' - ', g
-group = tuple(nc.groups)[0] #[int(input('Enter Number \n'))]
+group = tuple(nc.groups)[int(input('Enter Number \n'))]
 print group, 'took', nc.groups[group].WALL_time, 'seconds to compute.'
 specs = pd.DataFrame(nc.groups[group].variables['Spec'][:])
 specs.columns = nc.groups[group].variables['Spec'].head.split(',')
