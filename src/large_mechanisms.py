@@ -23,9 +23,9 @@ file_name = sys.argv[1]
 os.system('cp %s  %s.bak'%(file_name,file_name))#make a backup copy 
 
 ###################fn 
-def checker (line): 
-        c_lim = 210   #ff 7190# fix2048 #1400
-        l_lim = 200  ##511 character limit
+def checker (line, c_lim = 210 , l_lim = 200): 
+        #c_lim = 210   #ff 7190# fix2048 #1400  #210 //continuation lines
+        #l_lim = 200  ##511 character limit
         dummy=True #do not change
         
         #save 100s of lines of code
@@ -47,6 +47,7 @@ def checker (line):
             return [line, 'REAL(kind=dp) :: j_DUMMY\n' , 'INTEGER :: I\n']
 
         elif len(line) > c_lim:
+            
             continuation,counter = [],0
 
             #for divisions
@@ -118,31 +119,44 @@ def checker (line):
 ####################################program run files#################################################
 ######################################################################################################
 
+ncores=4
 
 if 'Jacobian' in file_name or 'Linear' in file_name: 
     os.system ("/usr/bin/perl -p -i.bak -e 's/&[\n\r]//g;s/\s*&//g' %s"%file_name)#remove newlines using perl
     data = tuple(open(file_name))
-    ncores=4
-    output = multiprocessing.Pool(ncores).map(checker,data)
+    
 
 
-else: # fix RO2 for non Jacobian or Linear Algebra Files
+else: # fix RO2 for non Jacobian or Linear Algebra Files  ie model.rates
     output = list(open(file_name))
     strip = False
+    data = ''
 
     for line in xrange(len(output)):
         current = output[line]
-        if 'RO2' and '=' in current: strip = True
+        if bool(re.match('.*RO2.*=.*&.*', str(current))): 
+            print 'RO2 found',current
+            strip = True
         if strip:
-            if 'CALL mcm' in current: 
+            if 'CALL' in current: 
                 strip=False
-                output[line]='\n'+current
+                string = '' 
+                for i in checker(data.replace('&','').replace('\n','').replace(' ',''),c_lim = 2000): 
+                    string+= i 
+                string = re.sub(r"&\n    &", "\n    RO2=RO2", string)
+                #limit to how many functions attached?
+                print 'fdsfds',len(string.split('\n'))
+                output[line]= string +'\n'+ current
 
             else: 
-                output[line]= checker(current.replace('&','').replace('\n',''))
+                data += current# checker(current.replace('&','').replace('\n',''))
+                output[line]=''
+                
 
-       
-newdata=['! parsed by large_mechanisms.py D.Ellis 2017']
+    
+    #output = multiprocessing.Pool(ncores).map(checker,data)
+     
+newdata=['! parsed by large_mechanisms.py D.Ellis 2017\n']
 for item in output: newdata.extend(item)   
 
 f=open(file_name,'w')
@@ -150,4 +164,5 @@ f.writelines(newdata)
 f.close()
 
 print 'parsed ', file_name
+
 
