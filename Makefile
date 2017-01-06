@@ -52,6 +52,11 @@ distclean: clean
 tuv:
 	cd TUV_5.2.1 && make clean && make && cd ../
 
+large:
+	./src/large_mechanisms.py model_Jacobian*.f90
+	./src/large_mechanisms.py model_Linear*.f90
+	./src/large_mechanisms.py model_Rates.f90
+
 #use make change mechanism='<path to mech>'
 change:
 	ls && python ./src/mechparse.py $(mechanism)
