@@ -142,7 +142,8 @@ else: # fix RO2 for non Jacobian or Linear Algebra Files
                 output[line]= checker(current.replace('&','').replace('\n',''))
 
        
-newdata=['! parsed by large_mechanisms.py D.Ellis 2017'];for item in output: newdata.extend(item)   
+newdata=['! parsed by large_mechanisms.py D.Ellis 2017']
+for item in output: newdata.extend(item)   
 
 f=open(file_name,'w')
 f.writelines(newdata)

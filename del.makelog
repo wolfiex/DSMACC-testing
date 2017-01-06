@@ -1,3 +1,4 @@
+Makefile:77: depend.mk: No such file or directory
 ... extern include file: params
 ... extern include file: params
 ... extern include file: params
@@ -221,6 +222,3 @@
 ... extern include file: params
 ... extern include file: params
 ... extern include file: params
-... extern module: model_global
-... extern module: model_precision
-make: *** [kpp] Error 5
