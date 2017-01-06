@@ -1,4 +1,4 @@
-  F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
+/usr.  F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
   FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
@@ -20,6 +20,7 @@ MAKEFILE_INC = depend.mk
 # If you don't have the perl script sfmakedepend, get it from:
 # http://www.arsc.edu/~kate/Perl
 F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
+perl = /usr/bin/perl #perl path
 
 all: $(PROG)
 
@@ -50,6 +51,12 @@ distclean: clean
 	
 tuv:
 	cd TUV_5.2.1 && make clean && make && cd ../
+
+#use make change mechanism='<path to mech>'
+change:
+	ls && python ./src/mechparse.py $(mechanism)
+	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
+	echo $(mechanism) 'updated in /src/model.kpp at line 6'
     
 kpp: clean
 	cd mechanisms && ./makedepos.pl && cd ../

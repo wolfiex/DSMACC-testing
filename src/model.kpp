@@ -1,10 +1,17 @@
 / include file with definition of the chemical species
 // and chemical equations
 
-#INCLUDE ./mechanisms/organic.kpp
-#INCLUDE ./mechanisms/inorganic.kpp
+
+//keep main mechanism at line 6 for make file! 
+#INCLUDE ./mechanisms/mcm331complete.kpp
+
+
+
+//#INCLUDE ./mechanisms/organic.kpp
+//#INCLUDE ./mechanisms/inorganic.kpp
+
 #INCLUDE ./mechanisms/emissions.kpp
-#INCLUDE ./mechanisms/depos.kpp
+//#INCLUDE ./mechanisms/depos.kpp
 
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
