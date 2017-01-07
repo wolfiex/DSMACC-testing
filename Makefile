@@ -63,6 +63,7 @@ change:
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
     
+    
 kpp: clean
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./

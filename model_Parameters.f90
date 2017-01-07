@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Parameters.f90
-! Time                 : Fri Jan  6 15:31:58 2017
+! Time                 : Sat Jan  7 04:19:27 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -5899,6 +5899,7 @@ MODULE model_Parameters
 
 ! Index declaration for dummy species
 
+  INTEGER, PARAMETER :: ind_EMISS = 0 
 
 ! Index declaration for fixed species in FIX
 !    FIX(indf_spc) = C(ind_spc) = C(NVAR+indf_spc)
