@@ -3,7 +3,7 @@
 
 
 //keep main mechanism at line 6 for make file! 
-#INCLUDE ./mechanisms/mcm331complete.kpp
+#INCLUDE ./mechanisms/isoprene.kpp
 
 
 
