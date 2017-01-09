@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Parameters.f90
-! Time                 : Sat Jan  7 04:19:27 2017
+! Time                 : Mon Jan  9 00:55:35 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -30,7 +30,7 @@ MODULE model_Parameters
 
 
 ! NSPEC - Number of chemical species
-  INTEGER, PARAMETER :: NSPEC = 5833 
+  INTEGER, PARAMETER :: NSPEC = 5834 
 ! NVAR - Number of Variable species
   INTEGER, PARAMETER :: NVAR = 5833 
 ! NVARACT - Number of Active species
@@ -38,7 +38,7 @@ MODULE model_Parameters
 ! NFIX - Number of Fixed species
   INTEGER, PARAMETER :: NFIX = 1 
 ! NREACT - Number of reactions
-  INTEGER, PARAMETER :: NREACT = 16701 
+  INTEGER, PARAMETER :: NREACT = 16702 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
@@ -5896,14 +5896,15 @@ MODULE model_Parameters
 ! Index declaration for fixed species in C
 !   C(ind_spc)
 
+  INTEGER, PARAMETER :: ind_EMISS = 5834 
 
 ! Index declaration for dummy species
 
-  INTEGER, PARAMETER :: ind_EMISS = 0 
 
 ! Index declaration for fixed species in FIX
 !    FIX(indf_spc) = C(ind_spc) = C(NVAR+indf_spc)
 
+  INTEGER, PARAMETER :: indf_EMISS = 1 
 
 END MODULE model_Parameters
 

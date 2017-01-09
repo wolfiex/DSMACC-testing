@@ -124,14 +124,15 @@ ncores=4
 if 'Jacobian' in file_name or 'Linear' in file_name: 
     os.system ("/usr/bin/perl -p -i.bak -e 's/&[\n\r]//g;s/\s*&//g' %s"%file_name)#remove newlines using perl
     data = tuple(open(file_name))
-    
+    output = multiprocessing.Pool(ncores).map(checker,data)
 
 
 else: # fix RO2 for non Jacobian or Linear Algebra Files  ie model.rates
     output = list(open(file_name))
+    print 'else'
     strip = False
     data = ''
-
+    
     for line in xrange(len(output)):
         current = output[line]
         if bool(re.match('.*RO2.*=.*&.*', str(current))): 

@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Rates.f90
-! Time                 : Sat Jan  7 04:19:27 2017
+! Time                 : Mon Jan  9 00:55:35 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -17243,6 +17243,7 @@ SUBROUTINE Update_RCONST ( )
   RCONST(16699) = (8.26D-12)
   RCONST(16700) = (J(41))
   RCONST(16701) = (KDEC)
+! RCONST(16702) = constant rate coefficient
       
 END SUBROUTINE Update_RCONST
 

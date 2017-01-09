@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Util.f90
-! Time                 : Sat Jan  7 04:19:27 2017
+! Time                 : Mon Jan  9 00:55:35 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -271,7 +271,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         ! ****************************************************************
         !                            
         ! SaveData - Write LOOKAT species in the data file 
-        !   Parameters :  index_loc = daycounter                                1.7D-14*EXP(423/TEMP)
+        !   Parameters :  index_loc = daycounter                                
         !
         ! ****************************************************************
 
@@ -356,17 +356,17 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !O                  NUM.
         !CO
         !CO         LENGTH - INTEGER; The length of STRING to the first blank.
-        !CO                  The significant part of STRING can be accessed with1.7D-14*EXP(423/TEMP)
+        !CO                  The significant part of STRING can be accessed with
         !CO                  the declaration STRING(1:LENGTH).
         !CO
         !CO         IERR - INTEGER variable giving return condition:
         !CO                IERR = 0 for normal return;
-        !CO                IERR = 1 if NUM cannot be converted to STRING because1.7D-14*EXP(423/TEMP)
+        !CO                IERR = 1 if NUM cannot be converted to STRING because
         !CO                       STRING is too short or STRING cannot be
         !CO                       converted to NUM because STRING is too long.
         !CO                IERR = 2 if STRING contained a non-numeric character
         !CO                       other than a leading sign or something went
-        !CO                       wrong with an integer-to-character conversion.1.7D-14*EXP(423/TEMP)
+        !CO                       wrong with an integer-to-character conversion.
         !CO
         !C       ALGORITHM:
         !CA
@@ -397,17 +397,17 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !CC
         !CC          NONE.
         !CC
-        !C----------------------------------------------------------------------1.7D-14*EXP(423/TEMP)
+        !C----------------------------------------------------------------------
         !C       written for:    The CASCADE Project
         !C                       Oak Ridge National Laboratory
         !C                       U.S. Department of Energy
         !C                       contract number DE-AC05-840R21400
         !C                       subcontract number 37B-7685 S13
         !C                       organization:  The University of Tennessee
-        !C----------------------------------------------------------------------1.7D-14*EXP(423/TEMP)
+        !C----------------------------------------------------------------------
         !C       THIS SOFTWARE IS IN THE PUBLIC DOMAIN
         !C       NO RESTRICTIONS ON ITS USE ARE IMPLIED
-        !C----------------------------------------------------------------------1.7D-14*EXP(423/TEMP)
+        !C----------------------------------------------------------------------
         !C
         !C Global Variables.
         !C
@@ -6508,6 +6508,7 @@ SUBROUTINE Shuffle_user2kpp ( V_USER, V )
   V(251) = V_USER(5830)
   V(5412) = V_USER(5831)
   V(1963) = V_USER(5832)
+  V(1761) = V_USER(5833)
       
 END SUBROUTINE Shuffle_user2kpp
 
@@ -12363,6 +12364,7 @@ SUBROUTINE Shuffle_kpp2user ( V, V_USER )
   V_USER(5830) = V(251)
   V_USER(5831) = V(5412)
   V_USER(5832) = V(1963)
+  V_USER(5833) = V(1761)
       
 END SUBROUTINE Shuffle_kpp2user
 
