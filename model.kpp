@@ -3,13 +3,13 @@
 
 
 //keep main mechanism at line 6 for make file! 
-#INCLUDE ./mechanisms/isoprene.kpp
+//#INCLUDE ./mechanisms/nheptane.kpp
 
 
 #INCLUDE ./mechanisms/emissions.kpp
 
-//#INCLUDE ./mechanisms/organic.kpp
-//#INCLUDE ./mechanisms/inorganic.kpp
+#INCLUDE ./mechanisms/organic.kpp
+#INCLUDE ./mechanisms/inorganic.kpp
 
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp

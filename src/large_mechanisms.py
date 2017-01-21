@@ -17,34 +17,20 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+global file_name
 file_name = sys.argv[1]
 
 os.system('cp %s  %s.bak'%(file_name,file_name))#make a backup copy 
 
 ###################fn 
-def checker (line, c_lim = 210 , l_lim = 200): 
+def checker (line, filename=file_name, c_lim = 210 , l_lim = 200): 
         #c_lim = 210   #ff 7190# fix2048 #1400  #210 //continuation lines
         #l_lim = 200  ##511 character limit
+        print file_name , 'checking'
         dummy=True #do not change
         
-        #save 100s of lines of code
-        if 'JUV(1)' in line:
-            jval = re.findall('\d+', line)
-            return ['do i = %d,%d\n'%(int(jval[0]),int(jval[-1])), 
-               'JUV(1) = JUV(1)+ JVS(i)*UV(i)\nend do\n\n' ]
-        
-        elif 'X(1) = (X(1)' in line:        
-            split = line.split('/')
-            line = split[0]                   
-            jval = re.findall('\d+', line)
-            return ['do i = %d,%d\n'%(int(jval[0]),int(jval[-1])), 
-               'X(1) = X(1) -JVS(i)*X(i)\nend do\n\n',
-               'X(1) = X(1)  / (JVS(1))\n']
-                      
-               
-               
-        elif 'REAL(kind=dp) :: UV(NVAR)' in line or 'REAL(kind=dp) :: X(NVAR)' in line: 
+  
+        if 'REAL(kind=dp) :: UV(NVAR)' in line or 'REAL(kind=dp) :: X(NVAR)' in line: 
             return [line, 'REAL(kind=dp) :: j_DUMMY\n' , 'INTEGER :: I\n']
             
         elif len(line) > c_lim:
@@ -53,8 +39,10 @@ def checker (line, c_lim = 210 , l_lim = 200):
                 m = re.findall('=\((.*)\)/',line)[0]
                 jval =re.findall(r'[+-]{1}[A-z0-9*\(\)]{1,40}', m)
                 line1 = 'j_DUMMY'
-                replace = [line1+'= 0.\n']+[line1 + '=' + line1 + i +'\n' for i in jval] 
-                replace = replace+[line.replace(m,'j_DUMMY')+'\n']
+                replace = ['j_DUMMY = 0.\n']
+                if 'Jacobian' in filename: replace = [line1+'= 0.\n']
+                replace = replace + [line1 + '=' + line1 + i +'\n' for i in jval] 
+                replace = replace + [line.replace(m,line.split('=')[0]+' +j_DUMMY')+'\n']
                 return replace
 
             else:
@@ -62,7 +50,9 @@ def checker (line, c_lim = 210 , l_lim = 200):
                 line1 = split[0]                   
                 jval =re.findall(r'[+-]{1}[A-z0-9*\(\)]{1,40}', split[1])
                 print jval
-                return [line1+'= 0.\n']+[line1 + '=' + line1 + i +'\n' for i in jval] 
+                replace = ['']
+                if 'Jacobian' in filename: replace = [line1+'= 0.\n']
+                return replace + [line1 + '=' + line1 + i +'\n' for i in jval] 
     
         
             
