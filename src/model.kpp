@@ -6,11 +6,12 @@
 #INCLUDE ./mechanisms/isoprene.kpp
 
 
+#INCLUDE ./mechanisms/emissions.kpp
 
 //#INCLUDE ./mechanisms/organic.kpp
 //#INCLUDE ./mechanisms/inorganic.kpp
 
-#INCLUDE ./mechanisms/emissions.kpp
+//#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp
 
 #INCLUDE ./src/util.inc
