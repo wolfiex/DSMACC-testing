@@ -98,10 +98,15 @@ for g in groups:
             #rates = pd.DataFrame(nc.groups[g].variables['Rate'][:])
             #rates.columns = nc.groups[g].variables['Rate'].head.split(',')[:-2]
 
-            
-            a = specs.NO
-            b = specs.NO2
-            c=a+b
+            first = True
+            for i in specs.columns: 
+                if 'PAN' in i:
+                    if first:
+                        c = specs[i]
+                        first =False
+                    else: 
+                        c = c+specs[i]
+                
             c= c/specs.M
             c = c.map(lambda x : float(x)/1e-9 ) 
             
