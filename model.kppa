@@ -1,0 +1,89 @@
+// This is the preprocessor file for the 
+// small stratospheric mechanism
+#MODEL       model
+
+
+#INCLUDE ./mechanisms/organic_geckoisoprene.kpp
+#INCLUDE ./mechanisms/inorganic.kpp
+#INCLUDE ./src/util.inc
+#INCLUDE ./src/global.inc
+
+// Use the Rosenbrock time integrator
+#INTEGRATOR  rosenbrock
+
+// Set the calculation precision
+#PRECISION   double
+
+// Set the form of the ODE function
+// aggregate : combine production/destruction
+// split     : separate production/destruction
+#FUNCTION    aggregate
+
+// Set the storage format of the Jacobian
+// sparse_lu_row : row-compressed Jacobian with zero fill
+// sparse_row    : row-compressed Jacobian
+// full          : no compression
+#JACOBIAN    sparse_lu_row
+
+// Specify program driver
+// minimal  : Only calls GridIntegrate
+// general  : Reports species concentrations to stdout
+// plotting : Draws plots of species concentrations
+// none     : No driver
+#DRIVER      ./src/driver
+
+// Set the target output language
+// One of: Fortran90, C
+#LANGUAGE    Fortran90
+
+// Set the target accelerator
+// One of: Serial, OpenMP, CUDA_GPU
+#ACCEL       Serial
+
+
+// Concentrations of species on the MONITOR list are reported
+// after each call to GridIntegrate.  The selected driver 
+// determines how the reporting is done.
+#MONITOR 
+    O;
+    O1D;
+    O3;
+    NO;
+    NO2;
+    O2;
+
+// Concentrations of species on the LOOKAT list are written
+// to a binary file after each call to GridIntegrate.
+#LOOKAT O3; NO2;
+
+// The mass balance of species on the CHECK list will be
+// checked as the chemical mechanism is calculated.
+// Note that this has no impact on mechanism performance
+// since this is done in the preprocessor.
+#CHECK 
+    O;
+    N;
+    
+// initial concentrations
+#INITVALUES
+// conversion from mixing ratio to concentration
+CFACTOR = 2.5E19;
+// initial mixing ratios
+ALL_SPEC = 0.;
+
+
+
+// set indices of unused species to ind_*=0
+#DUMMYINDEX ON
+
+// do not create Stoichiom files
+#STOICMAT OFF
+
+// do not create Hessian files
+#HESSIAN OFF
+
+// do not create Mex files
+#MEX OFF
+
+// equation IDs
+#EQNTAGS on

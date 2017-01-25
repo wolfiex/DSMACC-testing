@@ -41,7 +41,7 @@ SA=IGNORE;
 {26.}OH + NO3 = HO2 + NO2 :2.00E-11;
 {27.}HO2 + NO = OH + NO2 :3.45E-12*EXP(270/TEMP) ;
 {28.}HO2 + NO2 = HO2NO2 :KMT09 ;
-{29.}HO2NO2 = NO2 + HO2 :KMT10 + j(1300);
+{29.}HO2NO2 = NO2 + HO2 :KMT10 ;//+ j(1300); /// additional wavelength from pete. 
 {30.}OH + HO2NO2 = NO2 :3.20E-13*EXP(690/TEMP) ;
 {31.}HO2 + NO3 = OH + NO2 :4.00E-12 ;
 {32.}OH + HONO = NO2 :2.50E-12*EXP(260/TEMP) ;
@@ -63,3 +63,4 @@ SA=IGNORE;
 // others
 {998.}   DUMMY = 0.5DUMMY : 1 ;
 {999.} EMISS = EMISS: 1;// need for intial conditions to work
+//NO TABS!!!!
