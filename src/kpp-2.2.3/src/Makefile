@@ -38,8 +38,8 @@ CFLAGS=`cat ../cflags`
 all: kpp
 
 .c.o:
-	@echo "  "$(CC) $(CC_FLAGS) $(CFLAGS) -c $*.c
-	@$(CC) $(CC_FLAGS) $(CFLAGS) -I$(INCLUDE_DIR) -c $*.c
+	@echo "  "$(CC) $(CC_FLAGS) $(OPT_FLAGS) $(CFLAGS) -c $*.c
+	@$(CC) $(CC_FLAGS) $(OPT_FLAGS) $(CFLAGS) -I$(INCLUDE_DIR) -c $*.c
 
 OBJS  = \
 	y.tab.o \

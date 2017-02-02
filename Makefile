@@ -1,4 +1,4 @@
-  F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
+/usr.  F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
   FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
@@ -20,6 +20,7 @@ MAKEFILE_INC = depend.mk
 # If you don't have the perl script sfmakedepend, get it from:
 # http://www.arsc.edu/~kate/Perl
 F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
+perl = /usr/bin/perl #perl path
 
 all: $(PROG)
 
@@ -27,6 +28,7 @@ all: $(PROG)
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
 $(PROG): depend $(OBJS1) $(OBJS2)
+	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90;
 	$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
 
 # update file dependencies
@@ -39,7 +41,7 @@ clean:
 clear:
 	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
 	
-distclean: clean
+distclean: clean clear
 	rm -f $(PROG)
 	rm -f depend.mk* 
 	rm -f *.nc
@@ -50,12 +52,24 @@ distclean: clean
 	
 tuv:
 	cd TUV_5.2.1 && make clean && make && cd ../
-    
+
+large:
+	./src/large_mechanisms.py model_Jacobian*.f90
+	./src/large_mechanisms.py model_Linear*.f90
+	./src/large_mechanisms.py model_Rates.f90
+
+#use make change mechanism='<path to mech>'
+change:
+	ls && python ./src/mechparse.py $(mechanism)
+	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
+	echo $(mechanism) 'updated in /src/model.kpp at line 6'
+	    
 kpp: clean
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
-	./src/kpp-2.2.3/bin/kpp model.kpp 
+	./kpp/kpp-2.2.3_01/bin/kpp model.kpp 
+	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90
 	rm -rf *.kpp
 
 tidy:

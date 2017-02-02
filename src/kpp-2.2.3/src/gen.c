@@ -889,7 +889,9 @@ int i, j, k, l, m, JVRP_NZ, newrow;
 int used;
 int F_STOIC;
 int crow_JVRP[MAX_EQN], icol_JVRP[MAX_EQN*MAX_SPECIES];
+
 int irow_JVRP[MAX_EQN*MAX_SPECIES];
+
 
   if( VarNr == 0 ) return;
   
