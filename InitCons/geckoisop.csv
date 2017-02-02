@@ -3,9 +3,9 @@ Description: Optional,Do not write time more than once. ,,,,,,
 Index,Species,Constrain,isop8,isop9,isop10,isop11,isop12
 ii ,TIME,NA,259200,259200,259200,259200,259200
 ii,TEMP,0,298,298,298,298,298
-ii ,LAT,0,53.958,53.958,53.958,53.958,53.958
+ii ,LAT,0,45,45,45,45,45
 ii,LON,0,0,0,0,0,0
-ii ,JDAY,0,173.25,173.25,173.25,173.25,173.25
+ii ,JDAY,0,173,173,173,173,173
 ii,H2O,0,0.01,0.01,0.01,0.01,0.01
 ii,ALBEDO,0,0,0,0,0,0
 ii ,PRESS,0,1013,1013,1013,1013,1013

@@ -41,7 +41,7 @@ clean:
 clear:
 	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
 	
-distclean: clean
+distclean: clean clear
 	rm -f $(PROG)
 	rm -f depend.mk* 
 	rm -f *.nc
@@ -63,16 +63,8 @@ change:
 	ls && python ./src/mechparse.py $(mechanism)
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
-    
-kppbroken: clean
-	cd mechanisms && ./makedepos.pl && cd ../
-	cp src/model.kpp ./
-	cp src/constants.f90 ./model_constants.f90
-	#./kpp/kpp-2.2.3_01/bin/kpp model.kpp
-	./kpp-2.2.3/bin/kpp model.kpp 
-	rm -rf *.kpp
 	    
-kpp2: clean
+kpp: clean
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90

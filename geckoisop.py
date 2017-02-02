@@ -23,12 +23,13 @@ plots = [ spec('O3',40,140),spec('OH',0,1.2e-3),spec('HO2',0,50e-3),spec('HNO3',
 groups = tuple(nc.groups)
 
 
-
+#s = shift factor on x axis
+s=-0
 
 for i in plots:
     
     im = image.imread('gecko-isoprene/%s.png'%i.name)
-    imshow(im, aspect='auto', extent=(-60, 430-60, i.ymin, i.ymax), zorder=-1, cmap=cm.gray)
+    imshow(im, aspect='auto', extent=(0+s, 430+s, i.ymin, i.ymax), zorder=-1, cmap=cm.gray)
     title(i.name)
     for g in groups:
     
@@ -56,7 +57,7 @@ for i in plots:
     
 # for the nox    
 im = image.imread('gecko-isoprene/NOx.png')
-imshow(im, aspect='auto', extent=(-60, 430-60, 10e-1, 10e1), zorder=-1, cmap=cm.gray)
+imshow(im, aspect='auto', extent=(0+s, 430+s, 10e-1, 10e1), zorder=-1, cmap=cm.gray)
 title('NOx')
 for g in groups:
     
@@ -81,6 +82,8 @@ for g in groups:
 
 legend(loc='UL')
 savefig('gecko-isoprene/mixed_nox.png')
+
+close()
 print 'Saved:', 'nox'
 
 
@@ -88,7 +91,7 @@ print 'Saved:', 'nox'
 
 # for the PANS    
 im = image.imread('gecko-isoprene/PANs.png')
-imshow(im, aspect='auto', extent=(0-60, 430-60, 0, 7), zorder=-1, cmap=cm.gray)
+imshow(im, aspect='auto', extent=(0+s, 430+s, 0, 7), zorder=-1, cmap=cm.gray)
 title('PANs')
 for g in groups:
     
@@ -120,7 +123,7 @@ legend(loc='UL')
 savefig('gecko-isoprene/mixed_PANs.png')
 print 'Saved:', 'pan'
 
-
+close()
 
 
     

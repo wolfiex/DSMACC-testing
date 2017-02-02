@@ -47,7 +47,11 @@ def read_fbin(filename):
 
 # run dsmacc
 def simulate (arg_in):
+
+
     try:     #each system call has to be on a new line        
+
+        description="%rm Outputs/s_%s.*"%('run',arg_in[1])
         start = time.strftime("%s")
         description="%s_%s"%('run',arg_in[1])
         linenumber = "%s"%(int(arg_in[0])+1) 
