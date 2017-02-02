@@ -366,8 +366,7 @@ char dummy_val[100];           /* used just to avoid strange behaviour of
   switch( var->type ) {
     case CONST: bprintf("#define %-20s %-10s ", var->name, val );
                 break;       
-    default:
-                printf( "Invalid constant", var->type );
+    default:    printf( "Invalid constant", var->type );
                 break;
   }
   if( varTable[ v ]->comment )

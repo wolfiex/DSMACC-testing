@@ -28,6 +28,7 @@ all: $(PROG)
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
 $(PROG): depend $(OBJS1) $(OBJS2)
+	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90;
 	$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
 
 # update file dependencies
@@ -63,12 +64,20 @@ change:
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
     
-    
-kpp: clean
+kppbroken: clean
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
-	./src/kpp-2.2.3/bin/kpp model.kpp 
+	#./kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	./kpp-2.2.3/bin/kpp model.kpp 
+	rm -rf *.kpp
+	    
+kpp2: clean
+	cd mechanisms && ./makedepos.pl && cd ../
+	cp src/model.kpp ./
+	cp src/constants.f90 ./model_constants.f90
+	./kpp/kpp-2.2.3_01/bin/kpp model.kpp 
+	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90
 	rm -rf *.kpp
 
 tidy:

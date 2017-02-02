@@ -45,8 +45,8 @@ class mechanism:
             
         
         new
-new = mechanism('33inorganics.kpp')
-old = mechanism('32inorganics.kpp')
+new = mechanism('organic32.kpp')
+old = mechanism('organic33.kpp')
 
 df = pd.DataFrame(old.compare(new)['change'])
 df.columns = ['rct','prod','rateold','ratenew']
@@ -54,3 +54,14 @@ df.ratenew = df.ratenew.map(lambda x: x.replace('D','E'))
 
 sameD = df[df.ratenew==df.rateold][['rct','prod']] 
 
+
+
+oldex=old.compare(new)['exclusive']
+newex=new.compare(old)['exclusive']
+
+string = "data={'old':"+ str(oldex) + ",new:" + str(newex) + ",}"
+
+with open('mechcomp.json', 'w') as f:
+    f.write(string)
+    
+    

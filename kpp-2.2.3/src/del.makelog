@@ -1,0 +1,106 @@
+icc: command line warning #10006: ignoring unknown option '-i8'
+icc: command line warning #10006: ignoring unknown option '-i8'
+icc: command line warning #10006: ignoring unknown option '-i8'
+icc: command line warning #10006: ignoring unknown option '-i8'
+icc: command line warning #10006: ignoring unknown option '-i8'
+kpp.c(238): warning #61: integer operation result is out of range
+      best = MAX_SPECIES*MAX_SPECIES; best_i = 0;
+                        ^
+
+icc: command line warning #10006: ignoring unknown option '-i8'
+gen.c(891): warning #61: integer operation result is out of range
+  int crow_JVRP[MAX_EQN], icol_JVRP[MAX_EQN*MAX_SPECIES];
+                                           ^
+
+gen.c(892): warning #61: integer operation result is out of range
+  int irow_JVRP[MAX_EQN*MAX_SPECIES];
+                       ^
+
+icc: command line warning #10006: ignoring unknown option '-i8'
+icc: command line warning make[1]: *** Deleting file `gen.o'
+*** glibc detected *** icc: double free or corruption (fasttop): 0x0000000000a1e200 ***
+======= Backtrace: =========
+/lib64/libc.so.6(+0x790c8)[0x2aaaabbd70c8]
+/lib64/libc.so.6(cfree+0x6c)[0x2aaaabbdc10c]
+icc[0x42afca]
+icc[0x417b8b]
+icc[0x517a73]
+/lib64/libc.so.6(+0x32910)[0x2aaaabb90910]
+/lib64/libpthread.so.0(pthread_cond_timedwait+0x12c)[0x2aaaab1b59fc]
+icc[0x4c5b21]
+/lib64/libpthread.so.0(+0x7806)[0x2aaaab1b1806]
+/lib64/libc.so.6(clone+0x6d)[0x2aaaabc3c9bd]
+======= Memory map: ========
+00400000-006bd000 r-xp 00000000 08:82 1393445                            /opt/intel2016/compilers_and_libraries_2016.1.150/linux/bin/intel64/icc
+008bd000-00995000 rw-p 002bd000 08:82 1393445                            /opt/intel2016/compilers_and_libraries_2016.1.150/linux/bin/intel64/icc
+00995000-00a3d000 rw-p 00000000 00:00 0                                  [heap]
+2aaaaaaab000-2aaaaaaca000 r-xp 00000000 08:82 2891822                    /lib64/ld-2.11.3.so
+2aaaaaaca000-2aaaaaacb000 r-xp 00000000 00:00 0                          [vdso]
+2aaaaaacb000-2aaaaaacd000 rw-p 00000000 00:00 0 
+2aaaaacca000-2aaaaaccb000 r--p 0001f000 08:82 2891822                    /lib64/ld-2.11.3.so
+2aaaaaccb000-2aaaaaccd000 rw-p 00020000 08:82 2891822                    /lib64/ld-2.11.3.so
+2aaaaaccd000-2aaaaad60000 r-xp 00000000 08:82 1393342                    /opt/intel2016/compilers_and_libraries_2016.1.150/linux/bin/intel64/libintelremotemon.so
+2aaaaad60000-2aaaaaf60000 ---p 00093000 08:82 1393342                    /opt/intel2016/compilers_and_libraries_2016.1.150/linux/bin/intel64/libintelremotemon.so
+2aaaaaf60000-2aaaaaf65000 rw-p 00093000 08:82 1393342                    /opt/intel2016/compilers_and_libraries_2016.1.150/linux/bin/intel64/libintelremotemon.so
+2aaaaaf65000-2aaaaaf66000 r--p 00000000 08:82 8971023                    /usr/lib/locale/en_US.utf8/LC_IDENTIFICATION
+2aaaaaf66000-2aaaaaf6d000 r--s 00000000 08:82 6193401                    /usr/lib64/gconv/gconv-modules.cache
+2aaaaaf6d000-2aaaaaf6e000 r--p 00000000 08:82 8979516                    /usr/lib/locale/en_US.utf8/LC_MEASUREMENT
+2aaaaaf6e000-2aaaaaf6f000 r--p 00000000 08:82 8979502                    /usr/lib/locale/en_US.utf8/LC_TELEPHONE
+2aaaaaf6f000-2aaaaaf70000 r--p 00000000 08:82 8970864                    /usr/lib/locale/en_US.utf8/LC_ADDRESS
+2aaaaaf70000-2aaaaaf71000 r--p 00000000 08:82 8979543                    /usr/lib/locale/en_US.utf8/LC_NAME
+2aaaaaf71000-2aaaaaf72000 r--p 00000000 08:82 8979515                    /usr/lib/locale/en_US.utf8/LC_PAPER
+2aaaaaf72000-2aaaaaf73000 r--p 00000000 08:82 8970422                    /usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES
+2aaaaaf73000-2aaaaaf74000 r--p 00000000 08:82 8971025                    /usr/lib/locale/en_US.utf8/LC_MONETARY
+2aaaaafa6000-2aaaaafa8000 r-xp 00000000 08:82 2891901                    /lib64/libdl-2.11.3.so
+2aaaaafa8000-2aaaab1a8000 ---p 00002000 08:82 2891901                    /lib64/libdl-2.11.3.so
+2aaaab1a8000-2aaaab1a9000 r--p 00002000 08:82 2891901                    /lib64/libdl-2.11.3.so
+2aaaab1a9000-2aaaab1aa000 rw-p 00003000 08:82 2891901                    /lib64/libdl-2.11.3.so
+2aaaab1aa000-2aaaab1c1000 r-xp 00000000 08:82 2891852                    /lib64/libpthread-2.11.3.so
+2aaaab1c1000-2aaaab3c1000 ---p 00017000 08:82 2891852                    /lib64/libpthread-2.11.3.so
+2aaaab3c1000-2aaaab3c2000 r--p 00017000 08:82 2891852                    /lib64/libpthread-2.11.3.so
+2aaaab3c2000-2aaaab3c3000 rw-p 00018000 08:82 2891852                    /lib64/libpthread-2.11.3.so
+2aaaab3c3000-2aaaab3c8000 rw-p 00000000 00:00 0 
+2aaaab3c8000-2aaaab423000 r-xp 00000000 08:82 2891904                    /lib64/libm-2.11.3.so
+2aaaab423000-2aaaab622000 ---p 0005b000 08:82 2891904                    /lib64/libm-2.11.3.so
+2aaaab622000-2aaaab623000 r--p 0005a000 08:82 2891904                    /lib64/libm-2.11.3.so
+2aaaab623000-2aaaab641000 rw-p 0005b000 08:82 2891904                    /lib64/libm-2.11.3.so
+2aaaab641000-2aaaab729000 r-xp 00000000 08:82 8987810                    /usr/lib64/libstdc++.so.6.0.17
+2aaaab729000-2aaaab928000 ---p 000e8000 08:82 8987810                    /usr/lib64/libstdc++.so.6.0.17
+2aaaab928000-2aaaab930000 r--p 000e7000 08:82 8987810                    /usr/lib64/libstdc++.so.6.0.17
+2aaaab930000-2aaaab932000 rw-p 000ef000 08:82 8987810                    /usr/lib64/libstdc++.so.6.0.17
+2aaaab932000-2aaaab947000 rw-p 00000000 00:00 0 
+2aaaab947000-2aaaab95c000 r-xp 00000000 08:82 2892018                    /lib64/libgcc_s.so.1
+2aaaab95c000-2aaaabb5b000 ---p 00015000 08:82 2892018                    /lib64/libgcc_s.so.1
+2aaaabb5b000-2aaaabb5c000 r--p 00014000 08:82 2892018                    /lib64/libgcc_s.so.1
+2aaaabb5c000-2aaaabb5d000 rw-p 00015000 08:82 2892018                    /lib64/libgcc_s.so.1
+2aaaabb5d000-2aaaabb5e000 rw-p 00000000 00:00 0 
+2aaaabb5e000-2aaaabcd0000 r-xp 00000000 08:82 2891842                    /lib64/libc-2.11.3.so
+2aaaabcd0000-2aaaabed0000 ---p 00172000 08:82 2891842                    /lib64/libc-2.11.3.so
+2aaaabed0000-2aaaabed4000 r--p 00172000 08:82 2891842                    /lib64/libc-2.11.3.so
+2aaaabed4000-2aaaabed5000 rw-p 00176000 08:82 2891842                    /lib64/libc-2.11.3.so
+2aaaabed5000-2aaaabede000 rw-p 00000000 00:00 0 
+2aaaabede000-2aaaabffb000 r--p 00000000 08:82 8971931                    /usr/lib/locale/en_US.utf8/LC_COLLATE
+2aaaabffb000-2aaaabffc000 r--p 00000000 08:82 8971048                    /usr/lib/locale/en_US.utf8/LC_TIME
+2aaaabffc000-2aaaabffd000 r--p 00000000 08:82 8971922                    /usr/lib/locale/en_US.utf8/LC_NUMERIC
+2aaaabffd000-2aaaac03c000 r--p 00000000 08:82 8971929                    /usr/lib/locale/en_US.utf8/LC_CTYPE
+2aaaac03c000-2aaaac071000 r--s 00000000 08:82 1729109                    /var/run/nscd/passwd
+2aaaac0b2000-2aaaac0bd000 r-xp 00000000 08:82 2891975                    /lib64/libnss_files-2.11.3.so
+2aaaac0bd000-2aaaac2bd000 ---p 0000b000 08:82 2891975                    /lib64/libnss_files-2.11.3.so
+2aaaac2bd000-2aaaac2be000 r--p 0000b000 08:82 2891975                    /lib64/libnss_files-2.11.3.so
+2aaaac2be000-2aaaac2bf000 rw-p 0000c000 08:82 2891975                    /lib64/libnss_files-2.11.3.so
+2aaaac2bf000-2aaaac2c4000 r-xp 00000000 08:82 2891969                    /lib64/libnss_dns-2.11.3.so
+2aaaac2c4000-2aaaac4c3000 ---p 00005000 08:82 2891969                    /lib64/libnss_dns-2.11.3.so
+2aaaac4c3000-2aaaac4c4000 r--p 00004000 08:82 2891969                    /lib64/libnss_dns-2.11.3.so
+2aaaac4c4000-2aaaac4c5000 rw-p 00005000 08:82 2891969                    /lib64/libnss_dns-2.11.3.so
+2aaaac4c5000-2aaaac4d8000 r-xp 00000000 08:82 2892001                    /lib64/libresolv-2.11.3.so
+2aaaac4d8000-2aaaac6d8000 ---p 00013000 08:82 2892001                    /lib64/libresolv-2.11.3.so
+2aaaac6d8000-2aaaac6d9000 r--p 00013000 08:82 2892001                    /lib64/libresolv-2.11.3.so
+2aaaac6d9000-2aaaac6da000 rw-p 00014000 08:82 2892001                    /lib64/libresolv-2.11.3.so
+2aaaac6da000-2aaaac6dc000 rw-p 00000000 00:00 0 
+2aaaac6dc000-2aaaac6dd000 ---p 00000000 00:00 0 
+2aaaac6dd000-2aaaac8de000 rw-p 00000000 00:00 0 
+2aaab0000000-2aaab0021000 rw-p 00000000 00:00 0 
+2aaab0021000-2aaab4000000 ---p 00000000 00:00 0 
+7ffffffdc000-7ffffffff000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+make[1]: *** [gen.o] Aborted

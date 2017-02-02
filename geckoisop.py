@@ -28,7 +28,7 @@ groups = tuple(nc.groups)
 for i in plots:
     
     im = image.imread('gecko-isoprene/%s.png'%i.name)
-    imshow(im, aspect='auto', extent=(0, 430, i.ymin, i.ymax), zorder=-1, cmap=cm.gray)
+    imshow(im, aspect='auto', extent=(-60, 430-60, i.ymin, i.ymax), zorder=-1, cmap=cm.gray)
     title(i.name)
     for g in groups:
     
@@ -56,7 +56,7 @@ for i in plots:
     
 # for the nox    
 im = image.imread('gecko-isoprene/NOx.png')
-imshow(im, aspect='auto', extent=(0, 430, 10e-1, 10e1), zorder=-1, cmap=cm.gray)
+imshow(im, aspect='auto', extent=(-60, 430-60, 10e-1, 10e1), zorder=-1, cmap=cm.gray)
 title('NOx')
 for g in groups:
     
@@ -88,7 +88,7 @@ print 'Saved:', 'nox'
 
 # for the PANS    
 im = image.imread('gecko-isoprene/PANs.png')
-imshow(im, aspect='auto', extent=(0, 430, 0, 7), zorder=-1, cmap=cm.gray)
+imshow(im, aspect='auto', extent=(0-60, 430-60, 0, 7), zorder=-1, cmap=cm.gray)
 title('PANs')
 for g in groups:
     

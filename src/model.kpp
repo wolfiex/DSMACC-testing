@@ -1,18 +1,8 @@
 / include file with definition of the chemical species
 // and chemical equations
 
-
-//keep main mechanism at line 6 for make file! 
-//#INCLUDE ./mechanisms/organicmcm3.2.kpp
-#INCLUDE ./mechanisms/organic_geckoisoprene.kpp
-
-
-//#INCLUDE ./mechanisms/emissions.kpp
-//#INCLUDE ./mechanisms/organic.kpp
-
-    
+#INCLUDE ./mechanisms/organic33.kpp
 #INCLUDE ./mechanisms/inorganic.kpp
-
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp
 

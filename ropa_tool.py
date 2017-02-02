@@ -22,7 +22,7 @@ ncores = 4
 
 
 ########### read dsmacc data
-myfile = 'geckonhep_1701050054.nc'
+myfile = ncfile
 
 
 nc = Dataset(myfile,'r')
@@ -99,6 +99,7 @@ for i in xlen(reactants):
         
     prod = 1
     for k in rcol: prod *= k
+    print i 
     flux.append(prod * rates[rates.columns[i]])
 
 ''' 4 convert concentrations to mixing ratio '''

@@ -59,12 +59,15 @@ FLEX_LIB_DIR=/usr/lib/x86_64-linux-gnu
 # 4. Platform independent C compiler flags. By default "-O" is used which 
 #    turns on optimization. If you are experiencing problems you may try 
 #    "-g" to include debuging informations.
-
-CC_FLAGS= -O3 --unroll-aggressive -opt-prefetch -static -no-prec-div  #-fast -xSSE4.2 -no-prec-div -static -opt-prefetch -unroll-aggressive -m64 #-g
+CC_FLAGS= -O0 
+OPT_FLAGS= -i8 -r16 -Wall
+#-O3 --unroll-aggressive -opt-prefetch -static -no-prec-div 
+ #-fast -xSSE4.2 -no-prec-div -static -opt-prefetch -unroll-aggressive -m64 #-g -Wp64 -Wall
 
 # 5. Path to include additional directories
 #    Typically: /usr/include on Linux
 #               /usr/include/sys on Mac OS X
+
 INCLUDE_DIR = /usr/include
 
 ##############################################################################

@@ -57,8 +57,8 @@ SA=IGNORE;
 {45.}NO3 = NO2 + O :J(6) ;
 {46.}HONO = OH + NO :J(7) ;
 {47.}HNO3 = OH + NO2 :J(8) ;
-{33.}  HNO3 = NA : 6.00D-06 ;
-{34.}  N2O5 = NA + NA : 4.00D-04 ;
+//{33.}  HNO3 = NA : 6.00D-06 ;
+//{34.}  N2O5 = NA + NA : 4.00D-04 ;
 {35.}  SO3 = SA : 1.20D-15*H2O ;
 // others
 {998.}   DUMMY = 0.5DUMMY : 1 ;
