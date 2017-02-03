@@ -6,11 +6,26 @@ import netCDF4
 from netCDF4 import Dataset
 from scipy.io import FortranFile
 #from StringIO import StringIO
-
+import glob,sys,os
+ 
+ 
 '''options'''
 available_cores = 16
-ic_file= sys.argv[1]
+#ic_file= sys.argv[1]
 pre_formatted_style=False #slower
+
+ 
+ 
+ 
+ 
+ ##################
+ ####read files####
+ 
+file_list = glob.glob('InitCons/*.csv')
+
+print 'Select file to open: \n\n'
+for i,f in enumerate(file_list): print i , ' - ', f
+ic_file = file_list[int(input('Enter Number \n'))]     
 
 
 #run simulations
