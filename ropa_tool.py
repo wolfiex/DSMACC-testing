@@ -1,3 +1,4 @@
+#!/usr/local/anaconda/bin/python
 '''
 A tool to calculate the fluxes from DSMACC
 D.Ellis 2016
