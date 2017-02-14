@@ -65,6 +65,7 @@ change:
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
 	    
 kpp: clean
+	cd kpp/kpp*/ && make 
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90

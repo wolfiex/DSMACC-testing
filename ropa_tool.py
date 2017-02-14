@@ -1,3 +1,4 @@
+#!/usr/local/anaconda/bin/python
 '''
 A tool to calculate the fluxes from DSMACC
 D.Ellis 2016
@@ -18,6 +19,8 @@ from netCDF4 import Dataset
 import matplotlib.pyplot as plt
 #netcdf file path
 ncfile = sys.argv[1]
+
+
 ncores = 4
 
 
@@ -216,7 +219,7 @@ from netCDF4 import Dataset
 nrows = conc.shape[0]
 
  
-info_file = Dataset('volcano.nc', 'w', format='NETCDF3_CLASSIC')
+info_file = Dataset('ropa_'+ncfile, 'w', format='NETCDF3_CLASSIC')
  
 info_file.createDimension('time', nrows)
 info_file.createDimension('specs', conc.shape[1])
