@@ -5,14 +5,14 @@
   F90FLAGS   = -cpp -mcmodel medium -O0 -fpp  #-openmp
 ##############################################################################
 
-PROG = model 
+PROG = model
 
 # complete list of all f90 source files
-SRCS1 = $(wildcard model_*.f90) 
+SRCS1 = $(wildcard model_*.f90)
 SRCS2 = $(wildcard TUV_5.2.1/*.f)
 
 # the object files are the same as the source files but with suffix ".o"
-OBJS1 := $(SRCS1:.f90=.o) 
+OBJS1 := $(SRCS1:.f90=.o)
 OBJS2 := $(SRCS2:.f=.o)
 
 MAKEFILE_INC = depend.mk
@@ -40,17 +40,19 @@ clean:
 
 clear:
 	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
-	
+
 distclean: clean clear
 	rm -f $(PROG)
-	rm -f depend.mk* 
+	rm -f depend.mk*
 	rm -f *.nc
 	rm -f *.dat
-	rm -f *.o 
+	rm -f *.o
 	rm -f model_*
 	rm -f run_
-	
+
 tuv:
+	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
+	cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params .
 	cd TUV_5.2.1 && make clean && make && cd ../
 
 large:
@@ -63,13 +65,13 @@ change:
 	ls && python ./src/mechparse.py $(mechanism)
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
-	    
+
 kpp: clean
-	cd kpp/kpp*/ && make 
+	cd kpp/kpp*/ && make
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
-	./kpp/kpp-2.2.3_01/bin/kpp model.kpp 
+	./kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90
 	rm -rf *.kpp
 
@@ -80,11 +82,11 @@ tidy:
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
 TUV_5.2.1/%.o: %.f
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
-	
+
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-model_Global.o: src/params
+model_Global.o: TUV_5.2.1/params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
