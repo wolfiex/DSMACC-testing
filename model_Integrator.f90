@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Integrator.f90
-! Time                 : Thu Feb 16 17:13:45 2017
+! Time                 : Wed Feb 22 12:50:35 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model

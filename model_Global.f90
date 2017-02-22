@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Global.f90
-! Time                 : Thu Feb 16 17:13:45 2017
+! Time                 : Wed Feb 22 12:50:35 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -39,7 +39,7 @@ MODULE model_Global
   REAL(kind=dp) :: FIX(NFIX)
 ! VAR, FIX are chunks of array C
       EQUIVALENCE( C(1),VAR(1) )
-      EQUIVALENCE( C(48),FIX(1) )
+      EQUIVALENCE( C(610),FIX(1) )
 ! RCONST - Rate constants (global)
   REAL(kind=dp) :: RCONST(NREACT)
 ! TIME - Current integration time
@@ -68,9 +68,9 @@ MODULE model_Global
   REAL(kind=dp) :: CFACTOR
 
 ! INLINED global variable declarations
-
-REAL(dp)::M, N2, O2, RO2, H2O
-
+ 
+ REAL(dp)::M, N2, O2, RO2, H2O 
+ 
   REAL(dp) :: PRESS, LAT, LON, O3COL, JO1D, JNO2,DEPOS
   REAL(dp) :: JDAY, JREPEAT, ALBEDO, SAREA, RP1
   INTEGER :: INIT_TIME, NOX(NVAR)
