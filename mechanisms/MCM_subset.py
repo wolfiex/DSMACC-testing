@@ -12,8 +12,8 @@ import os, sys, multiprocessing,re
 
 available_cores = 16
 
-try: filename=sys.argv[1]
-except:filename1 = 'organic_cri5.kpp'
+try: filename1=sys.argv[1]
+except:filename1 = 'organic_cri3.kpp'
 full = tuple(open(filename1))
 try: filename=sys.argv[2]
 except:filename = 'inorganic_mcm.kpp'
@@ -36,7 +36,7 @@ spec2num = {v: k for k, v in num2spec.iteritems()}
 
 
 ''' Step 2 split array into reactants and products '''
-fullstr=''.join(full).replace('\n','').replace('\t','').replace(' ','')
+fullstr=''.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
 eqn = [i.replace(' ','').split(':') for i in re.findall(r'}([A-z0-9+-=:()*/]*);' ,fullstr)]
 equations = [ i[0].split('=') for i in eqn]
 
@@ -50,7 +50,7 @@ gen = xrange(len(equations))
 
 #make into a class with run number
 ''' get all species formed ''' 
-origin = {'O3','NO','NO2','C5H8'}
+origin = {'O3','NO','NO2','NC7H16'}
 species = origin | inorganic_species ^ set (['' ])
 counter = 0 
 previous = '' 
@@ -75,11 +75,12 @@ while True:
     species = species | set(dummy)
     
     
-    for i in dummy: 
-        if sarr[i] < 0 :
-            print i
-            sarr[spec2num[i]]= counter
-
+    for i in dummy:
+        try:
+            if sarr[i] < 0 :
+                print i
+                sarr[spec2num[i]]= counter
+        except: print 'skipping-'+i
     dummy = []
 
     if previous == species: break
@@ -151,10 +152,12 @@ REAL(dp)::M, N2, O2, RO2, H2O
 #ENDINLINE 
 #INCLUDE atoms
 #DEFVAR
-HNO3=IGNORE;
-SO2=IGNORE;
-SO3=IGNORE;
-NO3=IGNORE;'''
+'''
+
+#HNO3=IGNORE;
+#SO2=IGNORE;
+#SO3=IGNORE;
+#NO3=IGNORE;'''
 
 for i in species:
     if i == '': continue#i = 'DUMMY'
@@ -183,7 +186,7 @@ for i in inorganics:
 
 for i in reactions:
     j = eqn[i]
-    string += '<%04d> %s : %s;\n'%(i,j[0],j[1]) 
+    string += '{%04d} %s : %s;\n'%(i,j[0],j[1]) 
 
 
 with open("subset_"+filename1, 'w') as f:

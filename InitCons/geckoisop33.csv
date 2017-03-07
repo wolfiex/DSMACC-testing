@@ -1,6 +1,6 @@
 Description: Optional,Do not write time more than once. ,,
 ,,,
-Index,Species,Constrain,2
+Index,Species,Constrain,gecko
 ii ,TIME,NA,259200
 ii,TEMP,0,298
 ii ,LAT,0,45
@@ -9,12 +9,10 @@ ii ,JDAY,0,172.25
 ii,H2O,0,0.01
 ii,ALBEDO,0,0
 ii ,PRESS,0,1013
-ii,NOx,0,
+ii,NOx,0,0
 ii ,DEPOS,1,0
 ii,FEMISS,1,0
-1,NO,0,0.00000001
+1,NO,0,1.00E-008
 2,NO2,0,0
-3,O3,0,0.00000004
-4,C5H8,0,0.00000002
-,CO,0,0
-,H2,0,0
+3,O3,0,4.00E-008
+4,C5H8,0,2.00E-008

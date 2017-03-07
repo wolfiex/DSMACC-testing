@@ -2,17 +2,17 @@
   FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
-  F90FLAGS   = -cpp -mcmodel medium -O0 -fpp  #-openmp
+  F90FLAGS   = -assume bscc -cpp -mcmodel medium -O0 -fpp  #-openmp
 ##############################################################################
-#colours 
-black='\033[90m'
-red='\033[91m'
-green='\033[92m'
-yellow='\033[93m'
-blue='\033[94m'
-purple='\033[95m'
-cyan='\033[96m'
-white='\033[97m'
+#colour
+black="\033[90m"
+red="\033[91m"
+green="\033[92m"
+yellow="\033[93m"
+blue="\033[94m"
+purple="\033[95m"
+cyan="\033[96m"
+white="\033[97m"
 nocol="\033[0m"
 #################
 
@@ -39,7 +39,7 @@ all: $(PROG) # default make cmd !
 # the dependencies depend on the link
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
-$(PROG): depend $(OBJS1) $(OBJS2) # set dependancies, correct model_Global from GEOSCHEM kpp!
+$(PROG): depend $(OBJS1) $(OBJS2)
 	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90;
 	$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
 
@@ -99,7 +99,7 @@ ropaserver: # creates a ropa file from latest nc file and displays on server!
 	make displayropa 
 
 displayropa: # runs a server for timeout period!
-	cd AnalysisTools/ropatool/ && timeout 60 python -m SimpleHTTPServer 8000
+	cd AnalysisTools/ropatool/ && timeout 3600 python -m SimpleHTTPServer 8000
 	make killserver
 
 killserver: # kills a running server on port 8000!
@@ -107,7 +107,7 @@ killserver: # kills a running server on port 8000!
 	
 #man cmd list 
 man: # print each make function in list!
-	perl -lne 's/#/\n\t\t\$(blue) ##/;s/!/\$(nocol)\n/; print $1 if /([^\.]{2,99}):\s(.*)/;' Makefile
+	perl -lne 's/#/\n\t\t\$(blue)/;s/!/\$(nocol)\n/;print $1 if /([^\.]{2,99}):\s(.*)/;' Makefile
 
 
 

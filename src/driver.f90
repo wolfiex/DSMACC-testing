@@ -65,6 +65,8 @@ INCLUDE './src/initialisations.inc'
 !i'cs copied from python initiation program
 
 print *, 'write intial conditions here'
+WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
+WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP, M, RCONST(:NREACT)
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -82,6 +84,12 @@ ICNTRL_U = (/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 /),IERR_U=ERROR)
 DO I=1,NVAR
 IF (ISNAN(C(I)) .or. (ERROR .NE. 1)) then
     write (OUTPUT_UNIT,*) 'Integration error / NaN, Skipping Point'
+    !print *, '\033[95m', c,'\033[97m'
+    !if (i .eqv. ind_DUMMY) then 
+    !    c(i)= 0.
+    !    cycle
+    !end if
+    
     C(1:NVAR)=0.
     GOTO 1000
 ENDIF
@@ -106,6 +114,7 @@ ENDIF
 DO I=1,NVAR
 IF (CONSTRAIN(I) .GT. 0) THEN
     C(I)=CONSTRAIN(I)
+    
 END IF 
 END DO
 
@@ -125,7 +134,7 @@ if (run_counter > nc_set) then !increased at start
     end do
 
     if (mod(run_counter/nc_set,10)==0) then 
-        print*, '|',repeat('#',int(time/TEND*20)), repeat(' ',int(20-time/TEND*20)),'|'//trim(counter)
+        print*, '\033[94m |',repeat('#',int(time/TEND*20)), repeat(' ',int(20-time/TEND*20)),'| \033[97m'//trim(counter)
     end if
 
 else 
@@ -186,9 +195,11 @@ IF (CONSTRAIN_RUN .EQv. .TRUE.) THEN
 
     ! Store the new diurnal profile as the old one so we can compare with the next day  
     DIURNAL_OLD(1:NVAR,1:Daycounter)=DIURNAL_NEW(1:NVAR,1:DAYCOUNTER)
+    
+    print *, 'fractional difference aim 0 :', (fracdiff - 1e-3)  
     IF (FRACDIFF .LE. 1e-3)  GOTO 1000    ! if system has converged end simulation
 
-    print *, 'fractional difference aim 0 :', (fracdiff - 1e-3)  
+    
     DAYCOUNTER=0! reset the day counter to 0
     OLDFRACDIFF=FRACDIFF
     ENDIF
@@ -199,7 +210,7 @@ ENDIF
 ENDDO time_loop
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-1000  print *, 'fsgds'
+1000  print *, ' \033[91m exit condition 1000 \033[97m'
 !if (CONSTRAIN_RUN .EQ. .true.) .AND. (OUTPUT_LAST .EQ. .false.)  print*, 'why not SaveOut(run_counter) work dammit'
    
        

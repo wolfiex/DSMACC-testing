@@ -1,7 +1,9 @@
 / include file with definition of the chemical species
 // and chemical equations
 
-#INCLUDE ./mechanisms/organic33.kpp
+
+//#INCLUDE ./mechanisms/organic.kpp
+#INCLUDE ./mechanisms/organic_nhept32.kpp
 //#INCLUDE ./mechanisms/subset_organic_cri5.kpp
 #INCLUDE ./mechanisms/inorganic.kpp
 
@@ -15,7 +17,7 @@
 #DOUBLE ON 
 // computer language for code produced by kpp
 #LANGUAGE FORTRAN90
-// #LANGUAGE FORTRAN77
+//#LANGUAGE FORTRAN77
 // #LANGUAGE C
 
 // initial concentrations
