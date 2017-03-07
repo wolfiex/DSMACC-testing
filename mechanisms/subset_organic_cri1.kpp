@@ -3,6 +3,7 @@
 // 48 species  81 reactions
 #DEFFIX
 EMISS=IGNORE;
+
 #INLINE F90_GLOBAL
 REAL(dp)::M, N2, O2, RO2, H2O
 #ENDINLINE

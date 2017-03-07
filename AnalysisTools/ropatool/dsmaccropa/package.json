@@ -1,0 +1,30 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "description": "D3 Froce directed Graph",
+  "main": "main.js",
+  "dependencies": {
+    "photon": "^2.0.0",
+    "d3": "^4.4.0",
+    "netcdfjs":"^0.3.0",
+    "iobuffer":"^2.1.0"
+  },
+  "devDependencies": {
+    "electron": "^1.4.0",
+    "electron-packager": "^8.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wolfiex/VisACC.git"
+  },
+  "scripts": {
+    "start": "electron main.js",
+    "dev": "electron . --enable-logging",
+    "clean": "rm -rf ./dist",
+    "clean:osx": "rm -rf ./dist/osx",
+    "pack": "npm run clean && npm run pack:osx",
+    "pack:osx": "npm run clean:osx && electron-packager . \"VisACC\" --out=dist/osx --platform=darwin --arch=x64 --asar.unpackDir=asar_subdir --version=0.36.2 --icon=../bird.icns --ignore=dist --ignore=assets --ignore=builder.json --ignore=bower.json --ignore=README.md --ignore=.gitignore --ignore=preview.png"
+  },
+  "author": "Daniel Ellis, daniel.ellis.research@gmail.com",
+  "license": "ISC"
+}
