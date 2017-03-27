@@ -19,7 +19,7 @@ class spec(object):
         self.ymax = ymax
 
 
-plots = [ spec('O3',30,100),spec('OH',0,0.0002),spec('HO2',1e-3,20*1e-3),spec('HNO3',0,7),spec('NC7H16',0,25),spec('HCHO',0,3),spec('MGLYOX',0,0.8)]
+plots = [ spec('O3',30,100),spec('OH',0,0.0002),spec('HO2',1e-3,20*1e-3),spec('HNO3',0,7),spec('NC7H16',0,25),spec('HCHO',0,3),spec('MGLYOX',0,0.08)]
 groups = tuple(nc.groups)
 
 

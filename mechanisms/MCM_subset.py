@@ -13,7 +13,7 @@ import os, sys, multiprocessing,re
 available_cores = 16
 
 try: filename1=sys.argv[1]
-except:filename1 = 'organic_cri3.kpp'
+except:filename1 = 'organic33.kpp'
 full = tuple(open(filename1))
 try: filename=sys.argv[2]
 except:filename = 'inorganic_mcm.kpp'
@@ -50,7 +50,7 @@ gen = xrange(len(equations))
 
 #make into a class with run number
 ''' get all species formed ''' 
-origin = {'O3','NO','NO2','NC7H16'}
+origin = {'O3','NO','NO2','CH4'}
 species = origin | inorganic_species ^ set (['' ])
 counter = 0 
 previous = '' 
@@ -191,3 +191,7 @@ for i in reactions:
 
 with open("subset_"+filename1, 'w') as f:
     f.write(string)
+    
+    
+    
+print 'problem not speearitng coeff'
