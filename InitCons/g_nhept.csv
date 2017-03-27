@@ -1,19 +1,19 @@
-Description: Optional,Do not write time more than once. ,,,,,
-,,,,,,
-Index,Species,Constrain,nhPaper,nhnoxrd,Nheptane-smr,Nheptane-wtr
-ii ,TIME,NA,259200,259200,259200,259200
-ii,TEMP,0,298,298,298,298
-ii ,LAT,0,45,45,53.958,53.958
-ii,LON,0,0,0,0,0
-ii ,JDAY,0,172.25,172.25,173,356
-ii,H2O,0,0.01,0.01,0.01,0.01
-ii,ALBEDO,0,0,0,0,0
-ii ,PRESS,0,1013,1013,1013,1013
-ii,NOx,0,0,0,0,0
-ii ,DEPOS,1,0,0,0,0
-ii,FEMISS,1,0,0,0,0
-ii,H2,0,0.0000005,0.0000005,0.0000005,0.0000005
-1,NO,0,0.00000001,1.00E-10,0.00000001,0.00000001
-2,NO2,0,0,0,0,0
-3,O3,0,0.00000004,0.00000004,0.00000004,0.00000004
-4,NC7H16,0,0.00000002,0.00000002,0.00000002,0.00000002
+Description: Optional,Do not write time more than once. ,,,
+,,,,
+Index,Species,Constrain,nhPaper,nhnoxrd
+ii ,TIME,NA,259200,259200
+ii,TEMP,0,298,298
+ii ,LAT,0,45,45
+ii,LON,0,0,0
+ii ,JDAY,0,172.25,172.25
+ii,H2O,0,0.01,0.01
+ii,ALBEDO,0,0,0
+ii ,PRESS,0,1013,1013
+ii,NOx,0,0,0
+ii ,DEPOS,1,0,0
+ii,FEMISS,1,0,0
+ii,H2,0,0.0000005,0.0000005
+1,NO,0,0.00000001,1E-10
+2,NO2,0,0,0
+3,O3,0,0.00000004,0.00000004
+4,NC7H16,0,0.00000002,0.00000002

@@ -126,14 +126,9 @@ force graphs
 
 '''
 
-''' 4 normalise concentrations '''
-conc = np.array(specs[specs.columns[7:]])
-conc_adjust = []
-
 ''' Define spec locations '''
 locs2 = dict(enumerate(specs.columns[7:]))
 locs = {v: k for k, v in locs2.iteritems()}
-locs_json = str(locs).replace("u'",'"').replace("\'",'"') 
 
 
 
@@ -147,25 +142,6 @@ edges = [] ; [edges.extend(i) for i in dummy] ; edges.sort() #because why not
 ''' 2 extract non duplicated list of reactions '''
 individual = list(set(frozenset(i[0]) for i in edges))
 
-
-
-
-''' 3 Normalise fluxes per timestep'''
-
-minmax = []
-
-
-'''
-for i in xlen(specs):
-    row = np.log10(flux[i,:])
-    mn = row[row>-1e99].min()
-    row = row+abs(mn)
-    mx = row.max()
-    flux[i,:] = 1-((row+1e-6)/abs(mx)) # large fluxes small
-    minmax.extend([mn,mx])
-  '''  
-    
-    
 
 
 ''' 4 Make a combination of these '''
@@ -214,6 +190,13 @@ rate_head = '[' + rate_head.replace('\n','","').replace('-->','>')[2:-2] +']'
 
 
 from netCDF4 import Dataset
+
+ 
+
+
+
+locs_json = str(locs).replace("u'",'"').replace("\'",'"') 
+conc = np.array(specs[specs.columns[7:]])
 
  
 nrows = conc.shape[0]

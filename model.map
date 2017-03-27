@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model.map
-! Time                 : Tue Mar  7 11:01:57 2017
+! Time                 : Mon Mar 27 15:49:58 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -32,116 +32,33 @@ REORDER  - ON
 ### Parameters ----------------------------------------
 
 ! NSPEC - Number of chemical species
-  INTEGER, PARAMETER :: NSPEC = 277 
+  INTEGER, PARAMETER :: NSPEC = 29 
 ! NVAR - Number of Variable species
-  INTEGER, PARAMETER :: NVAR = 276 
+  INTEGER, PARAMETER :: NVAR = 28 
 ! NVARACT - Number of Active species
-  INTEGER, PARAMETER :: NVARACT = 275 
+  INTEGER, PARAMETER :: NVARACT = 27 
 ! NFIX - Number of Fixed species
   INTEGER, PARAMETER :: NFIX = 1 
 ! NREACT - Number of reactions
-  INTEGER, PARAMETER :: NREACT = 834 
+  INTEGER, PARAMETER :: NREACT = 68 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
-  INTEGER, PARAMETER :: NFIXST = 277 
+  INTEGER, PARAMETER :: NFIXST = 29 
 
 ### Species -------------------------------------------
 
 Variable species
-  1 = DUMMY (r)  94 = NC3H7NO3 (r)187 = HO1CO3CHO (r)
-  2 = SO3 (n)    95 = HYPROPO (r)188 = MEKCOH (r)
-  3 = CL (r)     96 = HO3C4OOH (r)189 = CO3C75O2 (r)
-  4 = NC7H16 (r) 97 = DIEKBOOH (r)190 = HO1C4O2 (r)
-  5 = O1D (r)    98 = HO3C76O (r)191 = ACETOL (r)
-  6 = HSO3 (r)   99 = CH3OOH (r)192 = HO2CO5C7 (r)
-  7 = CO3C75O (r)100 = HO1C4OOH (r)193 = HOC3H6CHO (r)
-  8 = HCOOH (r) 101 = C73OOH (r)194 = MEKAOH (r)
-  9 = CH3O2NO2 (r)102 = ETHOHNO3 (r)195 = HO13C3CHO (r)
- 10 = N2O5 (r)  103 = PROPGLY (r)196 = C71O2 (r) 
- 11 = HO3C5O (r)104 = CO25C73OOH (r)197 = CO25C7 (r)
- 12 = HEPTO (r) 105 = HO1C4NO3 (r)198 = C2H4 (r)  
- 13 = DIEKBO (r)106 = HCOCO3H (r)199 = HO3C4CHO (r)
- 14 = ETHGLY (r)107 = IC3H7OOH (r)200 = C74O2 (r) 
- 15 = HEPTOH (r)108 = NBUTOLBNO3 (r)201 = HEPTO2 (r)
- 16 = HOC2H4CO2H (r)109 = C2H5OOH (r)202 = NO3CH2CHO (r)
- 17 = HO2C3CO2H (r)110 = BIACETO (r)203 = HO1C3O2 (r)
- 18 = PROPACID (r)111 = C72NO3 (r)204 = C73O2 (r) 
- 19 = H2 (r)    112 = HO2C4NO3 (r)205 = HO13C3CO3 (r)
- 20 = BUTACID (r)113 = NC4H9OOH (r)206 = HO3C3CO3 (r)
- 21 = CH3CO2H (r)114 = NC4H9NO3 (r)207 = CO23C3CHO (r)
- 22 = HOC3H6CO2H (r)115 = HO1C3OOH (r)208 = CH3CHOHCO3 (r)
- 23 = H2O2 (r)  116 = MEKAOOH (r)209 = C2H5O2 (r)
- 24 = HOC4H8OH (r)117 = HO13C4O (r)210 = HO13C4O2 (r)
- 25 = HO25C7 (r)118 = HO3C5OOH (r)211 = MEKAO2 (r)
- 26 = HOC3H6OH (r)119 = IPROPOLO2H (r)212 = IC3H7O2 (r)
- 27 = HO13C4OH (r)120 = ETHO2HNO3 (r)213 = HOCO3C54O2 (r)
- 28 = HO134C5 (r)121 = NC3H7OOH (r)214 = NBUTOLBO2 (r)
- 29 = HO13C5 (r)122 = CH3NO3 (r)215 = NBUTOLAO2 (r)
- 30 = CH3OH (r) 123 = HOCH2CH2O (r)216 = NO3CH2CO3 (r)
- 31 = HONO (r)  124 = HO3C3CO3H (r)217 = CH3O2 (r) 
- 32 = CH2OOA (r)125 = C71OOH (r)218 = HO3C4CO3 (r)
- 33 = HO1CO3C4O (r)126 = NO3CH2CO3H (r)219 = HO2C3CHO (r)
- 34 = C73O (r)  127 = HO13C5NO3 (r)220 = HOC3H6CO3 (r)
- 35 = IPROPOL (r)128 = NBUTOLBOOH (r)221 = MEKCO2 (r)
- 36 = C72OH (r) 129 = HO13C3CO3H (r)222 = NC3H7O2 (r)
- 37 = HOCO3C54O (r)130 = BUTALNO3 (r)223 = O (r)     
- 38 = CO25C74O (r)131 = HOCH2CO3H (r)224 = GLYOX (r) 
- 39 = CO25C73O (r)132 = GLYPAN (r)225 = CO25C73O2 (r)
- 40 = C71O (r)  133 = C74O (r)  226 = CO25C74O2 (r)
- 41 = MEKCO (r) 134 = C2H5NO3 (r)227 = CO2C3CHO (r)
- 42 = CO3C75OOH (r)135 = HO3C5NO3 (r)228 = HO13C5O2 (r)
- 43 = HCOCO2H (r)136 = HO1C3NO3 (r)229 = C72O2 (r) 
- 44 = CO3C4CO3H (r)137 = MEKANO3 (r)230 = CO23C4CHO (r)
- 45 = NBUTOLANO3 (r)138 = IPROPOLPAN (r)231 = EGLYOX (r)
- 46 = PERPROACID (r)139 = C74OOH (r)232 = MGLYOX (r)
- 47 = HO13C4NO3 (r)140 = HO3C76NO3 (r)233 = HO1CO3C4O2 (r)
- 48 = HOC3H6CO3H (r)141 = HO1CO3C5 (r)234 = CH2OO (r) 
- 49 = HO2C4OH (r)142 = CO2C3PAN (r)235 = ETHENO3O2 (r)
- 50 = PROLNO3 (r)143 = C5PAN16 (r)236 = C3H7CO3 (r)
- 51 = CO23C4CO3H (r)144 = HO2C4O (r)237 = HO2C3CO3 (r)
- 52 = HCOCH2CO2H (r)145 = HO13C5O (r)238 = HO3C3CHO (r)
- 53 = HO13C5OOH (r)146 = HOCO3C4OOH (r)239 = HO3C4O2 (r)
- 54 = HOC2H4CO3H (r)147 = PHAN (r)  240 = HOC2H4CHO (r)
- 55 = NBUTOLAOH (r)148 = C5PAN9 (r)241 = HOCH2CO3 (r)
- 56 = HEPTOOH (r)149 = PAN (r)   242 = HYPROPO2 (r)
- 57 = HOCH2CO2H (r)150 = C72O (r)  243 = HCOCO3 (r)
- 58 = NO3CH2CO2H (r)151 = HO3C3PAN (r)244 = HCOCH2CO3 (r)
- 59 = C72OOH (r)152 = C5PAN8 (r)245 = CO3C4CHO (r)
- 60 = PERBUACID (r)153 = NBUTOLAO (r)246 = BIACETO2 (r)
- 61 = HCOCH2CO3H (r)154 = MEKCOOH (r)247 = CH3CHOHCHO (r)
- 62 = PROPOLNO3 (r)155 = C3PAN2 (r)248 = HNO3 (r)  
- 63 = HO3C4CO3H (r)156 = C4PAN3 (r)249 = IPROPOLO2 (r)
- 64 = CO2C3CO3H (r)157 = IPROPOLO (r)250 = BUTALO2 (r)
- 65 = HO3C4NO3 (r)158 = MEKAO (r) 251 = NC4H9O2 (r)
- 66 = CO3C4CO2H (r)159 = PBN (r)   252 = C2H5CHO (r)
- 67 = HO2C3CO3H (r)160 = NC4H9O (r)253 = CH3COCH2O2 (r)
- 68 = HO3C76OOH (r)161 = HCOCH2O (r)254 = C3H7CHO (r)
- 69 = CH3CO3H (r)162 = PPN (r)   255 = CO2C3CO3 (r)
- 70 = HO2NO2 (r)163 = C4PAN2 (r)256 = HO2C4O2 (r)
- 71 = NPROPOL (r)164 = HO1CO34C5 (r)257 = HO3C76O2 (r)
- 72 = CO25C74OH (r)165 = C3PAN1 (r)258 = HOC2H4CO3 (r)
- 73 = HO1C4O (r)166 = SO2 (r)   259 = CO3C4CO3 (r)
- 74 = CH3COCH2O (r)167 = NO3CH2PAN (r)260 = DIEKBO2 (r)
- 75 = NC3H7O (r)168 = HYETHO2H (r)261 = C2H5CO3 (r)
- 76 = CH3O (r)  169 = HYPERACET (r)262 = HOCH2CH2O2 (r)
- 77 = NBUTOL (r)170 = CO25C74OOH (r)263 = HO3C5O2 (r)
- 78 = BIACETOH (r)171 = HO3C4O (r)264 = CO23C4CO3 (r)
- 79 = HO14CO2C4 (r)172 = C4PAN1 (r)265 = CH3CHO (r)
- 80 = IC3H7O (r)173 = CO235C7 (r)266 = CH3CO3 (r)
- 81 = CO25C73OH (r)174 = HEPT3ONE (r)267 = HCHO (r)  
- 82 = C2H5OH (r)175 = HCOCH2OOH (r)268 = HCOCH2O2 (r)
- 83 = HO14CO3C5 (r)176 = HYPROPO2H (r)269 = HOCH2CHO (r)
- 84 = HO1C3O (r)177 = BIACETOOH (r)270 = HO2 (r)   
- 85 = IPROPOLPER (r)178 = HO13C4OOH (r)271 = NO2 (r)   
- 86 = HOCO3C5OOH (r)179 = ETHENO3O (r)272 = CO (r)    
- 87 = HEPTNO3 (r)180 = CH3COCH3 (r)273 = OH (r)    
- 88 = C2H5O (r) 181 = BUTALO (r)274 = O3 (r)    
- 89 = DIEKBNO3 (r)182 = NBUTOLBO (r)275 = NO (r)    
- 90 = NBUTOLAOOH (r)183 = HO3CO6C7 (r)276 = NO3 (r)   
- 91 = HO2C4OOH (r)184 = HO2CO35C7 (r)
- 92 = CO245C7 (r)185 = BUTALO2H (r)
- 93 = IC3H7NO3 (r)186 = HO13CO4C5 (r)
+  1 = DUMMY (r)  11 = CH3OH (r)  21 = CH3O2 (r) 
+  2 = SO3 (n)    12 = HONO (r)   22 = NO3 (r)   
+  3 = CL (r)     13 = CO (r)     23 = O (r)     
+  4 = CH4 (r)    14 = SO2 (r)    24 = OH (r)    
+  5 = O1D (r)    15 = HO2NO2 (r) 25 = NO2 (r)   
+  6 = HSO3 (r)   16 = CH3O (r)   26 = NO (r)    
+  7 = CH3O2NO2 (r) 17 = CH3NO3 (r) 27 = O3 (r)    
+  8 = H2 (r)     18 = HNO3 (r)   28 = HO2 (r)   
+  9 = N2O5 (r)   19 = CH3OOH (r)
+ 10 = H2O2 (r)   20 = HCHO (r)  
 
 Fixed species
   1 = EMISS (r) 

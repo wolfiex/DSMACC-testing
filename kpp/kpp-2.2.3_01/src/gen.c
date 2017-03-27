@@ -644,7 +644,7 @@ int F_VAR, FSPLIT_VAR;
     FunctionBegin( FSPLIT_VAR, V, F, RCT, P_VAR, D_VAR );
 
   if ( (useLang==MATLAB_LANG)&&(!useAggregate) )
-     printf("\nWarning: in the function definition move P_VAR to output vars\n");
+     printf("\n Warning \033[92m in the function definition move P_VAR to output vars\n");
 
   
   if ( useLang!=F90_LANG ) { /* A is a module variable in F90 */
@@ -781,7 +781,7 @@ int FLUX_VAR;
   FunctionBegin( FLUX_VAR, RR, P_VAR, D_VAR );
 
   /*if ( (useLang==MATLAB_LANG)&&(!useAggregate) )
-    printf("\nWarning: in the flux definition move P_VAR to output vars\n");*/
+    printf("\n Warning \033[92m in the flux definition move P_VAR to output vars\n");*/
 
   NewLines(1);
   WriteComment("Production function");
@@ -832,7 +832,7 @@ int F_VAR;
   FunctionBegin( F_VAR, NMLCV, NMLCF, SCT, PROPENSITY );
 
   if ( (useLang==MATLAB_LANG)&&(!useAggregate) )
-     printf("\nWarning: in the function definition move P_VAR to output vars\n");
+     printf("\n Warning \033[92m in the function definition move P_VAR to output vars\n");
 
   NewLines(1);
   
