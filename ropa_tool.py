@@ -191,9 +191,6 @@ rate_head = '[' + rate_head.replace('\n','","').replace('-->','>')[2:-2] +']'
 
 from netCDF4 import Dataset
 
- 
-
-
 
 locs_json = str(locs).replace("u'",'"').replace("\'",'"') 
 conc = np.array(specs[specs.columns[7:]])
