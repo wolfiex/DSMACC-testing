@@ -48,10 +48,19 @@ for group in netCDF_data.groups:
     #rte = pd.DataFrame(netCDF_data.groups[group].variables['Rate'][:])
     #rte.columns = str(netCDF_data.groups[group].variables['Rate'].head).split(',')
 
+    
     spc = spc.iloc[1:-1]#remove nan row
    
     M= spc['M'].mean()
-    spc = spc/M
+
+   
+    
+    columns = spc.columns
+    index = spc.index
+    spc = pd.DataFrame( np.array(spc)/M )
+    spc.index = index
+    spc.columns = columns
+    
     spc['M'] = M
  
     
@@ -80,8 +89,22 @@ for group in netCDF_data.groups:
     
     
     for i in xrange(0, len(columns), n_subplot+1):
-        spc[columns[i:i+n_subplot]].plot(subplots=True)
+        Axes = spc[columns[i:i+n_subplot]].plot(subplots=True)
+        
         if steadystate: plt.axvline(vert[1], color='r', linestyle='-', linewidth=4 )
+
+        plt.tick_params(labelsize=6)
+        
+        
+        #y ticklabels
+        [plt.setp(item.yaxis.get_majorticklabels(), 'size', 7) for item in Axes.ravel()]
+        #x ticklabels
+        [plt.setp(item.xaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
+        #y labels
+        [plt.setp(item.yaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+        #x labels
+        [plt.setp(item.xaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+
 
         plt.tight_layout() 
         plt.ylabel('mix ratio')
