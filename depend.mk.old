@@ -53,7 +53,6 @@ model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: TUV_5.2.1/photlinks.inc src/old_rate.inc src/new_rate.inc
-model_constants.o: params
+model_constants.o: TUV_5.2.1/MCM4.inc src/old_rate.inc src/new_rate.inc params
 model_constants.o: model_Global.o model_Precision.o
 constants.mod: model_constants.o

@@ -134,7 +134,7 @@ if (theta .le. 90) then
 
 if (new_tuv) then
 
-  INCLUDE './TUV_5.2.1/photlinks.inc'
+  INCLUDE './TUV_5.2.1/MCM4.inc'
 
 else !old tuv hard wiring
 

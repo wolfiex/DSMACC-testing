@@ -36,7 +36,7 @@ depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2)
 	$(F_makedepend) $(SRCS1) $(SRCS2)
 
 clean:
-	rm -f $(OBJS) *.mod *.log *~ depend.mk.old *.o *.sdout
+	rm -f $(OBJS) *.mod *.log *~ depend.mk.old *.o *.sdout *.tee
 
 clear:
 	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
