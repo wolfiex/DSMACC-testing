@@ -17,7 +17,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     OLDVAR(1:NVAR)=C(1:NVAR)
     VAR(1:NVAR)=0.
     C(1:NVAR)=0.
-    i_EMISS=0  
+    i_EMISS=0 
     DEPOS = 0.
     SAREA=0.
     ALBEDO=0.
@@ -33,6 +33,12 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(J))) then 
         FOUND=1
         VAR(J)=CONCS(I)
+        
+        
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        print*,  '\033[95m' , spec_name(i), concs(i),'\033[97m'
+        
+        
 
         if (const_method(i) > 0) then 
              CONSTRAIN(J)=CONCS(I)

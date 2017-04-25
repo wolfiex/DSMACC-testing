@@ -1,9 +1,14 @@
 / include file with definition of the chemical species
 // and chemical equations
 
+//#include ./mechanisms/gckpp.kpp
+
+#include ./mechanisms/methane.kpp
 //#INCLUDE ./mechanisms/organic.kpp
-#INCLUDE ./mechanisms/halfMCM1tchr.kpp
+//#INCLUDE ./mechanisms/organic_nhept33.kpp
+//#INCLUDE ./mechanisms/subset_organic_cri5.kpp
 #INCLUDE ./mechanisms/inorganic.kpp
+
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp
 
@@ -11,7 +16,7 @@
 #INCLUDE ./src/global.inc
 
 
-#DOUBLE ON
+#DOUBLE ON 
 // computer language for code produced by kpp
 #LANGUAGE FORTRAN90
 //#LANGUAGE FORTRAN77
@@ -26,8 +31,8 @@ ALL_SPEC = 0.;
 
 // integrator should usually be rosenbrock
 
-//#INTEGRATOR rosenbrock
-#INTEGRATOR kpp_lsode
+#INTEGRATOR rosenbrock
+//#INTEGRATOR kpp_lsode
 //#INTEGRATOR ros2_manual
 //#INTEGRATOR radau5
 

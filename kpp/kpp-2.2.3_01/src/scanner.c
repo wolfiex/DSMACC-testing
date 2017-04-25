@@ -149,7 +149,7 @@ int n;
 
   n = sscanf( cmd, "%d", &initNr);
   if( n != 1 )
-    ScanError("Bad number of species to initialize <%s>", cmd);
+    ScanError(" \033[91m number of species to initialize <%s>\033[97m", cmd);
 }
 
 void DefineXGrid( char *cmd )
@@ -159,7 +159,7 @@ int n;
   xNr = 1;
   n = sscanf( cmd, "%d", &xNr);
   if( n != 1 )
-    ScanError("Bad X grid number <%s>", cmd);
+    ScanError(" \033[91m X grid number <%s>\033[97m", cmd);
 }
 
 void DefineYGrid( char *cmd )
@@ -169,7 +169,7 @@ int n;
   yNr = 1;
   n = sscanf( cmd, "%d", &yNr);
   if( n != 1 )
-    ScanError("Bad Y grid number <%s>", cmd);
+    ScanError(" \033[91m Y grid number <%s>\033[97m", cmd);
 }
 
 void DefineZGrid( char *cmd )
@@ -179,7 +179,7 @@ int n;
   zNr = 1;
   n = sscanf( cmd, "%d", &zNr);
   if( n != 1 )
-    ScanError("Bad Z grid number <%s>", cmd);
+    ScanError(" \033[91m Z grid number <%s>\033[97m", cmd);
 }
 
 void CmdFunction( char *cmd )
@@ -694,10 +694,10 @@ int err;
     }
     if ( equal ) {
       if( r1 == r2 )
-        ScanWarning( "Duplicate equation: "
+        ScanWarning( "\033[91mDuplicate equation: \033[97m"
         	   " (eqn<%d> = eqn<%d> )", i+1, EqnNr+1 );
       else
-	ScanWarning( "Linearly dependent equations: "
+	ScanWarning( "\033[93m Linearly dependent equations: \033[97m"
 		   "( %.0f eqn<%d> = %.0f eqn<%d> )",
 		   r1, i+1, r2, EqnNr+1 );
       break;

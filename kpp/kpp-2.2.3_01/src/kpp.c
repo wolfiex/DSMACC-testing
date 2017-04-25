@@ -18,8 +18,8 @@
 
   You should have received a copy of the GNU General Public License along
   with this program; if not, consult http://www.gnu.org/copyleft/gpl.html or
-  write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-  Boston, MA  02111-1307,  USA.
+  write to the Free Software Foundation, Inc., 59 Temple Place - Suite 337,
+  Boston, MA  02111-1377,  USA.
 
   Adrian Sandu
   Computer Science Department
@@ -421,42 +421,42 @@ void  AllocInternalArrays( void )
 int i;
 
 if ( (Stoich_Left =(float**)calloc(MAX_SPECIES,sizeof(float*)))==NULL ) 
-    FatalError(-30,"Cannot allocate Stoich_Left.\n");
+    FatalError(-37,"Cannot allocate Stoich_Left.\n");
 
 for (i=0; i<MAX_SPECIES; i++)    
     if ( (Stoich_Left[i] = (float*)calloc(MAX_EQN,sizeof(float)))==NULL ) {
-        FatalError(-30,"Cannot allocate Stoich_Left[%d]",i,MAX_SPECIES);
+        FatalError(-37,"Cannot allocate Stoich_Left[%d]",i,MAX_SPECIES);
     }
 
 if ( (Stoich_Right = (float**)calloc(MAX_SPECIES,sizeof(float*)))==NULL ) 
-    FatalError(-30,"Cannot allocate Stoich_Right.\n");
+    FatalError(-37,"Cannot allocate Stoich_Right.\n");
 
 for (i=0; i<MAX_SPECIES; i++)    
     if ( (Stoich_Right[i] = (float*)calloc(MAX_EQN,sizeof(float)))==NULL ) {
-        FatalError(-30,"Cannot allocate Stoich_Right[%d].",i);
+        FatalError(-37,"Cannot allocate Stoich_Right[%d].",i);
     }
 
 if ( (Stoich = (float**)calloc(MAX_SPECIES,sizeof(float*)))==NULL ) 
-    FatalError(-30,"Cannot allocate Stoich.\n");
+    FatalError(-37,"Cannot allocate Stoich.\n");
 
 for (i=0; i<MAX_SPECIES; i++)    
     if ( (Stoich[i] = (float*)calloc(MAX_EQN,sizeof(float)))==NULL ) {
-        FatalError(-30,"Cannot allocate Stoich[%d].",i);
+        FatalError(-37,"Cannot allocate Stoich[%d].",i);
     }
 /**/
 if ( (Loss_Coeff =(float**)calloc(MAX_FAMILIES,sizeof(float*)))==NULL ) 
-    FatalError(-30,"Cannot allocate Loss_Coeff.\n");
+    FatalError(-37,"Cannot allocate Loss_Coeff.\n");
 
  for (i=0; i<MAX_FAMILIES; i++)    
   if ( (Loss_Coeff[i] = (float*)calloc(MAX_EQN,sizeof(float)))==NULL ) {
-        FatalError(-30,"Cannot allocate Loss_Coeff[%d]",i,MAX_FAMILIES);
+        FatalError(-37,"Cannot allocate Loss_Coeff[%d]",i,MAX_FAMILIES);
     }
 if ( (Prod_Coeff = (float**)calloc(MAX_FAMILIES,sizeof(float*)))==NULL ) 
-    FatalError(-30,"Cannot allocate Prod_Coeff.\n");
+    FatalError(-37,"Cannot allocate Prod_Coeff.\n");
 
 for (i=0; i<MAX_FAMILIES; i++)    
     if ( (Prod_Coeff[i] = (float*)calloc(MAX_EQN,sizeof(float)))==NULL ) {
-        FatalError(-30,"Cannot allocate Prod_Coeff[%d].",i);
+        FatalError(-37,"Cannot allocate Prod_Coeff[%d].",i);
     }
 
 }
@@ -469,25 +469,25 @@ int i;
 
 
 if ( (structB = (int**)calloc(EqnNr,sizeof(int*)))==NULL ) 
-    FatalError(-30, "Cannot allocate structB.");
+    FatalError(-37, "Cannot allocate structB.");
 
 for (i=0; i<EqnNr; i++)    
     if ( (structB[i] =(int*) calloc(SpcNr,sizeof(int)))==NULL )
-        FatalError(-30, "Cannot allocate structB[%d].\n",i);
+        FatalError(-37, "Cannot allocate structB[%d].\n",i);
     
 if ( (structJ = (int**)calloc(SpcNr,sizeof(int*)))==NULL ) 
-    FatalError(-30, "Cannot allocate structJ.");
+    FatalError(-37, "Cannot allocate structJ.");
 
 for (i=0; i<SpcNr; i++)    
     if ( (structJ[i] =(int*) calloc(SpcNr,sizeof(int)))==NULL ) 
-        FatalError(-30, "Cannot allocate structJ[%d].\n",i);
+        FatalError(-37, "Cannot allocate structJ[%d].\n",i);
     
 if ( (LUstructJ = (int**)calloc(SpcNr,sizeof(int*)))==NULL ) 
-    FatalError(-30, "Cannot allocate LUstructJ.");
+    FatalError(-37, "Cannot allocate LUstructJ.");
 
 for (i=0; i<SpcNr; i++)    
     if ( (LUstructJ[i] = (int*)calloc(SpcNr,sizeof(int)))==NULL ) 
-        FatalError(-30, "Cannot allocate LUstructJ[%d].\n",i);
+        FatalError(-37, "Cannot allocate LUstructJ[%d].\n",i);
 
 }
 
@@ -565,13 +565,13 @@ int i,j;
             } 
 	    rootFileName = name;
 	    break;
-    default: FatalError(1,"\nUsage :"
-		          "\n        kpp <equations file> [output file]\n");
+    default: FatalError(1,"\033[91m\nUsage :"
+		          "\n        kpp <equations file> [output file]\n\033[97m");
   }
 
-  printf("\nThis is KPP-%s.\n", KPP_VERSION);
+  printf("\033[94m\nThis is KPP-%s. [Adapted D.Ellis 2017]\n\033[97m", KPP_VERSION);
 
-  printf("\nKPP is parsing the equation file.");
+  printf("\033[37m\nKPP is parsing the equation file.\033[97m");
   status = ParseEquationFile( argv[1] );
 
   if( status ) FatalError(2,"%d errors and %d warnings encountered.", 
@@ -579,7 +579,7 @@ int i,j;
   /* Allocate some internal data structures */
   AllocStructArrays();
 
-  printf("\nKPP is computing Jacobian sparsity structure.");
+  printf("\033[37m\nKPP is computing Jacobian sparsity structure.\033[97m");
   ReorderSpecies( UNSORT );
   if (useReorder==1){
     BestSparsity(); 
@@ -590,13 +590,13 @@ int i,j;
 
   if( initNr == -1 ) initNr = VarNr;
 
-  printf("\nKPP is starting the code generation.");
+  printf("\033[37m\nKPP is starting the code generation.\033[97m");
   Generate( rootFileName );
   
-  printf("\nKPP is starting the code post-processing.");
+  printf("\033[37m\nKPP is starting the code post-processing.\033[97m");
   Postprocess( rootFileName );
   
-  printf("\n\nKPP has succesfully created the model \"%s\".\n\n",rootFileName);
+  printf("\033[94m\n\nKPP has succesfully created the model \"%s\".\n\n\033[97m",rootFileName);
 
   if( nError ) exit(4);
   if( nWarning ) exit(5);

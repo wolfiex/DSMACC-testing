@@ -1,12 +1,11 @@
+#!/usr/local/anaconda/bin/python
 '''
 A tool to calculate the fluxes from DSMACC
 D.Ellis 2016
 '''
 
-
 #functions
 global specs,reactants
-
 
 
 xlen = lambda x: xrange(len(x))
@@ -18,10 +17,7 @@ from netCDF4 import Dataset
 import matplotlib.pyplot as plt
 #netcdf file path
 ncfile = sys.argv[1]
-
-
 ncores = 4
-
 
 ########### read dsmacc data
 myfile = ncfile
@@ -101,7 +97,6 @@ for i in xlen(reactants):
         
     prod = 1
     for k in rcol: prod *= k
-    print i 
     flux.append(prod * rates[rates.columns[i]])
 
 ''' 4 convert concentrations to mixing ratio '''
@@ -125,9 +120,14 @@ force graphs
 
 '''
 
+''' 4 normalise concentrations '''
+conc = np.array(specs[specs.columns[7:]])
+conc_adjust = []
+
 ''' Define spec locations '''
 locs2 = dict(enumerate(specs.columns[7:]))
 locs = {v: k for k, v in locs2.iteritems()}
+locs_json = str(locs).replace("u'",'"').replace("\'",'"') 
 
 
 
@@ -191,17 +191,9 @@ rate_head = '[' + rate_head.replace('\n','","').replace('-->','>')[2:-2] +']'
 from netCDF4 import Dataset
 
  
-
-
-
-locs_json = str(locs).replace("u'",'"').replace("\'",'"') 
-conc = np.array(specs[specs.columns[7:]])
-
- 
 nrows = conc.shape[0]
 
- 
-info_file = Dataset('ropa_'+ncfile, 'w', format='NETCDF3_CLASSIC')
+info_file = Dataset('./AnalysisTools/ropatool/ropa.nc', 'w', format='NETCDF3_CLASSIC')
  
 info_file.createDimension('time', nrows)
 info_file.createDimension('specs', conc.shape[1])
