@@ -93,13 +93,13 @@ flux = []
 for i in xlen(reactants):
     rcol = []
     for j in reactants[i]:
-        
- 
+
+
         dummy = specs[re.sub(r'([\.\d\s]*)(\D[\d\D]*)', r'\2', j)]
-    
+
         try: rcol.append( float(re.sub(r'([\.\d]*)\s*\D[\d\D]*', r'\1', j) * dummy ))
         except: rcol.append(dummy) # coeff = 1 if not yet specified
-        
+
     prod = 1
     for k in rcol: prod *= k
     print i 
@@ -113,7 +113,17 @@ for i in xlen(reactants):
 
 #clean array if not making graph 
 specs = specs.loc[:, (specs > 0).any(axis=0)]
-specs /= M
+
+M= specs['M'].mean()
+
+
+
+specs = specs / float(M)
+
+specs['M'] = float(M)
+
+
+
 
 
 
@@ -134,7 +144,7 @@ locs = {v: k for k, v in locs2.iteritems()}
 
 ''' 1 get all species interaction '''
 def combine(ln): return  [[[re.sub(r'([\.\d\s]*)(\D[\d\D]*)', r'\2',r),re.sub(r'([\.\d\s]*)(\D[\d\D]*)', r'\2',p)],ln] for p in 
-products[ln] for r in reactants[ln]]
+        products[ln] for r in reactants[ln]]
 
 dummy = np.vectorize(combine)(xlen(reactants))
 edges = [] ; [edges.extend(i) for i in dummy] ; edges.sort() #because why not 
@@ -150,21 +160,21 @@ flux_data = []
 
 for i in individual:
     fp , fm =[],[]
-    st = list(i)
-    try:
+st = list(i)
+try:
     #if True:   
-        d0, d1 = locs[st[0]],locs[st[1]]
-        
-        dummy  = [j for j in xlen(edges) if i == set(edges[j][0])]   
-        for k in dummy:
-            edge = edges[k]
-            
-            if st[0] == edge[0][0]: fp.append(edge[1])
-            else:                   fm.append(edge[1])
+    d0, d1 = locs[st[0]],locs[st[1]]
 
-        flux_data.append([[fp,fm] ,d0,d1])
-    except IndexError as e: print e, st # if self reaction
-    except KeyError as e : print 'no concentration for', e  #no specie concentration 
+    dummy  = [j for j in xlen(edges) if i == set(edges[j][0])]   
+    for k in dummy:
+        edge = edges[k]
+
+        if st[0] == edge[0][0]: fp.append(edge[1])
+        else:                   fm.append(edge[1])
+
+    flux_data.append([[fp,fm] ,d0,d1])
+except IndexError as e: print e, st # if self reaction
+except KeyError as e : print 'no concentration for', e  #no specie concentration 
 
 
 
@@ -195,12 +205,12 @@ from netCDF4 import Dataset
 locs_json = str(locs).replace("u'",'"').replace("\'",'"') 
 conc = np.array(specs[specs.columns[7:]])
 
- 
+
 nrows = conc.shape[0]
 
- 
+
 info_file = Dataset('ropa_'+ncfile, 'w', format='NETCDF3_CLASSIC')
- 
+
 info_file.createDimension('time', nrows)
 info_file.createDimension('specs', conc.shape[1])
 info_file.createDimension('fluxes', flux.shape[1])
@@ -212,7 +222,7 @@ info_file.createDimension('rateheader', len(rate_head))
 
 
 
- 
+
 cnc  = info_file.createVariable('concentration', 'f8', ('time', 'specs'))
 cnc[:,:] = conc
 
@@ -243,7 +253,7 @@ print 'PRIMARY SPECS'
 print 'LOCAT~ION ARRAY'
 
 print 'TIME ARRAY NOT HERE YET'
- 
+
 info_file.close()
 
 print 'nc write'

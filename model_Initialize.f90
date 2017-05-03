@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Initialize.f90
-! Time                 : Sat Apr 22 13:43:50 2017
+! Time                 : Tue May  2 15:33:40 2017
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -58,10 +58,10 @@ SUBROUTINE Initialize ( )
   END DO
 
 ! constant rate coefficients
-  RCONST(47) = 2e-11
-  RCONST(52) = 4e-12
-  RCONST(66) = 1
-  RCONST(67) = 1
+  RCONST(812) = 2e-11
+  RCONST(817) = 4e-12
+  RCONST(831) = 1
+  RCONST(832) = 1
 ! END constant rate coefficients
 
 ! INLINED initializations
