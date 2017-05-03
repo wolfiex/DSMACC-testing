@@ -46,7 +46,7 @@ def wrtKPP(rrate,fkpp):
     from os import system
 
 # Read in all lines from kpp file
-    with open('../mechanisms/halfMCM1tchr.kpp','r+') as f:
+    with open(fkpp,'r+') as f:
         line = f.readlines()
 
 # For duplicate reactions defined in rrate re-write reactions

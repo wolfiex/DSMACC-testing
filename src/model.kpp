@@ -1,8 +1,8 @@
 / include file with definition of the chemical species
 // and chemical equations
 
-//#INCLUDE ./mechanisms/organic.kpp
-#INCLUDE ./mechanisms/halfMCM1tchr.kpp
+#INCLUDE ./mechanisms/organic.kpp
+//#INCLUDE ./mechanisms/MCM4.kpp
 #INCLUDE ./mechanisms/inorganic.kpp
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp

@@ -97,7 +97,7 @@ def retrRXN(duprxn):
 # Retrieve information about equation/line numbers and file path/name
 # from warning messages
         spl = duprxn[l].split(':')
-        fkpp = '.'+spl[1]
+        fkpp = '.'+spl[1].lstrip()
         dl = int(spl[2])-1
         RIND = spl[4]
         rxn = np.empty(2,int)
@@ -208,6 +208,7 @@ def react(line):
     """
 
 # Retrived string with mechanistic data of educts from kpp line
+    print line
     edct = line[line.index('}')+1:line.index('=')].split('+')
 # Split into separate educts using '+' as separator and sort list
     edct = sorted([e.strip() for e in edct])
