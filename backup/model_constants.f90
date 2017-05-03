@@ -67,7 +67,7 @@ REAL(dp) kmt17
 REAL(dp)  l(1500), mm(1500), nn(1500), j(1500)
 INTEGER k
 REAL(dp)NC13,NC14,K150,K15I,KR15,NC15,FC15,F15,NC16,K170,K17I,KR17,FC17,F17
-REAL(dp)KMT18,NC17,F12,FC12,KR12,K120,NC12, NC9,NC10,K12I,NC7,NC8,NC3,NC4,NC1,NC2,K14ISOM1 
+REAL(dp)KMT18,NC17,F12,FC12,KR12,K120,NC12, NC9,NC10,K12I,NC7,NC8,NC3,NC4,NC1,NC2,K14ISOM1
 
 CONTAINS
 
@@ -81,7 +81,7 @@ REAL*8 y,dy,x,tmp(19), tmp2(19),b(19),c(19),d(19)
 
 integer i,n,jl
 INTEGER LK
-include './src/params'
+include './TUV_5.2.1/params'
 
 ! Time2 is local time in hours
 Time2=mod(Time/(60.*60.), 24.)
@@ -107,7 +107,7 @@ kalkpxy=1.50d-14*EXP(-200.0/temp)*o2
 ! -------------------------------------------------------------------
 
 ! MCM -> extract -> kpp + include generic rate coeff -> rename
-! rate_coeff.inc 
+! rate_coeff.inc
 
 !INCLUDE 'rate_coeff.inc'
 INCLUDE './src/old_rate.inc'
@@ -118,11 +118,11 @@ INCLUDE './src/new_rate.inc' !update the old constants whilst keeping the
 ! define photolysis reaction rates from cubic splines of the TUV output
 ! ************************************************************************
 
-if (theta .le. 90) then 
+if (theta .le. 90) then
     n=19
 
     do jl=1,kj
-    do i=1,19 
+    do i=1,19
     tmp(i)=szas(i)
     tmp2(i)=svj_tj(i,jl)
 
@@ -230,135 +230,135 @@ else !old tuv hard wiring
 
 
 SELECT CASE (jl)
-    
- CASE(2)   
+
+ CASE(2)
         j(1)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O1D
-    
- CASE(3)   
+
+ CASE(3)
         j(2)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O3P
-    
- CASE(11)  
+
+ CASE(11)
         j(3)=seval(n,theta,tmp, tmp2, b,c,d) ! H2O2->2*OH
-    
- CASE(4)  
+
+ CASE(4)
         j(4)=seval(n,theta,tmp, tmp2, b,c,d) ! NO2->NO+O3P
-    
- CASE(5)  
+
+ CASE(5)
         j(5)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO+O2
-    
- CASE(6)  
+
+ CASE(6)
         j(6)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO2+O3P
-    
- CASE(12)  
+
+ CASE(12)
         j(7)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO2->OH+NO
-    
- CASE(13)  
+
+ CASE(13)
         j(8)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO3->NO2+OH
-    
- CASE(14)  
-        j(1300)=seval(n,theta,tmp, tmp2, b,c,d) 
-    
- CASE(15)  
+
+ CASE(14)
+        j(1300)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(15)
         j(11)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(16)  
+
+ CASE(16)
         j(12)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(17)  
+
+ CASE(17)
         j(13)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(20)  
+
+ CASE(20)
         j(14)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(75)  
+
+ CASE(75)
         j(15)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(76)  
+
+ CASE(76)
         j(16)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(77)  
+
+ CASE(77)
         j(17)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(62)  
+
+ CASE(62)
         j(18)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
         j(19)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
-    
- CASE(25)  
+
+ CASE(25)
         j(21)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(87)  
+
+ CASE(87)
         j(22)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(61)  
+
+ CASE(61)
         j(23)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
         j(24)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
-    
- CASE(21)  
+
+ CASE(21)
         j(31)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(23)  
+
+ CASE(23)
         j(32)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(22)  
+
+ CASE(22)
         j(33)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(24)  
+
+ CASE(24)
         j(34)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(60)  
+
+ CASE(60)
         j(35)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(26)  
+
+ CASE(26)
         j(41)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(27)  
+
+ CASE(27)
         j(51)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(64)  
+
+ CASE(64)
         j(52)=seval(n,theta,tmp, tmp2, b,c,d)
         j(54)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(91)  
+
+ CASE(91)
         j(53)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(94)  
+
+ CASE(94)
         j(55)=seval(n,theta,tmp, tmp2, b,c,d)
-    
- CASE(67)  
+
+ CASE(67)
         j(56)=seval(n,theta,tmp, tmp2, b,c,d)*0.75
         j(57)=seval(n,theta,tmp, tmp2, b,c,d)*0.25
 !!!!!!!!!!Halogens !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
- CASE(72)  
+
+ CASE(72)
         j(1001)=seval(n,theta,tmp, tmp2, b,c,d) ! HOBr
-    
- CASE(73)  
+
+ CASE(73)
         j(1002)=seval(n,theta,tmp, tmp2, b,c,d) ! BrO
-    
- CASE(74)  
+
+ CASE(74)
         j(1003)=seval(n,theta,tmp, tmp2, b,c,d) ! Br2
-    
- CASE(50)  
+
+ CASE(50)
         j(1004)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->Br+NO3
-    
- CASE(51)  
+
+ CASE(51)
         j(1005)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->BrO+NO2
-    
- CASE(30)  
+
+ CASE(30)
         j(1006)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->Cl+NO3
-    
- CASE(31)  
+
+ CASE(31)
         j(1007)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->ClO+NO2
-    
- CASE(58)  
+
+ CASE(58)
         j(1008)=seval(n,theta,tmp, tmp2, b,c,d) ! Cl2->2Cl
-    
+
 END SELECT
 
- 
- end if 
- 
- 
+
+ end if
+
+
 
     enddo
 
@@ -370,10 +370,10 @@ endif
 
 
 if (jfactno2 .eq. 0) jfactno2=1.
-if (jfacto1d .eq. 0) jfacto1d=1. 
+if (jfacto1d .eq. 0) jfacto1d=1.
 
 do i=1,1500
-if (i .ne. 1) then 
+if (i .ne. 1) then
     j(i)=j(i)*jfactno2
 else
     j(i)=j(i)*jfacto1d
@@ -398,7 +398,7 @@ REAL FUNCTION UPTAKE(GAMMA,TEMP,AREA,MASS)
 !       DG=GAS-PHASE DIFFUSION COEFFICIENT (M^2 S-1)
 REAL*8 GAMMA, TEMP, AREA, MASS
 REAL*8 V, V2, R, DG
-R=8.314 
+R=8.314
 DG=2.47D-5
 !     DG TAKEN FROM MOZUREVICH ET EL 1987
 V2=3*R*TEMP/MASS
@@ -510,9 +510,9 @@ if ( u .le. x(i+1) ) go to 30
 j = n+1
 20 k = (i+j)/2
 
-if ( u .ge. x(k) )  then 
+if ( u .ge. x(k) )  then
     i = k
-else 
+else
     j = k
 end if
 
@@ -528,7 +528,7 @@ subroutine polint(f,a,n,x,r)
 !----------------------------------------------------------
 ! service program for fintr
 !----------------------------------------------------------
-real*8 r,al,x,a,f 
+real*8 r,al,x,a,f
 integer  i,j,k,l,n
 dimension f(n),a(n)
 r=0.0

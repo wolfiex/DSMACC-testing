@@ -1,4 +1,4 @@
-#!/usr/local/anaconda/bin/python
+#!/usr/bin/python
 import multiprocessing,os,subprocess,pickle,sys,time
 import pandas as pd
 import numpy as np
@@ -7,25 +7,25 @@ from netCDF4 import Dataset
 from scipy.io import FortranFile
 #from StringIO import StringIO
 import glob,sys,os
- 
- 
-'''options'''
+
+
+# options
 available_cores = 16
 #ic_file= sys.argv[1]
 pre_formatted_style=False #slower
 
- 
- 
- 
- 
+
+
+
+
  ##################
  ####read files####
- 
+
 file_list = glob.glob('InitCons/*.csv')
 
 print 'Select file to open: \n\n'
 for i,f in enumerate(file_list): print i , ' - ', f
-ic_file = file_list[int(input('Enter Number \n'))]     
+ic_file = file_list[int(input('Enter Number \n'))]
 
 
 #run simulations
@@ -34,8 +34,8 @@ ncores= available_cores # - 6 #if 6 used from openmp?
 start = (time.strftime("%Y%m%d%H%M"))
 
 
-# make ics 
-if ('.csv' not in ic_file):  ic_file += '.csv' 
+# make ics
+if ('.csv' not in ic_file):  ic_file += '.csv'
 print ic_file
 os.system("rm Init_cons.dat")
 os.system("./InitCons/makeics.pl %s"%ic_file)
@@ -50,30 +50,30 @@ def read_fbin(filename):
     f = FortranFile(filename, 'r')
     array = []
     while True:
-        try: 
+        try:
             array.append(f.read_reals(dtype=np.float_))
-        except TypeError: 
+        except TypeError:
             break
     #array = np.reshape(array, (nspecs,-1))
-    
+
     f.close()
     return array
-    
+
 
 # run dsmacc
 def simulate (arg_in):
 
 
-    try:     #each system call has to be on a new line        
+    try:     #each system call has to be on a new line
 
         description="%rm Outputs/s_%s.*"%('run',arg_in[1])
         start = time.strftime("%s")
         description="%s_%s"%('run',arg_in[1])
-        linenumber = "%s"%(int(arg_in[0])+1) 
+        linenumber = "%s"%(int(arg_in[0])+1)
         print './model %s %s 1'%(description,int(linenumber))
         os.system('./model %s %s 1'%(description,int(linenumber)))
         return int(time.strftime("%s")) - int(start)
-    except: 
+    except:
         return 'Failed'
 
 
@@ -84,13 +84,13 @@ def simulate (arg_in):
 #do runs
 #########################################################################################
 
-out = multiprocessing.Pool(ncores).map( simulate , numbered ) 
-os.system('rm fort*') 
+out = multiprocessing.Pool(ncores).map( simulate , numbered )
+os.system('rm fort*')
 
 
 #concat resutls
 #########################################################################################
-print '\n Calculations complete! \n Concatenating results. \n '  
+print '\n Calculations complete! \n Concatenating results. \n '
 
 ic_string='' # get a string format of the intial conditions file
 for line in ic_open[1:]: ic_string+=line
@@ -100,7 +100,7 @@ ncfile = Dataset(filename,'w')
 print 'add to results folder'
 ncfile.initial_conditions_str = ic_string
 ncfile.date = time.strftime("Completion time:%A %d %B %Y at %H:%M")
-ncfile.description = ic_open[0].strip() 
+ncfile.description = ic_open[0].strip()
 
 spec = ncfile.createDimension('spec', None)
 time = ncfile.createDimension('time', None)
@@ -112,15 +112,15 @@ rate = ncfile.createDimension('rate', None)
 
 for group_name in numbered:
     print group_name
-    
+
     group = ncfile.createGroup(group_name[1])
-    
+
     specvar = group.createVariable( 'Spec' , "f8"  ,('time','spec',))
     ratevar = group.createVariable( 'Rate' , "f8"  ,('time','rate',))
-    
-    specvar[:] = read_fbin('./Outputs/run_%s_.spec'%group_name[1]) 
+
+    specvar[:] = read_fbin('./Outputs/run_%s_.spec'%group_name[1])
     ratevar[:] = read_fbin('./Outputs/run_%s_.rate'%group_name[1])
-    
+
     print group
     specvar.head = ''.join(tuple(open('./Outputs/spec.names'))).replace(' ','').replace('\n','')
     ratevar.head = ''.join(tuple(open('./Outputs/rate.names'))).replace(' ','').replace('\n','')

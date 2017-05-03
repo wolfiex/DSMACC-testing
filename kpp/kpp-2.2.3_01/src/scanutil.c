@@ -48,7 +48,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "Error :%s:%d: %s\n", crt_filename, crt_line_no, buf );
+  fprintf( stdout, "Error: %s:%d: %s\n", crt_filename, crt_line_no, buf );
   nError++;
 }
 
@@ -60,7 +60,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "Error :%s:%d: %s\n", crtFile, crtLine, buf );
+  fprintf( stdout, "Error: %s:%d: %s\n", crtFile, crtLine, buf );
   nError++;
 }
 
@@ -72,7 +72,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "Warning :%s:%d: %s\n", crt_filename, crt_line_no, buf );
+  fprintf( stdout, "Warning: %s:%d: %s\n", crt_filename, crt_line_no, buf );
   nWarning++;
 }
 
@@ -84,7 +84,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "Warning :%s:%d: %s\n", crtFile, crtLine, buf );
+  fprintf( stdout, "Warning: %s:%d: %s\n", crtFile, crtLine, buf );
   nWarning++;
 }
 
@@ -96,7 +96,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "Error : %s\n", buf );
+  fprintf( stdout, "Error: %s\n", buf );
   nError++;
 }
 
@@ -108,7 +108,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "Warning : %s\n", buf );
+  fprintf( stdout, "Warning: %s\n", buf );
   nWarning++;
 }
 
@@ -120,7 +120,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "    Message :%s:%d: %s\n", crt_filename, crt_line_no, buf );
+  fprintf( stdout, "    Message: %s:%d: %s\n", crt_filename, crt_line_no, buf );
 }
 
 void FatalError( int status, char *fmt, ... )
@@ -131,7 +131,7 @@ char buf[ MAX_BUFFER ];
   Va_start( args, fmt );
   vsprintf( buf, fmt, args );
   va_end( args );
-  fprintf( stdout, "\nFatal error : %s\nProgram aborted\n", buf );
+  fprintf( stdout, "\nFatal error: %s\nProgram aborted\n", buf );
   exit(status);
 }
 
@@ -148,14 +148,14 @@ int noext;
   strcpy(name, fname);
   p = name + strlen(name);
   noext = 1;
-  while( p > name ) {  
+  while( p > name ) {
     if( *p == '.') {
-      noext = 0; 
+      noext = 0;
       break;
     }
     if( *p == '/' ) break;
     p--;
-  } 
+  }
 
   if( noext ) strcat(name, ext);
 
@@ -163,9 +163,9 @@ int noext;
   if( fp ) {
     fclose(fp);
     return name;
-  }  
-   
-  path = getenv(env); 
+  }
+
+  path = getenv(env);
   if( path ) {
     crtpath = path;
     p = pathname;
@@ -181,7 +181,7 @@ int noext;
         if( fp ) {
           fclose(fp);
           return pathname;
-        }  
+        }
         if (*crtpath==0) break;
         crtpath++;
         p = pathname;
@@ -190,13 +190,13 @@ int noext;
       *p++ = *crtpath++;
     }
   }
-  
+
   sprintf(pathname, "%s/%s/%s", Home, dir, name);
   fp = fopen(pathname,"r");
   if( fp ) {
     fclose(fp);
     return pathname;
-  }  
-    
+  }
+
   return name;
 }

@@ -16,15 +16,14 @@ white="\033[97m"
 nocol="\033[0m"
 #################
 
-
-PROG = model 
+PROG = model
 
 # complete list of all f90 source files
-SRCS1 = $(wildcard model_*.f90) 
+SRCS1 = $(wildcard model_*.f90)
 SRCS2 = $(wildcard TUV_5.2.1/*.f)
 
 # the object files are the same as the source files but with suffix ".o"
-OBJS1 := $(SRCS1:.f90=.o) 
+OBJS1 := $(SRCS1:.f90=.o)
 OBJS2 := $(SRCS2:.f=.o)
 
 MAKEFILE_INC = depend.mk
@@ -34,7 +33,7 @@ MAKEFILE_INC = depend.mk
 F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
 perl = /usr/bin/perl #perl path
 
-all: $(PROG) # default make cmd ! 
+all: $(PROG) # default make cmd !
 
 # the dependencies depend on the link
 # the executable depends on depend and also on all objects
@@ -47,25 +46,27 @@ $(PROG): depend $(OBJS1) $(OBJS2)
 depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2)
 	$(F_makedepend) $(SRCS1) $(SRCS2)
 
-clean: # remove others!
-	rm -f $(OBJS) *.mod *.log *~ depend.mk.old *.o *.sdout
+clean: # remove others
+	rm -f $(OBJS1) $(OBJS2) *.mod *.log *~ depend.mk.old *.o *.sdout *.tee
 
-clear: # remove temp and run files only ! 
+clear: # remove temp and run files only !
 	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
-	
+
 distclean: clean clear # clean all !
 	rm -f $(PROG)
-	rm -f depend.mk* 
+	rm -f depend.mk*
 	rm -f *.nc
 	rm -f *.dat
-	rm -f *.o 
+	rm -f *.o
 	rm -f model_*
 	rm -f run_
-	
+
 tuv: # compile tuv!
+	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
+	cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params .
 	cd TUV_5.2.1 && make clean && make && cd ../
 
-large: # functions to deal with large mechanisms that wont compile ! 
+large: # functions to deal with large mechanisms that wont compile !
 	./src/large_mechanisms.py model_Jacobian*.f90
 	./src/large_mechanisms.py model_Linear*.f90
 	./src/large_mechanisms.py model_Rates.f90
@@ -75,17 +76,17 @@ change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <
 	ls && python ./src/mechparse.py $(mechanism)
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
-	    
-kpp: clean # makes kpp using the model.kpp file in src! 
-	cd kpp/kpp*/ && make 
+
+kpp: clean # makes kpp using the model.kpp file in src!
+	cd kpp/kpp*/ && make
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
-	./kpp/kpp-2.2.3_01/bin/kpp model.kpp 
-	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90
+	./kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	rm -rf *.kpp
+	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90
 
-tidy: # removes fortran files from main directory whist retaining model and run data! 
+tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del
 
 %.o: %.f90
@@ -93,10 +94,10 @@ tidy: # removes fortran files from main directory whist retaining model and run 
 TUV_5.2.1/%.o: %.f
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
 
-## section to run a server and display results on web page 
+## section to run a server and display results on web page
 ropaserver: # creates a ropa file from latest nc file and displays on server!
 	python ./AnalysisTools/ropatool/ropa_tool.py *.nc
-	make displayropa 
+	make displayropa
 
 displayropa: # runs a server for timeout period!
 	cd AnalysisTools/ropatool/ && timeout 3600 python -m SimpleHTTPServer 8000
@@ -104,8 +105,8 @@ displayropa: # runs a server for timeout period!
 
 killserver: # kills a running server on port 8000!
 	fuser -k 8000/tcp
-	
-#man cmd list 
+
+#man cmd list
 man: # print each make function in list!
 	perl -lne 's/#/\n\t\t\$(blue)/;s/!/\$(nocol)\n/;print $1 if /([^\.]{2,99}):\s(.*)/;' Makefile
 
@@ -114,20 +115,31 @@ man: # print each make function in list!
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-model_Global.o: src/params
+model_Global.o: params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
-model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
-model_Integrator.o: model_Parameters.o model_Rates.o
+model_Integrator (1).o: model_Global.o model_Jacobian.o model_JacobianSP.o
+model_Integrator (1).o: model_LinearAlgebra.o model_Parameters.o
+model_Integrator (1).o: model_Precision.o model_Rates.o
+model_Integrator.o: model_Global.o model_Jacobian.o model_JacobianSP.o
+model_Integrator.o: model_LinearAlgebra.o model_Parameters.o model_Precision.o
+model_Integrator.o: model_Rates.o
 model_Jacobian.o: model_JacobianSP.o model_Parameters.o
 model_LinearAlgebra.o: model_JacobianSP.o model_Parameters.o
+model_Main (1).o: src/initialisations.inc
+model_Main (1).o: model_Global.o model_Integrator.o model_Monitor.o
+model_Main (1).o: model_Parameters.o model_Rates.o model_Util.o
+model_Main (1).o: model_constants.o
 model_Main.o: src/initialisations.inc
 model_Main.o: model_Global.o model_Integrator.o model_Monitor.o
-model_Main.o: model_Parameters.o model_Rates.o model_Util.o
+model_Main.o: model_Parameters.o model_Rates.o model_Util.o model_constants.o
 model_Model.o: model_Global.o model_Integrator.o model_Jacobian.o
 model_Model.o: model_LinearAlgebra.o model_Monitor.o model_Parameters.o
 model_Model.o: model_Precision.o model_Rates.o model_Util.o
 model_Parameters.o: model_Precision.o
-model_Rates.o: model_Global.o model_Parameters.o
+model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
+model_constants.o: TUV_5.2.1/MCM4.inc src/old_rate.inc src/new_rate.inc params
+model_constants.o: model_Global.o model_Precision.o
+constants.mod: model_constants.o

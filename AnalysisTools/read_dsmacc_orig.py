@@ -36,14 +36,11 @@ nc.close()
 # Format x-axis for plots
 time = (specs['TIME']-specs['TIME'][0]+600.)/3600.
 xm = int(time.iloc[-1])+1
-
-# Useful python command for formatting plots
-# (Have to be used after plot command, can therefore not be included in scrpit.)
-# xticks(np.arange(0,xm,12))
-# xlabel('Model time / hours')
-# ylabel('c / cm$^{-3}$\n(F / cm$^{-3}$ s$^{-1}$)')
-# tight_layout()
-# legend()
+xticks(np.arange(0,xm,12))
+xlabel('Model time / hours')
+ylabel('c / cm$^{-3}$\n(F / cm$^{-3}$ s$^{-1}$)')
+tight_layout()
+legend()
 
 # Added post-processing function from Fortran routine SPCgroup:
 specs['cc11'] = specs['MACROH']+specs['PRCOOMCHO']+specs['HOIBUTCHO']+specs['HO3C5CHO']+specs['C67OH'] \
@@ -341,8 +338,7 @@ specs['cc5'] = specs['HEX3ONANO3']+specs['CHOPRNO3']+specs['ETHO2HNO3']+specs['M
     +specs['HOCO4C5OOH']+specs['C72OOH']+specs['CY6COCOOOH']+specs['C53NO32OOH']+specs['PRNOCOPOOH'] \
     +specs['MVKOHANO3']+specs['C62NO33OOH']+specs['C6CO34OOH']+specs['C6HOCOOOH']+specs['C47CHO'] \
     +specs['CO1C6OOH']+specs['MPRNO3CO3H']+specs['IBUTALBO2H']+specs['MIBKANO3']+specs['MACRNCO3H'] \
-    +specs['C4COMOHOOH']+specs['NC2OOA']+specs['MACRNPAN']+specs['CO3C4NO3']+specs['CO25C74OOH'] \
-    +specs['NDNT124OOH']+specs['TM123OLO2']
+    +specs['C4COMOHOOH']+specs['NC2OOA']+specs['MACRNPAN']+specs['CO3C4NO3']+specs['CO25C74OOH']
 specs['cc0'] = specs['TBUACET']+specs['NBUTACET']+specs['IPROPOL']+specs['IPRHOCO2H']+specs['ETHGLY'] \
     +specs['HM33C4OH']+specs['NC9H20']+specs['BOX2COMOH']+specs['M23C4OH']+specs['MAE'] \
     +specs['EOX2ETB2OH']+specs['BUT2CO2H']+specs['IPRACBOH']+specs['PEBOH']+specs['HEPTOH'] \
@@ -579,7 +575,7 @@ specs['cn5'] = specs['PROL1MPAN']+specs['MAE']+specs['EOX2ETB2OH']+specs['CHOC3C
     +specs['BUT2CO3H']+specs['NC4OHCO3H']+specs['H2C3OCOOH']+specs['ETOHCO2M']+specs['INDHPAN'] \
     +specs['PE1ENEANO3']+specs['MC3ODBCO2H']+specs['HOCO4C5OOH']+specs['PR2OHMOX']+specs['DIEK'] \
     +specs['C53NO32OOH']+specs['CO2C4CO2H']+specs['C47CHO']+specs['HO2M2C4NO3']+specs['C42CHO'] \
-    +specs['IPECNO3']+specs['HO3C4CO3H']+specs['NDNT124OOH']
+    +specs['IPECNO3']+specs['HO3C4CO3H']
 specs['cn6'] = specs['HEX3ONANO3']+specs['HM22COCHO']+specs['HM33C4OH']+specs['M23C4NO3']+specs['C4ME2OHNO3'] \
     +specs['HO1MC5OOH']+specs['M23C4OH']+specs['PRCOFOROOH']+specs['C4COMOH3OH']+specs['IPRACBOH'] \
     +specs['C6PAN23']+specs['C6PAN22']+specs['C3COCCO3H']+specs['C611OOH']+specs['C61NO3'] \
@@ -674,7 +670,7 @@ specs['cn6'] = specs['HEX3ONANO3']+specs['HM22COCHO']+specs['HM33C4OH']+specs['M
     +specs['C6CO23HO5']+specs['HM2C43CO2H']+specs['HO14C6']+specs['CY6COCOOOH']+specs['C66CO'] \
     +specs['C62NO33OOH']+specs['C6CO34OOH']+specs['C6HOCOOOH']+specs['HO2C54CHO']+specs['C6DIALOH'] \
     +specs['CO1C6OOH']+specs['EIPK']+specs['MIBKANO3']+specs['HM33C3CO3H']+specs['C4COMOHOOH'] \
-    +specs['C61CO']+specs['TM123OLO2']
+    +specs['C61CO']
 specs['cn7'] = specs['TBUACET']+specs['NBUTACET']+specs['BOX2COMOH']+specs['M3HEXBNO3']+specs['PRCOOMCHO'] \
     +specs['HEPTOH']+specs['C713OH']+specs['ACETCOC3H7']+specs['M3CO25C6']+specs['NBUACBNO3'] \
     +specs['BOX2OHBOOH']+specs['C7PAN1']+specs['DIIPRETOH']+specs['ETBEAOH']+specs['M2HEXBOOH'] \
@@ -820,7 +816,7 @@ specs['oc1'] = specs['TBUACET']+specs['NBUTACET']+specs['IPROPOL']+specs['HM33C4
     +specs['PE4E2CO']+specs['PGLYOX']+specs['CYC613DION']+specs['UDECNO3']+specs['HO2CO5C7'] \
     +specs['HO2CO5C6']+specs['CO356C10']+specs['CO356C11']+specs['CO356C12']+specs['HO14C6'] \
     +specs['C102OOH']+specs['DIEK']+specs['C103CO']+specs['HO36C12']+specs['HO36C10'] \
-    +specs['HO2C54CHO']+specs['EIPK']+specs['C104OH']+specs['MACR']+specs['newMLC1']
+    +specs['HO2C54CHO']+specs['EIPK']+specs['C104OH']+specs['MACR']
 specs['oc2'] = specs['HEX3ONANO3']+specs['HM22COCHO']+specs['IPRHOCO2H']+specs['MACROH']+specs['M23C4NO3'] \
     +specs['C4ME2OHNO3']+specs['MEKAOOH']+specs['HO1MC5OOH']+specs['BOX2COMOH']+specs['MAE'] \
     +specs['EOX2ETB2OH']+specs['PRCOOMCHO']+specs['C4COMOH3OH']+specs['MBOAOOH']+specs['IPRACBOH'] \
@@ -960,8 +956,7 @@ specs['oc2'] = specs['HEX3ONANO3']+specs['HM22COCHO']+specs['IPRHOCO2H']+specs['
     +specs['CO23C3CHO']+specs['PRNOCOPOOH']+specs['C66CO']+specs['C62NO33OOH']+specs['C6CO34OOH'] \
     +specs['C6HOCOOOH']+specs['CO2C4CO2H']+specs['C6DIALOH']+specs['HO2M2C4NO3']+specs['CO1C6OOH'] \
     +specs['IBUTALBO2H']+specs['TBOCOCHO']+specs['C42CHO']+specs['MIBKANO3']+specs['HM33C3CO3H'] \
-    +specs['C4COMOHOOH']+specs['IPECNO3']+specs['HO3C4CO3H']+specs['CO25C74OOH']+specs['C61CO'] \
-    +specs['newMLC2']+specs['TM123OLO2']
+    +specs['C4COMOHOOH']+specs['IPECNO3']+specs['HO3C4CO3H']+specs['CO25C74OOH']+specs['C61CO']
 specs['oc3'] = specs['CHOPRNO3']+specs['PROL1MPAN']+specs['IBUTOLCNO3']+specs['ETHGLY']+specs['CHOC3COPAN'] \
     +specs['PRCOFOROOH']+specs['CH3OCH2OOH']+specs['C42CO3H']+specs['MPRANO3OOH']+specs['C527OOH'] \
     +specs['C6PAN23']+specs['C6PAN22']+specs['NOA']+specs['BIACETOOH']+specs['CO3C4NO3OH'] \
@@ -1059,7 +1054,7 @@ specs['oc3'] = specs['CHOPRNO3']+specs['PROL1MPAN']+specs['IBUTOLCNO3']+specs['E
     +specs['IC3H7NO3']+specs['H13CO2C3']+specs['C5NO3O4OOH']+specs['PROLNO3']+specs['C4OH2CO3H'] \
     +specs['NC4OHCO3H']+specs['H2C3OCOOH']+specs['BOXMPAN']+specs['CHOMOHPAN']+specs['CHOOCHO'] \
     +specs['HOCO3C4OOH']+specs['CH3CO2H']+specs['C53NO32OOH']+specs['MVKOHANO3']+specs['C47CHO'] \
-    +specs['MPRNO3CO3H']+specs['MACRNCO3H']+specs['CO3C4NO3']+specs['newMLC3']+specs['NDNT124OOH']
+    +specs['MPRNO3CO3H']+specs['MACRNCO3H']+specs['CO3C4NO3']
 specs['oc4'] = specs['ETHO2HNO3']+specs['MMALNAPAN']+specs['C47PAN']+specs['C3NO3COOOH']+specs['A2PAN'] \
     +specs['INDHPPAN']+specs['C3PAN2']+specs['C3PAN1']+specs['CH3NO3']+specs['PAN'] \
     +specs['HOCH2CO3H']+specs['C4PAN9']+specs['INANCO3H']+specs['CHOOMPAN']+specs['INB1HPPAN'] \
@@ -1071,4 +1066,4 @@ specs['oc4'] = specs['ETHO2HNO3']+specs['MMALNAPAN']+specs['C47PAN']+specs['C3NO
     +specs['PHAN']+specs['NO3CH2CO2H']+specs['MACRNBPAN']+specs['INANPAN']+specs['CONM2PAN'] \
     +specs['HCOCO3H']+specs['MPRBNO3PAN']+specs['CH3OOH']+specs['NO3CH2CHO']+specs['INAHPPAN'] \
     +specs['MEMOXYPAN']+specs['INAHPAN']+specs['INCNCO3H']+specs['INDHPAN']+specs['CHOOCH2NO3'] \
-    +specs['MACRNPAN']+specs['newMLC4']
+    +specs['MACRNPAN']

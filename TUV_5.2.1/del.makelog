@@ -1,3 +1,0 @@
-/opt/intel2016/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64_lin/for_main.o: In function `main':
-for_main.c:(.text+0x2a): undefined reference to `MAIN__'
-make[1]: *** [tuv] Error 1
