@@ -1,0 +1,250 @@
+# Add this line to the top
+    ! ************************************************************************
+    ! REAL(dp), SAVE:: efine generic reaction rates. 
+    ! ************************************************************************
+
+    ! REAL(dp), SAVE:: onstants used in calculation of reaction rates 
+    !M  = 2REAL(dp), SAVE:: 55E+19 
+    REAL(dp), SAVE:: 2 = 0.79*M 
+    REAL(dp), SAVE:: 2 = 0.2095*M 
+
+    ! REAL(dp), SAVE:: ro2no : ro2      + no      = ro      + no2 
+    !        : REAL(dp), SAVE:: o2      + no      = rono2 
+    ! REAL(dp), SAVE:: cm 2009 
+    REAL(dp), SAVE:: ro2no    = 2.54d-12*EXP(360.0/temp) 
+
+    ! REAL(dp), SAVE:: ro2ho2: ro2      + ho2     = rooh    + o2 
+    ! REAL(dp), SAVE:: cm protocol [1997] 
+    REAL(dp), SAVE:: ro2ho2   = 2.91d-13*EXP(1300.0/temp) 
+
+    ! REAL(dp), SAVE:: apho2 : rcoo2    + ho2     = products 
+    ! REAL(dp), SAVE:: cm protocol [1997] 
+    REAL(dp), SAVE:: apho2    = 4.30d-13*EXP(1040.0/temp) 
+
+    ! REAL(dp), SAVE:: apno  : rcoo2    + no      = products 
+    ! REAL(dp), SAVE:: ej [1998] 
+    REAL(dp), SAVE:: apno = 8.10d-12*EXP(270.0/temp) 
+
+    ! REAL(dp), SAVE:: ro2no3: ro2      + no3     = products 
+    ! REAL(dp), SAVE:: cm protocol [1997] 
+    REAL(dp), SAVE:: ro2no3   = 2.50d-12 
+
+    ! REAL(dp), SAVE:: no3al : no3      + rcho    = rcoo2   + hno3 
+    ! REAL(dp), SAVE:: cm protocol [1997] 
+    REAL(dp), SAVE:: no3al    = 1.44d-12*EXP(-1862.0/temp) 
+
+    ! REAL(dp), SAVE:: dec   : ro                 = products 
+    ! REAL(dp), SAVE:: cm protocol [1997] 
+    REAL(dp), SAVE:: dec      = 1.00d+06 
+    REAL(dp), SAVE:: rosec = 1.50e-14*EXP(-200.0/temp) 
+
+    REAL(dp), SAVE:: alkoxy=6.00d-14*EXP(-550.0/temp)*o2 
+    REAL(dp), SAVE:: alkpxy=1.50d-14*EXP(-200.0/temp)*o2 
+
+    ! REAL(dp), SAVE:: ch3o2 
+    ! REAL(dp), SAVE:: cm protocol [v3.2] 
+    REAL(dp), SAVE:: ch3o2    = 1.03d-13*EXP(365.0/temp) 
+
+    ! REAL(dp), SAVE:: 298ch3o2 
+    ! REAL(dp), SAVE:: cm protocol [v3.2] 
+    REAL(dp), SAVE:: 298ch3o2    = 3.5d-13 
+
+
+    ! -------------------------------------------------------------------
+    ! REAL(dp), SAVE:: omplex reactions 
+    ! -------------------------------------------------------------------
+
+    ! REAL(dp), SAVE:: fpan kbpan 
+    ! REAL(dp), SAVE:: ormation and decomposition of pan and ppn 
+    ! REAL(dp), SAVE:: upac 2001 
+    REAL(dp), SAVE:: c0     = 2.70d-28*m*(temp/300.0)**(-7.1) 
+    REAL(dp), SAVE:: ci     = 1.21d-11*(temp/300.0)**(-0.9) 
+    REAL(dp), SAVE:: rc     = kc0/kci 
+    REAL(dp), SAVE:: cc     = 0.30 
+    REAL(dp), SAVE:: c      = 0.75-1.27*(dlog10(fcc)) 
+    REAL(dp), SAVE:: c      = 10**(dlog10(fcc)/(1+(dlog10(krc)/nc)**2)) 
+    REAL(dp), SAVE:: fpan   = (kc0*kci)*fc/(kc0+kci) 
+
+    REAL(dp), SAVE:: d0     = 4.90d-03*m*EXP(-12100.0/temp) 
+    REAL(dp), SAVE:: di     = 5.40d+16*EXP(-13830.0/temp) 
+    REAL(dp), SAVE:: rd     = kd0/kdi 
+    REAL(dp), SAVE:: cd     = 0.30 
+    REAL(dp), SAVE:: cd     = 0.75-1.27*(dlog10(fcd)) 
+    REAL(dp), SAVE:: d      = 10**(dlog10(fcd)/(1+(dlog10(krd)/ncd)**2)) 
+    REAL(dp), SAVE:: bpan   = (kd0*kdi)*fd/(kd0+kdi) 
+    
+    REAL(dp), SAVE:: ppn0   = 1.70d-03*m*EXP(-11280.0/temp) 
+    REAL(dp), SAVE:: ppni   = 8.30d+16*EXP(-13940.0/temp) 
+    REAL(dp), SAVE:: rppn   = kppn0/kppni 
+    REAL(dp), SAVE:: cppn   = 0.36 
+    REAL(dp), SAVE:: cppn   = 0.75-1.27*(dlog10(fcppn)) 
+    REAL(dp), SAVE:: ppn    = 10**(dlog10(fcppn)/(1+(dlog10(krppn)/ncppn)**2)) 
+    REAL(dp), SAVE:: bppn   = (kppn0*kppni)*fppn/(kppn0+kppni) 
+
+    ! REAL(dp), SAVE:: mt01  : o        + no      = no2 
+    ! REAL(dp), SAVE:: upac 1997, 2006 gives Fc=0.85, otherwise the same 
+    REAL(dp), SAVE:: 10     = 1.00d-31*m*(temp/300.0)**(-1.6) 
+
+    REAL(dp), SAVE:: 1i     = 3.00d-11*(temp/300.0)**(0.3) 
+    REAL(dp), SAVE:: r1     = k10/k1i 
+    REAL(dp), SAVE:: c1     = EXP(-temp/1850.0) 
+    REAL(dp), SAVE:: 1      = 10**(dlog10(fc1)/(1+(dlog10(kr1))**2)) 
+    REAL(dp), SAVE:: mt01   = (k10*k1i)*f1/(k10+k1i) 
+
+    ! REAL(dp), SAVE:: mt02  : o        + no2     = no3 
+    ! REAL(dp), SAVE:: upac 2006 
+    REAL(dp), SAVE:: 20     = 1.30d-31*m*(temp/300.0)**(-1.5) 
+    REAL(dp), SAVE:: 2i     = 2.30d-11*(temp/300.0)**(0.24) 
+    REAL(dp), SAVE:: r2     = k20/k2i 
+    REAL(dp), SAVE:: c2     = 0.6 
+    REAL(dp), SAVE:: 2      = 10**(dlog10(fc2)/(1+(dlog10(kr2))**2)) 
+    REAL(dp), SAVE:: mt02   = (k20*k2i)*f2/(k20+k2i) 
+
+    ! REAL(dp), SAVE:: mt03  : no2      + no3     = n2o5 
+    ! REAL(dp), SAVE:: upac 2006 
+    REAL(dp), SAVE:: 30     = 3.60d-30*m*(temp/300.0)**(-4.1) 
+    REAL(dp), SAVE:: 3i     = 1.90d-12*(temp/300.0)**(0.2) 
+    REAL(dp), SAVE:: r3     = k30/k3i 
+    REAL(dp), SAVE:: c3     = 0.35 
+    REAL(dp), SAVE:: 3      = 10**(dlog10(fc3)/(1+(dlog10(kr3))**2)) 
+    REAL(dp), SAVE:: mt03   = (k30*k3i)*f3/(k30+k3i) 
+
+    ! REAL(dp), SAVE:: mt04  : n2o5               = no2     + no3 
+    ! REAL(dp), SAVE:: upac 2006 
+    REAL(dp), SAVE:: 40     = 1.30d-03*m*(temp/300.0)**(-3.5)*EXP(-11000.0/temp) 
+    REAL(dp), SAVE:: 4i     = 9.70d+14*(temp/300.0)**(0.1)*EXP(-11080.0/temp) 
+    REAL(dp), SAVE:: r4     = k40/k4i 
+    REAL(dp), SAVE:: c4     = 0.35 
+    REAL(dp), SAVE:: 4      = 10**(dlog10(fc4)/(1+(dlog10(kr4))**2)) 
+    REAL(dp), SAVE:: mt04   = (k40*k4i)*f4/(k40+k4i) 
+
+    ! REAL(dp), SAVE:: mt05  : oh       + co(+o2) = ho2     + co2 
+    ! REAL(dp), SAVE:: upac 2006 
+    REAL(dp), SAVE:: mt05  = (1 + m/4.2d19) 
+
+    ! REAL(dp), SAVE:: mt06  : ho2      + ho2     = h2o2    + o2 
+    ! REAL(dp), SAVE:: ater enhancement factor 
+    ! REAL(dp), SAVE:: upac 1992 
+
+    REAL(dp), SAVE:: mt06  = 1 + (1.40d-21*EXP(2200.0/temp)*h2o) 
+
+    ! REAL(dp), SAVE:: mt06  = 1 + (2.00d-25*EXP(4670.0/temp)*h2o) 
+    ! SREAL(dp), SAVE:: R 2005 values 
+
+    ! REAL(dp), SAVE:: mt07  : oh       + no      = hono 
+
+    ! REAL(dp), SAVE:: upac 2006 
+    REAL(dp), SAVE:: 70     = 7.40d-31*m*(temp/300.0)**(-2.4) 
+    REAL(dp), SAVE:: 7i     = 3.30d-11*(temp/300.0)**(-0.3) 
+    REAL(dp), SAVE:: r7     = k70/k7i 
+    REAL(dp), SAVE:: c7     = 0.81 
+    REAL(dp), SAVE:: 7      = 10**(dlog10(fc7)/(1+(dlog10(kr7))**2)) 
+    REAL(dp), SAVE:: mt07   = (k70*k7i)*f7/(k70+k7i) 
+
+    ! REAL(dp), SAVE:: mt08  : oh       + no2     = hno3 
+
+    ! REAL(dp), SAVE:: upac 2006 
+    REAL(dp), SAVE:: 80     = 3.30d-30*m*(temp/300.0)**(-3.0) 
+    REAL(dp), SAVE:: 8i     = 4.10d-11 
+    REAL(dp), SAVE:: r8     = k80/k8i 
+    REAL(dp), SAVE:: c8     = 0.4 
+    REAL(dp), SAVE:: 8      = 10**(dlog10(fc8)/(1+(dlog10(kr8))**2)) 
+    REAL(dp), SAVE:: mt08   = (k80*k8i)*f8/(k80+k8i) 
+
+    ! REAL(dp), SAVE:: mt09  : ho2      + no2     = ho2no2 
+    ! REAL(dp), SAVE:: upac 1997 
+
+    REAL(dp), SAVE:: 90     = 1.80d-31*m*(temp/300.0)**(-3.2) 
+    ! REAL(dp), SAVE:: 90     = 2.0d-31*m*(temp/300.0)**(-3.4) 
+    REAL(dp), SAVE:: 9i     = 4.70d-12 
+    ! REAL(dp), SAVE:: 9i     = 2.90d-12*(temp/300.0)**(-1.1) 
+    REAL(dp), SAVE:: r9     = k90/k9i 
+    REAL(dp), SAVE:: c9     = 0.6 
+    REAL(dp), SAVE:: 9      = 10**(dlog10(fc9)/(1+(dlog10(kr9))**2)) 
+    REAL(dp), SAVE:: mt09   = (k90*k9i)*f9/(k90+k9i) 
+
+    ! REAL(dp), SAVE:: mt10  : ho2no2             = ho2     + no2 
+    ! REAL(dp), SAVE:: upac 1997 
+
+    REAL(dp), SAVE:: 100     = 4.10d-05*m*EXP(-10650.0/temp) 
+    REAL(dp), SAVE:: 10i     = 5.70d+15*EXP(-11170.0/temp) 
+    REAL(dp), SAVE:: r10     = k100/k10i 
+    REAL(dp), SAVE:: c10     = 0.5 
+    REAL(dp), SAVE:: 10      = 10**(dlog10(fc10)/(1+(dlog10(kr10))**2)) 
+    REAL(dp), SAVE:: mt10    = (k100*k10i)*f10/(k100+k10i) 
+
+    ! REAL(dp), SAVE:: mt10    = kmt09/(3.9d-27*EXP(10125/temp)) 
+
+    ! REAL(dp), SAVE:: mt11  : oh       + hno3    = h2o     + no3 
+    ! REAL(dp), SAVE:: upac 2006 
+
+    REAL(dp), SAVE:: 1     = 2.40d-14*EXP(460.0/temp) 
+    REAL(dp), SAVE:: 3     = 6.50d-34*EXP(1335.0/temp) 
+    REAL(dp), SAVE:: 4     = 2.70d-17*EXP(2199.0/temp) 
+    REAL(dp), SAVE:: 2     = (k3*m)/(1+(k3*m/k4)) 
+    REAL(dp), SAVE:: mt11  = k1 + k2 
+
+    ! REAL(dp), SAVE:: mt12 iupac 2006 
+
+    REAL(dp), SAVE:: 0 = 4.50d-31*((temp/300.0)**(-3.9))*m 
+    REAL(dp), SAVE:: i = 1.30d-12*((temp/300.0)**(-0.7)) 
+    REAL(dp), SAVE:: c = 0.525 
+    x = 1REAL(dp), SAVE:: 0d+0 
+    REAL(dp), SAVE:: sign = dsign(x,(k0-ki)) 
+    fREAL(dp), SAVE:: 10**(dlog10(fc)/(1.0+(ssign*(ABS(dlog10(k0/ki)))**(2.0)))) 
+    REAL(dp), SAVE:: mt12=(k0*ki*f)/(k0+ki) 
+
+    ! REAL(dp), SAVE:: mt13  : ch3o2    + no2     = ch3o2no2 
+    ! REAL(dp), SAVE:: upac 2006 
+
+    REAL(dp), SAVE:: 130     = 2.50d-30*((temp/300.0)**(-5.5))*m 
+    REAL(dp), SAVE:: 13i     = 1.80d-11 
+    REAL(dp), SAVE:: r13     = k130/k13i 
+    REAL(dp), SAVE:: c13     = 0.36 
+    REAL(dp), SAVE:: 13      = 10**(dlog10(fc13)/(1+(dlog10(kr13))**2)) 
+    REAL(dp), SAVE:: mt13    = (k130*k13i)*f13/(k130+k13i) 
+
+    ! REAL(dp), SAVE:: mt14  : ch3o2no2           = ch3o2   + no2 
+    ! REAL(dp), SAVE:: upac 2006 
+
+    REAL(dp), SAVE:: 140     = 9.00d-05*EXP(-9690.0/temp)*m 
+    REAL(dp), SAVE:: 14i     = 1.10d+16*EXP(-10560.0/temp) 
+    REAL(dp), SAVE:: r14     = k140/k14i 
+    REAL(dp), SAVE:: c14     = 0.6 
+    REAL(dp), SAVE:: 14      = 10**(dlog10(fc14)/(1+(dlog10(kr14))**2)) 
+    REAL(dp), SAVE:: mt14    = (k140*k14i)*f14/(k140+k14i) 
+
+    ! REAL(dp), SAVE:: mt15 iupac 2006 
+
+    REAL(dp), SAVE:: 0=8.60d-29*((temp/300.0)**(-3.1))*m 
+    REAL(dp), SAVE:: i=9.00d-12*((temp/300.0)**(-0.85)) 
+    REAL(dp), SAVE:: c=0.48 
+    x = 1REAL(dp), SAVE:: 0d+0 
+    REAL(dp), SAVE:: sign = dsign(x,(k0-ki)) 
+    fREAL(dp), SAVE:: 10**(dlog10(fc)/(1.0+(ssign*(ABS(dlog10(k0/ki)))**(2.0)))) 
+    REAL(dp), SAVE:: mt15=(k0*ki*f)/(k0+ki) 
+
+    ! REAL(dp), SAVE:: mt16  :  oh  +  c3h6 
+    ! REAL(dp), SAVE:: upac 2006 
+
+    REAL(dp), SAVE:: 160     = 8.00d-27*((temp/300.0)**(-3.5))*m 
+    REAL(dp), SAVE:: 16i     = 3.00d-11*((temp/300.0)**(-1.0)) 
+    REAL(dp), SAVE:: r16     = k160/k16i 
+    REAL(dp), SAVE:: c16     = 0.5 
+    REAL(dp), SAVE:: 16      = 10**(dlog10(fc16)/(1+(dlog10(kr16))**2)) 
+    REAL(dp), SAVE:: mt16    = (k160*k16i)*f16/(k160+k16i) 
+
+    ! REAL(dp), SAVE:: mt17 iupac 2006 
+
+    REAL(dp), SAVE:: 0 = 5.00d-30*((temp/300.0)**(-1.5))*m 
+    REAL(dp), SAVE:: i = 1.00d-12 
+    REAL(dp), SAVE:: c = 0.37 
+    x = 1REAL(dp), SAVE:: 0d+0 
+    REAL(dp), SAVE:: sign = dsign(x,(k0-ki)) 
+    fREAL(dp), SAVE:: 10**(dlog10(fc)/(1.0+(ssign*(ABS(dlog10(k0/ki)))**(2.0)))) 
+    REAL(dp), SAVE:: mt17=(k0*ki*f)/(k0+ki) 
+
+    !       REAL(dp), SAVE:: cm 2001 
+
+    REAL(dp), SAVE:: roprim  = 3.70d-14*EXP(-460.0/temp) 
+    REAL(dp), SAVE:: rosec   = 1.80d-14*EXP(-260.0/temp) 
