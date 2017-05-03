@@ -1,5 +1,5 @@
 # DSMACC-testing
-Dan's version of the Dynamically Simple Model For Atmospheric Chemical Complexity
+Dan's version of the Dynamically Simple Model For Atmospheric Chemical Complexity --- still in development/testing
 
 ##Cite
 Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
@@ -60,12 +60,3 @@ git submodule update` or typing `make update_submodule`
 + improved makefile 
 + MCM TUV 5 updated
 
-
-
-
-### To do:
-+ Modularise
-+ add omp statements to kpp?
-+ tidy
-+ dos2unix
-+ mcm selector
