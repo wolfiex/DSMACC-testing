@@ -77,14 +77,20 @@ change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
 
-kpp: clean # makes kpp using the model.kpp file in src!
+
+./Outputs:
+	mkdir Outputs
+
+new: distclean update_submodule tuv	
+
+kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	cd kpp/kpp*/ && make
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
 	./kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	rm -rf *.kpp
-	perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90
+	
 
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del
@@ -118,21 +124,13 @@ update_submodule: # print each make function in list!
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-model_Global.o: params
+model_Global.o: TUV_5.2.1/params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
-model_Integrator (1).o: model_Global.o model_Jacobian.o model_JacobianSP.o
-model_Integrator (1).o: model_LinearAlgebra.o model_Parameters.o
-model_Integrator (1).o: model_Precision.o model_Rates.o
-model_Integrator.o: model_Global.o model_Jacobian.o model_JacobianSP.o
-model_Integrator.o: model_LinearAlgebra.o model_Parameters.o model_Precision.o
-model_Integrator.o: model_Rates.o
+model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
+model_Integrator.o: model_Parameters.o model_Rates.o
 model_Jacobian.o: model_JacobianSP.o model_Parameters.o
 model_LinearAlgebra.o: model_JacobianSP.o model_Parameters.o
-model_Main (1).o: src/initialisations.inc
-model_Main (1).o: model_Global.o model_Integrator.o model_Monitor.o
-model_Main (1).o: model_Parameters.o model_Rates.o model_Util.o
-model_Main (1).o: model_constants.o
 model_Main.o: src/initialisations.inc
 model_Main.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Main.o: model_Parameters.o model_Rates.o model_Util.o model_constants.o
@@ -143,6 +141,6 @@ model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: TUV_5.2.1/MCM4.inc src/old_rate.inc src/new_rate.inc params
+model_constants.o: TUV_5.2.1/MCM4.inc tuv_old/MCM3.inc TUV_5.2.1/params
 model_constants.o: model_Global.o model_Precision.o
 constants.mod: model_constants.o

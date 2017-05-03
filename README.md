@@ -7,6 +7,9 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 **9(5)**, pp1831-1845 [doi:
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
 
+## New user
+Run `make new` to clean everything and update latest TUV.
+
 ## Updating the submodule (TUV)
 This needs to be done to include contents here. 
 Can be accomplished through `git submodule init

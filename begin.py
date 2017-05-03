@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import multiprocessing,os,subprocess,pickle,sys,time
-import pandas as pd
+#import pandas as pd
 import numpy as np
 import netCDF4
 from netCDF4 import Dataset
