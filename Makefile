@@ -110,7 +110,10 @@ killserver: # kills a running server on port 8000!
 man: # print each make function in list!
 	perl -lne 's/#/\n\t\t\$(blue)/;s/!/\$(nocol)\n/;print $1 if /([^\.]{2,99}):\s(.*)/;' Makefile
 
-
+update_submodule: # print each make function in list!
+	git submodule init
+	git submodule update
+  
 
 # list of dependencies (via USE statements)
 include depend.mk

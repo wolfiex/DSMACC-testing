@@ -8,11 +8,66 @@ INTEGER i
 ! variables for zenith routine which calculates zenith angle
 REAL(dp) theta, secx, cosx
 ! generic reaction rate variables
+REAL(dp) kro2no, kro2ho2, kapho2, kapno, kro2no3, kno3al, kdec, &
+krosec, kalkoxy, kalkpxy, kroprim, kch3o2, k298ch3o2
+! variables for calculation of kfpan and kbpan
+REAL(dp) kfpan, kbpan, kbppn
+REAL(dp) kc0, kci, krc, fcc, nc, fc
+REAL(dp) kd0, kdi, krd, fcd, ncd, fd
+REAL(dp) kppn0, kppni, krppn, fcppn, ncppn, fppn
+! variables for calculation of kmt01
+REAL(dp) kmt01
+REAL(dp) k10, k1i, kr1, fc1, f1
+! variables for calculation of kmt02
+REAL(dp) kmt02
+REAL(dp) k20, k2i, kr2, fc2, f2
+! variables for calculation of kmt03
+REAL(dp) kmt03
+REAL(dp) k30, k3i, kr3, fc3, f3
+! variables for calculation of kmt04
+REAL(dp) kmt04
+REAL(dp) k40, k4i, kr4, fc4, f4
+! variables for calculation of kmt05
+REAL(dp) kmt05
+! variables for calculation of kmt06
+REAL(dp) kmt06
+! variables for calculation of kmt07
+REAL(dp) kmt07
+REAL(dp) k70, k7i, kr7, fc7, f7
+! variables for calculation of kmt08
+REAL(dp) kmt08
+REAL(dp) k80, k8i, kr8, fc8, f8
+! variables for calculation of kmt09
+REAL(dp) kmt09
+REAL(dp) k90, k9i, kr9, fc9, f9
+! variables for calculation of kmt10
+REAL(dp) kmt10
+REAL(dp) k100, k10i, kr10, fc10, f10
+! variables for calculation of kmt11
+REAL(dp) kmt11
+REAL(dp) k1,k2,k3,k4
+! variables for calculation of kmt12
+REAL(dp) kmt12
+REAL(dp) k0, ki, x, ssign,f
+! variables for calculation of kmt13
+REAL(dp) kmt13
+REAL(dp) k130, k13i, kr13, fc13, f13
+! variables for calculation of kmt14
+REAL(dp) kmt14
+REAL(dp) k140, k14i, kr14, fc14, f14
+! variables for calculation of kmt15
+REAL(dp) kmt15
+! variables for calculation of kmt16
+REAL(dp) kmt16
+REAL(dp) k160, k16i, kr16, fc16, f16
+! variables for calculation of kmt17
+REAL(dp) kmt17
 ! variables for calculation of photolysis reaction rates
 ! J increased to 1100. Upto 1000 for inorganics/organics, 1000 onwards halogens
 REAL(dp)  l(1500), mm(1500), nn(1500), j(1500)
 INTEGER k
-
+REAL(dp)NC13,NC14,K150,K15I,KR15,NC15,FC15,F15,NC16,K170,K17I,KR17,FC17,F17
+REAL(dp)KMT18,NC17,F12,FC12,KR12,K120,NC12, NC9,NC10,K12I,NC7,NC8,NC3,NC4,NC1,NC2,K14ISOM1
 
 CONTAINS
 
@@ -52,7 +107,12 @@ kalkpxy=1.50d-14*EXP(-200.0/temp)*o2
 ! -------------------------------------------------------------------
 
 ! MCM -> extract -> kpp + include generic rate coeff -> rename
+! rate_coeff.inc
 
+!INCLUDE 'rate_coeff.inc'
+INCLUDE './src/old_rate.inc'
+INCLUDE './src/new_rate.inc' !update the old constants whilst keeping the
+!redundant ones
 
 ! ************************************************************************
 ! define photolysis reaction rates from cubic splines of the TUV output
