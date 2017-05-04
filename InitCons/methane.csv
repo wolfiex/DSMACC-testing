@@ -1,6 +1,6 @@
 Description: Optional,Do not write time more than once. ,,
 ,,,
-Index,Species,Constrain,nhep8
+Index,Species,Constrain,methane
 ii ,TIME,NA,259200
 ii,TEMP,0,298
 ii ,LAT,0,53.958

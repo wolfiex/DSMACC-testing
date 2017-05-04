@@ -18,10 +18,11 @@ git submodule update` or typing `make update_submodule`
 
 ## Compiling 
 0. run `make distclean`
-1. Download mechanism from mcm website and place into organic.kpp
-2. Add any emmitions into emissions.kpp (these can be disabled)
-3. Adjust deposition constant in ./makedepos.pl if needed
-4. Run kpp and make by typing `make kpp`
+1. If not done so already, go into the TUV folder, type `make clean && make`
+2. Download mechanism from mcm website and place into organic.kpp
+3. Add any emmitions into emissions.kpp (these can be disabled)
+4. Adjust deposition constant in ./makedepos.pl if needed
+5. Run kpp and make by typing `make kpp`
 
 ## How to run
 1. Create Init cons csv file (methane.csv as a template) 

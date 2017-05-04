@@ -1,8 +1,16 @@
 / include file with definition of the chemical species
 // and chemical equations
 
-#INCLUDE ./mechanisms/organic_nhept32.kpp
+
+//#INCLUDE ./mechanisms/organic_nhept32.kpp
 //#INCLUDE ./mechanisms/MCM4.kpp
+
+//#include ./mechanisms/gckpp.kpp
+//#include ./mechanisms/organic_methane.kpp
+//#include ./mechanisms/methane.kpp
+#INCLUDE ./mechanisms/organic_nhept33.kpp
+//#INCLUDE ./mechanisms/subset_organic_cri5.kpp
+
 #INCLUDE ./mechanisms/inorganic.kpp
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp
@@ -26,8 +34,8 @@ ALL_SPEC = 0.;
 
 // integrator should usually be rosenbrock
 
-#INTEGRATOR rosenbrock
-//#INTEGRATOR kpp_lsode
+//#INTEGRATOR rosenbrock
+#INTEGRATOR kpp_lsode
 //#INTEGRATOR ros2_manual
 //#INTEGRATOR radau5
 
@@ -47,4 +55,4 @@ ALL_SPEC = 0.;
 #MEX OFF
 
 // equation IDs
-#EQNTAGS on
+#EQNTAGS ON
