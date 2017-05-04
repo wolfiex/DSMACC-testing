@@ -73,7 +73,10 @@ if (theta .le. 90) then
 
 
     if (new_tuv) then
-      INCLUDE './TUV_5.2.1/MCM4.inc'
+      !mcm 4 mechanism 
+      !INCLUDE './TUV_5.2.1/MCM4.inc'
+      !mcm 331
+      INCLUDE './TUV_5.2.1/MCM331.inc'
     else !old tuv hard wiring
       INCLUDE './tuv_old/MCM3.inc'
     end if
