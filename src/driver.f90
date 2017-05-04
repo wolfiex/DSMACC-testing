@@ -30,8 +30,13 @@ integer :: run_counter = 0
 
 STEPMIN = 0.0_dp
 STEPMAX = 0.0_dp
-RTOL(:) = 1.0e-5_dp
-ATOL(:) = 1.0_dp
+RTOL(:) = 1.0E-5_dp !-5
+ATOL(:) = 1.0_dp    !-16?
+
+!desired |true-computed| < RTOL*|TRUE| + ATOL
+!want ATOL/calc_value < RTOL
+
+!rtol - #sig fig 
 
 mechanism=''
 LAST_POINT=.False.

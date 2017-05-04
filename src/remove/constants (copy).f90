@@ -8,12 +8,67 @@ INTEGER i
 ! variables for zenith routine which calculates zenith angle
 REAL(dp) theta, secx, cosx
 ! generic reaction rate variables
+REAL(dp) kro2no, kro2ho2, kapho2, kapno, kro2no3, kno3al, kdec, &
+krosec, kalkoxy, kalkpxy, kroprim, kch3o2, k298ch3o2
+! variables for calculation of kfpan and kbpan
+REAL(dp) kfpan, kbpan, kbppn
+REAL(dp) kc0, kci, krc, fcc, nc, fc
+REAL(dp) kd0, kdi, krd, fcd, ncd, fd
+REAL(dp) kppn0, kppni, krppn, fcppn, ncppn, fppn
+! variables for calculation of kmt01
+REAL(dp) kmt01
+REAL(dp) k10, k1i, kr1, fc1, f1
+! variables for calculation of kmt02
+REAL(dp) kmt02
+REAL(dp) k20, k2i, kr2, fc2, f2
+! variables for calculation of kmt03
+REAL(dp) kmt03
+REAL(dp) k30, k3i, kr3, fc3, f3
+! variables for calculation of kmt04
+REAL(dp) kmt04
+REAL(dp) k40, k4i, kr4, fc4, f4
+! variables for calculation of kmt05
+REAL(dp) kmt05
+! variables for calculation of kmt06
+REAL(dp) kmt06
+! variables for calculation of kmt07
+REAL(dp) kmt07
+REAL(dp) k70, k7i, kr7, fc7, f7
+! variables for calculation of kmt08
+REAL(dp) kmt08
+REAL(dp) k80, k8i, kr8, fc8, f8
+! variables for calculation of kmt09
+REAL(dp) kmt09
+REAL(dp) k90, k9i, kr9, fc9, f9
+! variables for calculation of kmt10
+REAL(dp) kmt10
+REAL(dp) k100, k10i, kr10, fc10, f10
+! variables for calculation of kmt11
+REAL(dp) kmt11
+REAL(dp) k1,k2,k3,k4
+! variables for calculation of kmt12
+REAL(dp) kmt12
+REAL(dp) k0, ki, x, ssign,f
+! variables for calculation of kmt13
+REAL(dp) kmt13
+REAL(dp) k130, k13i, kr13, fc13, f13
+! variables for calculation of kmt14
+REAL(dp) kmt14
+REAL(dp) k140, k14i, kr14, fc14, f14
+! variables for calculation of kmt15
+REAL(dp) kmt15
+! variables for calculation of kmt16
+REAL(dp) kmt16
+REAL(dp) k160, k16i, kr16, fc16, f16
+! variables for calculation of kmt17
+REAL(dp) kmt17
 ! variables for calculation of photolysis reaction rates
 ! J increased to 1100. Upto 1000 for inorganics/organics, 1000 onwards halogens
 REAL(dp)  l(1500), mm(1500), nn(1500), j(1500)
-REAL(dp) kalkpxy,kalkoxy
 INTEGER k
-INCLUDE './src/new_rate.inc.def'
+REAL(dp)NC13,NC14,K150,K15I,KR15,NC15,FC15,F15,NC16,K170,K17I,KR17,FC17,F17
+REAL(dp)KMT18,NC17,F12,FC12,KR12,K120,NC12, NC9,NC10,K12I,NC7,NC8,NC3,NC4,NC1,NC2,K14ISOM1
+
 CONTAINS
 
 !**************************************************************************
@@ -52,7 +107,12 @@ kalkpxy=1.50d-14*EXP(-200.0/temp)*o2
 ! -------------------------------------------------------------------
 
 ! MCM -> extract -> kpp + include generic rate coeff -> rename
-INCLUDE './src/new_rate.inc'
+! rate_coeff.inc
+
+!INCLUDE 'rate_coeff.inc'
+INCLUDE './src/old_rate.inc'
+INCLUDE './src/new_rate.inc' !update the old constants whilst keeping the
+!redundant ones
 
 ! ************************************************************************
 ! define photolysis reaction rates from cubic splines of the TUV output
@@ -72,21 +132,153 @@ if (theta .le. 90) then
     enddo
 
 
-    if (new_tuv) then
-      !mcm 4 mechanism 
-      !INCLUDE './TUV_5.2.1/MCM4.inc'
-      !mcm 331
-      INCLUDE './TUV_5.2.1/MCM331.inc'
-    else !old tuv hard wiring
-      INCLUDE './tuv_old/MCM3.inc'
-    end if
+if (new_tuv) then
+
+  INCLUDE './TUV_5.2.1/MCM4.inc'
+
+else !old tuv hard wiring
+
+
+
+
+
+SELECT CASE (jl)
+
+ CASE(2)
+        j(1)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O1D
+
+ CASE(3)
+        j(2)=seval(n,theta,tmp, tmp2, b,c,d) ! O3->O3P
+
+ CASE(11)
+        j(3)=seval(n,theta,tmp, tmp2, b,c,d) ! H2O2->2*OH
+
+ CASE(4)
+        j(4)=seval(n,theta,tmp, tmp2, b,c,d) ! NO2->NO+O3P
+
+ CASE(5)
+        j(5)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO+O2
+
+ CASE(6)
+        j(6)=seval(n,theta,tmp, tmp2, b,c,d) ! NO3->NO2+O3P
+
+ CASE(12)
+        j(7)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO2->OH+NO
+
+ CASE(13)
+        j(8)=seval(n,theta,tmp, tmp2, b,c,d) ! HNO3->NO2+OH
+
+ CASE(14)
+        j(1300)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(15)
+        j(11)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(16)
+        j(12)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(17)
+        j(13)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(20)
+        j(14)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(75)
+        j(15)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(76)
+        j(16)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(77)
+        j(17)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(62)
+        j(18)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
+        j(19)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
+
+ CASE(25)
+        j(21)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(87)
+        j(22)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(61)
+        j(23)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
+        j(24)=seval(n,theta,tmp, tmp2, b,c,d)*0.5
+
+ CASE(21)
+        j(31)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(23)
+        j(32)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(22)
+        j(33)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(24)
+        j(34)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(60)
+        j(35)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(26)
+        j(41)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(27)
+        j(51)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(64)
+        j(52)=seval(n,theta,tmp, tmp2, b,c,d)
+        j(54)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(91)
+        j(53)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(94)
+        j(55)=seval(n,theta,tmp, tmp2, b,c,d)
+
+ CASE(67)
+        j(56)=seval(n,theta,tmp, tmp2, b,c,d)*0.75
+        j(57)=seval(n,theta,tmp, tmp2, b,c,d)*0.25
+!!!!!!!!!!Halogens !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ CASE(72)
+        j(1001)=seval(n,theta,tmp, tmp2, b,c,d) ! HOBr
+
+ CASE(73)
+        j(1002)=seval(n,theta,tmp, tmp2, b,c,d) ! BrO
+
+ CASE(74)
+        j(1003)=seval(n,theta,tmp, tmp2, b,c,d) ! Br2
+
+ CASE(50)
+        j(1004)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->Br+NO3
+
+ CASE(51)
+        j(1005)=seval(n,theta,tmp, tmp2, b,c,d) ! BrNO3->BrO+NO2
+
+ CASE(30)
+        j(1006)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->Cl+NO3
+
+ CASE(31)
+        j(1007)=seval(n,theta,tmp, tmp2, b,c,d) ! ClNO3->ClO+NO2
+
+ CASE(58)
+        j(1008)=seval(n,theta,tmp, tmp2, b,c,d) ! Cl2->2Cl
+
+END SELECT
+
+
+ end if
+
+
 
     enddo
 
-    else
-        do i=1,1500
-        j(i)=0.
-        enddo
+else
+    do i=1,1500
+    j(i)=0.
+    enddo
 endif
 
 
