@@ -25,6 +25,8 @@ for i,j in enumerate(eqns):
     except TypeError:
         continue
 
+valuesfirst = [locals()[i] for i in constants]
+
 '''
 for i,j in enumerate(eqns): 
             print i
@@ -33,17 +35,17 @@ for i,j in enumerate(eqns):
                 exec('print ' + constants[i])
             except TypeError:
                 continue
+'''
 
-
-log10=symbols('log10')
+#log10=symbols('log10')
 for i,j in enumerate(eqns): 
     try:
-        locals()[constants[i]]  =  simplify(locals()[constants[i]])
+        locals()[constants[i]]  =  expand(locals()[constants[i]])
     except TypeError:
         exec( '%s  =  expand(%s)' %(constants[i],j.replace('mpmath.','')))
         exec('print ' + constants[i])
     
-'''
+
 
 def review():
     for i in constants:
@@ -74,11 +76,13 @@ values = [locals()[i] for i in constants]
 fixed = [isnum_regex(str(i)) for i in values]
 
 
-df = DataFrame([eqns,values,fixed]).T
+df = DataFrame([eqns,valuesfirst,values,fixed]).T
 df.index=constants
 print df
-
+df.to_csv('test.csv')
 #replace *10** with D
+#remove mpmath
+#write in scientific form
 
 
 
