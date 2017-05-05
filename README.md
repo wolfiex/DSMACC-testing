@@ -10,9 +10,9 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 ## New user
 Run `make new` to clean everything and update latest TUV.
 
-## Updating the submodule (TUV)
+## Updating the submodule (TUV and KPP)
 This needs to be done to include contents here. 
-Can be accomplished through `git submodule init
+Can be accomplished through `git submodule init;
 git submodule update` or typing `make update_submodule`
 
 ## Compiling 
@@ -42,7 +42,7 @@ git submodule update` or typing `make update_submodule`
 
 
 ## Updating the rate constants
-Rate-constant simplification through the use of a symbolic engine has been applied. This reduces cumputation and allows the setting of  parameters for fixed numeric constants (see KDEC bug). An example of some equations below.
+Rate-constant simplification through the use of a symbolic engine has been applied. This reduces computation and allows the setting of  parameters for fixed numeric constants (see KDEC bug). An example of some equations below.
 
 | Rate Cefficient | Original-eqn | Simplified-eqn |
 | :---         |     :---:      |          ---: |
@@ -60,9 +60,10 @@ To do this place your new rate file in the src folder, run simplfy_rates.py and 
 
 ### Dependancies:
 + Ifort (Intel)
-+ Netcdf
-+ anacondas python (continuum.io)
-**Ensure you build kpp in the kpp folder
++ Netcdf4 (python)
++ Anacondas Python (continuum.io)
++ icc & bison for kpp
++ perl
 
 ### Changes:
 + Reorganised code / removed unnecessary loops
@@ -73,3 +74,7 @@ To do this place your new rate file in the src folder, run simplfy_rates.py and 
 + added emission / deposition switches
 + improved makefile 
 + MCM TUV 5 updated
++ simplification of rate constants
++ start multiple parallel runs
++ peters hardwired photolysis rate generator
++ depos default + manual override
