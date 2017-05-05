@@ -88,11 +88,11 @@ new: distclean update_submodule tuv
 kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
 	rm model
-	cd kpp/kpp*/ && make
+	cd src/kpp/kpp*/src && make
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
-	./kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	rm -rf *.kpp
 	
 
