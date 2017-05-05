@@ -74,7 +74,7 @@ values = [locals()[i] for i in constants]
 fixed = [isnum_regex(str(i)) for i in values]
 
 
-df = DataFrame([eqns,values,fixed]).T
+df = DataFrame([values,eqns,fixed]).T
 df.index=constants
 print df
 
