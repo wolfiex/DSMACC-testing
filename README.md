@@ -41,8 +41,8 @@ git submodule update` or typing `make update_submodule`
 
 
 
-## Updating the rate coefficients
-A method to symplify the rate coefficients using a symbolic engine has been applied. This not only reduces the amount of computation that has to be done by the computer, but also allows for the constraint of fixed numerical rate constants as parameters (see KDEC bug). An example of some equations below.
+## Updating the rate constants
+Rate-constant simplification through the use of a symbolic engine has been applied. This reduces cumputation and allows the setting of  parameters for fixed numeric constants (see KDEC bug). An example of some equations below.
 
 | Rate Cefficient | Original-eqn | Simplified-eqn |
 | :---         |     :---:      |          ---: |
