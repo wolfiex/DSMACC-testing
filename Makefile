@@ -61,6 +61,10 @@ distclean: clean clear # clean all !
 	rm -f *model*
 	rm -f run_
 	rm -f *.old
+	rm -rf DATA*
+	rm -rf Outputs
+	rm -f params
+	rm -f *.png
 
 tuv: # compile tuv!
 	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
