@@ -16,27 +16,27 @@ Can be accomplished through `git submodule init;
 git submodule update` or typing `make update_submodule`
 
 ## Compiling 
-0. run `make distclean`
-1. If not done so already, go into the TUV folder, type `make clean && make`
-2. Download mechanism from mcm website and place into organic.kpp
-3. Add any emmitions into emissions.kpp (these can be disabled)
-4. Adjust deposition constant in ./makedepos.pl if needed
+1.`make distclean && make new` to clear all, else use `make clear` or `make clean` 
+2. Download mechanism from mcm website and place into mechanisms/organic.kpp
+3. Add any emissions into emissions.kpp (these can be disabled in ICs)
+4. Adjust deposition constant in ./makedepos.pl if needed (currently being updated)
 5. Run kpp and make by typing `make kpp`
+6. `make`
 
 ## How to run
 1. Create Init cons csv file (methane.csv as a template) 
  .. * different columns are different runs
  ..* depos and emiss are deposition / emission constants, set 1 to enable 0 do disable 
- ..* run names are useful, see +depos etc for examples. 
+ ..* run names are useful, see + depos etc for examples. 
 
-2. Run `python begin.py <youricfile.csv>` after setting the number of processes inside
+2. Run `python begin.py` after setting the number of processes inside
 ..* this makes Init_cons.dat
 ..* generates run files. sdout is in run.sdout, individual run.nc
 ..* concatenates nc files including initial conditions, and run time into one grouped netcdf
 ..* to see the form of this have a look inside begin, or read_dsmacc
 
 3. to view files:
-..* ipython, then type read_dsmacc <ncfilename> for interactive play
+..* ipython, then type `run AnalysisTools/read_dsmacc <ncfilename>` for interactive play
 ..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
 
 
