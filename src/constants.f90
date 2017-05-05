@@ -52,7 +52,7 @@ kalkpxy=1.50d-14*EXP(-200.0/temp)*o2
 ! -------------------------------------------------------------------
 
 ! MCM -> extract -> kpp + include generic rate coeff -> rename
-INCLUDE './src/new_rate.inc'
+INCLUDE './src/new_rate.inc.var'
 
 ! ************************************************************************
 ! define photolysis reaction rates from cubic splines of the TUV output
