@@ -39,18 +39,24 @@ git submodule update` or typing `make update_submodule`
 ..* ipython, then type read_dsmacc <ncfilename> for interactive play
 ..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
 
-### Notes:
+
 
 ## Updating the rate coefficients
 A method to symplify the rate coefficients using a symbolic engine has been applied. This not only reduces the amount of computation that has to be done by the computer, but also allows for the constraint of fixed numerical rate constants as parameters (see KDEC bug). 
 
 | Rate Cefficient | Original-eqn | Simplified-eqn |
 | :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+| krd   |  kd0/kdi    |     |5.79e-23*m*exp(4000/temp)|
+|  ncd  |   0.75-1.27*(log10(fcd))  | 1.41   |
+|  kbpan  |  (kd0*kdi)*fd/(kd0+kdi) |  fd*kd0*kdi/(kd0 + kdi)  |
+|  kr1  |   k10/k1i  |  3.32e-18*m*temp**(-1.3)  |
+|  f1  |   	10**(log10(fc1)/(1+(log10(kr1)/nc1)**2))  |    |
+|  kmt12  |    (k120*k12i*f12)/(k120+k12i) |  2.0e-12*f12*k120/(k120 + 2.0e-12)  |
 
 
 To do this place your new rate file in the src folder, run simplfy_rates.py and update the constants.f90 code to inculde the newly generates .def and .var files
+
+## Notes:
 
 ### Dependancies:
 + Ifort (Intel)
