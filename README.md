@@ -46,12 +46,12 @@ A method to symplify the rate coefficients using a symbolic engine has been appl
 
 | Rate Cefficient | Original-eqn | Simplified-eqn |
 | :---         |     :---:      |          ---: |
-| krd   |  kd0/kdi    |     |5.79e-23*m*exp(4000/temp)|
+| krd   |  kd0/kdi    |   5.79e\-23\*m\*exp(4000\/temp) |
 |  ncd  |   0.75-1.27*(log10(fcd))  | 1.41   |
-|  kbpan  |  (kd0*kdi)*fd/(kd0+kdi) |  fd*kd0*kdi/(kd0 + kdi)  |
-|  kr1  |   k10/k1i  |  3.32e-18*m*temp**(-1.3)  |
-|  f1  |   	10**(log10(fc1)/(1+(log10(kr1)/nc1)**2))  |    |
-|  kmt12  |    (k120*k12i*f12)/(k120+k12i) |  2.0e-12*f12*k120/(k120 + 2.0e-12)  |
+|  kbpan  |  (kd0*kdi)*fd/(kd0+kdi) |  fd\*kd0\*kdi\/(kd0 + kdi)  |
+|  kr1  |   k10/k1i  |  3.32e\-18\*m\*temp\*\*(\-1.3)  |
+|  f1  |   	10**(log10(fc1)/(1+(log10(kr1)/nc1)**2))  | 10\*\*(-0.07\/(1 + log10(kr1)\*\*2\/nc1**2))   |
+|  kmt12  |    (k120*k12i*f12)/(k120+k12i) |  2e\-12\*f12\*k120\/(k120 + 2e\-12)  |
 
 
 To do this place your new rate file in the src folder, run simplfy_rates.py and update the constants.f90 code to inculde the newly generates .def and .var files
