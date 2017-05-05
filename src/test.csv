@@ -1,144 +1,140 @@
-,0,1,2,3
-kro2no,2.7e-12*exp(360/temp),2.7e-12*exp(360/temp),2.7e-12*exp(360/temp),False
-kro2ho2,2.91e-13*exp(1300/temp),2.91e-13*exp(1300/temp),2.91e-13*exp(1300/temp),False
-kapho2,5.2e-13*exp(980/temp),5.2e-13*exp(980/temp),5.2e-13*exp(980/temp),False
-kapno,7.5e-12*exp(290/temp),7.5e-12*exp(290/temp),7.5e-12*exp(290/temp),False
-kro2no3,2.3e-12,2.30000000000000e-12,2.30000000000000e-12,False
-kno3al,1.4e-12*exp(-1860/temp),1.4e-12*exp(-1860/temp),1.4e-12*exp(-1860/temp),False
-kdec,1.00e+06,1000000.00000000,1000000.00000000,False
-kroprim,2.50e-14*exp(-300/temp),2.5e-14*exp(-300/temp),2.5e-14*exp(-300/temp),False
-krosec,2.50e-14*exp(-300/temp),2.5e-14*exp(-300/temp),2.5e-14*exp(-300/temp),False
-kch3o2,1.03e-13*exp(365/temp),1.03e-13*exp(365/temp),1.03e-13*exp(365/temp),False
-k298ch3o2,3.5e-13,3.50000000000000e-13,3.50000000000000e-13,False
-k14isom1,3.00e7*exp(-5300/temp),30000000.0*exp(-5300/temp),30000000.0*exp(-5300/temp),False
-kd0,1.10e-05*m*exp(-10100/temp),1.1e-5*m*exp(-10100/temp),1.1e-5*m*exp(-10100/temp),False
-kdi,1.90e17*exp(-14100/temp),1.9e+17*exp(-14100/temp),1.9e+17*exp(-14100/temp),False
-krd,kd0/kdi,0,0,True
-fcd,0.30,0.300000000000000,0.300000000000000,False
-ncd,0.75-1.27*(mpmath.log10(fcd)),1.41405600650603,1.41405600650603,False
-fd,10**(mpmath.log10(fcd)/(1+(mpmath.log10(krd)/ncd)**2)),1.00000000000000,1.00000000000000,False
-kbpan,(kd0*kdi)*fd/(kd0+kdi),2090000000000.0*m*exp(-10100/temp)/(1.1e-5*m*exp(4000/temp) + 1.9e+17),2090000000000.0*m/(1.1e-5*m*exp(14100/temp) + 1.9e+17*exp(10100/temp)),False
-kc0,3.28e-28*m*(temp/300)**-6.87,0,0,True
-kci,1.125e-11*(temp/300)**-1.105,1.125e-11*300**1.105*temp**(-1.105),1.125e-11*300**1.105*temp**(-1.105),False
-krc,kc0/kci,0,0,True
-fcc,0.30,0.300000000000000,0.300000000000000,False
-nc,0.75-1.27*(mpmath.log10(fcc)),1.41405600650603,1.41405600650603,False
-fc,10**(mpmath.log10(fcc)/(1+(mpmath.log10(krc)/nc)**2)),1.00000000000000,1.00000000000000,False
-kfpan,(kc0*kci)*fc/(kc0+kci),0,0,True
-k10,1.0e-31*m*(temp/300)**-1.6,0,0,True
-k1i,5.0e-11*(temp/300)**-0.3,5.0e-11*300**0.3*temp**(-0.3),5.0e-11*300**0.3*temp**(-0.3),False
-kr1,k10/k1i,0,0,True
-fc1,0.85,0.850000000000000,0.850000000000000,False
-nc1,0.75-1.27*(mpmath.log10(fc1)),0.839637964342848,0.839637964342848,False
-f1,10**(mpmath.log10(fc1)/(1+(mpmath.log10(kr1)/nc1)**2)),1.00000000000000,1.00000000000000,False
-kmt01,(k10*k1i)*f1/(k10+k1i),0,0,True
-k20,1.3e-31*m*(temp/300)**-1.5,0,0,True
-k2i,2.3e-11*(temp/300)**0.24,2.3e-11*300**(-0.24)*temp**0.24,2.3e-11*300**(-0.24)*temp**0.24,False
-kr2,k20/k2i,0,0,True
-fc2,0.6,0.600000000000000,0.600000000000000,False
-nc2,0.75-1.27*(mpmath.log10(fc2)),1.03174791201277,1.03174791201277,False
-f2,10**(mpmath.log10(fc2)/(1+(mpmath.log10(kr2)/nc2)**2)),1.00000000000000,1.00000000000000,False
-kmt02,(k20*k2i)*f2/(k20+k2i),0,0,True
-k30,3.6e-30*m*(temp/300)**-4.1,0,0,True
-k3i,1.9e-12*(temp/300)**0.2,1.9e-12*300**(-0.2)*temp**0.2,1.9e-12*300**(-0.2)*temp**0.2,False
-kr3,k30/k3i,0,0,True
-fc3,0.35,0.350000000000000,0.350000000000000,False
-nc3,0.75-1.27*(mpmath.log10(fc3)),1.32903358367515,1.32903358367515,False
-f3,10**(mpmath.log10(fc3)/(1+(mpmath.log10(kr3)/nc3)**2)),1.00000000000000,1.00000000000000,False
-kmt03,(k30*k3i)*f3/(k30+k3i),0,0,True
-k40,1.3e-3*m*(temp/300)**-3.5*exp(-11000/temp),0.0013*300**3.5*m*temp**(-3.5)*exp(-11000/temp),0.0013*300**3.5*m*temp**(-3.5)*exp(-11000/temp),False
-k4i,9.7e+14*(temp/300)**0.1*exp(-11080/temp),970000000000000.0*300**(-0.1)*temp**0.1*exp(-11080/temp),970000000000000.0*300**(-0.1)*temp**0.1*exp(-11080/temp),False
-kr4,k40/k4i,0,0,True
-fc4,0.35,0.350000000000000,0.350000000000000,False
-nc4,0.75-1.27*(mpmath.log10(fc4)),1.32903358367515,1.32903358367515,False
-f4,10**(mpmath.log10(fc4)/(1+(mpmath.log10(kr4)/nc4)**2)),1.00000000000000,1.00000000000000,False
-kmt04,(k40*k4i)*f4/(k40+k4i),1261000000000.0*300**3.5*m*temp**0.1*exp(-11000/temp)/(0.0013*300**3.6*m*exp(80/temp) + 970000000000000.0*temp**3.6),1261000000000.0*300**3.5*m*temp**0.1/(0.0013*300**3.6*m*exp(11080/temp) + 970000000000000.0*temp**3.6*exp(11000/temp)),False
-kmt05,1.44e-13*(1+(m/4.2e+19)),1.44000000000001e-13,1.44000000000001e-13,False
-kmt06,1 + (1.40e-21*exp(2200/temp)*h2o),1.00000000000000,1.00000000000000,False
-k70,7.4e-31*m*(temp/300)**-2.4,0,0,True
-k7i,3.3e-11*(temp/300)**-0.3,3.3e-11*300**0.3*temp**(-0.3),3.3e-11*300**0.3*temp**(-0.3),False
-kr7,k70/k7i,0,0,True
-fc7,0.81,0.810000000000000,0.810000000000000,False
-nc7,0.75-1.27*(mpmath.log10(fc7)),0.866224026024115,0.866224026024115,False
-f7,10**(mpmath.log10(fc7)/(1+(mpmath.log10(kr7)/nc7)**2)),1.00000000000000,1.00000000000000,False
-kmt07,(k70*k7i)*f7/(k70+k7i),0,0,True
-k80,3.2e-30*m*(temp/300)**-4.5,0,0,True
-k8i,3.0e-11,3.00000000000000e-11,3.00000000000000e-11,False
-kr8,k80/k8i,0,0,True
-fc8,0.41,0.410000000000000,0.410000000000000,False
-nc8,0.75-1.27*(mpmath.log10(fc8)),1.24176450196594,1.24176450196594,False
-f8,10**(mpmath.log10(fc8)/(1+(mpmath.log10(kr8)/nc8)**2)),1.00000000000000,1.00000000000000,False
-kmt08,(k80*k8i)*f8/(k80+k8i),0,0,True
-k90,1.4e-31*m*(temp/300)**-3.1,0,0,True
-k9i,4.0e-12,4.00000000000000e-12,4.00000000000000e-12,False
-kr9,k90/k9i,0,0,True
-fc9,0.4,0.400000000000000,0.400000000000000,False
-nc9,0.75-1.27*(mpmath.log10(fc9)),1.25538381101349,1.25538381101349,False
-f9,10**(mpmath.log10(fc9)/(1+(mpmath.log10(kr9)/nc9)**2)),1.00000000000000,1.00000000000000,False
-kmt09,(k90*k9i)*f9/(k90+k9i),0,0,True
-k100,4.10e-05*m*exp(-10650/temp),4.1e-5*m*exp(-10650/temp),4.1e-5*m*exp(-10650/temp),False
-k10i,6.0e+15*exp(-11170/temp),6.0e+15*exp(-11170/temp),6.0e+15*exp(-11170/temp),False
-kr10,k100/k10i,0,0,True
-fc10,0.4,0.400000000000000,0.400000000000000,False
-nc10,0.75-1.27*(mpmath.log10(fc10)),1.25538381101349,1.25538381101349,False
-f10,10**(mpmath.log10(fc10)/(1+(mpmath.log10(kr10)/nc10)**2)),1.00000000000000,1.00000000000000,False
-kmt10,(k100*k10i)*f10/(k100+k10i),246000000000.0*m*exp(-10650/temp)/(4.1e-5*m*exp(520/temp) + 6.0e+15),246000000000.0*m/(4.1e-5*m*exp(11170/temp) + 6.0e+15*exp(10650/temp)),False
-k1,2.40e-14*exp(460/temp),2.4e-14*exp(460/temp),2.4e-14*exp(460/temp),False
-k3,6.50e-34*exp(1335/temp),0,0,True
-k4,2.70e-17*exp(2199/temp),0,0,True
-k2,(k3*m)/(1+(k3*m/k4)),nan,nan,True
-kmt11,k1 + k2,nan,nan,True
-k120,2.5e-31*m*(temp/300)**-2.6,0,0,True
-k12i,2.0e-12,2.00000000000000e-12,2.00000000000000e-12,False
-kr12,k120/k12i,0,0,True
-fc12,0.53,0.530000000000000,0.530000000000000,False
-nc12,0.75-1.27*(mpmath.log10(fc12)),1.10016964560700,1.10016964560700,False
-f12,10**(mpmath.log10(fc12)/(1.0+(mpmath.log10(kr12)/nc12)**2)),1.00000000000000,1.00000000000000,False
-kmt12,(k120*k12i*f12)/(k120+k12i),0,0,True
-k130,2.5e-30*m*(temp/300)**-5.5,0,0,True
-k13i,1.8e-11,1.80000000000000e-11,1.80000000000000e-11,False
-kr13,k130/k13i,0,0,True
-fc13,0.36,0.360000000000000,0.360000000000000,False
-nc13,0.75-1.27*(mpmath.log10(fc13)),1.31349582402555,1.31349582402555,False
-f13,10**(mpmath.log10(fc13)/(1+(mpmath.log10(kr13)/nc13)**2)),1.00000000000000,1.00000000000000,False
-kmt13,(k130*k13i)*f13/(k130+k13i),0,0,True
-k140,9.0e-5*exp(-9690/temp)*m,9.0e-5*m*exp(-9690/temp),9.0e-5*m*exp(-9690/temp),False
-k14i,1.1e+16*exp(-10560/temp),1.1e+16*exp(-10560/temp),1.1e+16*exp(-10560/temp),False
-kr14,k140/k14i,0,0,True
-fc14,0.36,0.360000000000000,0.360000000000000,False
-nc14,0.75-1.27*(mpmath.log10(fc14)),1.31349582402555,1.31349582402555,False
-f14,10**(mpmath.log10(fc14)/(1+(mpmath.log10(kr14)/nc14)**2)),1.00000000000000,1.00000000000000,False
-kmt14,(k140*k14i)*f14/(k140+k14i),990000000000.0*m*exp(-9690/temp)/(9.0e-5*m*exp(870/temp) + 1.1e+16),990000000000.0*m/(9.0e-5*m*exp(10560/temp) + 1.1e+16*exp(9690/temp)),False
-k150,8.6e-29*m*(temp/300)**-3.1,0,0,True
-k15i,9.0e-12*(temp/300)**-0.85,9.0e-12*300**0.85*temp**(-0.85),9.0e-12*300**0.85*temp**(-0.85),False
-kr15,k150/k15i,0,0,True
-fc15,0.48,0.480000000000000,0.480000000000000,False
-nc15,0.75-1.27*(mpmath.log10(fc15)),1.15482362853300,1.15482362853300,False
-f15,10**(mpmath.log10(fc15)/(1+(mpmath.log10(kr15)/nc15)**2)),1.00000000000000,1.00000000000000,False
-kmt15,(k150*k15i)*f15/(k150+k15i),0,0,True
-k160,8e-27*m*(temp/300)**-3.5,0,0,True
-k16i,3.0e-11*(temp/300)**-1,9.0e-9/temp,9.0e-9/temp,False
-kr16,k160/k16i,0,0,True
-fc16,0.5,0.500000000000000,0.500000000000000,False
-nc16,0.75-1.27*(mpmath.log10(fc16)),1.13230809449326,1.13230809449326,False
-f16,10**(mpmath.log10(fc16)/(1+(mpmath.log10(kr16)/nc16)**2)),1.00000000000000,1.00000000000000,False
-kmt16,(k160*k16i)*f16/(k160+k16i),0,0,True
-k170,5.0e-30*m*(temp/300)**-1.5,0,0,True
-k17i,1.0e-12,1.00000000000000e-12,1.00000000000000e-12,False
-kr17,k170/k17i,0,0,True
-fc17,0.17*exp(-51/temp)+exp(-temp/204),1.0*exp(-temp/204) + 0.17*exp(-51/temp),1.0*exp(-temp/204) + 0.17*exp(-51/temp),False
-nc17,0.75-1.27*(mpmath.log10(fc17)),nc17,nc17,True
-f17,10**(mpmath.log10(fc17)/(1.0+(mpmath.log10(kr17)/nc17)**2)),f17,f17,True
-kmt17,(k170*k17i*f17)/(k170+k17i),0,0,True
-kmt18,9.5e-39*o2*exp(5270/temp)/(1+7.5e-29*o2*exp(5610/temp)),0,0,True
-kppn0,1.7e-03*exp(-11280/temp)*m,0.0017*m*exp(-11280/temp),0.0017*m*exp(-11280/temp),False
-kppni,8.3e+16*exp(-13940/temp),8.3e+16*exp(-13940/temp),8.3e+16*exp(-13940/temp),False
-krppn,kppn0/kppni,0,0,True
-fcppn,0.36,0.360000000000000,0.360000000000000,False
-ncppn,0.75-1.27*(mpmath.log10(fcppn)),1.31349582402555,1.31349582402555,False
-fppn,10**(mpmath.log10(fcppn)/(1+(mpmath.log10(krppn)/ncppn)**2)),1.00000000000000,1.00000000000000,False
-kbppn,(kppn0*kppni)*fcppn/(kppn0+kppni),50796000000000.0*m*exp(-11280/temp)/(0.0017*m*exp(2660/temp) + 8.3e+16),50796000000000.0*m/(0.0017*m*exp(13940/temp) + 8.3e+16*exp(11280/temp)),False
-temp,,temp,temp,True
-m,,m,m,True
-o2,,o2,o2,True
-h2o,,h2o,h2o,True
+,original,simplified,parameter
+kro2no,2.7e-12*exp(360/temp),2.7e-12*EXP(360/TEMP),False
+kro2ho2,2.91e-13*exp(1300/temp),2.91e-13*EXP(1300/TEMP),False
+kapho2,5.2e-13*exp(980/temp),5.2e-13*exp(980/temp),False
+kapno,7.5e-12*exp(290/temp),7.5e-12*exp(290/temp),False
+kro2no3,2.3e-12,2.30e-12,True
+kno3al,1.4e-12*exp(-1860/temp),1.4e-12*exp(-1860/temp),False
+kdec,1.00e+06,1.00e+6,True
+kroprim,2.50e-14*exp(-300/temp),2.5e-14*EXP(-300/TEMP),False
+krosec,2.50e-14*exp(-300/temp),2.5e-14*EXP(-300/TEMP),False
+kch3o2,1.03e-13*exp(365/temp),1.03e-13*exp(365/temp),False
+k298ch3o2,3.5e-13,3.50e-13,True
+k14isom1,3.00e7*exp(-5300/temp),3.0e+7*exp(-5300/temp),False
+kd0,1.10e-05*m*exp(-10100/temp),1.1e-5*m*exp(-10100/temp),False
+kdi,1.90e17*exp(-14100/temp),1.9e+17*exp(-14100/temp),False
+krd,kd0/kdi,5.79e-23*m*exp(4000/temp),False
+fcd,0.30,0.300,True
+ncd,0.75-1.27*(log10(fcd)),1.41,True
+fd,10**(log10(fcd)/(1+(log10(krd)/ncd)**2)),10.0**(-0.523/(1.0 + LOG10(krd)**2/ncd**2)),False
+kbpan,(kd0*kdi)*fd/(kd0+kdi),fd*kd0*kdi/(kd0 + kdi),False
+kc0,3.28e-28*m*(temp/300)**-6.87,3.28e-28*300**6.87*m*temp**(-6.87),False
+kci,1.125e-11*(temp/300)**-1.105,1.125e-11*300**1.105*temp**(-1.105),False
+krc,kc0/kci,0.00555*m*temp**(-5.76),False
+fcc,0.30,0.300,True
+nc,0.75-1.27*(log10(fcc)),1.41,True
+fc,10**(log10(fcc)/(1+(log10(krc)/nc)**2)),10.0**(-0.523/(1.0 + LOG10(krc)**2/nc**2)),False
+kfpan,(kc0*kci)*fc/(kc0+kci),fc*kc0*kci/(kc0 + kci),False
+k10,1.0e-31*m*(temp/300)**-1.6,1.0e-31*300**1.6*m*temp**(-1.6),False
+k1i,5.0e-11*(temp/300)**-0.3,5.0e-11*300**0.3*temp**(-0.3),False
+kr1,k10/k1i,3.32e-18*m*temp**(-1.3),False
+fc1,0.85,0.850,True
+nc1,0.75-1.27*(log10(fc1)),0.840,True
+f1,10**(log10(fc1)/(1+(log10(kr1)/nc1)**2)),10.0**(-0.0706/(1.0 + LOG10(kr1)**2/nc1**2)),False
+kmt01,(k10*k1i)*f1/(k10+k1i),f1*k10*k1i/(k10 + k1i),False
+k20,1.3e-31*m*(temp/300)**-1.5,1.3e-31*300**1.5*m*temp**(-1.5),False
+k2i,2.3e-11*(temp/300)**0.24,2.3e-11*300**(-0.24)*temp**0.24,False
+kr2,k20/k2i,1.15e-16*m*temp**(-1.74),False
+fc2,0.6,0.600,True
+nc2,0.75-1.27*(log10(fc2)),1.03,True
+f2,10**(log10(fc2)/(1+(log10(kr2)/nc2)**2)),10.0**(-0.222/(1.0 + LOG10(kr2)**2/nc2**2)),False
+kmt02,(k20*k2i)*f2/(k20+k2i),f2*k20*k2i/(k20 + k2i),False
+k30,3.6e-30*m*(temp/300)**-4.1,3.6e-30*300**4.1*m*temp**(-4.1),False
+k3i,1.9e-12*(temp/300)**0.2,1.9e-12*300**(-0.2)*temp**0.2,False
+kr3,k30/k3i,8.49e-8*m*temp**(-4.3),False
+fc3,0.35,0.350,True
+nc3,0.75-1.27*(log10(fc3)),1.33,True
+f3,10**(log10(fc3)/(1+(log10(kr3)/nc3)**2)),10.0**(-0.456/(1.0 + LOG10(kr3)**2/nc3**2)),False
+kmt03,(k30*k3i)*f3/(k30+k3i),f3*k30*k3i/(k30 + k3i),False
+k40,1.3e-3*m*(temp/300)**-3.5*exp(-11000/temp),0.0013*300**3.5*m*temp**(-3.5)*exp(-11000/temp),False
+k4i,9.7e+14*(temp/300)**0.1*exp(-11080/temp),970000000000000.0*300**(-0.1)*temp**0.1*exp(-11080/temp),False
+kr4,k40/k4i,1.11e-9*m*temp**(-3.6)*exp(80/temp),False
+fc4,0.35,0.350,True
+nc4,0.75-1.27*(log10(fc4)),1.33,True
+f4,10**(log10(fc4)/(1+(log10(kr4)/nc4)**2)),10.0**(-0.456/(1.0 + LOG10(kr4)**2/nc4**2)),False
+kmt04,(k40*k4i)*f4/(k40+k4i),f4*k40*k4i/(k40 + k4i),False
+kmt05,1.44e-13*(1+(m/4.2e+19)),3.43e-33*m + 1.44e-13,False
+kmt06,1 + (1.40e-21*exp(2200/temp)*h2o),1.4e-21*h2o*exp(2200/temp) + 1.0,False
+k70,7.4e-31*m*(temp/300)**-2.4,7.4e-31*300**2.4*m*temp**(-2.4),False
+k7i,3.3e-11*(temp/300)**-0.3,3.3e-11*300**0.3*temp**(-0.3),False
+kr7,k70/k7i,3.57e-15*m*temp**(-2.1),False
+fc7,0.81,0.810,True
+nc7,0.75-1.27*(log10(fc7)),0.866,True
+f7,10**(log10(fc7)/(1+(log10(kr7)/nc7)**2)),10.0**(-0.0915/(1.0 + LOG10(kr7)**2/nc7**2)),False
+kmt07,(k70*k7i)*f7/(k70+k7i),f7*k70*k7i/(k70 + k7i),False
+k80,3.2e-30*m*(temp/300)**-4.5,3.2e-30*300**4.5*m*temp**(-4.5),False
+k8i,3.0e-11,3.00e-11,True
+kr8,k80/k8i,1.5e-8*m*temp**(-4.5),False
+fc8,0.41,0.410,True
+nc8,0.75-1.27*(log10(fc8)),1.24,True
+f8,10**(log10(fc8)/(1+(log10(kr8)/nc8)**2)),10.0**(-0.387/(1.0 + LOG10(kr8)**2/nc8**2)),False
+kmt08,(k80*k8i)*f8/(k80+k8i),3.0e-11*f8*k80/(k80 + 3.0e-11),False
+k90,1.4e-31*m*(temp/300)**-3.1,1.4e-31*300**3.1*m*temp**(-3.1),False
+k9i,4.0e-12,4.00e-12,True
+kr9,k90/k9i,1.67e-12*m*temp**(-3.1),False
+fc9,0.4,0.400,True
+nc9,0.75-1.27*(log10(fc9)),1.26,True
+f9,10**(log10(fc9)/(1+(log10(kr9)/nc9)**2)),10.0**(-0.398/(1.0 + LOG10(kr9)**2/nc9**2)),False
+kmt09,(k90*k9i)*f9/(k90+k9i),4.0e-12*f9*k90/(k90 + 4.0e-12),False
+k100,4.10e-05*m*exp(-10650/temp),4.1e-5*m*exp(-10650/temp),False
+k10i,6.0e+15*exp(-11170/temp),6.0e+15*exp(-11170/temp),False
+kr10,k100/k10i,6.83e-21*m*exp(520/temp),False
+fc10,0.4,0.400,True
+nc10,0.75-1.27*(log10(fc10)),1.26,True
+f10,10**(log10(fc10)/(1+(log10(kr10)/nc10)**2)),10.0**(-0.398/(1.0 + LOG10(kr10)**2/nc10**2)),False
+kmt10,(k100*k10i)*f10/(k100+k10i),f10*k100*k10i/(k100 + k10i),False
+k1,2.40e-14*exp(460/temp),2.4e-14*exp(460/temp),False
+k3,6.50e-34*exp(1335/temp),6.5e-34*exp(1335/temp),False
+k4,2.70e-17*exp(2199/temp),2.7e-17*exp(2199/temp),False
+k2,(k3*m)/(1+(k3*m/k4)),k3*m/(k3*m/k4 + 1.0),False
+kmt11,k1 + k2,k1 + k2,False
+k120,2.5e-31*m*(temp/300)**-2.6,2.5e-31*300**2.6*m*temp**(-2.6),False
+k12i,2.0e-12,2.00e-12,True
+kr12,k120/k12i,3.45e-13*m*temp**(-2.6),False
+fc12,0.53,0.530,True
+nc12,0.75-1.27*(log10(fc12)),1.10,True
+f12,10**(log10(fc12)/(1.0+(log10(kr12)/nc12)**2)),10.0**(-0.276/(1.0 + LOG10(kr12)**2/nc12**2)),False
+kmt12,(k120*k12i*f12)/(k120+k12i),2.0e-12*f12*k120/(k120 + 2.0e-12),False
+k130,2.5e-30*m*(temp/300)**-5.5,2.5e-30*300**5.5*m*temp**(-5.5),False
+k13i,1.8e-11,1.80e-11,True
+kr13,k130/k13i,5.85e-6*m*temp**(-5.5),False
+fc13,0.36,0.360,True
+nc13,0.75-1.27*(log10(fc13)),1.31,True
+f13,10**(log10(fc13)/(1+(log10(kr13)/nc13)**2)),10.0**(-0.444/(1.0 + LOG10(kr13)**2/nc13**2)),False
+kmt13,(k130*k13i)*f13/(k130+k13i),1.8e-11*f13*k130/(k130 + 1.8e-11),False
+k140,9.0e-5*exp(-9690/temp)*m,9.0e-5*m*exp(-9690/temp),False
+k14i,1.1e+16*exp(-10560/temp),1.1e+16*exp(-10560/temp),False
+kr14,k140/k14i,8.18e-21*m*exp(870/temp),False
+fc14,0.36,0.360,True
+nc14,0.75-1.27*(log10(fc14)),1.31,True
+f14,10**(log10(fc14)/(1+(log10(kr14)/nc14)**2)),10.0**(-0.444/(1.0 + LOG10(kr14)**2/nc14**2)),False
+kmt14,(k140*k14i)*f14/(k140+k14i),f14*k140*k14i/(k140 + k14i),False
+k150,8.6e-29*m*(temp/300)**-3.1,8.6e-29*300**3.1*m*temp**(-3.1),False
+k15i,9.0e-12*(temp/300)**-0.85,9.0e-12*300**0.85*temp**(-0.85),False
+kr15,k150/k15i,3.58e-12*m*temp**(-2.25),False
+fc15,0.48,0.480,True
+nc15,0.75-1.27*(log10(fc15)),1.15,True
+f15,10**(log10(fc15)/(1+(log10(kr15)/nc15)**2)),10.0**(-0.319/(1.0 + LOG10(kr15)**2/nc15**2)),False
+kmt15,(k150*k15i)*f15/(k150+k15i),f15*k150*k15i/(k150 + k15i),False
+k160,8e-27*m*(temp/300)**-3.5,8.0e-27*300**3.5*m*temp**(-3.5),False
+k16i,3.0e-11*(temp/300)**-1,9.0e-9/temp,False
+kr16,k160/k16i,4.16e-10*m*temp**(-2.5),False
+fc16,0.5,0.500,True
+nc16,0.75-1.27*(log10(fc16)),1.13,True
+f16,10**(log10(fc16)/(1+(log10(kr16)/nc16)**2)),10.0**(-0.301/(1.0 + LOG10(kr16)**2/nc16**2)),False
+kmt16,(k160*k16i)*f16/(k160+k16i),f16*k160*k16i/(k160 + k16i),False
+k170,5.0e-30*m*(temp/300)**-1.5,5.0e-30*300**1.5*m*temp**(-1.5),False
+k17i,1.0e-12,1.00e-12,True
+kr17,k170/k17i,2.6e-14*m*temp**(-1.5),False
+fc17,0.17*exp(-51/temp)+exp(-temp/204),exp(-temp/204) + 0.17*exp(-51/temp),False
+nc17,0.75-1.27*(log10(fc17)),-1.27*LOG10(fc17) + 0.75,False
+f17,10**(log10(fc17)/(1.0+(log10(kr17)/nc17)**2)),10.0**(LOG10(fc17)/(1.0 + LOG10(kr17)**2/nc17**2)),False
+kmt17,(k170*k17i*f17)/(k170+k17i),1.0e-12*f17*k170/(k170 + 1.0e-12),False
+kmt18,9.5e-39*o2*exp(5270/temp)/(1+7.5e-29*o2*exp(5610/temp)),9.5e-39*o2*exp(5270/temp)/(7.5e-29*o2*exp(5610/temp) + 1.0),False
+kppn0,1.7e-03*exp(-11280/temp)*m,0.0017*m*exp(-11280/temp),False
+kppni,8.3e+16*exp(-13940/temp),8.3e+16*exp(-13940/temp),False
+krppn,kppn0/kppni,2.05e-20*m*exp(2660/temp),False
+fcppn,0.36,0.360,True
+ncppn,0.75-1.27*(log10(fcppn)),1.31,True
+fppn,10**(log10(fcppn)/(1+(log10(krppn)/ncppn)**2)),10.0**(-0.444/(1.0 + LOG10(krppn)**2/ncppn**2)),False
+kbppn,(kppn0*kppni)*fcppn/(kppn0+kppni),0.36*kppn0*kppni/(kppn0 + kppni),False

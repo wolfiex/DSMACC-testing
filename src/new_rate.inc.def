@@ -1,141 +1,41 @@
-
-! 2016 Dec MCM3.3.1 D.Ellis
-REAL(dp):: KRO2NO  
-REAL(dp):: KRO2HO2  
-REAL(dp):: KAPHO2  
-REAL(dp):: KAPNO  
-REAL(dp):: KRO2NO3  
-REAL(dp):: KNO3AL  
-REAL(dp):: KDEC  
-REAL(dp):: KROPRIM  
-REAL(dp):: KROSEC  
-REAL(dp):: KCH3O2  
-REAL(dp):: K298CH3O2  
-REAL(dp):: K14ISOM1  
-REAL(dp):: KD0  
-REAL(dp):: KDI  
-REAL(dp):: KRD  
-REAL(dp):: FCD  
-REAL(dp):: NCD  
-REAL(dp):: FD  
-REAL(dp):: KBPAN  
-REAL(dp):: KC0  
-REAL(dp):: KCI  
-REAL(dp):: KRC  
-REAL(dp):: FCC  
-REAL(dp):: NC  
-REAL(dp):: FC  
-REAL(dp):: KFPAN  
-REAL(dp):: K10  
-REAL(dp):: K1I  
-REAL(dp):: KR1  
-REAL(dp):: FC1  
-REAL(dp):: NC1  
-REAL(dp):: F1  
-REAL(dp):: KMT01  
-REAL(dp):: K20  
-REAL(dp):: K2I  
-REAL(dp):: KR2  
-REAL(dp):: FC2  
-REAL(dp):: NC2  
-REAL(dp):: F2  
-REAL(dp):: KMT02  
-REAL(dp):: K30  
-REAL(dp):: K3I  
-REAL(dp):: KR3  
-REAL(dp):: FC3  
-REAL(dp):: NC3  
-REAL(dp):: F3  
-REAL(dp):: KMT03  
-REAL(dp):: K40  
-REAL(dp):: K4I  
-REAL(dp):: KR4  
-REAL(dp):: FC4  
-REAL(dp):: NC4  
-REAL(dp):: F4  
-REAL(dp):: KMT04  
-REAL(dp):: KMT05  
-REAL(dp):: KMT06  
-REAL(dp):: K70  
-REAL(dp):: K7I  
-REAL(dp):: KR7  
-REAL(dp):: FC7  
-REAL(dp):: NC7  
-REAL(dp):: F7  
-REAL(dp):: KMT07  
-REAL(dp):: K80  
-REAL(dp):: K8I  
-REAL(dp):: KR8  
-REAL(dp):: FC8  
-REAL(dp):: NC8  
-REAL(dp):: F8  
-REAL(dp):: KMT08  
-REAL(dp):: K90  
-REAL(dp):: K9I  
-REAL(dp):: KR9  
-REAL(dp):: FC9  
-REAL(dp):: NC9  
-REAL(dp):: F9  
-REAL(dp):: KMT09  
-REAL(dp):: K100  
-REAL(dp):: K10I  
-REAL(dp):: KR10  
-REAL(dp):: FC10  
-REAL(dp):: NC10  
-REAL(dp):: F10  
-REAL(dp):: KMT10  
-REAL(dp):: K1  
-REAL(dp):: K3  
-REAL(dp):: K4  
-REAL(dp):: K2  
-REAL(dp):: KMT11  
-REAL(dp):: K120  
-REAL(dp):: K12I  
-REAL(dp):: KR12  
-REAL(dp):: FC12  
-REAL(dp):: NC12  
-REAL(dp):: F12  
-REAL(dp):: KMT12  
-REAL(dp):: K130  
-REAL(dp):: K13I  
-REAL(dp):: KR13  
-REAL(dp):: FC13  
-REAL(dp):: NC13  
-REAL(dp):: F13  
-REAL(dp):: KMT13  
-REAL(dp):: K140  
-REAL(dp):: K14I  
-REAL(dp):: KR14  
-REAL(dp):: FC14  
-REAL(dp):: NC14  
-REAL(dp):: F14  
-REAL(dp):: KMT14  
-REAL(dp):: K150  
-REAL(dp):: K15I  
-REAL(dp):: KR15  
-REAL(dp):: FC15  
-REAL(dp):: NC15  
-REAL(dp):: F15  
-REAL(dp):: KMT15  
-REAL(dp):: K160  
-REAL(dp):: K16I  
-REAL(dp):: KR16  
-REAL(dp):: FC16  
-REAL(dp):: NC16  
-REAL(dp):: F16  
-REAL(dp):: KMT16  
-REAL(dp):: K170  
-REAL(dp):: K17I  
-REAL(dp):: KR17  
-REAL(dp):: FC17  
-REAL(dp):: NC17  
-REAL(dp):: F17  
-REAL(dp):: KMT17  
-REAL(dp):: KMT18  
-REAL(dp):: KPPN0  
-REAL(dp):: KPPNI  
-REAL(dp):: KRPPN  
-REAL(dp):: FCPPN  
-REAL(dp):: NCPPN  
-REAL(dp):: FPPN  
-REAL(dp):: KBPPN  
+Real(dp) :: kro2no,kro2ho2,kapho2,kapno,kno3al,kroprim,krosec,kch3o2,k14isom1,kd0,kdi,krd,fd,kbpan,kc0,kci,krc,fc,kfpan,k10,k1i,kr1,f1,kmt01,k20,k2i,kr2,f2,kmt02,k30,k3i,kr3,f3,kmt03,k40,k4i,kr4,f4,kmt04,kmt05,kmt06,k70,k7i,kr7,f7,kmt07,k80,kr8,f8,kmt08,k90,kr9,f9,kmt09,k100,k10i,kr10,f10,kmt10,k1,k3,k4,k2,kmt11,k120,kr12,f12,kmt12,k130,kr13,f13,kmt13,k140,k14i,kr14,f14,kmt14,k150,k15i,kr15,f15,kmt15,k160,k16i,kr16,f16,kmt16,k170,kr17,fc17,nc17,f17,kmt17,kmt18,kppn0,kppni,krppn,fppn,kbppn
+Real(dp),PARAMETER ::kro2no3 = 2.30e-12
+Real(dp),PARAMETER ::kdec = 1.00e+6
+Real(dp),PARAMETER ::k298ch3o2 = 3.50e-13
+Real(dp),PARAMETER ::fcd = 0.300
+Real(dp),PARAMETER ::ncd = 1.41
+Real(dp),PARAMETER ::fcc = 0.300
+Real(dp),PARAMETER ::nc = 1.41
+Real(dp),PARAMETER ::fc1 = 0.850
+Real(dp),PARAMETER ::nc1 = 0.840
+Real(dp),PARAMETER ::fc2 = 0.600
+Real(dp),PARAMETER ::nc2 = 1.03
+Real(dp),PARAMETER ::fc3 = 0.350
+Real(dp),PARAMETER ::nc3 = 1.33
+Real(dp),PARAMETER ::fc4 = 0.350
+Real(dp),PARAMETER ::nc4 = 1.33
+Real(dp),PARAMETER ::fc7 = 0.810
+Real(dp),PARAMETER ::nc7 = 0.866
+Real(dp),PARAMETER ::k8i = 3.00e-11
+Real(dp),PARAMETER ::fc8 = 0.410
+Real(dp),PARAMETER ::nc8 = 1.24
+Real(dp),PARAMETER ::k9i = 4.00e-12
+Real(dp),PARAMETER ::fc9 = 0.400
+Real(dp),PARAMETER ::nc9 = 1.26
+Real(dp),PARAMETER ::fc10 = 0.400
+Real(dp),PARAMETER ::nc10 = 1.26
+Real(dp),PARAMETER ::k12i = 2.00e-12
+Real(dp),PARAMETER ::fc12 = 0.530
+Real(dp),PARAMETER ::nc12 = 1.10
+Real(dp),PARAMETER ::k13i = 1.80e-11
+Real(dp),PARAMETER ::fc13 = 0.360
+Real(dp),PARAMETER ::nc13 = 1.31
+Real(dp),PARAMETER ::fc14 = 0.360
+Real(dp),PARAMETER ::nc14 = 1.31
+Real(dp),PARAMETER ::fc15 = 0.480
+Real(dp),PARAMETER ::nc15 = 1.15
+Real(dp),PARAMETER ::fc16 = 0.500
+Real(dp),PARAMETER ::nc16 = 1.13
+Real(dp),PARAMETER ::k17i = 1.00e-12
+Real(dp),PARAMETER ::fcppn = 0.360
+Real(dp),PARAMETER ::ncppn = 1.31

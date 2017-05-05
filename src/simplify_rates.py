@@ -1,89 +1,114 @@
+''' 
+Simplifying the rate coefficients of DSMACC using the sympy symbolic simplification library
+
+Creates a Param definition file, and a variable definition file. 
+
+
+daniel.ellis@york.ac.uk 2017
+'''
+
+
 from sympy import * 
-import re, numpy
+import re, numpy,sys
 
-global data,constants,eqns
-
-data = tuple(open('new_rate.inc'))
-
-string = ''
-for i in data: string+= i
-datalower=str(string).lower()
+## Rate file we wish to open
+filename = sys.argv[1]#'new_rate.inc'
+data = tuple(open(filename))
 
 
+
+
+
+#convert data to string for regex
+nonreal,string= [],'';
+for i in data: string+= i; datalower=str(string).lower()
+
+#get constants
 constants = re.findall(r'\b(\w+)\b\s*=',datalower)
-for i in ['temp','m','o2','h2o']: constants.append(i)
+for i in constants + ['temp','m','o2','h2o','LOG10']:  exec(i + '= symbols("%s")'%i)
+#dictionary of coefficients
+coeff_d = dict([[j,i] for i,j in enumerate(constants)])
+
+#equations associated with rates
+eqns = [ re.sub(r'(\d)[d]([\W\d])', r'\1e\2' , eq ) for eq in  re.findall( r'\b\w+\b\s*=\s*([\S ]+)\n', datalower)] #keep the pesky space in the brackets - python re is still weird
 
 
-eqns = [ re.sub(r'(\d)[d]([\W\d])', r'\1e\2' , eq ) for eq in  re.findall( r'\b\w+\b\s*=\s*([\S ]+)\n', datalower.replace('log10','mpmath.log10'))]#keep the pesky space in the brackets - python re is still weird
 
-for i in constants:
-    exec(i + '= symbols("%s")'%i)
 
+## First pass from equation simplification 
+#- this round identifies equations that are exclusively numeric
 for i,j in enumerate(eqns): 
+    const = constants[i]
     try:
-        exec( '%s  =  simplify(%s)' %(constants[i],j))
-    except TypeError:
-        continue
+        spfd = False
+        exec( 'dummy  =  N(%s,3)' %(j))
+        exec( 'if (dummy.is_real): spfd = True')
+        if spfd:  locals()[const]= dummy
+        else:  nonreal.append(const)
+    except NameError as e:
+        nonreal.append(const)
 
-valuesfirst = [locals()[i] for i in constants]
+## Second pass 
+for name in nonreal:
 
-'''
-for i,j in enumerate(eqns): 
-            print i
+     # if a kr rate constants simplify using unedited combinations of equations from variables. 
+     if 'kr' in name:
+         cffs = re.findall(r'\b([A-z]\w*)\b',eqns[coeff_d[name]])
+         for i in cffs+[name]:
             try:
-                exec( '%s  =  expand(%s)' %(constants[i],j))
-                exec('print ' + constants[i])
-            except TypeError:
-                continue
-'''
+                exec('%s = symbols("%s")'%(i.upper(),i.upper()))
+                exec( '%s = %s'%(i.upper(),eqns[coeff_d[i]] ))
+            except KeyError:
+                None
+         exec('%s = str(N(expand(%s),3))'%(name.upper(),eqns[coeff_d[name]].upper()))
+      
+     # otherwise simplify without substituting any other coefficients 
+     else:
+         j = eqns[coeff_d[name]]
+         exec('%s = symbols("%s")'%(name.upper(),name.upper()))
+         try:
+            exec( '%s  =  N(%s,3)' %(name,upper(),j))
+         except NameError as e:
+            neweqn = re.sub(r'mpmath.log10\(('+'|'.join(nonreal)+')\)',r'LOG10(\1)',j.replace('log10','mpmath.log10'))
+            exec( '%s = N((%s),3)' %(name.upper(),neweqn))
 
-#log10=symbols('log10')
-for i,j in enumerate(eqns): 
-    try:
-        locals()[constants[i]]  =  expand(locals()[constants[i]])
-    except TypeError:
-        exec( '%s  =  expand(%s)' %(constants[i],j.replace('mpmath.','')))
-        exec('print ' + constants[i])
+          
+for i in nonreal: locals()[i] = str(locals()[i.upper()]) # overwrite original labels with new values  
+        
+        
+       
     
+import pandas as pd
+#check if numeric and get values 
 
-
-def review():
-    for i in constants:
-        exec('print ' + i)
-
-
-from pandas import *
-
-
-
-
-
-
-global comp
-comp = re.compile('[^\de\.\+\-]')#"^\d+?\.\d+?$")    
-
-def isnum_regex(s):
-    """ Returns True is string is a number. """
-    if comp.match(s) is None:
-        return s.isdigit()
-    return True
+def numeric(x): 
+    try: float(x); return True; 
+    except: return False
     
-def isnum (s):
-    try: return float(s)
-    except: return False    
+values = [str(locals()[i]) for i in constants]
+fixed = [numeric(i) for i in values]
 
-values = [locals()[i] for i in constants]
-fixed = [isnum_regex(str(i)) for i in values]
+#Create a table from the data
+df = pd.DataFrame([eqns,values,fixed],columns=constants,index=['original','simplified','parameter']).T
+
+## split into variable and fixed rate constants
+save = df[df.parameter]
+variable = df[df.parameter==False]
+
+definitions = 'Real(dp) :: '+ ','.join(variable.index) + '\n' 
+for i in save.iterrows():
+    definitions += 'Real(dp),PARAMETER ::'+ i[0]+' = '+ i[1].simplified + '\n'
+
+variables = ''
+for i in variable.iterrows():
+    variables +=  i[0]+' = '+ i[1].simplified.upper() + '\n'
 
 
-df = DataFrame([eqns,valuesfirst,values,fixed]).T
-df.index=constants
-print df
-df.to_csv('test.csv')
-#replace *10** with D
-#remove mpmath
-#write in scientific form
+with open(filename+'.def', 'w') as f:
+    f.write(definitions)
+with open(filename+'.var', 'w') as f:
+    f.write(variables)
 
 
-
+print 'completed' 
 
