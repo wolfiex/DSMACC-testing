@@ -58,8 +58,9 @@ distclean: clean clear # clean all !
 	rm -f *.nc
 	rm -f *.dat
 	rm -f *.o
-	rm -f model_*
+	rm -f *model*
 	rm -f run_
+	rm -f *.old
 
 tuv: # compile tuv!
 	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
@@ -81,7 +82,8 @@ change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <
 ./Outputs:
 	mkdir Outputs
 
-new: distclean update_submodule tuv	
+new: distclean update_submodule tuv
+	./src/sfmakedepend	
 
 kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
@@ -126,12 +128,10 @@ update_submodule: # print each make function in list!
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-model_Global.o: params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
-model_Integrator.o: model_Global.o model_Jacobian.o model_JacobianSP.o
-model_Integrator.o: model_LinearAlgebra.o model_Parameters.o model_Precision.o
-model_Integrator.o: model_Rates.o
+model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
+model_Integrator.o: model_Parameters.o model_Rates.o
 model_Jacobian.o: model_JacobianSP.o model_Parameters.o
 model_LinearAlgebra.o: model_JacobianSP.o model_Parameters.o
 model_Main.o: src/initialisations.inc
@@ -144,7 +144,7 @@ model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: TUV_5.2.1/MCM4.inc src/new_rate.inc.def tuv_old/MCM3.inc
-model_constants.o: src/new_rate.inc params
+model_constants.o: src/new_rate.inc.var src/new_rate.inc.def tuv_old/MCM3.inc
+model_constants.o: TUV_5.2.1/MCM331.inc
 model_constants.o: model_Global.o model_Precision.o
 constants.mod: model_constants.o
