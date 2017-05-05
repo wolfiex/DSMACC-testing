@@ -15,7 +15,6 @@ This needs to be done to include contents here.
 Can be accomplished through `git submodule init
 git submodule update` or typing `make update_submodule`
 
-
 ## Compiling 
 0. run `make distclean`
 1. If not done so already, go into the TUV folder, type `make clean && make`
@@ -42,8 +41,16 @@ git submodule update` or typing `make update_submodule`
 
 ### Notes:
 
+## Updating the rate coefficients
+A method to symplify the rate coefficients using a symbolic engine has been applied. This not only reduces the amount of computation that has to be done by the computer, but also allows for the constraint of fixed numerical rate constants as parameters (see KDEC bug). 
+
+| Rate Cefficient | Original-eqn | Simplified-eqn |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
 
 
+To do this place your new rate file in the src folder, run simplfy_rates.py and update the constants.f90 code to inculde the newly generates .def and .var files
 
 ### Dependancies:
 + Ifort (Intel)
@@ -60,4 +67,3 @@ git submodule update` or typing `make update_submodule`
 + added emission / deposition switches
 + improved makefile 
 + MCM TUV 5 updated
-
