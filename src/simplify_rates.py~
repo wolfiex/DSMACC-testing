@@ -1,4 +1,3 @@
-#!/usr/bin/python
 ''' 
 Simplifying the rate coefficients of DSMACC using the sympy symbolic simplification library
 
