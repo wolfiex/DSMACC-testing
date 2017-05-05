@@ -13,7 +13,7 @@ REAL(dp) theta, secx, cosx
 REAL(dp)  l(1500), mm(1500), nn(1500), j(1500)
 REAL(dp) kalkpxy,kalkoxy
 INTEGER k
-INCLUDE './src/new_rate.inc.def'
+INCLUDE './src/rate_coeff/new_rate.inc.def'
 CONTAINS
 
 !**************************************************************************
@@ -52,7 +52,7 @@ kalkpxy=1.50d-14*EXP(-200.0/temp)*o2
 ! -------------------------------------------------------------------
 
 ! MCM -> extract -> kpp + include generic rate coeff -> rename
-INCLUDE './src/new_rate.inc.var'
+INCLUDE './src/rate_coeff/new_rate.inc.var'
 
 ! ************************************************************************
 ! define photolysis reaction rates from cubic splines of the TUV output
