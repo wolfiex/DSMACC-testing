@@ -16,7 +16,7 @@ Can be accomplished through `git submodule init;
 git submodule update` or typing `make update_submodule`
 
 ## Compiling 
-1.`make distclean && make new` to clear all, else use `make clear` or `make clean` 
+1. `make distclean && make new` to clear all, else use `make clear` or `make clean` 
 2. Download mechanism from mcm website and place into mechanisms/organic.kpp
 3. Add any emissions into emissions.kpp (these can be disabled in ICs)
 4. Adjust deposition constant in ./makedepos.pl if needed (currently being updated)
