@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/local/anaconda/bin/python 
+#/usr/bin/python
 import multiprocessing,os,subprocess,pickle,sys,time
 #import pandas as pd
 import numpy as np

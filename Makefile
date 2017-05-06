@@ -132,6 +132,7 @@ update_submodule: # print each make function in list!
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
+model_Global.o: params
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
@@ -148,7 +149,7 @@ model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: src/new_rate.inc.var src/new_rate.inc.def tuv_old/MCM3.inc
-model_constants.o: TUV_5.2.1/MCM331.inc
+model_constants.o: tuv_old/MCM3.inc src/rate_coeff/new_rate.inc.var
+model_constants.o: src/rate_coeff/new_rate.inc.def TUV_5.2.1/MCM331.inc params
 model_constants.o: model_Global.o model_Precision.o
 constants.mod: model_constants.o
