@@ -148,11 +148,11 @@ if include_CO2:
         if rc-pc != 0: 
             cstr += '+'.join([j for j in i[0]]) + ' --> ' + '+'.join([j for j in i[1]]) + '  ' + str(rc-pc) + ' r:%s p:%s '%(rc,pc)+ '\n'
  
-               
+                   
 
 
-with open('C_mismatch.txt', 'w') as f:
-    f.write(cstr)
+    with open('C_mismatch.txt', 'w') as f:
+        f.write(cstr)
     
     
 
