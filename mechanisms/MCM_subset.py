@@ -11,6 +11,8 @@ import numpy as np
 import os, sys, multiprocessing,re 
 
 available_cores = 16
+use_origin = False
+include_CO2 = True
 
 try: filename1=sys.argv[1]
 except:filename1 = 'organic33.kpp'
@@ -20,13 +22,17 @@ except:filename = 'inorganic_mcm.kpp'
 inorganics = tuple(open(filename))
 
 
+###selcted species - if use_origin=True
+origin = {'O3','NO','NO2','CH4'}
+
+
+
 gen = xrange(len(full))
-
-
+nocoeff = re.compile(r'\b[\d\.]*(\w+)\b')
 
 ''' Step 1 extract all species '''
 inorganic_species =  set(re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
-all_species =  re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(full))
+all_species =  re.findall(r'\b[\d\.]*(\w+)\b[\s=]*IGNORE' ,str(full))
 sarr = pd.Series(index=all_species)
 sarr[:]=-1
 
@@ -43,15 +49,14 @@ equations = [ i[0].split('=') for i in eqn]
  
 ''' Step 3 split into arrays of each reactant / product '''
 eq_split = [[set(i[0].split('+')), set(i[1].split('+'))] for i in equations]
- 
-
 gen = xrange(len(equations))
 
-
 #make into a class with run number
-''' get all species formed ''' 
-origin = {'O3','NO','NO2','CH4'}
-species = origin | inorganic_species ^ set (['' ])
+''' Step 4 get all species formed ''' 
+if not use_origin: origin = set(all_species)
+species = origin | inorganic_species ^ set ([''])
+
+
 counter = 0 
 previous = '' 
 
@@ -72,14 +77,14 @@ while True:
         if eq_split[i][0].issubset(species): 
             dummy.extend(eq_split[i][1])
 
-    species = species | set(dummy)
-    
+    species = set([nocoeff.match(i).group(1) if i!= '' else ''  for i in  species | set(dummy)])
+    print species
     
     for i in dummy:
         try:
             if sarr[i] < 0 :
                 print i
-                sarr[spec2num[i]]= counter
+                sarr[spec2num[i]] = counter
         except: print 'skipping-'+i
     dummy = []
 
@@ -94,11 +99,9 @@ for i in gen:
     if (eq_split[i][0].issubset(species)) and (eq_split[i][1].issubset(species)): reactions.append(i)
     
 
-
 ### using all reactions generated from specie list 
 ##  if a species is in the products, and all reactants present...
 #   this is a generation reaction
-
 
 
 def trace( spec ):
@@ -157,7 +160,7 @@ REAL(dp)::M, N2, O2, RO2, H2O
 #HNO3=IGNORE;
 #SO2=IGNORE;
 #SO3=IGNORE;
-#NO3=IGNORE;'''
+#NO3=IGNORE;
 
 for i in species:
     if i == '': continue#i = 'DUMMY'
@@ -189,9 +192,15 @@ for i in reactions:
     string += '{%04d} %s : %s;\n'%(i,j[0],j[1]) 
 
 
+
+
+
 with open("subset_"+filename1, 'w') as f:
     f.write(string)
     
     
-    
-print 'problem not speearitng coeff'
+
+
+
+
+
