@@ -133,7 +133,7 @@ if include_CO2:
     smilesdf = pd.read_csv('../src/smiles_mined.csv')
     smiles=pd.Series(smilesdf.smiles)
     smiles.index=smilesdf.name
-    smiles['CO']=1
+    smiles['CO']='C'
       
     for i in eq_split:
         rc,pc=0,0
