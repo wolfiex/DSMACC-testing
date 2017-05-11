@@ -118,7 +118,25 @@ xpos = np.linspace(0,1,s.max()+1)
 
 
 
-
+if include_CO2: 
+    cs= re.compile(r'c',re.IGNORECASE)
+    c =[]
+    cstr =''
+    smiles = pd.Series.from_csv('../src/mcm2_3smiles.csv')
+    for i in eq_split:
+        rc,pc=0,0
+        for r in i[0]: 
+            try:rc+= len(cs.findall(smiles[r]))  
+            except:None      
+        for p in i[1]: 
+            try:pc+= len(cs.findall(smiles[p]))  
+            except:None          
+        c.append(rc-pc)
+        
+        if rc-pc != 0: 
+            cstr += '+'.join([j for j in i[0]]) + ' --> ' + '+'.join([j for j in i[1]]) + '  ' + str(rc-pc) + '\n'
+ 
+               
 
 traces = multiprocessing.Pool(4).map( trace , s.index ) 
 
