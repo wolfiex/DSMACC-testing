@@ -118,30 +118,47 @@ xpos = np.linspace(0,1,s.max()+1)
 
 
 
+
+
+
 if include_CO2: 
+
+    def is_excited (x):
+        try: return len(cs.findall(smiles[r[:-1]])) 
+        except Exception as e: print str(e)+x; return 0
+
     cs= re.compile(r'c',re.IGNORECASE)
     c =[]
     cstr =''
-    smiles = pd.Series.from_csv('../src/mcm2_3smiles.csv')
+    smilesdf = pd.read_csv('../src/smiles_mined.csv')
+    smiles=pd.Series(smilesdf.smiles)
+    smiles.index=smilesdf.name
+    smiles['CO']=1
+      
     for i in eq_split:
         rc,pc=0,0
         for r in i[0]: 
             try:rc+= len(cs.findall(smiles[r]))  
-            except:None      
+            except : print r #rc += is_excited(r)     
         for p in i[1]: 
             try:pc+= len(cs.findall(smiles[p]))  
-            except:None          
+            except : print p #pc += is_excited(r)           
         c.append(rc-pc)
         
         if rc-pc != 0: 
-            cstr += '+'.join([j for j in i[0]]) + ' --> ' + '+'.join([j for j in i[1]]) + '  ' + str(rc-pc) + '\n'
+            cstr += '+'.join([j for j in i[0]]) + ' --> ' + '+'.join([j for j in i[1]]) + '  ' + str(rc-pc) + ' r:%s p:%s '%(rc,pc)+ '\n'
  
                
+
+
+with open('C_mismatch.txt', 'w') as f:
+    f.write(cstr)
+    
+    
 
 traces = multiprocessing.Pool(4).map( trace , s.index ) 
 
 species = species^set(['EMISS'])
-
 
 
 dummy = False

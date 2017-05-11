@@ -10,7 +10,8 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 ## New user
 Run `make new` to clean everything and update latest TUV.
 
-For kpp add the correct paths - for earth this was, now it is in the src folder of dsmacc....
+For kpp add the correct paths - for earth this was, now it is in the src folder of dsmacc...
+
  47 export KPP_HOME=/work/data/kpp-2.2.3
  48 export PATH=$PATH:$KPP_HOME/bin
 
