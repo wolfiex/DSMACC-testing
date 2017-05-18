@@ -14,7 +14,7 @@ available_cores = 16
 include_CO2 = True
 
 try: filename1=sys.argv[1]
-except:filename1 = 'organic33.kpp'
+except:filename1 = 'mcm331complete.kpp'
 full = tuple(open(filename1))
 try: filename=sys.argv[2]
 except:filename = 'inorganic_mcm.kpp'
@@ -30,6 +30,7 @@ nocoeff = re.compile(r'\b[\d\.]*(\w+)\b')
 ''' Step 1 extract all species '''
 inorganic_species =  set(re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
 all_species =  re.findall(r'\b[\d\.]*(\w+)\b[\s=]*IGNORE' ,str(full))
+if all_species==[]: sys.exit('Failed to load file-'+filename1)
 sarr = pd.Series(index=all_species)
 sarr[:]=-1
 
@@ -41,6 +42,21 @@ spec2num = {v: k for k, v in num2spec.iteritems()}
 ''' Step 2 split array into reactants and products '''
 fullstr=''.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
 eqn = [i.replace(' ','').split(':') for i in re.findall(r'}([A-z0-9+-=:()*/]*);' ,fullstr)]
+
+''' Step3 remove duplicate reactions and merge rates'''
+#merge duplicated reactions
+eqdf = pd.DataFrame(eqn) 
+eqdf[1] =[str(i).split('//')[0] for i in eqdf[1]]
+ 
+eqdf = eqdf.drop_duplicates() #remove exact duplicates
+# combine reaction rates for other duplicates
+dupreactions = np.array(eqdf[eqdf[0].duplicated()][0])
+dup = eqdf[0].duplicated(keep=False)
+eqn = np.array(eqdf[[not i for i in dup]])
+for q in dupreactions: eqn = np.append(eqn,[q,'+'.join(eqdf[eqdf[0] == q][1])])
+if eqn.shape[1]!=2: eqn = eqn.reshape((len(eqn)/2,2))
+
+
 equations = [ i[0].split('=') for i in eqn]
 
  
@@ -81,6 +97,7 @@ species = origin | inorganic_species ^ set ([''])
 #make into a class with run number
 ''' Step 5 get all species formed ''' 
 
+print 'use sympy on eqn'
 
 counter = 0 
 previous = '' 
@@ -202,11 +219,12 @@ ro2 = [y for y in ro2 if re.search('_([A-z0-9]*)\)',y).group(1) in species]
 string = '''// parsed by MCMsubset.py 
 // contact: daniel.ellis.research@googlemail.com
 // filedata: %s
-// origin organics: %s
+// primary organics: %s
 // %s species  %s reactions
 #DEFFIX
 EMISS=IGNORE;''' %(ic_file,list(origin),len(species),len(reactions))
 
+print string
 
 string += '''
 #INLINE F90_GLOBAL
@@ -255,13 +273,7 @@ for i in reactions:
     string += '{%04d} %s : %s;\n'%(i,j[0],j[1]) 
 
 
-#merge duplicated reactions
-eqdf=pd.DataFrame(eqn)  
-dupreactions = np.array(eqdf[eqdf[0].duplicated()][0])
-dup = eqdf[0].duplicated(keep=False)
-eqn = np.array(eqdf[[not i for i in dup]])
-for q in dupreactions: eqn = np.append(eqn,[q,'+'.join(eqdf[eqdf[0] == q][1])])
-eqn = eqn.reshape((len(eqn)/2,2))
+
 
 
 

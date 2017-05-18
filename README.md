@@ -29,20 +29,42 @@ git submodule update` or typing `make update_submodule`
 6. `make`
 
 ## How to run
+- Ensure tuv is compiled, if in doubt run make new should no other error be apparent -
+
 1. Create Init cons csv file (methane.csv as a template) 
+ 
  .. * different columns are different runs
+ 
  ..* depos and emiss are deposition / emission constants, set 1 to enable 0 do disable 
+
  ..* run names are useful, see + depos etc for examples. 
 
 2. Run `python begin.py` after setting the number of processes inside
+
 ..* this makes Init_cons.dat
+
 ..* generates run files. sdout is in run.sdout, individual run.nc
+
 ..* concatenates nc files including initial conditions, and run time into one grouped netcdf
+
 ..* to see the form of this have a look inside begin, or read_dsmacc
 
 3. to view files:
+
 ..* ipython, then type `run AnalysisTools/read_dsmacc <ncfilename>` for interactive play
+
 ..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
+
+## Running with multiple models
+1. Making a new model model and ensure it works
+2. Type `make save name=<yournamehere>` with what you wish to refer to your model with in the future
+3. In your Initial conditions, at the description add your model name after a hyphen e.g. myrun-mcm_new
+
+* only use a hyphen when providing a model name
+
+## Makefile
+Type `make man` to see a description of available functions.
+
 
 ## Optional extras
 - [x] MCM subset selector in mechanisms - this uses an init cons file to generate the smallest mechanism required by the model.
@@ -75,6 +97,7 @@ To do this place your new rate file in the src folder, run simplfy_rates.py and 
 + Anacondas Python (continuum.io)
 + icc & bison for kpp
 + perl
+
 
 ### Changes:
 + Reorganised code / removed unnecessary loops
