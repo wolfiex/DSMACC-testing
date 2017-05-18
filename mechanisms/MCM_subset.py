@@ -8,10 +8,9 @@ D.Ellis 2016
 
 import pandas as pd
 import numpy as np
-import os, sys, multiprocessing,re 
+import os, sys, multiprocessing,re , glob
 
 available_cores = 16
-use_origin = False
 include_CO2 = True
 
 try: filename1=sys.argv[1]
@@ -22,8 +21,6 @@ except:filename = 'inorganic_mcm.kpp'
 inorganics = tuple(open(filename))
 
 
-###selcted species - if use_origin=True
-origin = {'O3','NO','NO2','CH4'}
 
 
 
@@ -51,10 +48,38 @@ equations = [ i[0].split('=') for i in eqn]
 eq_split = [[set(i[0].split('+')), set(i[1].split('+'))] for i in equations]
 gen = xrange(len(equations))
 
-#make into a class with run number
-''' Step 4 get all species formed ''' 
-if not use_origin: origin = set(all_species)
+
+''' Step 4 get primary species'''
+
+###selcted species - if use_origin=True
+# all -a else select init cons file
+
+file_list = glob.glob('../InitCons/*.csv')
+
+print 'Select file to open: \n\n'
+print 'a  -  all'
+for i,f in enumerate(file_list): print i , ' - ', f
+
+inpt = raw_input('Enter Number \n')
+
+if inpt=='a': 
+    print 'all species selected'
+    origin = set(all_species)
+    ic_file = 'full mcm organics'
+else: 
+    ic_file = file_list[int(inpt)]
+    print ic_file
+    ics = pd.read_csv(ic_file,header=2)
+    origin = set(ics['Species'].iloc[9:])
+
+
+#origin = {'O3','NO','NO2','CH4'}#override
 species = origin | inorganic_species ^ set ([''])
+
+
+
+#make into a class with run number
+''' Step 5 get all species formed ''' 
 
 
 counter = 0 
@@ -174,12 +199,13 @@ ro2 = [y for y in ro2 if re.search('_([A-z0-9]*)\)',y).group(1) in species]
 
 
 
-string = '''// parsed by MCMsubset.py daniel.ellis.research@googlemail.com
+string = '''// parsed by MCMsubset.py 
+// contact: daniel.ellis.research@googlemail.com
+// filedata: %s
 // origin organics: %s
 // %s species  %s reactions
 #DEFFIX
-EMISS=IGNORE;
-''' %(origin,len(species),len(reactions))
+EMISS=IGNORE;''' %(ic_file,list(origin),len(species),len(reactions))
 
 
 string += '''
