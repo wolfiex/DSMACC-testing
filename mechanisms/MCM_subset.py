@@ -241,12 +241,13 @@ CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 #ENDINLINE
 '''
 
-
+'''
 dummy = False
 for i in inorganics:
     if '#EQUATIONS' in i: dummy = True
     if dummy:
         string += i 
+'''
 
 for i in reactions:
     j = eqn[i]
