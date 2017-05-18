@@ -239,6 +239,7 @@ for i in ro2:
 string += '''
 CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 #ENDINLINE
+#EQUATIONS
 '''
 
 '''
@@ -254,13 +255,23 @@ for i in reactions:
     string += '{%04d} %s : %s;\n'%(i,j[0],j[1]) 
 
 
+#merge duplicated reactions
+eqdf=pd.DataFrame(eqn)  
+dupreactions = np.array(eqdf[eqdf[0].duplicated()][0])
+dup = eqdf[0].duplicated(keep=False)
+eqn = np.array(eqdf[[not i for i in dup]])
+for q in dupreactions: eqn = np.append(eqn,[q,'+'.join(eqdf[eqdf[0] == q][1])])
+eqn = eqn.reshape((len(eqn)/2,2))
+
+
 
 
 
 with open("subset_"+filename1, 'w') as f:
     f.write(string)
+    print "\n subset_"+filename1+' written'
     
-    
+
 
 
 
