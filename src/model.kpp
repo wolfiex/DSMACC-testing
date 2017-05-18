@@ -7,8 +7,8 @@
 
 //#include ./mechanisms/gckpp.kpp
 //#include ./mechanisms/organic_methane.kpp
-//#include ./mechanisms/organic_cri.kpp
-#INCLUDE ./mechanisms/organic_nhept32.kpp
+//#include ./mechanisms/organic_cri21_nhept.kpp
+#INCLUDE ./mechanisms/subset_organic33.kpp
 //#INCLUDE ./mechanisms/subset_organic_cri5.kpp
 
 #INCLUDE ./mechanisms/inorganic.kpp
