@@ -44,6 +44,12 @@ git submodule update` or typing `make update_submodule`
 ..* ipython, then type `run AnalysisTools/read_dsmacc <ncfilename>` for interactive play
 ..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
 
+## Optional extras
+- [x] MCM subset selector in mechanisms - this uses an init cons file to generate the smallest mechanism required by the model.
+- [x] read DSMACC output routine in analysis tools.
+- [x] plot all concentrations / reaction rates as a PDF for diagnostics in analysis tools
+- [x] ropa tool in main folder (may change)
+- [x] animated ropa plotter (alternatively you can use the online version - lnk to be added soon)
 
 
 ## Updating the rate constants
