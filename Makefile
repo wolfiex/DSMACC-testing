@@ -47,7 +47,7 @@ depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2)
 	$(F_makedepend) $(SRCS1) $(SRCS2)
 
 clean: # remove others
-	rm -f $(OBJS1)  *.mod *.log *~ depend.mk.old *.o *.sdout *.tee #$(OBJS2)
+	rm -f $(OBJS1) *model* *.mod *.log *~ depend.mk.old *.o *.sdout *.tee #$(OBJS2)
 
 clear: # remove temp and run files only !
 	rm -f *.nc *.sdout run_* del* *.pdf *.spec *.rate *.names Outputs/*
@@ -117,6 +117,9 @@ displayropa: # runs a server for timeout period!
 	cd AnalysisTools/ropatool/ && timeout 3600 python -m SimpleHTTPServer 8000
 	make killserver
 
+
+
+
 killserver: # kills a running server on port 8000!
 	fuser -k 8000/tcp
 
@@ -124,10 +127,24 @@ killserver: # kills a running server on port 8000!
 man: # print each make function in list!
 	perl -lne 's/#/\n\t\t\$(blue)/;s/!/\$(nocol)\n/;print $1 if /([^\.]{2,99}):\s(.*)/;' Makefile
 
+#downloads required submodules
 update_submodule: # print each make function in list!
 	git submodule init
 	git submodule update
+
+#save model for multi use -  make save name=<yourmodelname>
+savemodel:
+	rm -rf ./save/exec/$(name)
+	mkdir ./save/exec/$(name)
+	python	./src/background/movetotemp.py $(name)
   
+#lists all models
+lsmodels: 
+	ls ./save/exec
+    
+#removes a saved model - make rmmodel name=<yourmodelname>
+rmmodel:
+	rm -rf ./save/exec/$(name)
 
 # list of dependencies (via USE statements)
 include depend.mk

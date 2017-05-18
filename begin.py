@@ -66,17 +66,20 @@ def simulate (arg_in):
 
 
     try:     #each system call has to be on a new line
-
-        description="%rm Outputs/s_%s.*"%('run',arg_in[1])
+        #os.system("touch Outputs/s_%s.empty"%('run',arg_in[1]))
+        #os.system("rm Outputs/s_%s.*"%('run',arg_in[1]))
         start = time.strftime("%s")
-        description="%s_%s"%('run',arg_in[1])
-        linenumber = "%s"%(int(arg_in[0])+1)
-        print './model %s %s 1'%(description,int(linenumber))
-        os.system('./model %s %s 1'%(description,int(linenumber)))
-        return int(time.strftime("%s")) - int(start)
-    except:
-        return 'Failed'
 
+        description="%s_%s"%('run',arg_in[1])
+        model='model'
+        if '-' in description: model='save/exec/%s/model'%(description.split('-')[-1])
+        
+        linenumber = "%s"%(int(arg_in[0])+1)
+        run ='./%s %s %s 1'%(model, description,int(linenumber))
+        print run ;       os.system(run)
+        return int(time.strftime("%s")) - int(start)
+    except Exception as e:
+        return 'Failed on '+ arg_in + e
 
 
 
