@@ -16,6 +16,9 @@ available_cores = 16
 pre_formatted_style=False #slower
 
 
+runsaved = False
+if '-saved' in sys.argv: runsaved=True
+
 
 
 
@@ -38,6 +41,7 @@ start = (time.strftime("%Y%m%d%H%M"))
 # make ics
 if ('.csv' not in ic_file):  ic_file += '.csv'
 print ic_file
+os.system("touch Init_cons.dat")
 os.system("rm Init_cons.dat")
 os.system("./InitCons/makeics.pl %s"%ic_file)
 ic_open= tuple(open(ic_file))
@@ -72,8 +76,11 @@ def simulate (arg_in):
 
         description="%s_%s"%('run',arg_in[1])
         model='model'
-        if '-' in description: model='save/exec/%s/model'%(description.split('-')[-1])
-        
+        if '-' in description: 
+            if runsaved: model='save/exec/%s/model'%(description.split('-')[-1])
+            else:  description = description.split('-')[0]
+            
+        print 'aaaa'    
         linenumber = "%s"%(int(arg_in[0])+1)
         run ='./%s %s %s 1'%(model, description,int(linenumber))
         print run ;       os.system(run)

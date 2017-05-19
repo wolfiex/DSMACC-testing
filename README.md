@@ -57,8 +57,9 @@ git submodule update` or typing `make update_submodule`
 
 ## Running with multiple models
 1. Making a new model model and ensure it works
-2. Type `make save name=<yournamehere>` with what you wish to refer to your model with in the future
+2. Type `make savemodel name=<yournamehere>` with what you wish to refer to your model with in the future
 3. In your Initial conditions, at the description add your model name after a hyphen e.g. myrun-mcm_new
+4. Run using the saved flag `./begin.py -saved`
 
 * only use a hyphen when providing a model name
 

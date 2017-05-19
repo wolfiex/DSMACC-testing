@@ -61,7 +61,7 @@ def reorder(x):
 
 eqdf = pd.DataFrame(eqn) 
 eqdf[0] = [reorder(i) for i in eqdf[0]]
-eqdf[1] =[rx.sub(r'(\d)[dD]([+-\.\d])',r'\1e\2',  str(i).split('//')[0]) for i in eqdf[1]]
+eqdf[1] =[rx.sub(r'(\d)[dD]([+-\.\d])',r'\1e\2',  str(i).split('//')[0].replace('EXP','exp')) for i in eqdf[1]]
  
  
 grp = ','.join(eqdf[1])
