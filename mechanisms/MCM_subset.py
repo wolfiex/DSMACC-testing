@@ -9,9 +9,10 @@ D.Ellis 2016
 import pandas as pd
 import numpy as np
 import os, sys, multiprocessing,re , glob
-
+from sympy import *
 available_cores = 16
 include_CO2 = True
+import re as rx
 
 try: filename1=sys.argv[1]
 except:filename1 = 'mcm331complete.kpp'
@@ -19,17 +20,18 @@ full = tuple(open(filename1))
 try: filename=sys.argv[2]
 except:filename = 'inorganic_mcm.kpp'
 inorganics = tuple(open(filename))
+##############
 
 
 
 
 
 gen = xrange(len(full))
-nocoeff = re.compile(r'\b[\d\.]*(\w+)\b')
+nocoeff = rx.compile(r'\b[\d\.]*(\w+)\b')
 
 ''' Step 1 extract all species '''
-inorganic_species =  set(re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
-all_species =  re.findall(r'\b[\d\.]*(\w+)\b[\s=]*IGNORE' ,str(full))
+inorganic_species =  set(rx.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
+all_species =  rx.findall(r'\b[\d\.]*(\w+)\b[\s=]*IGNORE' ,str(full))
 if all_species==[]: sys.exit('Failed to load file-'+filename1)
 sarr = pd.Series(index=all_species)
 sarr[:]=-1
@@ -41,20 +43,55 @@ spec2num = {v: k for k, v in num2spec.iteritems()}
 
 ''' Step 2 split array into reactants and products '''
 fullstr=''.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
-eqn = [i.replace(' ','').split(':') for i in re.findall(r'}([A-z0-9+-=:()*/]*);' ,fullstr)]
+eqn = [i.replace(' ','').split(':') for i in rx.findall(r'}([A-z0-9+-=:()*/]*);' ,fullstr)]
 
 ''' Step3 remove duplicate reactions and merge rates'''
 #merge duplicated reactions
+
+def reorder(x):
+    r,p=x.split('=')
+    p=p.split('+')
+    p.sort()
+    p='+'.join(p)
+    r=r.split('+')
+    r.sort()
+    r='+'.join(r)
+    return r+'='+p
+
+
 eqdf = pd.DataFrame(eqn) 
-eqdf[1] =[str(i).split('//')[0] for i in eqdf[1]]
+eqdf[0] = [reorder(i) for i in eqdf[0]]
+eqdf[1] =[rx.sub(r'(\d)[dD]([+-\.\d])',r'\1e\2',  str(i).split('//')[0].replace('EXP','exp')) for i in eqdf[1]]
  
+ 
+grp = ','.join(eqdf[1])
+constants = rx.findall(r'\b([A-z]\w+)\b',grp)
+for i in set(constants+['M','J']):  exec(i + '= symbols("%s")'%i)
+ 
+#eqdf[1] =[exec('str(N(expand(%s),3))'%(i)) for i in eqdf[1]]
+
+print 'compile all res'
+
+new1=[]
+for i in eqdf[1]:
+    exec('dummyvar = str(N(simplify(%s),3))'%(i.replace(';','')))#symbolic engineness
+    new1.append(dummyvar)
+eqdf[1]=new1
+
 eqdf = eqdf.drop_duplicates() #remove exact duplicates
 # combine reaction rates for other duplicates
 dupreactions = np.array(eqdf[eqdf[0].duplicated()][0])
 dup = eqdf[0].duplicated(keep=False)
 eqn = np.array(eqdf[[not i for i in dup]])
-for q in dupreactions: eqn = np.append(eqn,[q,'+'.join(eqdf[eqdf[0] == q][1])])
-if eqn.shape[1]!=2: eqn = eqn.reshape((len(eqn)/2,2))
+for q in dupreactions: 
+    exec('joined = str(N(simplify(%s),3))'%('+'.join(eqdf[eqdf[0] == q][1])))
+    eqn = np.append(eqn,[q,joined])
+try: eqn.shape[1]
+except: eqn = eqn.reshape((len(eqn)/2,2))
+
+
+
+
 
 
 equations = [ i[0].split('=') for i in eqn]
@@ -90,7 +127,7 @@ else:
 
 
 #origin = {'O3','NO','NO2','CH4'}#override
-species = origin | inorganic_species ^ set ([''])
+species = origin | inorganic_species ^ set ([''])#set(['H2','CO']) ^ set ([''])#inorganic_species ^ set ([''])
 
 
 
@@ -169,10 +206,10 @@ if include_CO2:
         try: return len(cs.findall(smiles[r[:-1]])) 
         except Exception as e: print str(e)+x; return 0
 
-    cs= re.compile(r'c',re.IGNORECASE)
+    cs= rx.compile(r'c',rx.IGNORECASE)
     c =[]
     cstr =''
-    smilesdf = pd.read_csv('../src/smiles_mined.csv')
+    smilesdf = pd.read_csv('../src/background/smiles_mined.csv')
     smiles=pd.Series(smilesdf.smiles)
     smiles.index=smilesdf.name
     smiles['CO']='C'
@@ -210,8 +247,8 @@ for i in full:
     if 'CALL' in i: break
     if dummy: ro2+= i 
     
-ro2 = re.findall('C\(ind_[A-z0-9]*\)',ro2)
-ro2 = [y for y in ro2 if re.search('_([A-z0-9]*)\)',y).group(1) in species]
+ro2 = rx.findall('C\(ind_[A-z0-9]*\)',ro2)
+ro2 = [y for y in ro2 if rx.search('_([A-z0-9]*)\)',y).group(1) in species]
 
 
 
@@ -277,7 +314,7 @@ for i in reactions:
 
 
 
-
+string = rx.sub(r';\h*;',';',string)
 
 with open("subset_"+filename1, 'w') as f:
     f.write(string)
