@@ -70,7 +70,8 @@ for i in set(constants+['M','J']):  exec(i + '= symbols("%s")'%i)
  
 #eqdf[1] =[exec('str(N(expand(%s),3))'%(i)) for i in eqdf[1]]
 
-print 'compile all res'
+print 'compile all res' 
+print 'waiting for simplification'
 
 new1=[]
 for i in eqdf[1]:
