@@ -87,7 +87,8 @@ change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <
 	mkdir Outputs
 
 new: distclean update_submodule tuv
-	./src/sfmakedepend	
+	./src/sfmakedepend
+	mkdir Outputs	
 
 kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model

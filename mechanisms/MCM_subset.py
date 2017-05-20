@@ -43,7 +43,7 @@ spec2num = {v: k for k, v in num2spec.iteritems()}
 
 ''' Step 2 split array into reactants and products '''
 fullstr=''.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
-eqn = [i.replace(' ','').split(':') for i in rx.findall(r'}([A-z0-9+-=:()*/]*);' ,fullstr)]
+eqn = [i.replace(' ','').split(':') for i in rx.findall(r'[^/]{0,2}\{[\. \s\w\d]*\}([A-z0-9+-=:()*/]*);' ,fullstr)] 
 
 ''' Step3 remove duplicate reactions and merge rates'''
 #merge duplicated reactions
@@ -70,7 +70,8 @@ for i in set(constants+['M','J']):  exec(i + '= symbols("%s")'%i)
  
 #eqdf[1] =[exec('str(N(expand(%s),3))'%(i)) for i in eqdf[1]]
 
-print 'compile all res'
+print 'compile all res' 
+print 'waiting for simplification'
 
 new1=[]
 for i in eqdf[1]:
@@ -198,16 +199,18 @@ xpos = np.linspace(0,1,s.max()+1)
 
 
 
-
+c =[]
 
 if include_CO2: 
+
+    species = species^set(['CO2'])
 
     def is_excited (x):
         try: return len(cs.findall(smiles[r[:-1]])) 
         except Exception as e: print str(e)+x; return 0
 
     cs= rx.compile(r'c',rx.IGNORECASE)
-    c =[]
+
     cstr =''
     smilesdf = pd.read_csv('../src/background/smiles_mined.csv')
     smiles=pd.Series(smilesdf.smiles)
@@ -222,16 +225,14 @@ if include_CO2:
         for p in i[1]: 
             try:pc+= len(cs.findall(smiles[p]))  
             except : print p #pc += is_excited(r)           
-        c.append(rc-pc)
+        
         
         if rc-pc != 0: 
+        
+            c.append('+'.join([j for j in i[0]]) + '=' + '+'.join([j for j in i[1]]))
             cstr += '+'.join([j for j in i[0]]) + ' --> ' + '+'.join([j for j in i[1]]) + '  ' + str(rc-pc) + ' r:%s p:%s '%(rc,pc)+ '\n'
- 
-                   
 
-
-    with open('C_mismatch.txt', 'w') as f:
-        f.write(cstr)
+    with open('C_mismatch.txt', 'w') as f: f.write(cstr)
     
     
 
@@ -307,6 +308,7 @@ for i in inorganics:
 
 for i in reactions:
     j = eqn[i]
+    if j[0] in c: j[0]=j[0]+'+CO2'
     string += '{%04d} %s : %s;\n'%(i,j[0],j[1]) 
 
 
