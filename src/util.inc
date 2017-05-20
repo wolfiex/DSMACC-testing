@@ -44,6 +44,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
              CONSTRAIN(J)=CONCS(I)
              print*, 'soft-constrained ', spec_name(i), 'at', constrain(j) 
         end if
+        
+        !populate spin up array with any concentrations in ics 
+        spin_const(J)=concs(i)
+        
              
         if (SPEC_NAME(I) .EQ. 'CH4') then 
         SPEC_CH4=.TRUE.
@@ -128,6 +132,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             print *, 'DEPOSITON ENABLED'
         end if 
 
+    CASE('SPINUP') 
+        spinup = CONCS(I)
 
     CASE DEFAULT
     !! for any species in the fixed array 

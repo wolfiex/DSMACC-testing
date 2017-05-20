@@ -28,6 +28,7 @@ Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
 character(200) :: dummychar
 integer :: run_counter = 0 
 
+
 STEPMIN = 0.0_dp
 STEPMAX = 0.0_dp
 RTOL(:) = 1.0E-5_dp !-5
@@ -45,6 +46,10 @@ CONSTRAIN_RUN=.FALSE.
 SAVE_LEGACY=.false.
 time=tstart
 new_tuv=.true.
+
+!spinup time 0 for false, number timesteps otherwise 
+
+
 !dt is the output timestep and the timestep between times 
 !rate constants and notably photolysis rates are calcualted " 600 = ten minutes
 dt = 600. 
@@ -52,6 +57,8 @@ nc_set=1!36 ! the grouping factor that decides how often to write to file (modul
 !use nc_set = 0 for a single memory dump at the end of simulation. 
 
 
+spinup=0 !allocate this within ics 
+allocate(spin_const(NVAR))
 
 call getarg(1,counter)!name 
 call getarg(2,ln)!location in Init Cons
@@ -69,15 +76,18 @@ INCLUDE './src/initialisations.inc'
 !so T=0 of the output file gives the initial condition
 !i'cs copied from python initiation program
 
-print *, 'write intial conditions here'
 WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
 WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP, M, RCONST(:NREACT)
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TEND = TEND + spinup !additional spinup time added if included
+
 
 time_loop: DO WHILE (time < TEND)! This is the main loop for integrations
 run_counter = run_counter+1 
+
+print*, spinup
 
 
 CALL Update_RCONST()! Update the rate constants
@@ -115,13 +125,22 @@ IF (CONSTRAIN_NOX) THEN
     ENDDO
 ENDIF
 
-! If constrain species concentrations if necessary
-DO I=1,NVAR
-IF (CONSTRAIN(I) .GT. 0) THEN
-    C(I)=CONSTRAIN(I)
+
+
+
+!!If constrain species concentrations if necessary
+IF (spinup < 1)  then
+    DO I=1,NVAR
+    IF (CONSTRAIN(I) .GT. 0) C(I)=CONSTRAIN(I)
+    END DO
+else 
+    DO I=1,NVAR
+    IF (spin_const(I) .GT. 0)  C(I)=spin_const(I)
+    END DO    
     
-END IF 
-END DO
+    spinup = spinup-1 
+    if (spinup<1) deallocate(spin_const)
+end if 
 
 
 newtime = Jday*86400 + DAYCOUNTER*dt

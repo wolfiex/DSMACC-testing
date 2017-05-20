@@ -63,6 +63,10 @@ git submodule update` or typing `make update_submodule`
 
 * only use a hyphen when providing a model name
 
+## Spinning up
+Should one wish to spin a model up, this can now be done by assigning a `SPINUP` parameter in the initial conditions file. This constrains all concentrations provided in the initial conditions file for the number of timesteps given. 
+
+
 ## Makefile
 Type `make man` to see a description of available functions.
 
