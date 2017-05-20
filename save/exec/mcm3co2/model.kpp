@@ -6,9 +6,9 @@
 //#INCLUDE ./mechanisms/MCM4.kpp
 
 //#include ./mechanisms/gckpp.kpp
-//#include ./mechanisms/organic_methane.kpp
+#include ./mechanisms/dunmcm3co2.kpp
 //#include ./mechanisms/subset_organic_cri21.kpp
-#INCLUDE ./mechanisms/subset_mcm331complete.kpp
+//#INCLUDE ./mechanisms/dunco2.kpp
 //#INCLUDE ./mechanisms/subset_organic_cri5.kpp
 
 //#INCLUDE ./mechanisms/inorganic.kpp
