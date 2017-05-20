@@ -87,8 +87,6 @@ TEND = TEND + spinup !additional spinup time added if included
 time_loop: DO WHILE (time < TEND)! This is the main loop for integrations
 run_counter = run_counter+1 
 
-print*, spinup
-
 
 CALL Update_RCONST()! Update the rate constants
 
