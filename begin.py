@@ -17,8 +17,9 @@ pre_formatted_style=False #slower
 
 
 runsaved = False
-if '-saved' in sys.argv: runsaved=True
-
+if '-saved' in sys.argv: runsaved=True #runs model using saved versions when -modelname is provided
+keepx = False
+if '-keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
 
 
 
@@ -26,6 +27,9 @@ if '-saved' in sys.argv: runsaved=True
  ####read files####
 
 file_list = glob.glob('InitCons/*.csv')
+file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
+
+
 
 print 'Select file to open: \n\n'
 for i,f in enumerate(file_list): print i , ' - ', f
@@ -46,6 +50,11 @@ os.system("rm Init_cons.dat")
 os.system("./InitCons/makeics.pl %s"%ic_file)
 ic_open= tuple(open(ic_file))
 numbered = np.array([i for i in enumerate(ic_open[2].strip().split(',')[3:])])
+
+if not keepx: numbered = filter(lambda x: x[1][0] not in 'xX', numbered)
+
+
+
 n_runs=len(numbered)
 if (ncores > n_runs): ncores = n_runs
 
@@ -123,7 +132,9 @@ rate = ncfile.createDimension('rate', None)
 
 for group_name in numbered:
     print group_name
-
+    
+    if not runsaved: group_name[1] = group_name[1].split('-')[0]
+    
     group = ncfile.createGroup(group_name[1])
 
     specvar = group.createVariable( 'Spec' , "f8"  ,('time','spec',))
