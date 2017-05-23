@@ -184,6 +184,11 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     H2O=H2O*CFACTOR 
     VAR(:)=VAR(:)*CFACTOR
     CONSTRAIN(:)=CONSTRAIN(:)*CFACTOR
+    
+
+    spin_const(:)=spin_const(:) * CFACTOR
+
+    
     FIX(:)=FIX(:)*CFACTOR
     if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR 
     !correct emissions ^^
