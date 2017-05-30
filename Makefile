@@ -58,6 +58,7 @@ distclean: clean clear # clean all !
 	rm -f *.nc
 	rm -f *.dat
 	rm -f *.o
+	rm -f .nfs*
 	rm -f *model*
 	rm -f run_
 	rm -f *.old
