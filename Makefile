@@ -90,14 +90,18 @@ new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs	
 
-kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
 	touch model
+	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
+	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)	
+	$(eval export PATH=$(KPP_PATH)bin:$(PATH))
+	@echo $(KPP_PATH)
 	rm model
-	cd src/kpp/kpp*/src && make
+	cd $(KPP_PATH)src && make
 	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
-	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	kpp model.kpp
 	rm -rf *.kpp
 	
 
