@@ -1,15 +1,9 @@
 // include file with definition of the chemical species
 // and chemical equations
 
-
-//#INCLUDE ./mechanisms/methane.kpp
-//#INCLUDE ./mechanisms/MCM4.kpp
-
-//#include ./mechanisms/dunmcm3co2.kpp
-#include ./mechanisms/subset_CRI_21complete.kpp
-
-
-//#INCLUDE ./mechanisms/inorganic.kpp
+//#INCLUDE ./mechanisms/organic.kpp
+#INCLUDE ./mechanisms/MCM4.kpp
+#INCLUDE ./mechanisms/inorganic.kpp
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp
 

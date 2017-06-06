@@ -13,7 +13,7 @@
   INTEGER, PARAMETER :: ERROR_UNIT = 0
   INTEGER, PARAMETER :: SPEC_UNIT = 10
   INTEGER, PARAMETER :: RATE_UNIT = 12
-  Logical :: new_tuv = .True.
+  Logical :: TUVvers = .TRUE.
   character(len=3) :: mechanism
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables

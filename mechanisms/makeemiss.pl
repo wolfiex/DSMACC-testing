@@ -10,17 +10,12 @@ my @vd;       # deposition velocities
 my $mspc;     # species used in current mechanism
 my $vdstd;    # standard deposition velocitiy
               # (defined with key word "DEPOS" in depos.dat)
-my $num= 0;   # counter for reaction labels in output file
+my $num= 0 ;  # counter for reaction labels in output file
 
 ## Temporary auxiliary arrays/variables
 #  @lines:  lines read in from input file
 #  @spl:    array with separated species and vd from input line
 #  $idx:    index of current species in species/vd array
-
-## Switch to extend standard value to all species in mechanism
-#  (retrieved from 3rd script argument)
-my $flstd = 1; # 0: use only values from data file
-               # 1: extend standard value to all species (standard option)
 
 ## file handling
 #  $dfu:       file unit for data file "depos.dat"
@@ -36,17 +31,13 @@ my @fkpp;#     list of file names (and paths) of input KPP files
 
 ########################################################################
 
-# Define use of standard value:
-if (exists $ARGV[2]) {
-  $flstd = $ARGV[2];
-}
-
 # Define input data file:
 if (exists $ARGV[1]) {
   $fdat = $ARGV[1];
 } else {
-  $fdat = '../InitCons/depos.dat';
+  $fdat = '../InitCons/emiss.dat';
 }
+print "\n\033[94mData file:         $fdat\n";
 
 # Define input kpp files:
 if (exists $ARGV[0]) {
@@ -57,15 +48,7 @@ if (exists $ARGV[0]) {
 } else {
   @fkpp = ('inorganic','organic');
 }
-
-# Screen output
-print "\n\033[94mData file:         $fdat\n";
-print "KPP input file(s): ", join(", ", @fkpp), "\n";
-if ($flstd =~ 0) {
-  print "Only deposition data from $fdat used.\033[0m\n"
-} elsif ($flstd =~ 1) {
-  print "Standard vd extended to all species in mechanism.\033[0m\n"
-}
+print "KPP input file(s): ", join(", ", @fkpp), "\033[0m\n\n";
 
 ########################################################################
 
@@ -77,7 +60,6 @@ close($dfu);
 
 # Split array of input lines into array of species names and vd
 # unless it is an empty line or comment line starting with '#'
-print "\nPredefined values\n-----------------\n";
 foreach (@lines) {
   $_  =~ s/\#.*//;
   if ($_ !~ /^\s*$/) {
@@ -85,32 +67,19 @@ foreach (@lines) {
     my @spl = split(/\s+/, $_);
     push @dspc, $spl[0];
     push @vd, $spl[1];
-    print "$_\n" if $dspc[-1] !~ /DEPOS/;
 } }
-
-# Find standard value and save to vdstd.
-# If no standard value is defined in input file, use 5.00d-6.
-my $idx = first_index { $_ eq "DEPOS" } @dspc;
-if ($idx > 0) {
-  $vdstd = $vd[$idx];
-} else {
-  $vdstd = "5.00d-6"
-}
-
-if ($flstd =~ 1) {
-  print "---------------------\n",
-        "\033[92m\e[1mvd(standard): ",$vdstd, "\033[0m\n",
-        "---------------------\n" ;
-} else {
-  print "-----------------\n";
-}
+print "\033[95mEmissions are only used for species included in the input ",
+      "mechanisms.\nIF species are not listed here, but in $fdat, check for ",
+      "their\npresence in the specified kpp files and possibly change the ",
+      "kpp files.\033[0m\n",
+      "\033[92mThe following emissions are used in the current scenario:\033[0m\n";
 
 
 ########################################################################
 
 # Open output file and set KPP EQUATIONS variable
-open(my $writefile, ">","depos.kpp") or die "Could not open file depos.kpp: $!";
-print $writefile "#EQUATIONS\n";
+open(my $writefile, ">","emiss.kpp") or die "Could not open file emiss.kpp: $!";
+print $writefile "#DEFFIX\nEMISS=IGNORE;\n#EQUATIONS\n";
 
 # Loop over KPP files
 for my $kfu (@fkpp) {
@@ -125,17 +94,12 @@ for my $kfu (@fkpp) {
 
 # Define experimental values:
       if (grep(/^$mspc$/, @dspc)) {
-        $num += 1 if $mspc !~ /EMISS/; # Increase counter
-        $idx = first_index { $_ eq $mspc } @dspc;
+        $num += 1 ; # Increase counter
+        my $idx = first_index { $_ eq $mspc } @dspc;
         print $writefile
-        "\{D$num\.\} $mspc = DUMMY :  DEPOS*\($vd[$idx]\) ;\n" ;
+        "\{D$num\.\} EMISS = $mspc :  $vd[$idx] ;\n" ;
+        print "$mspc:\t$vd[$idx]\n"
 # Otherwise use standard value:
-      } elsif ($flstd =~ 1) {
-        $num += 1 if $mspc !~ /EMISS/; # Increase counter
-        $idx = first_index { $_ eq $mspc } @dspc;
-        print $writefile
-        "\{D$num\.\} $mspc = DUMMY :  DEPOS*\($vdstd\) ;\n"
-        if $mspc !~ /EMISS/;
   } } }
 
 # Close all files
@@ -143,6 +107,6 @@ for my $kfu (@fkpp) {
 }
 close($writefile);
 
-print "\n\033[94mOutput written to 'depos.kpp'.\033[0m\n\n"
+print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n"
 
 #######################################################################

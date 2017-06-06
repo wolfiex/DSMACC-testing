@@ -89,12 +89,12 @@ change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <
 
 new: distclean update_submodule tuv
 	./src/sfmakedepend
-	mkdir Outputs	
+	mkdir Outputs
 
-kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
 	touch model
 	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
-	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)	
+	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)
 	$(eval export PATH=$(KPP_PATH)bin:$(PATH))
 	@echo $(KPP_PATH)
 	rm model
@@ -104,7 +104,10 @@ kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
 	cp src/constants.f90 ./model_constants.f90
 	kpp model.kpp
 	rm -rf *.kpp
-	
+
+ini: # generate kpp files with emission and deposition data
+	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
+	perl makeemiss.pl $(FKPP) $(FEMI) && cd ..
 
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del
@@ -123,9 +126,6 @@ displayropa: # runs a server for timeout period!
 	cd AnalysisTools/ropatool/ && timeout 3600 python -m SimpleHTTPServer 8000
 	make killserver
 
-
-
-
 killserver: # kills a running server on port 8000!
 	fuser -k 8000/tcp
 
@@ -143,11 +143,11 @@ savemodel:
 	rm -rf ./save/exec/$(name)
 	mkdir ./save/exec/$(name)
 	python	./src/background/movetotemp.py $(name)
-  
+
 #lists all models
-lsmodels: 
+lsmodels:
 	ls ./save/exec
-    
+
 #removes a saved model - make rmmodel name=<yourmodelname>
 rmmodel:
 	rm -rf ./save/exec/$(name)
