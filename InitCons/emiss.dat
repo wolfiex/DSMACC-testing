@@ -1,0 +1,39 @@
+# Values taken from CAPRAM database, see e.g.,
+# P. Bräuer (2015), 'Extension and application of a tropospheric aqueous phase
+# chemical mechanism (CAPRAM) for aerosol and cloud models', Dissertation,
+# available at:
+# www.qucosa.de/recherche/frontdoor/?tx_slubopus4frontend[id]=urn:nbn:de:bsz:15-qucosa-183743
+
+#Species        rate / s-1
+CH3CHO          2.917d+3
+C2H5CHO         1.127d+2
+C3H7CHO         1.127d+2
+CH3OH           1.070d+4
+APINENE         1.135d+5
+BPINENE         7.455d+4
+C5H8            1.500d+6
+CO              3.700d+6
+PHENOL          2.880d+4
+C2H6            1.500d+4
+C2H5OH          3.736d+3
+NPROPOL         4.417d+1
+IPROPOL         1.199d+4
+NBUTOL          2.524d+2
+BUT2OL          1.893d+2
+ETHGLY          2.540d+3
+HCHO            3.028d+3
+CH3COCH3        4.549d+3
+MEK             2.401d+3
+MIBK            6.244d+2
+NH3             9.060d+5
+NO              2.860d+5
+CH3CO2H         3.183d+3
+PROPACID        1.001d+2
+BUTACID         3.350d+1
+SO2             2.910d+5
+TOLUENE         2.108d+4
+OXYL            4.520d+3
+MXYL            3.786d+3
+PXYL            2.995d+3
+C4H6            1.550d+4
+C2H4            4.540d+4
