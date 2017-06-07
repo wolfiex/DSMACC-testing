@@ -3,6 +3,11 @@
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
   F90FLAGS   = -assume bscc -cpp -mcmodel medium -O0 -fpp  #-openmp
+  # FDEP ?= 'depos.dat'         # data file variable for makedepos script
+  # FEMI ?= 'emiss.dat'         # data file variable for makedepos script
+  # FKPP ?= 'inorganic organic' # kpp input file variable for makedepos scrpit
+  # FSTD  ?= 1                  # option to extend standard vd to all species
+  # export FDEP, FEMI, FKPP, FSTD
 ##############################################################################
 #colour
 black="\033[90m"
@@ -89,12 +94,12 @@ change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <
 
 new: distclean update_submodule tuv
 	./src/sfmakedepend
-	mkdir Outputs	
+	mkdir Outputs
 
-kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
 	touch model
 	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
-	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)	
+	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)
 	$(eval export PATH=$(KPP_PATH)bin:$(PATH))
 	@echo $(KPP_PATH)
 	rm model
@@ -104,7 +109,10 @@ kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
 	cp src/constants.f90 ./model_constants.f90
 	kpp model.kpp
 	rm -rf *.kpp
-	
+
+ini: # generate kpp files with emission and deposition data
+	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
+	perl makeemiss.pl $(FKPP) $(FEMI) && cd ..
 
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del
@@ -123,9 +131,6 @@ displayropa: # runs a server for timeout period!
 	cd AnalysisTools/ropatool/ && timeout 3600 python -m SimpleHTTPServer 8000
 	make killserver
 
-
-
-
 killserver: # kills a running server on port 8000!
 	fuser -k 8000/tcp
 
@@ -143,11 +148,11 @@ savemodel:
 	rm -rf ./save/exec/$(name)
 	mkdir ./save/exec/$(name)
 	python	./src/background/movetotemp.py $(name)
-  
+
 #lists all models
-lsmodels: 
+lsmodels:
 	ls ./save/exec
-    
+
 #removes a saved model - make rmmodel name=<yourmodelname>
 rmmodel:
 	rm -rf ./save/exec/$(name)
@@ -155,24 +160,3 @@ rmmodel:
 # list of dependencies (via USE statements)
 include depend.mk
 # DO NOT DELETE THIS LINE - used by make depend
-model_Global.o: params
-model_Global.o: model_Parameters.o
-model_Initialize.o: model_Global.o model_Parameters.o
-model_Integrator.o: model_Global.o model_Jacobian.o model_LinearAlgebra.o
-model_Integrator.o: model_Parameters.o model_Rates.o
-model_Jacobian.o: model_JacobianSP.o model_Parameters.o
-model_LinearAlgebra.o: model_JacobianSP.o model_Parameters.o
-model_Main.o: src/initialisations.inc
-model_Main.o: model_Global.o model_Integrator.o model_Monitor.o
-model_Main.o: model_Parameters.o model_Rates.o model_Util.o model_constants.o
-model_Model.o: model_Global.o model_Integrator.o model_Jacobian.o
-model_Model.o: model_LinearAlgebra.o model_Monitor.o model_Parameters.o
-model_Model.o: model_Precision.o model_Rates.o model_Util.o
-model_Parameters.o: model_Precision.o
-model_Rates.o: model_Global.o model_Parameters.o model_constants.o
-model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
-model_Util.o: model_Parameters.o
-model_constants.o: tuv_old/MCM3.inc src/rate_coeff/new_rate.inc.var
-model_constants.o: src/rate_coeff/new_rate.inc.def TUV_5.2.1/MCM331.inc params
-model_constants.o: model_Global.o model_Precision.o
-constants.mod: model_constants.o

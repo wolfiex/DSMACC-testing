@@ -1,66 +1,72 @@
 # DSMACC-testing
-Dan's version of the Dynamically Simple Model For Atmospheric Chemical Complexity --- still in development/testing
 
-##Cite
+Dan's version of the Dynamically Simple Model for Atmospheric Chemical Complexity --- still in development/testing
+
+
+## Cite
 Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
 chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 **9(5)**, pp1831-1845 [doi:
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
 
-## New user
-Run `make new` to clean everything, update latest TUV, and download KPP.
 
+## New user
+Run `make new` to clean everything, update latest TUV, and download KPP. __In order to
+initialise all submodules correctly, you need to have a clean repository.__
 
 ## Updating the submodule (TUV and KPP)
-This needs to be done to include contents here. 
+This needs to be done to include contents here.
 Can be accomplished through `git submodule init;
 git submodule update` or typing `make update_submodule`
 
-## Compiling 
-1. `make distclean && make new` to clear all, else use `make clear` or `make clean` 
-2. Download mechanism from mcm website and place into mechanisms/organic.kpp
-3. Add any emissions into emissions.kpp (these can be disabled in ICs)
-4. Adjust deposition constant in ./makedepos.pl if needed (currently being updated)
-5. Run kpp and make by typing `make kpp`
-6. `make`
+## Compiling
+1. Run `make distclean && make new` to clear all, else use `make clear`
+or `make clean`
+2. Download mechanism from mcm website and save as mechanisms/organic.kpp
+3. Add any emissions into emissions.kpp (these can be disabled in InitCons)
+4. Adjust deposition constants in ./makedepos.pl, if needed
+5. Adjust call of mechanism (kpp) files in model.kpp
+6. Compile TUV with `make tuv` in the main DSMACC folder, if needed
+7. Run kpp by typing `make kpp`
+8. Compile DSMACC with `make`
+
 
 ## How to run
-- Ensure tuv is compiled, if in doubt run make tuv should no other error be apparent and the program hangs -
 
-1. Create Init cons csv file (methane.csv as a template) 
- 
- .. * different columns are different runs
- 
- ..* depos and emiss are deposition / emission constants, set 1 to enable 0 do disable 
+- Ensure tuv is compiled, if in doubt run make tuv should no other error
+  be apparent and the program hangs -
 
- ..* run names are useful, see + depos etc for examples. 
-
+1. Create Init cons csv file (methane.csv as a template)
+  * Different columns are different runs
+  * DEPOS and EMISS are deposition/emission constants; set 1 to enable,
+    0 do disable
+  * Run names are useful, see depos etc for examples.
 2. Run `python begin.py` after setting the number of processes inside
-
-..* this makes Init_cons.dat
-
-..* generates run files. sdout is in run.sdout, individual run.nc
-
-..* concatenates nc files including initial conditions, and run time into one grouped netcdf
-
-..* to see the form of this have a look inside begin, or read_dsmacc
-
-3. to view files:
-
-..* ipython, then type `run AnalysisTools/read_dsmacc <ncfilename>` for interactive play
-
-..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
+   the script
+  * This makes Init_cons.dat
+  * Generates run files: sdout is in run.sdout, individual run.nc
+  * Concatenates nc files including initial conditions and run time into
+    one grouped netcdf
+  * To see the form of this have a look inside begin.py or read_dsmacc.py
+    in AnalysisTools
+3. To view files, run:
+  * ipython, then type `run AnalysisTools/read_dsmacc.py <ncfilename>`
+    for interactive play
+  * Run the PDF_concentrations.py file for a time series plot of all the
+    runs (diagnostic purposes) - see pdf files
 
 ## Running with multiple models
 1. Making a new model model and ensure it works
-2. Type `make savemodel name=<yournamehere>` with what you wish to refer to your model with in the future
-3. In your Initial conditions, at the description add your model name after a hyphen e.g. myrun-mcm_new
+2. Type `make savemodel name=<yournamehere>` with what you wish to refer
+   to your model with in the future
+3. In your Initial conditions, at the description add your model name
+   after a hyphen, e.g., myrun-mcm_new
 4. Run using the saved flag `./begin.py -saved`
 
 * only use a hyphen when providing a model name
 
 ## Spinning up
-Should one wish to spin a model up, this can now be done by assigning a `SPINUP` parameter in the initial conditions file. This constrains all concentrations provided in the initial conditions file for the number of timesteps given. 
+Should one wish to spin a model up, this can now be done by assigning a `SPINUP` parameter in the initial conditions file. This constrains all concentrations provided in the initial conditions file for the number of timesteps given.
 
 
 ## Makefile
@@ -68,11 +74,15 @@ Type `make man` to see a description of available functions.
 
 
 ## Optional extras
-- [x] MCM subset selector in mechanisms - this uses an init cons file to generate the smallest mechanism required by the model.
+- [x] MCM subset selector in mechanisms - this uses an init cons file to
+  generate the smallest mechanism required by the model.
 - [x] read DSMACC output routine in analysis tools.
-- [x] plot all concentrations / reaction rates as a PDF for diagnostics in analysis tools
+- [x] plot all concentrations / reaction rates as a PDF for diagnostics
+  in analysis tools
 - [x] ropa tool in main folder (may change)
-- [x] animated ropa plotter (alternatively you can use the online version - lnk to be added soon)
+- [x] animated ropa plotter (alternatively you can use the online version -
+  link to be added soon)
+
 
 
 ## Updating the rate constants
@@ -99,15 +109,14 @@ To do this place your new rate file in the src folder, run simplfy_rates.py and 
 + icc & bison for kpp
 + perl
 
-
 ### Changes:
 + Reorganised code / removed unnecessary loops
-+ CH4 intiation fix 
-+ removed multiline serial read and replaced with initation program 
++ CH4 initiation fix
++ removed multiline serial read and replaced with initation program
 + repaced initial conditions with csv file
 + added the output to netcdf (needs netcdf libraries)
 + added emission / deposition switches
-+ improved makefile 
++ improved makefile
 + MCM TUV 5 updated
 + simplification of rate constants
 + start multiple parallel runs
