@@ -68,7 +68,8 @@ def compare(spc,skip=0):
 #nc.close()
 
 # Format x-axis for plots
-time = (specs['TIME']-specs['TIME'][0]+600.)/3600.
+time = specs['TIME']
+time[1:] = (specs['TIME'][1:]-specs['TIME'][1]+600.)/3600.
 xm = int(time.iloc[-1])+1
 
 # Useful python command for formatting plots
