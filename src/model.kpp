@@ -2,7 +2,7 @@
 // and chemical equations
 
 //#INCLUDE ./mechanisms/organic.kpp
-#INCLUDE ./mechanisms/MCM4.kpp
+#INCLUDE ./mechanisms/mcm4.kpp
 #INCLUDE ./mechanisms/inorganic.kpp
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp

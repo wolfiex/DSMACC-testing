@@ -1,10 +1,10 @@
 MODULE constants
   USE model_Precision, ONLY: dp
+  USE model_Global, ONLY: jmax, szabin
   IMPLICIT NONE
   PRIVATE dp
 
   INTEGER, PARAMETER :: mnsp=250, mre=2000
-  INTEGER, PARAMETER :: jmax= 8100, szabin=19
   INTEGER  :: i
 ! variables for zenith routine which calculates zenith angle
   REAL(dp) :: theta, secx, cosx
@@ -35,7 +35,7 @@ CONTAINS
   SUBROUTINE mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 ! calculates rate constants from arrhenius informtion
     USE model_Global,  ONLY:LAT, LON, JDAY, SZAS, SVJ_TJ, bs,cs,ds, &
-      jfactno2, TUVvers, jfacto1d, output_unit
+      jfactno2, TUVvers, jmax, szabin, jfacto1d, output_unit
     REAL(dp) :: time, temp, M, N2, O2, RO2, H2O, THETA, TIME2, LAT2
     REAL(dp) :: y,dy,x,tmp(szabin), tmp2(szabin),b(szabin),c(szabin),d(szabin)
 

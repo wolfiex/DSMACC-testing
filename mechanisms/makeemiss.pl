@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use List::MoreUtils qw(first_index); # to find first index of an entry in a list
 
 ### Variable declarations
 ## Data arrays and variables
@@ -15,7 +14,7 @@ my $num= 0 ;  # counter for reaction labels in output file
 ## Temporary auxiliary arrays/variables
 #  @lines:  lines read in from input file
 #  @spl:    array with separated species and vd from input line
-#  $idx:    index of current species in species/vd array
+#  @idx:    index of current species in species/vd array
 
 ## file handling
 #  $dfu:       file unit for data file "depos.dat"
@@ -27,7 +26,7 @@ my @fkpp;#     list of file names (and paths) of input KPP files
 #              without file ending '.kpp'
 #              In script argument, put list in quotes
 #              and separate elements by whitespaces
-#  $writefile: output KPP file "depos.kpp"
+my $writefile;#output KPP file "depos.kpp"
 
 ########################################################################
 
@@ -37,7 +36,31 @@ if (exists $ARGV[1]) {
 } else {
   $fdat = '../InitCons/emiss.dat';
 }
-print "\n\033[94mData file:         $fdat\n";
+if (-f "$fdat") {
+  print "\n\033[94mData file:         $fdat\n";
+} elsif ($fdat eq "0" || $fdat eq '-') {
+  print "\033[95m\nWarning! Option '$ARGV[1]':\n",
+        "An empty KPP emissions file has been created!\033[0m\n\n";
+  print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n";
+  open($writefile, ">","emiss.kpp")
+  or die "Could not open file emiss.kpp: $!";
+  print $writefile "//Currently no emissions.\n",
+                   "//Template file with sample equation:\n\n",
+                   "//{E1.} EMISS = CH4 : 9.62E+07;\n";
+  close($writefile);
+  exit;
+} else {
+  print "\033[95m\nWarning! File '$fdat' does not exist.\n",
+        "An empty KPP emissions file has been created!\033[0m\n\n";
+  print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n";
+  open($writefile, ">","emiss.kpp")
+  or die "Could not open file emiss.kpp: $!";
+  print $writefile "//Currently no emissions.\n",
+                   "//Template file with sample equation:\n\n",
+                   "//{E1.} EMISS = CH4 : 9.62E+07;\n";
+  close($writefile);
+  exit;
+}
 
 # Define input kpp files:
 if (exists $ARGV[0]) {
@@ -78,8 +101,8 @@ print "\033[95mEmissions are only used for species included in the input ",
 ########################################################################
 
 # Open output file and set KPP EQUATIONS variable
-open(my $writefile, ">","emiss.kpp") or die "Could not open file emiss.kpp: $!";
-print $writefile "#DEFFIX\nEMISS=IGNORE;\n#EQUATIONS\n";
+open($writefile, ">","emiss.kpp") or die "Could not open file emiss.kpp: $!";
+print $writefile "#EQUATIONS\n";
 
 # Loop over KPP files
 for my $kfu (@fkpp) {
@@ -95,10 +118,10 @@ for my $kfu (@fkpp) {
 # Define experimental values:
       if (grep(/^$mspc$/, @dspc)) {
         $num += 1 ; # Increase counter
-        my $idx = first_index { $_ eq $mspc } @dspc;
+        my @idx = grep { $dspc[$_] eq $mspc } 0 .. $#dspc; # find index in array
         print $writefile
-        "\{D$num\.\} EMISS = $mspc :  $vd[$idx] ;\n" ;
-        print "$mspc:\t$vd[$idx]\n"
+        "\{D$num\.\} EMISS = $mspc :  $vd[$idx[-1]] ;\n" ;
+        print "$mspc:\t$vd[$idx[-1]]\n";
 # Otherwise use standard value:
   } } }
 
@@ -107,6 +130,18 @@ for my $kfu (@fkpp) {
 }
 close($writefile);
 
-print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n"
+if ($num ==0) {
+  open($writefile, ">","emiss.kpp")
+  or die "Could not open file emiss.kpp: $!";
+  print $writefile "//Currently no emissions.\n",
+             "//Template file with sample equation:\n\n",
+             "//{E1.} EMISS = CH4 : 9.62E+07;\n";
+  close($writefile);
+  print "\n\033[95mWarning! No species in the data file\n",
+        "matched the species in the current mechanism.\n",
+        "An empty sample KPP emissions file has been created.\033[0m\n";
+}
+
+print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n";
 
 #######################################################################
