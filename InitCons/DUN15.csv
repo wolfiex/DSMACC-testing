@@ -1,6 +1,6 @@
 Description: Optional,Do not write time more than once. ,,,
 ,,,,
-Index,Species,Constrain,DUN15-mcm3co2,DUN15m-cri21co2
+Index,Species,Constrain,DUN15,xDUN15m-cri21co2
 ii,TIME,NA,432000,432000
 ii,TEMP,0,298,298
 ii,LAT,0,53.958,53.958
