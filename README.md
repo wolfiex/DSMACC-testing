@@ -28,6 +28,11 @@ git submodule update` or typing `make update_submodule`
 5. Run kpp and make by typing `make kpp`
 6. `make`
 
+## Selecting custom mechanisms
+1. For any mechanism, when you run `make kpp` it will ask you what .kpp mechanism (from the mech. folder) you wish to compile. If you select one with `organic` in the name it will automatically include the inorganics.kpp file. 
+2. Complete custom override involves running ./src/background/makemodeldotkpp.py with --custom appended as a flag. or `make kpp_custom` 
+
+
 ## How to run
 - Ensure tuv is compiled, if in doubt run make new should no other error be apparent -
 
@@ -63,8 +68,6 @@ git submodule update` or typing `make update_submodule`
 
 * only use a hyphen when providing a model name
 
-## Spinning up
-Should one wish to spin a model up, this can now be done by assigning a `SPINUP` parameter in the initial conditions file. This constrains all concentrations provided in the initial conditions file for the number of timesteps given. 
 
 
 ## Makefile

@@ -95,11 +95,20 @@ kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	rm model
 	cd src/kpp/kpp*/src && make
 	cd mechanisms && ./makedepos.pl && cd ../
-	cp src/model.kpp ./
+	./src/background/makemodeldotkpp.py
 	cp src/constants.f90 ./model_constants.f90
 	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	rm -rf *.kpp
-	
+
+kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
+	touch model
+	rm model
+	cd src/kpp/kpp*/src && make
+	cd mechanisms && ./makedepos.pl && cd ../
+	./src/background/makemodeldotkpp.py --custom
+	cp src/constants.f90 ./model_constants.f90
+	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	rm -rf *.kpp
 
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del
