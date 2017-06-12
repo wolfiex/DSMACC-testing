@@ -20,12 +20,11 @@ CONTAINS
 
 SUBROUTINE mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 ! calculates rate constants from arrhenius informtion
-USE model_Global,  ONLY:LAT, LON, JDAY, SZAS, SVJ_TJ, bs,cs,ds, jfactno2, new_tuv, jfacto1d,output_unit
+USE model_Global,  ONLY:LAT, JDAY, SZAS, SVJ_TJ, bs,cs,ds, jfactno2, new_tuv, jfacto1d,output_unit
 REAL(dp) time, temp, M, N2, O2, RO2, H2O, THETA, TIME2, LAT2
-REAL*8 y,dy,x,tmp(19), tmp2(19),b(19),c(19),d(19)
+REAL(dp) tmp(19), tmp2(19),b(19),c(19),d(19)
 
 integer i,n,jl
-INTEGER LK
 include './params'
 
 ! Time2 is local time in hours
@@ -250,7 +249,7 @@ subroutine polint(f,a,n,x,r)
 ! service program for fintr
 !----------------------------------------------------------
 real*8 r,al,x,a,f
-integer  i,j,k,l,n
+integer  i,j,n
 dimension f(n),a(n)
 r=0.0
 do 1 j=1,n
