@@ -83,7 +83,7 @@ large: # functions to deal with large mechanisms that wont compile !
 	./src/large_mechanisms.py model_Rates.f90
 
 #use make change mechanism='<path to mech>'
-change: # changes orgnaic in model.kpp , define new mech by typing mechanism = <mech name here> before running this command!
+change: # changes organic in model.kpp , define new mech by typing mechanism = <mech name here> before running this command!
 	ls && python ./src/mechparse.py $(mechanism)
 	sed -i '6s!.*!#INCLUDE ./$(mechanism)!' src/model.kpp
 	echo $(mechanism) 'updated in /src/model.kpp at line 6'
@@ -104,7 +104,6 @@ kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
 	@echo $(KPP_PATH)
 	rm model
 	cd $(KPP_PATH)src && make
-	cd mechanisms && ./makedepos.pl && cd ../
 	cp src/model.kpp ./
 	cp src/constants.f90 ./model_constants.f90
 	kpp model.kpp

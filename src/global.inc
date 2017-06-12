@@ -14,13 +14,13 @@
   INTEGER, PARAMETER :: SPEC_UNIT = 10
   INTEGER, PARAMETER :: RATE_UNIT = 12
   INTEGER, PARAMETER :: jmax= 8100, szabin=19
-  INTEGER ::            TUVvers = .TRUE.
+  INTEGER, PARAMETER :: TUVvers = 1
   character(len=3) :: mechanism
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables
   include './params'
   REAL(8) ::            bs(szabin,kj), cs(szabin,kj),ds(szabin,kj)
-  REAL    ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
+  REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables
 #ENDINLINE {above lines go into MODULE KPP_ROOT_Global}
 

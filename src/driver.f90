@@ -45,7 +45,7 @@ PROGRAM driver
   CONSTRAIN_RUN = .FALSE.
   SAVE_LEGACY   = .false.
   time          = tstart
-  TUVvers       = .true.
+! TUVvers defined in global.inc
 
 !spinup time 0 for false, number timesteps otherwise
 
