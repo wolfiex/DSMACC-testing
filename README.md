@@ -8,12 +8,8 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
 
 ## New user
-Run `make new` to clean everything and update latest TUV.
+Run `make new` to clean everything, update latest TUV, and download KPP.
 
-For kpp add the correct paths - for earth this was, now it is in the src folder of dsmacc...
-
- 47 export KPP_HOME=/work/data/kpp-2.2.3
- 48 export PATH=$PATH:$KPP_HOME/bin
 
 ## Updating the submodule (TUV and KPP)
 This needs to be done to include contents here. 
@@ -34,7 +30,7 @@ git submodule update` or typing `make update_submodule`
 
 
 ## How to run
-- Ensure tuv is compiled, if in doubt run make new should no other error be apparent -
+- Ensure tuv is compiled, if in doubt run make tuv should no other error be apparent and the program hangs -
 
 1. Create Init cons csv file (methane.csv as a template) 
  

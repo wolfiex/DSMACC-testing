@@ -3,16 +3,10 @@
 import multiprocessing,os,subprocess,pickle,sys,time
 #import pandas as pd
 import numpy as np
-import netCDF4
-from netCDF4 import Dataset
-from scipy.io import FortranFile
-#from StringIO import StringIO
 import glob,sys,os
-
 
 # options
 available_cores = 16
-#ic_file= sys.argv[1]
 pre_formatted_style=False #slower
 
 
@@ -20,6 +14,8 @@ runsaved = False
 if '-saved' in sys.argv: runsaved=True #runs model using saved versions when -modelname is provided
 keepx = False
 if '-keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
+icsonly = False
+if '-icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X in the begining
 
 
 
@@ -48,6 +44,21 @@ print ic_file
 os.system("touch Init_cons.dat")
 os.system("rm Init_cons.dat")
 os.system("./InitCons/makeics.pl %s"%ic_file)
+
+if icsonly: sys.exit('icsonly flag is on, Initi_cons.dat file made - only. Exiting.')
+
+
+
+import netCDF4
+from netCDF4 import Dataset
+from scipy.io import FortranFile
+
+
+
+
+
+
+
 ic_open= tuple(open(ic_file))
 numbered = np.array([i for i in enumerate(ic_open[2].strip().split(',')[3:])])
 
