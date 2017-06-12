@@ -1,6 +1,6 @@
 MODULE constants
   USE model_Precision, ONLY: dp
-  USE model_Global, ONLY: jmax, szabin
+  USE model_global, ONLY: jmax, szabin
   IMPLICIT NONE
   PRIVATE dp
 
@@ -10,7 +10,7 @@ MODULE constants
   REAL(dp) :: theta, secx, cosx
 ! generic reaction rate variables
 ! variables for calculation of photolysis reaction rates
-! maximum array size of J (variable jval) is jmax
+! maximum array size of J is jmax
 ! Use programme TUV2DSMACC (https://github.com/pb866/TUV_DSMACC.git)
 ! to determine maximum array size.
 ! Current settings:
@@ -24,7 +24,7 @@ MODULE constants
 ! - 7000 - 7999: Criegee intermediates
 ! - 8000 - 8100: Polyfunctional chromophores
 ! Old MCM labelling from the MCM website still available
-  REAL(dp) :: l(jmax), mm(jmax), nn(jmax), jval(jmax)
+  REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)
   REAL(dp) :: kalkpxy,kalkoxy
   INTEGER  :: k
   INCLUDE './src/rate_coeff/new_rate.inc.def'
@@ -34,12 +34,12 @@ CONTAINS
 
   SUBROUTINE mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 ! calculates rate constants from arrhenius informtion
-    USE model_Global,  ONLY:LAT, LON, JDAY, SZAS, SVJ_TJ, bs,cs,ds, &
+    USE model_global,  ONLY:LAT, LON, JDAY, SZAS, SVJ_TJ, bs,cs,ds, &
       jfactno2, TUVvers, jmax, szabin, jfacto1d, output_unit
     REAL(dp) :: time, temp, M, N2, O2, RO2, H2O, THETA, TIME2, LAT2
-    REAL(dp) :: y,dy,x,tmp(szabin), tmp2(szabin),b(szabin),c(szabin),d(szabin)
+    REAL(dp) :: y,dy,x,tmp(szabin),tmp2(szabin),b(szabin),c(szabin),d(szabin)
 
-    INTEGER :: i,j,n
+    INTEGER :: i,jl,n
     INTEGER :: LK
     include './params'
 
@@ -75,14 +75,14 @@ CONTAINS
 
     IF (theta .le. 90) then
 
-      DO j=1,kj
+      DO jl=1,kj
         DO i=1,szabin
           tmp(i)=szas(i)
-          tmp2(i)=svj_tj(i,j)
+          tmp2(i)=svj_tj(i,jl)
 
-          b(i)=bs(i,j)
-          c(i)=cs(i,j)
-          d(i)=ds(i,j)
+          b(i)=bs(i,jl)
+          c(i)=cs(i,jl)
+          d(i)=ds(i,jl)
         ENDDO
 
         SELECT CASE (TUVvers)
@@ -100,7 +100,7 @@ CONTAINS
 
      ELSE
       DO i=1,jmax
-        jval(i)=0.
+        j(i)=0.
       ENDDO
     ENDIF
 
@@ -110,14 +110,14 @@ CONTAINS
 
     DO i=1,jmax
       IF (i .ne. 1) then
-        jval(i)=jval(i)*jfactno2
+        j(i)=j(i)*jfactno2
        ELSE
-        jval(i)=jval(i)*jfacto1d
+        j(i)=j(i)*jfacto1d
       ENDIF
     ENDDO
 
     DO i=1,jmax
-      IF (jval(i) .lt. 0.e0) jval(i)=0.d0
+      IF (j(i) .lt. 0.e0) j(i)=0.d0
     ENDDO
 
 
