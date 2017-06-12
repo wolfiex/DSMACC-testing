@@ -1,11 +1,15 @@
 // include file with definition of the chemical species
 // and chemical equations
 
-//#INCLUDE ./mechanisms/organic.kpp
-//#INCLUDE ./mechanisms/subset_mcm4.kpp
-#INCLUDE ./mechanisms/DUN15mcm331.kpp
-//#INCLUDE ./mechanisms/subset_DUN15mcm331.kpp
-#INCLUDE ./mechanisms/inorganic.kpp
+
+//#INCLUDE ./mechanisms/methane.kpp
+//#INCLUDE ./mechanisms/MCM4.kpp
+
+//#include ./mechanisms/dunmcm3co2.kpp
+#include ./mechanisms/subset_CRI_21complete.kpp
+
+
+//#INCLUDE ./mechanisms/inorganic.kpp
 //#INCLUDE ./mechanisms/emissions.kpp
 //#INCLUDE ./mechanisms/depos.kpp
 
@@ -17,7 +21,7 @@
 // computer language for code produced by kpp
 #LANGUAGE FORTRAN90
 //#LANGUAGE FORTRAN77
-//#LANGUAGE C
+// #LANGUAGE C
 
 // initial concentrations
 #INITVALUES
