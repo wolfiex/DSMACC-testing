@@ -2,8 +2,11 @@
   FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
-  F90FLAGS   = -assume bscc -cpp -mcmodel medium -O0 -fpp  #-openmp
+  F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 ##############################################################################
+
+#do not use -heap arrays in omp or parallel 
+
 #colour
 black="\033[90m"
 red="\033[91m"
@@ -34,6 +37,7 @@ F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
 perl = /usr/bin/perl #perl path
 
 all: $(PROG) # default make cmd !
+	ulimit -s unlimited #unlimit stack size
 
 # the dependencies depend on the link
 # the executable depends on depend and also on all objects
@@ -103,7 +107,6 @@ kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
 	./src/background/makemodeldotkpp.py
 	cp src/constants.f90 ./model_constants.f90
 	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
-	rm -rf *.kpp
 
 kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
@@ -112,8 +115,8 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	cd mechanisms && ./makedepos.pl && cd ../
 	./src/background/makemodeldotkpp.py --custom
 	cp src/constants.f90 ./model_constants.f90
-	kpp model.kpp
-	rm -rf *.kpp
+	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	
 
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del

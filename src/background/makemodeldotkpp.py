@@ -5,14 +5,13 @@ import glob,sys,os
 ##################
  ####read files####
  
-custom = '''
- 
+'''
 #INCLUDE ./mechanisms/organic.kpp
 #INCLUDE ./mechanisms/inorganic.kpp
- 
- 
 '''
- 
+#include custom file here 
+custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
+
 if '--custom' in sys.argv: 
     myinclude=custom
 
@@ -22,7 +21,7 @@ else:
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
 
     print 'Select file to open: \n\n'
-    for i,f in enumerate(file_list): print i , ' - ', f
+    for i,f in enumerate(file_list): print i , ' - ', f.replace('./mechanisms/','')
     inc_file = file_list[int(input('Enter Number \n'))]
     
     myinclude = '#INCLUDE '+inc_file
@@ -39,6 +38,8 @@ else:
 modelstring ='''
 // include file with definition of the chemical species
 // and chemical equations
+
+#INCLUDE ./src/background/mechswitches.kpp
 
 '''+myinclude+'''
 

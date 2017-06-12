@@ -4,13 +4,13 @@ SUBROUTINE InitVal (concs)
 
 USE model_Global
 use model_Monitor
-INTEGER :: i,j,found
+INTEGER :: i,q,found
 REAL(kind=dp) :: x
 CHARACTER(LEN=10000) :: line
 CHARACTER(LEN=15) :: test
 REAL(kind=dp) :: concs(NSPEC)
 REAL(kind=dp) :: oldvar(NSPEC)
-INTEGER :: COUNT_NOX_CONSTRAINTS, i_CH4, i_H2 , i_EMISS
+INTEGER :: COUNT_NOX_CONSTRAINTS, i_EMISS
 CHARACTER(len=6), dimension(8) :: NOXARRAY
 NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     'HO2NO2','HNO4  ','PNA   '/)
@@ -27,12 +27,11 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     FOUND=0
     if (SPEC_NAME(I) .NE. '') then
     SPEC_NAME(I)=ADJUSTL(SPEC_NAME(I))
+    do Q=1,NVAR 
 
-    do J=1,NVAR 
-
-        if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(J))) then 
+        if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
         FOUND=1
-        VAR(J)=CONCS(I)
+        VAR(Q)=CONCS(I)
         
         
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -41,21 +40,21 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         
 
         if (const_method(i) > 0) then 
-             CONSTRAIN(J)=CONCS(I)
-             print*, 'soft-constrained ', spec_name(i), 'at', constrain(j) 
+             CONSTRAIN(Q)=CONCS(I)
+             print*, 'soft-constrained ', spec_name(i), 'at', constrain(Q) 
         end if
         
         !populate spin up array with any concentrations in ics 
-        spin_const(J)=concs(i)
+        spin_const(Q)=concs(i)
         
              
-        if (SPEC_NAME(I) .EQ. 'CH4') then 
+        if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
         SPEC_CH4=.TRUE.
-        i_CH4 = I
+     
 
-        else if (SPEC_NAME(I) .EQ. 'H2') then
+        else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
         SPEC_H2=.TRUE.
-        i_H2 = I 
+
         end if            
 
         endif
@@ -136,25 +135,25 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         spinup = CONCS(I)
 
     CASE DEFAULT
+    
+    print *, 'fixed species asign concentration'
     !! for any species in the fixed array 
     if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
         SPEC_NAME(i)  = SPEC_NAME(i)(2:)
-
-        do J=NVAR+1,NVAR+NFIX    
+    end if 
+        do Q=NVAR+1,NVAR+NFIX    
          
-            if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(J))) then 
+            if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
                 FOUND=1
-                FIX(J-NVAR)=CONCS(I)
+                FIX(Q-NVAR)=CONCS(I)
                 print*, 'hard-constrained ', spec_name(i), ' at ', concs(I)
                     
-                if (SPEC_NAME(I) .EQ. 'EMISS') then
-                    i_EMISS = (J-NVAR)        
-                else if (SPEC_NAME(I) .EQ. 'CH4') then 
+                if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
+                    i_EMISS = (Q-NVAR)        
+                else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
                     SPEC_CH4=.TRUE.
-                    i_CH4 = I
-                else if (SPEC_NAME(I) .EQ. 'H2') then
-                    SPEC_H2=.TRUE.
-                    i_H2 = I               
+                else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
+                    SPEC_H2=.TRUE.         
                 end if            
             else 
                     WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
@@ -164,7 +163,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             
         enddo
     
-    else if (SPEC_NAME(I)(1:1) .NE. 'X') then 
+    
+    if (FOUND .ne. 1 .and. SPEC_NAME(I)(1:1) .NE. 'X') then 
         WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
         WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping '
         stop   
@@ -178,6 +178,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
     enddo
+
 
     !convert to mol cm-3s-1
     CFACTOR=PRESS*1e2*1e-6/(8.314*TEMP)*6.022E23
@@ -199,9 +200,9 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
         do I=1,NVAR 
-        do j= 1,8 
+        do Q= 1,8 
 
-        if (TRIM(SPC_NAMES(I)) .EQ. TRIM(NOXARRAY(j))) then 
+        if (TRIM(SPC_NAMES(I)) .EQ. TRIM(NOXARRAY(Q))) then 
         NOX(I)=1
         CONSTRAIN(I)=-1.*CONSTRAIN(I)
         if (CONSTRAIN(I) .NE. 0 .and.&  
@@ -228,18 +229,26 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
     end if
 
-
+        
         ! FIND CH4 and H2 species
-        if (SPEC_CH4 .EQv. .FALSE. .and. i_CH4 .ne. 0) then
+        if (SPEC_CH4 .EQv. .FALSE.) then
         WRITE (OUTPUT_UNIT,*) 'No CH4 specified assuming 1770 ppbv'
-        VAR(i_CH4)=1770e-9*CFACTOR
-        CONSTRAIN(i_CH4)=VAR(i_CH4)
+        if (ind_CH4 .gt. NVAR) then 
+            FIX((ind_CH4-NVAR)) = 1770e-9*CFACTOR
+        else 
+            VAR(ind_CH4)=1770e-9*CFACTOR
+            CONSTRAIN(ind_CH4)=VAR(ind_CH4)
+        end if
         end if
 
-        if (SPEC_H2 .EQv. .FALSE. .and. i_H2 .ne. 0) then 
+        if (SPEC_H2 .EQv. .FALSE.) then 
         WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
-        VAR(i_H2)= 550e-9*CFACTOR
-        CONSTRAIN(i_H2)=VAR(i_H2)
+          if (ind_H2 .gt. NVAR) then 
+            FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
+        else 
+            VAR(ind_H2)= 550e-9*CFACTOR
+            CONSTRAIN(ind_H2)=VAR(ind_H2)
+        end if
         end if
 
 
