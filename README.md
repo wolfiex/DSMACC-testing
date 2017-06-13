@@ -1,6 +1,7 @@
 # DSMACC-testing
 
-Dan's version of the Dynamically Simple Model for Atmospheric Chemical Complexity --- still in development/testing
+Dan's version of the Dynamically Simple Model for Atmospheric Chemical
+Complexity --- still in development/testing
 
 
 ## Cite
@@ -29,6 +30,21 @@ or `make clean`
 6. Compile TUV with `make tuv` in the main DSMACC folder, if needed
 7. Run kpp by typing `make kpp`
 8. Compile DSMACC with `make`
+
+## Selecting custom mechanisms
+1. For any mechanism, when you run `make kpp` it will ask you what .kpp
+   mechanism (from the mech. folder) you wish to compile.
+2. Choose all mechanisms needed separately (<Number> + <ENTER>) and exit
+   with the last exit option (<last number> + <ENTER>) when finished.
+3. If you use the default names `organic.kpp` and `inorganic.kpp`, you
+   can run the make command with the `--default` option using:
+   ```
+   make kpp MODELKPP='--default'
+   ```
+   __(No spaces around equal sign of MODELKPP!)__
+4. If you want to use the _model.kpp_ file from the _src_ folder, use
+   `make kpp MODELKPP='--custom'`, which will copy _model.kpp_ from the
+   _src_ folder to the main folder.
 
 
 ## How to run
@@ -65,8 +81,6 @@ or `make clean`
 
 * only use a hyphen when providing a model name
 
-## Spinning up
-Should one wish to spin a model up, this can now be done by assigning a `SPINUP` parameter in the initial conditions file. This constrains all concentrations provided in the initial conditions file for the number of timesteps given.
 
 
 ## Makefile
@@ -86,7 +100,9 @@ Type `make man` to see a description of available functions.
 
 
 ## Updating the rate constants
-Rate-constant simplification through the use of a symbolic engine has been applied. This reduces computation and allows the setting of  parameters for fixed numeric constants (see KDEC bug). An example of some equations below.
+Rate-constant simplification through the use of a symbolic engine has been
+applied. This reduces computation and allows the setting of  parameters for
+fixed numeric constants (see KDEC bug). An example of some equations below.
 
 | Rate Cefficient | Original-eqn | Simplified-eqn |
 | :---         |     :---:      |          ---: |
@@ -98,7 +114,9 @@ Rate-constant simplification through the use of a symbolic engine has been appli
 |  kmt12  |    (k120*k12i*f12)/(k120+k12i) |  2e\-12\*f12\*k120\/(k120 + 2e\-12)  |
 
 
-To do this place your new rate file in the src folder, run simplfy_rates.py and update the constants.f90 code to inculde the newly generates .def and .var files
+To do this place your new rate file in the src folder, run
+simplfy_rates.py and update the constants.f90 code to inculde the newly
+generates .def and .var files
 
 ## Notes:
 
