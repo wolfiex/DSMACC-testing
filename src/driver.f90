@@ -90,8 +90,9 @@ PROGRAM driver
 
     CALL Update_RCONST()! Update the rate constants
 
+ICNTRL_U(:)=0
     CALL INTEGRATE( TIN = time, TOUT = time+DT, RSTATUS_U = RSTATE, &! Integrate the model +1 timestep
-      ICNTRL_U = (/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 /),IERR_U=ERROR)
+    ICNTRL_U = ICNTRL_U,IERR_U=ERROR)
 
 ! Traps for NaN
     DO I=1,NVAR
