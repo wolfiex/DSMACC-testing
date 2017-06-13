@@ -1,33 +1,33 @@
 !!!!!Input arguments!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!open the init cons file. 
+!open the init cons file.
 open(UNIT=21,FILE='Init_cons.dat')
 READ(21,'(i10)') IntTime
 ! check if a special run has been selected.
 if (INTTIME .LE. 0)  then
     CONSTRAIN_RUN=.TRUE.
-    print*, 'reverting to legacy output.' 
+    print*, 'reverting to legacy output.'
     SAVE_LEGACY= .TRUE.
-            
+
     WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
-    
-    if (INTTIME .EQ. -1) then 
+
+    if (INTTIME .EQ. -1) then
         INTTIME=int(4380*24.*60.*60.)
         OUTPUT_LAST=.FALSE.
 
-        
-    else if (INTTIME .EQ. -2) then      
+
+    else if (INTTIME .EQ. -2) then
         INTTIME=int(50*24.*60.*60.)
         OUTPUT_LAST=.TRUE.
 
-    
+
     else;
         WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
         But not a special case'
         STOP
     endif
 else
-    
+
 endif
 
 runtimestep=int(Inttime / dt) !used for netcdf
@@ -38,11 +38,11 @@ runtimestep=int(Inttime / dt) !used for netcdf
 
 
 READ(21,'(*(a15,x))') spec_name
-READ(21,'(*(i15,x))') const_method 
+READ(21,'(*(i15,x))') const_method
 
 print*, 'if -checks all this is an incorrect conversion'
 
-if (line.gt.1) then !skip lines 
+if (line.gt.1) then !skip lines
     do 133 i = 1,(line-1)
     133 read(21,*)
 end if
@@ -52,7 +52,7 @@ READ (21,'(10000(e15.4,x))') concs
  close(21)
 
 
-if (save_legacy) nc_set = 144 ! 1day 
+if (save_legacy) nc_set = 144 ! 1day
 if (nc_set .eq. 0)  nc_set = runtimestep
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -62,16 +62,16 @@ allocate(output_r(1:nc_set, Nreact+6))
 print*, 'rename ncset'
 allocate(s_names(Nspec+10))
 allocate(r_names(Nreact+6))
-output_s(:,:) = 0. 
+output_s(:,:) = 0.
 output_r(:,:) = 0.
-call initVal(concs)!initialise val;ues
+call initVal(concs)!initialise values
 M   = CFACTOR
 O2 = 0.21 * CFACTOR
 N2 = 0.78 * CFACTOR
 tstart = (mod(jday,1.))*24.*60.*60. ! time start
 tstart = tstart+LON/360.*24.*60.*60.!conv 2 localtime
-tend = tstart + IntTime  !end time  
-nc_counter=0                      
+tend = tstart + IntTime  !end time
+nc_counter=0
 
 
 write (OUTPUT_UNIT,*) 'Initializing model ', counter
@@ -92,19 +92,19 @@ write (OUTPUT_UNIT,*) 'Lon =', Lon
 write (OUTPUT_UNIT,*) 'Local Time =', Tstart/(60.*60.)
 write (OUTPUT_UNIT,*) 'SZA =',ZENANG(int(jday),Tstart/(60.*60.),lat)*180./(4*ATAN(1.))
 
-if (o3col .eq. 0) then 
+if (o3col .eq. 0) then
     o3col=260.
     write (OUTPUT_UNIT,*) 'Ozone column not specified using 260 Dobsons'
 else
     write (OUTPUT_UNIT,*) 'Ozone column =', o3col
 endif
 
-if (albedo .eq. 0) then 
+if (albedo .eq. 0) then
     albedo=0.1
     write (OUTPUT_UNIT,*) 'Albedo not specified using 0.1'
 else
     write (OUTPUT_UNIT,*) 'Albedo =', albedo
-endif       
+endif
 
 call set_up_photol(O3col,Albedo,alta,temp,bs,cs,ds,szas,svj_tj)
 
@@ -114,13 +114,13 @@ write (OUTPUT_UNIT,*) 'hvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhvhv'
 time = tstart
 OLDFRACDIFF=0.
 
-! If NOx is being constrained calculate the total NOx in the model 
-IF (CONSTRAIN_NOX) THEN 
+! If NOx is being constrained calculate the total NOx in the model
+IF (CONSTRAIN_NOX) THEN
     TNOX_OLD=0.
     TNOX_OLD=TNOX_OLD+sum(C(1:NVAR)*NOX(1:NVAR))
 ENDIF
 
-! Define the initial state of the model 
+! Define the initial state of the model
 STARTSTATE(1:NVAR)=C(1:NVAR)
 DIURNAL_OLD(:,:)=0.
 ! Calculate clear sky photolysis rates
@@ -137,14 +137,14 @@ endif
 
 if (JNO2 .NE. 0.) then
     if (J(4) .GT. 0.) JFACTNO2=JNO2/J(4)
-    if (JO1D .NE. 0.) JFACTNO2=JFACTO1D    
+    if (JO1D .NE. 0.) JFACTNO2=JFACTO1D
 endif
 
 write (OUTPUT_UNIT,*) 'JO1D Calc=', J(1)
 write (OUTPUT_UNIT,*) 'JO1D Measre =', JO1D
 write (OUTPUT_UNIT,*) 'Correction JO1D and JNO2 by', JFACTO1D,JFACTNO2
 
-! Set up a counter to count the number time that the model has been run for 
+! Set up a counter to count the number time that the model has been run for
 Daycounter=0
 full_counter=0
 
@@ -155,9 +155,9 @@ full_counter=0
         filename='./Outputs/'//trim(counter)//'_'//trim(mechanism)//'.spec'
         open(SPEC_UNIT, file=filename,action="write",form='unformatted')
         filename='./Outputs/'//trim(counter)//'_'//trim(mechanism)//'.rate'
-        open(RATE_UNIT, file=filename,action="write",form='unformatted')  
-        
-        
+        open(RATE_UNIT, file=filename,action="write",form='unformatted')
+
+
         open (100,file='./Outputs/spec.names')
         write(100,*)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         close(100)
@@ -166,7 +166,3 @@ full_counter=0
 
 
          999 FORMAT(*(E24.16,"!"))
-
-
-
-
