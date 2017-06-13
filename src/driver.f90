@@ -23,7 +23,7 @@ PROGRAM driver
   REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime
   character(50) :: counter, cw,filename
   character (3) :: ln
-  INTEGER  :: ERROR, IJ, PE ,runtimestep
+  INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
   Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
   character(200) :: dummychar
   integer :: run_counter = 0
