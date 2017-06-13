@@ -23,7 +23,7 @@ PROGRAM driver
   REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime
   character(50) :: counter, cw,filename
   character (3) :: ln
-  INTEGER  :: ERROR, IJ, PE ,runtimestep
+  INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
   Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
   character(200) :: dummychar
   integer :: run_counter = 0
@@ -90,8 +90,9 @@ PROGRAM driver
 
     CALL Update_RCONST()! Update the rate constants
 
+ICNTRL_U(:)=0
     CALL INTEGRATE( TIN = time, TOUT = time+DT, RSTATUS_U = RSTATE, &! Integrate the model +1 timestep
-      ICNTRL_U = (/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 /),IERR_U=ERROR)
+    ICNTRL_U = ICNTRL_U,IERR_U=ERROR)
 
 ! Traps for NaN
     DO I=1,NVAR

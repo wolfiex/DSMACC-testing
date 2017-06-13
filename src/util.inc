@@ -4,111 +4,110 @@ SUBROUTINE InitVal (concs)
 
 USE model_Global
 use model_Monitor
-INTEGER :: i,j,found
+INTEGER :: i,q,found
 REAL(kind=dp) :: x
 CHARACTER(LEN=10000) :: line
 CHARACTER(LEN=15) :: test
 REAL(kind=dp) :: concs(NSPEC)
 REAL(kind=dp) :: oldvar(NSPEC)
-INTEGER :: COUNT_NOX_CONSTRAINTS, i_CH4, i_H2 , i_EMISS
+INTEGER :: COUNT_NOX_CONSTRAINTS, i_EMISS
 CHARACTER(len=6), dimension(8) :: NOXARRAY
 NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     'HO2NO2','HNO4  ','PNA   '/)
     OLDVAR(1:NVAR)=C(1:NVAR)
     VAR(1:NVAR)=0.
     C(1:NVAR)=0.
-    i_EMISS=0 
+    i_EMISS=0
     DEPOS = 0.
     SAREA=0.
     ALBEDO=0.
     RP1=0.
-    
+
     do I=1,NSPEC+1
     FOUND=0
     if (SPEC_NAME(I) .NE. '') then
     SPEC_NAME(I)=ADJUSTL(SPEC_NAME(I))
+    do Q=1,NVAR
 
-    do J=1,NVAR 
-
-        if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(J))) then 
+        if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then
         FOUND=1
-        VAR(J)=CONCS(I)
-        
-        
+        VAR(Q)=CONCS(I)
+
+
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         print*,  '\033[95m' , spec_name(i), concs(i),'\033[97m'
-        
-        
 
-        if (const_method(i) > 0) then 
-             CONSTRAIN(J)=CONCS(I)
-             print*, 'soft-constrained ', spec_name(i), 'at', constrain(j) 
+
+
+        if (const_method(i) > 0) then
+             CONSTRAIN(Q)=CONCS(I)
+             print*, 'soft-constrained ', spec_name(i), 'at', constrain(Q)
         end if
-        
-        !populate spin up array with any concentrations in ics 
-        spin_const(J)=concs(i)
-        
-             
-        if (SPEC_NAME(I) .EQ. 'CH4') then 
-        SPEC_CH4=.TRUE.
-        i_CH4 = I
 
-        else if (SPEC_NAME(I) .EQ. 'H2') then
+        !populate spin up array with any concentrations in ics
+        spin_const(Q)=concs(i)
+
+
+        if (trim(SPEC_NAME(I)) .EQ. 'CH4') then
+        SPEC_CH4=.TRUE.
+
+
+        else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
         SPEC_H2=.TRUE.
-        i_H2 = I 
-        end if            
+
+        end if
 
         endif
 
     enddo
-    
 
 
 
-    if (FOUND .ne. 1) then 
+
+    if (FOUND .ne. 1) then
 
     SELECT CASE (TRIM(SPEC_NAME(I)))
-   
-    CASE('H2O') 
+
+    CASE('H2O')
     H2O=CONCS(I)
 
-    CASE('PRESS')  
+    CASE('PRESS')
     PRESS=CONCS(I)
 
-    CASE('NOx') 
-        if (concs(i)>0) then 
+    CASE('NOx')
+        if (concs(i)>0) then
         CONSTRAIN_NOX=.TRUE.
         WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
-        end if 
+        end if
 
-    CASE('LAT') 
+    CASE('LAT')
     LAT=CONCS(I)
 
-    CASE('LON')  
+    CASE('LON')
     LON=CONCS(I)
 
-    CASE('TEMP') 
+    CASE('TEMP')
     TEMP=CONCS(I)
 
-    CASE('JDAY')  
+    CASE('JDAY')
     JDAY=CONCS(I)
 
-    CASE('TIME(GMTs)')  
+    CASE('TIME(GMTs)')
     continue
 
-    CASE('O3COL') 
+    CASE('O3COL')
     O3COL=CONCS(I)
 
-    CASE('ALBEDO')  
+    CASE('ALBEDO')
     ALBEDO=CONCS(I)
 
-    CASE('SAREA')  
+    CASE('SAREA')
     SAREA=CONCS(I)
 
-    CASE('RP1')  
+    CASE('RP1')
     RP1=CONCS(I)
 
-    CASE('JNO2') 
+    CASE('JNO2')
         if (CONST_METHOD(I) .GE. 1) JNO2=CONCS(I)
 
         JREPEAT=0
@@ -116,7 +115,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         if (CONST_METHOD(I) .EQ. 2) JREPEAT=1
 
 
-    CASE('JO1D') 
+    CASE('JO1D')
 
         if (CONST_METHOD(I) .GE. 1) JO1D=CONCS(I)
 
@@ -125,53 +124,54 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         if (CONST_METHOD(I) .EQ. 2) JREPEAT=1
 
 
-    CASE('DEPOS') 
+    CASE('DEPOS')
 
-        if (CONCS(I) > 0) then  
+        if (CONCS(I) > 0) then
             DEPOS = 1.
             print *, 'DEPOSITON ENABLED'
-        end if 
+        end if
 
-    CASE('SPINUP') 
+    CASE('SPINUP')
         spinup = CONCS(I)
 
     CASE DEFAULT
-    !! for any species in the fixed array 
-    if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
-        SPEC_NAME(i)  = SPEC_NAME(i)(2:)
 
-        do J=NVAR+1,NVAR+NFIX    
-         
-            if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(J))) then 
+    !! for any species in the fixed array
+    if (SPEC_NAME(I)(1:1) .EQ. 'F')  then
+        print *, trim(spec_name(i)), 'fixed species asign concentration'
+        SPEC_NAME(i)  = SPEC_NAME(i)(2:)
+        do Q=NVAR+1,NVAR+NFIX
+
+            if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then
                 FOUND=1
-                FIX(J-NVAR)=CONCS(I)
+                FIX(Q-NVAR)=CONCS(I)
                 print*, 'hard-constrained ', spec_name(i), ' at ', concs(I)
-                    
-                if (SPEC_NAME(I) .EQ. 'EMISS') then
-                    i_EMISS = (J-NVAR)        
-                else if (SPEC_NAME(I) .EQ. 'CH4') then 
+
+                if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
+                    i_EMISS = (Q-NVAR)
+                else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then
                     SPEC_CH4=.TRUE.
-                    i_CH4 = I
-                else if (SPEC_NAME(I) .EQ. 'H2') then
+                else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
                     SPEC_H2=.TRUE.
-                    i_H2 = I               
-                end if            
-            else 
+                end if
+            else
                     WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
                     WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping'
-                    stop 
+                    stop
             endif
-            
+
         enddo
-    
-    else if (SPEC_NAME(I)(1:1) .NE. 'X') then 
+    end if
+
+
+    if (FOUND .ne. 1 .and. SPEC_NAME(I)(1:1) .NE. 'X') then
         WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
         WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping '
-        stop   
-        end if 
-        WRITE (OUTPUT_UNIT,*) 'Starts with X => ignored'   
- 
-    
+        stop
+    end if
+    WRITE (OUTPUT_UNIT,*) trim(spec_name(i)),' starts with X => ignored'
+
+
     END SELECT
     endif
     endif
@@ -179,38 +179,39 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
     enddo
 
+
     !convert to mol cm-3s-1
     CFACTOR=PRESS*1e2*1e-6/(8.314*TEMP)*6.022E23
-    H2O=H2O*CFACTOR 
+    H2O=H2O*CFACTOR
     VAR(:)=VAR(:)*CFACTOR
     CONSTRAIN(:)=CONSTRAIN(:)*CFACTOR
-    
+
 
     spin_const(:)=spin_const(:) * CFACTOR
 
-    
+
     FIX(:)=FIX(:)*CFACTOR
-    if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR 
+    if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR
     !correct emissions ^^
 
-    
-    if (CONSTRAIN_NOX) then 
+
+    if (CONSTRAIN_NOX) then
         COUNT_NOX_CONSTRAINTS=0
 
 
-        do I=1,NVAR 
-        do j= 1,8 
+        do I=1,NVAR
+        do Q= 1,8
 
-        if (TRIM(SPC_NAMES(I)) .EQ. TRIM(NOXARRAY(j))) then 
+        if (TRIM(SPC_NAMES(I)) .EQ. TRIM(NOXARRAY(Q))) then
         NOX(I)=1
         CONSTRAIN(I)=-1.*CONSTRAIN(I)
-        if (CONSTRAIN(I) .NE. 0 .and.&  
-            TRIM(SPC_NAMES(I)).ne. 'PNA')& 
+        if (CONSTRAIN(I) .NE. 0 .and.&
+            TRIM(SPC_NAMES(I)).ne. 'PNA')&
             COUNT_NOX_CONSTRAINTS=COUNT_NOX_CONSTRAINTS+1
             WRITE (OUTPUT_UNIT,*) SPC_NAMES(I),' IN NOX FAMILY'
             exit
             end if
-            end do 
+            end do
 
             if (TRIM(SPC_NAMES(I)) .EQ. 'N2O5') then
             NOX(I)=2
@@ -221,7 +222,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
             end do
 
-            if (COUNT_NOX_CONSTRAINTS .GT. 1) then 
+            if (COUNT_NOX_CONSTRAINTS .GT. 1) then
             WRITE (OUTPUT_UNIT,*) 'You can not contrain multiple NOX species'
             STOP
             endif
@@ -230,16 +231,24 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
         ! FIND CH4 and H2 species
-        if (SPEC_CH4 .EQv. .FALSE. .and. i_CH4 .ne. 0) then
+        if (SPEC_CH4 .EQv. .FALSE.) then
         WRITE (OUTPUT_UNIT,*) 'No CH4 specified assuming 1770 ppbv'
-        VAR(i_CH4)=1770e-9*CFACTOR
-        CONSTRAIN(i_CH4)=VAR(i_CH4)
+        if (ind_CH4 .gt. NVAR) then
+            FIX((ind_CH4-NVAR)) = 1770e-9*CFACTOR
+        else
+            VAR(ind_CH4)=1770e-9*CFACTOR
+            CONSTRAIN(ind_CH4)=VAR(ind_CH4)
+        end if
         end if
 
-        if (SPEC_H2 .EQv. .FALSE. .and. i_H2 .ne. 0) then 
+        if (SPEC_H2 .EQv. .FALSE.) then
         WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
-        VAR(i_H2)= 550e-9*CFACTOR
-        CONSTRAIN(i_H2)=VAR(i_H2)
+          if (ind_H2 .gt. NVAR) then
+            FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
+        else
+            VAR(ind_H2)= 550e-9*CFACTOR
+            CONSTRAIN(ind_H2)=VAR(ind_H2)
+        end if
         end if
 
 
@@ -252,9 +261,9 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
         ! ****************************************************************
         ! ****************************************************************
-        !                            
-        ! SaveData - Write LOOKAT species in the data file 
-        !   Parameters :  index_loc = daycounter                                                
+        !
+        ! SaveData - Write LOOKAT species in the data file
+        !   Parameters :  index_loc = daycounter
         !
         ! ****************************************************************
 
@@ -263,10 +272,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         USE model_Monitor
         USE model_Integrator
         integer :: index_loc
-        
+
         !print *, 'adjust to reflect multiple times'
         !spec
-        output_s(index_loc,1)=Jday*86400  + DAYCOUNTER*dt 
+        output_s(index_loc,1)=Jday*86400  + DAYCOUNTER*dt
         output_s(index_loc,2)=Lat
         output_s(index_loc,3)=Lon
         output_s(index_loc,4)=Press
@@ -276,19 +285,19 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         output_s(index_loc,8)=JfactNO2
         output_s(index_loc,9)=JfactO1D
         output_s(index_loc,10)=RO2
-        output_s(index_loc,11:) = C 
+        output_s(index_loc,11:) = C
         !rate
-        output_r(index_loc,1)=Jday*86400  + DAYCOUNTER*dt 
+        output_r(index_loc,1)=Jday*86400  + DAYCOUNTER*dt
         output_r(index_loc,2)=Lat
         output_r(index_loc,3)=Lon
         output_r(index_loc,4)=Press
         output_r(index_loc,5)=Temp
         output_r(index_loc,6)=H2O
         output_r(index_loc,7:) = Rconst
- 
+
         end subroutine SaveOut
 
-      
+
         ! ****************************************************************
 
 
@@ -311,7 +320,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !U        Example: !ALL I!NVRT(0,1000,STRING,LENGTH)
         !U                 on return STRING = '1000' and
         !U                 LENGTH = 4.
-        !U         
+        !U
         !       INPUTS:
         !I
         !I        WAY - INTEGER; Determines which way the conversion goes:
@@ -325,14 +334,14 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !I
         !I         STRING - !HARACTER; an input only if WAY .NE. 0. STRING
         !I                is the character expression to be converted to an
-        !CI                integer value. It contain no decimal points or 
+        !CI                integer value. It contain no decimal points or
         !I                non-numeric characters other than possibly a
         !I                sign. If STRING contains  a '+' sign, it will be
         !I                stripped of it on return.
         !I
         !       OUTPUTS:
         !O
-        !O         NUM - INTEGER; contains the INTEGER representation of 
+        !O         NUM - INTEGER; contains the INTEGER representation of
         !O                STRING.
         !O
         !O         STRING - !HARA!TER; contains the CHARACTER representation of
@@ -399,7 +408,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         INTEGER       NUM
         INTEGER       IERR
         CHARACTER*(*) STRING
-        !C    
+        !C
         !C Local Variables
         !C
         INTEGER       I
@@ -439,8 +448,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         DO 10, I=LENGTH,1,-1
         M=INT(REAL(MNUM)/10**(I-1))
 
-        !jkhjkhjkhjkhljhlkjhj 
-        if (m.lt.10) then 
+        !jkhjkhjkhjkhljhlkjhj
+        if (m.lt.10) then
         Write( dummy, '(i1)' ) M
         STRING(LENGTH-I+1:LENGTH-I+1) = dummy
         ELSE
@@ -472,10 +481,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         END IF
 
 
-        DO 20, I=LENGTH,1,-1           
+        DO 20, I=LENGTH,1,-1
         read( STRING(LENGTH-I+1:LENGTH-I+1), '(i10)' ) dummyvar
-        if (dummyvar.lt.10) then 
-        M= (dummyvar) 
+        if (dummyvar.lt.10) then
+        M= (dummyvar)
         ELSE
         IERR = 2
         RETURN
@@ -495,7 +504,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !C
         RETURN
         END SUBROUTINE
-        
+
 
 
         #ENDINLINE
