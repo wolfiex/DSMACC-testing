@@ -8,6 +8,7 @@
   # FKPP ?= 'inorganic organic' # kpp input file variable for makedepos scrpit
   # FSTD  ?= 1                  # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
+  # MODELKPP ?= '--custom'
 ##############################################################################
 #colour
 black="\033[90m"
@@ -104,7 +105,7 @@ kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
 	@echo $(KPP_PATH)
 	rm model
 	cd $(KPP_PATH)src && make
-	./src/background/makemodeldotkpp.py
+	./src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
 	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	rm -rf *.kpp
