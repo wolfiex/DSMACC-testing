@@ -1,0 +1,48 @@
+Absorption cross sections for HONO photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+Missing values between 280 and 295nm estimated with 0
+last checked: 28.10.2015; last update of data sheet: 16.7.2001
+
+lamda/nm	xs / 1E-20 cm2
+190	127
+195	172
+200	197
+205	220
+210	214
+215	179
+220	146
+225	120
+230	86
+235	60
+240	42
+245	30
+250	18.5
+255	12.4
+260	8.0
+265	5.2
+270	3.4
+275	2.5
+280	0.0
+285	0.0
+290	0.0
+295	0.0
+300	0.0
+305	0.7
+310	1.6
+315	2.5
+320	4.4
+325	5.0
+330	9.3
+335	6.5
+340	16.8
+345	9.6
+350	11.5
+355	23.6
+360	8.0
+365	16.1
+370	20.5
+375	4.9
+380	9.2
+385	14.5
+390	2.4
+395	0.6

@@ -1,5 +1,5 @@
 #EQUATIONS
-{D1.} O = DUMMY :  DEPOS*(0.00d+0) ;
+{D1.} //O = DUMMY :  DEPOS*(5.00d-6) ;
 {D2.} O1D = DUMMY :  DEPOS*(0.00d+0) ;
 {D3.} N2O5 = DUMMY :  DEPOS*(5.00d-6) ;
 {D4.} HONO = DUMMY :  DEPOS*(5.00d-6) ;
