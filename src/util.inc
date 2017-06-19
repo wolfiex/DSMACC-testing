@@ -30,32 +30,32 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     do Q=1,NVAR 
 
         if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
-        FOUND=1
-        VAR(Q)=CONCS(I)
-        
-        
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        print*,  '\033[95m' , spec_name(i), concs(i),'\033[97m'
-        
-        
+            FOUND=1
+            VAR(Q)=CONCS(I)
+            
+            
+            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            print*,  '\033[95m' , spec_name(i), concs(i),'\033[97m'
+            
+            
 
-        if (const_method(i) > 0) then 
-             CONSTRAIN(Q)=CONCS(I)
-             print*, 'soft-constrained ', spec_name(i), 'at', constrain(Q) 
-        end if
-        
-        !populate spin up array with any concentrations in ics 
-        spin_const(Q)=concs(i)
-        
+            if (const_method(i) > 0) then 
+                 CONSTRAIN(Q)=CONCS(I)
+                 print*, 'soft-constrained ', spec_name(i), 'at', constrain(Q) 
+            end if
+            
+            !populate spin up array with any concentrations in ics 
+            spin_const(Q)=concs(i)
+            
+                 
+            if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
+                SPEC_CH4=.TRUE.
              
-        if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
-        SPEC_CH4=.TRUE.
-     
 
-        else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
-        SPEC_H2=.TRUE.
+                else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
+                SPEC_H2=.TRUE.
 
-        end if            
+            end if            
 
         endif
 
@@ -135,42 +135,46 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         spinup = CONCS(I)
 
     CASE DEFAULT
-    
-    print *, 'fixed species asign concentration'
-    !! for any species in the fixed array 
-    if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
-        SPEC_NAME(i)  = SPEC_NAME(i)(2:)
-    end if 
-        do Q=NVAR+1,NVAR+NFIX    
-         
-            if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
-                FOUND=1
-                FIX(Q-NVAR)=CONCS(I)
-                print*, 'hard-constrained ', spec_name(i), ' at ', concs(I)
-                    
-                if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
-                    i_EMISS = (Q-NVAR)        
-                else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
-                    SPEC_CH4=.TRUE.
-                else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
-                    SPEC_H2=.TRUE.         
-                end if            
-            else 
-                    WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
-                    WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping'
-                    stop 
-            endif
             
-        enddo
-    
-    
-    if (FOUND .ne. 1 .and. SPEC_NAME(I)(1:1) .NE. 'X') then 
-        WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
-        WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping '
-        stop   
-        end if 
-        WRITE (OUTPUT_UNIT,*) 'Starts with X => ignored'   
- 
+            !! for any species in the fixed array 
+            if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
+                SPEC_NAME(i)  = SPEC_NAME(i)(2:)
+            
+                do Q=NVAR+1,NVAR+NFIX    
+                 
+                    if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
+                        FOUND=1
+                        FIX(Q-NVAR)=CONCS(I)
+                        print*, 'hard-constrained ', spec_name(i),&
+                            &' at ', concs(I)
+                            
+                        if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
+                            i_EMISS = (Q-NVAR)        
+                        else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
+                            SPEC_CH4=.TRUE.
+                        else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
+                            SPEC_H2=.TRUE.         
+                        end if            
+                    else 
+                     WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
+                     WRITE(6,*) SPEC_NAME(I),' NOT FOUND (FIXED) - stopping'
+                     stop 
+                    endif
+                    
+                    continue
+                    
+                enddo
+                
+            end if 
+            
+            if (FOUND .ne. 1 .and. SPEC_NAME(I)(1:1) .NE. 'X') then 
+                WRITE(OUTPUT_UNIT,*) 'spec_name:',SPEC_NAME(I),&
+                        &' NOT FOUND - stopping'
+                WRITE(6,*) SPEC_NAME(I),' NOT FOUND - stopping '
+                stop   
+            end if 
+            WRITE (OUTPUT_UNIT,*) 'Starts with X => ignored'   
+         
     
     END SELECT
     endif
