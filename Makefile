@@ -62,6 +62,7 @@ distclean: clean clear # clean all !
 	rm -f *.nc
 	rm -f *.dat
 	rm -f *.o
+	rm -f .nfs*
 	rm -f *model*
 	rm -f run_
 	rm -f *.old
@@ -94,10 +95,14 @@ new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs	
 
-kpp: clean | ./Outputs  # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs   # makes kpp using the model.kpp file in src!
 	touch model
+	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
+	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)	
+	$(eval export PATH=$(KPP_PATH)bin:$(PATH))
+	@echo $(KPP_PATH)
 	rm model
-	cd src/kpp/kpp*/src && make
+	cd $(KPP_PATH)src && make
 	cd mechanisms && ./makedepos.pl && cd ../
 	./src/background/makemodeldotkpp.py
 	cp src/constants.f90 ./model_constants.f90
@@ -112,6 +117,7 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	cp src/constants.f90 ./model_constants.f90
 	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	
+
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	rm model_* *.mod del* *.del
 

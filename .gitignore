@@ -2,6 +2,7 @@
 *.swo
 *.nc
 *.o
+.nfs*
 model_*
 Outputs/
 model

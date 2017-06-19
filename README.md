@@ -8,12 +8,8 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
 
 ## New user
-Run `make new` to clean everything and update latest TUV.
+Run `make new` to clean everything, update latest TUV, and download KPP.
 
-For kpp add the correct paths - for earth this was, now it is in the src folder of dsmacc...
-
- 47 export KPP_HOME=/work/data/kpp-2.2.3
- 48 export PATH=$PATH:$KPP_HOME/bin
 
 ## Updating the submodule (TUV and KPP)
 This needs to be done to include contents here. 
@@ -34,31 +30,31 @@ git submodule update` or typing `make update_submodule`
 
 
 ## How to run
-- Ensure tuv is compiled, if in doubt run make new should no other error be apparent -
+- Ensure tuv is compiled, if in doubt run make tuv should no other error be apparent and the program hangs -
 
 1. Create Init cons csv file (methane.csv as a template) 
- 
- .. * different columns are different runs
- 
- ..* depos and emiss are deposition / emission constants, set 1 to enable 0 do disable 
 
- ..* run names are useful, see + depos etc for examples. 
+    * different columns are different runs
+
+   * depos and emiss are deposition / emission constants, set 1 to enable 0 do disable 
+
+   * run names are useful, see + depos etc for examples. 
 
 2. Run `python begin.py` after setting the number of processes inside
 
-..* this makes Init_cons.dat
+    * this makes Init_cons.dat
 
-..* generates run files. sdout is in run.sdout, individual run.nc
+    * generates run files. sdout is in run.sdout, individual run.nc
 
-..* concatenates nc files including initial conditions, and run time into one grouped netcdf
+    * concatenates nc files including initial conditions, and run time into one grouped netcdf
 
-..* to see the form of this have a look inside begin, or read_dsmacc
+    * to see the form of this have a look inside begin, or read_dsmacc
 
 3. to view files:
 
-..* ipython, then type `run AnalysisTools/read_dsmacc <ncfilename>` for interactive play
+    * ipython, then type `run AnalysisTools/read_dsmacc <ncfilename>` for interactive play
 
-..* run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
+    * run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
 
 ## Running with multiple models
 1. Making a new model model and ensure it works
