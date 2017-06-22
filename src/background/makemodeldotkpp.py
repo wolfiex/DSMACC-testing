@@ -8,14 +8,16 @@ import glob,sys,os
 
 myinclude = []
 
-if '--custom' in sys.argv:
+if '--custom' in sys.argv: 
+    ## use the old model.kpp in the src folder. 
     os.system('cp ./src/model.kpp .')
     print "'./src/model.kpp' used"
     sys.exit()
 
 elif '--default' in sys.argv:
+    ## use only organic and inorganic .kpp
     myinclude.append('#INCLUDE ./mechanisms/organic.kpp\n')
-    myinclude.append('#INCLUDE ./mechanisms/inorganic.kp\n')
+    myinclude.append('#INCLUDE ./mechanisms/inorganic.kpp\n')
     myinclude.append('')
 
 else:
@@ -23,18 +25,28 @@ else:
     inc_id = []
     file_list = glob.glob('mechanisms/*.kpp')
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
-    file_list.append('exit')
+  
 
     print 'Select file to open: \n\n'
-    for i,f in enumerate(file_list): print i , ' - ', f
-    while inc_id != len(file_list)-1:
-        inc_id = input('Enter Number(s)\n')
-        myinclude.append('#INCLUDE '+file_list[inc_id]+'\n')
+    print '  m' , ' - ', 'Multiple'
+    for i,f in enumerate(file_list): print '%3d'%i , ' - ', f.replace('mechanisms/','')
+     
+    inc_id = raw_input('Enter Number\n')
+    if inc_id == 'm': 
+        selected_files  =  raw_input('Enter Numbers of files required seperated by a space.\n').split(' ')
+        
+    else: 
+        selected_files = [inc_id]
+        #automatically select inorganic if organic only file selected
+        if 'organic' in file_list[int(inc_id)]: myinclude.append('\n#INCLUDE ./mechanisms/inorganic.kpp\n')
 
-    #if 'organic' in inc_file: myinclude+='\n#INCLUDE ./mechanisms/inorganic.kpp'
+    
 
 
-print "".join(myinclude[:-1])
+    
+    for i in selected_files: 
+    
+        if len(i) > 0:   myinclude.append('#INCLUDE '+file_list[int(i)]+'\n')
 
 
 
@@ -44,7 +56,16 @@ modelstring ='''
 // include file with definition of the chemical species
 // and chemical equations
 
-'''+"".join(myinclude[:-1])+'''
+#DEFFIX
+EMISS=IGNORE;
+#DEFVAR
+DUMMY=IGNORE;
+
+
+'''+"".join(myinclude)+'''
+
+
+
 
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
