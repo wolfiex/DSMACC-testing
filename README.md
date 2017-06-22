@@ -56,6 +56,12 @@ git submodule update` or typing `make update_submodule`
 
     * run the PDF_concentrations.py file for a time series plot of all the runs (diagnostic purposes) - see .pdf files
 
+
+## Errors
+1. `depend.mk: No such file or directory`depend.mk: No such file or directory` - run `./src/sfmakedepend`
+2. `for_main.o: In function main:for_main.c:(.text+0x2a): undefined reference to MAIN__` - this is normal, we are pre-compiling tuv and thus it does not have a main body (which it is not)
+
+
 ## Running with multiple models
 1. Making a new model model and ensure it works
 2. Type `make savemodel name=<yournamehere>` with what you wish to refer to your model with in the future
