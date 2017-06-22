@@ -1,35 +1,40 @@
-#!/usr/local/anaconda/bin/python 
+#!/usr/local/anaconda/bin/python
 #/usr/bin/python
 import glob,sys,os
 
 ##################
  ####read files####
- 
-'''
-#INCLUDE ./mechanisms/organic.kpp
-#INCLUDE ./mechanisms/inorganic.kpp
-'''
-#include custom file here 
-custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
 
-if '--custom' in sys.argv: 
-    myinclude=custom
+
+myinclude = []
+
+if '--custom' in sys.argv:
+    os.system('cp ./src/model.kpp .')
+    print "'./src/model.kpp' used"
+    sys.exit()
+
+elif '--default' in sys.argv:
+    myinclude.append('#INCLUDE ./mechanisms/organic.kpp\n')
+    myinclude.append('#INCLUDE ./mechanisms/inorganic.kp\n')
+    myinclude.append('')
 
 else:
 
+    inc_id = []
     file_list = glob.glob('mechanisms/*.kpp')
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
+    file_list.append('exit')
 
     print 'Select file to open: \n\n'
-    for i,f in enumerate(file_list): print i , ' - ', f.replace('./mechanisms/','')
-    inc_file = file_list[int(input('Enter Number \n'))]
-    
-    myinclude = '#INCLUDE '+inc_file
-    
-    if 'organic' in inc_file: myinclude+='\n#INCLUDE ./mechanisms/inorganic.kpp'
+    for i,f in enumerate(file_list): print i , ' - ', f
+    while inc_id != len(file_list)-1:
+        inc_id = input('Enter Number(s)\n')
+        myinclude.append('#INCLUDE '+file_list[inc_id]+'\n')
+
+    #if 'organic' in inc_file: myinclude+='\n#INCLUDE ./mechanisms/inorganic.kpp'
 
 
-    print myinclude
+print "".join(myinclude[:-1])
 
 
 
@@ -39,9 +44,7 @@ modelstring ='''
 // include file with definition of the chemical species
 // and chemical equations
 
-#INCLUDE ./src/background/mechswitches.kpp
-
-'''+myinclude+'''
+'''+"".join(myinclude[:-1])+'''
 
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc

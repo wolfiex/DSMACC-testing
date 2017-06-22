@@ -1,7 +1,6 @@
-[submodule "TUV_5.2.1"]
-	path = TUV_5.2.1
-	url = https://github.com/pb866/TUV_DSMACC.git
-
 [submodule "src/kpp"]
         path = src/kpp
         url = https://github.com/wolfiex/kpp_2.3.01_gc.git
+[submodule "TUV_5.2.1"]
+	path = TUV_5.2.1
+	url = https://github.com/pb866/TUV_DSMACC.git
