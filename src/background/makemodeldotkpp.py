@@ -8,7 +8,14 @@ import glob,sys,os
 
 myinclude = []
 
+#include custom file here 
+custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
+
 if '--custom' in sys.argv: 
+        myinclude=custom
+
+
+elif '--modelkppinsrc' in sys.argv: 
     ## use the old model.kpp in the src folder. 
     os.system('cp ./src/model.kpp .')
     print "'./src/model.kpp' used"
@@ -56,10 +63,9 @@ modelstring ='''
 // include file with definition of the chemical species
 // and chemical equations
 
-#DEFFIX
-EMISS=IGNORE;
-#DEFVAR
-DUMMY=IGNORE;
+
+
+#INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
 '''+"".join(myinclude)+'''
