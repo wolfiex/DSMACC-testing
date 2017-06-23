@@ -138,28 +138,24 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             
             !! for any species in the fixed array 
             if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
-                 SPEC_NAME(i)  = adjustl(SPEC_NAME(i)(2:))
-                
-                 if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
-                      i_EMISS = (Q-NVAR)  
-                      found = 1       
-                 else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
-                            SPEC_CH4=.TRUE.
-                 else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
-                            SPEC_H2=.TRUE.         
-                 end if    
+                SPEC_NAME(i)  = SPEC_NAME(i)(2:)
             
-                 do Q=NVAR+1,NVAR+NFIX    
+                do Q=NVAR+1,NVAR+NFIX    
                  
                     if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
-                        
                         FOUND=1
                         FIX(Q-NVAR)=CONCS(I)
                         print*, 'hard-constrained ', spec_name(i),&
                             &' at ', concs(I)
                             
-        
-                    else if (found .ne. 1 ) then
+                        if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
+                            i_EMISS = (Q-NVAR)        
+                        else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
+                            SPEC_CH4=.TRUE.
+                        else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
+                            SPEC_H2=.TRUE.         
+                        end if            
+                    else 
                      WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
                      WRITE(6,*) SPEC_NAME(I),' NOT FOUND (FIXED) - stopping'
                      stop 
@@ -241,15 +237,18 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         ! FIND CH4 and H2 species
         if (SPEC_CH4 .EQv. .FALSE.) then
         WRITE (OUTPUT_UNIT,*) 'No CH4 specified assuming 1770 ppbv'
-        if (ind_CH4 .gt. NVAR) then 
-            FIX((ind_CH4-NVAR)) = 1770e-9*CFACTOR
-        else 
-            VAR(ind_CH4)=1770e-9*CFACTOR
-            CONSTRAIN(ind_CH4)=VAR(ind_CH4)
-        end if
-        end if
+        
+     print*, 'fix no ch4 default, add in model subset?,&
+     &add generic reaction of inorganics?'
+        !if (ind_CH4 .gt. NVAR) then 
+        !    FIX((ind_CH4-NVAR)) = 1770e-9*CFACTOR
+        !else 
+        !    VAR(ind_CH4)=1770e-9*CFACTOR
+        !    CONSTRAIN(ind_CH4)=VAR(ind_CH4)
+        !end if
+        !end if
 
-        if (SPEC_H2 .EQv. .FALSE.) then 
+        !if (SPEC_H2 .EQv. .FALSE.) then 
         WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
           if (ind_H2 .gt. NVAR) then 
             FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
