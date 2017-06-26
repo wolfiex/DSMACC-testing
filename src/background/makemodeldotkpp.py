@@ -6,17 +6,17 @@ import glob,sys,os
  ####read files####
 
 
+# initialise myinclude as list
 myinclude = []
 
-#include custom file here 
-custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
+if '--custom' in sys.argv:
+    #include custom file here
+    custom = '\n#INCLUDE ./mechanisms/DUN15M4.kpp\n'+\
+            '#INCLUDE .mechanisms/inorganic.kpp\n'
+    myinclude = custom
 
-if '--custom' in sys.argv: 
-        myinclude=custom
-
-
-elif '--modelkppinsrc' in sys.argv: 
-    ## use the old model.kpp in the src folder. 
+elif '--copy' in sys.argv:
+    ## use the old model.kpp in the src folder.
     os.system('cp ./src/model.kpp .')
     print "'./src/model.kpp' used"
     sys.exit()
@@ -32,27 +32,27 @@ else:
     inc_id = []
     file_list = glob.glob('mechanisms/*.kpp')
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
-  
+
 
     print 'Select file to open: \n\n'
     print '  m' , ' - ', 'Multiple'
     for i,f in enumerate(file_list): print '%3d'%i , ' - ', f.replace('mechanisms/','')
-     
+
     inc_id = raw_input('Enter Number\n')
-    if inc_id == 'm': 
+    if inc_id == 'm':
         selected_files  =  raw_input('Enter Numbers of files required seperated by a space.\n').split(' ')
-        
-    else: 
+
+    else:
         selected_files = [inc_id]
         #automatically select inorganic if organic only file selected
         if 'organic' in file_list[int(inc_id)]: myinclude.append('\n#INCLUDE ./mechanisms/inorganic.kpp\n')
 
-    
 
 
-    
-    for i in selected_files: 
-    
+
+
+    for i in selected_files:
+
         if len(i) > 0:   myinclude.append('#INCLUDE '+file_list[int(i)]+'\n')
 
 
@@ -65,7 +65,7 @@ modelstring ='''
 
 
 
-#INCLUDE ./src/background/mechswitches.kpp //KEEP! 
+#INCLUDE ./src/background/mechswitches.kpp //KEEP!
 
 
 '''+"".join(myinclude)+'''

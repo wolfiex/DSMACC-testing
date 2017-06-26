@@ -2,8 +2,18 @@
 // include file with definition of the chemical species
 // and chemical equations
 
-#INCLUDE mechanisms/DUN15mcm4.kpp
+
+
+#INCLUDE ./src/background/mechswitches.kpp //KEEP!
+
+
+#INCLUDE mechanisms/organic.kpp
 #INCLUDE mechanisms/inorganic.kpp
+#INCLUDE mechanisms/emiss.kpp
+#INCLUDE mechanisms/depos.kpp
+
+
+
 
 
 #INCLUDE ./src/util.inc
