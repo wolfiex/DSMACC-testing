@@ -1211,8 +1211,8 @@ import glob,sys,os
 import matplotlib.pyplot as plt
 
 global spcM3, spcM4, rM3, rM4, xm, M
-time, xm, spcM3, rM3 = load('nc/DUN15M33.nc', 'DUN15', False)
-time, xm, spcM4, rM4 = load('nc/DUN15M40.nc', 'DUN15', True)
+time, xm, spcM3, rM3 = load('../save/DUN15mcm3.nc', 'DUN15', False)
+time, xm, spcM4, rM4 = load('../save/DUN15mcm4.nc', 'DUN15', True)
 M = spcM4['M'].mean()
 spcM3['NOx'] = spcM3['NO']+spcM3['NO2']
 spcM4['NOx'] = spcM4['NO']+spcM4['NO2']
