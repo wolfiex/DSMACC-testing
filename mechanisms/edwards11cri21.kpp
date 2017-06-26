@@ -649,4 +649,4 @@ CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 {1185} HNO3=NA : 6.00e-6;
 {1186} N2O5=NA+NA : 0.000400;
 {1187} SO3=SA : 0;
-{1189} //EMISS=EMISS : 1.00;
+

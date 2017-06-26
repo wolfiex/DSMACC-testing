@@ -12,7 +12,7 @@ myinclude = []
 custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
 
 if '--custom' in sys.argv: 
-        myinclude=custom
+        None
 
 
 elif '--modelkppinsrc' in sys.argv: 
@@ -29,23 +29,18 @@ elif '--default' in sys.argv:
 
 else:
 
-    inc_id = []
     file_list = glob.glob('mechanisms/*.kpp')
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
   
 
-    print 'Select file to open: \n\n'
-    print '  m' , ' - ', 'Multiple'
+    print 'Select file(s) to open: \n\n'
     for i,f in enumerate(file_list): print '%3d'%i , ' - ', f.replace('mechanisms/','')
      
-    inc_id = raw_input('Enter Number\n')
-    if inc_id == 'm': 
-        selected_files  =  raw_input('Enter Numbers of files required seperated by a space.\n').split(' ')
+    selected_files = filter(lambda x: len(x)>0 ,   raw_input('Enter Number(s)\n').split(' '))
+   
         
-    else: 
-        selected_files = [inc_id]
-        #automatically select inorganic if organic only file selected
-        if 'organic' in file_list[int(inc_id)]: myinclude.append('\n#INCLUDE ./mechanisms/inorganic.kpp\n')
+    #automatically select inorganic if organic only file selected
+    if (len(selected_files)==1) & ('organic' in file_list[int(selected_files[0])]): myinclude.append('\n#INCLUDE ./mechanisms/inorganic.kpp\n')
 
     
 
@@ -57,6 +52,10 @@ else:
 
 
 
+if '--custom' in sys.argv: 
+        addstr=custom 
+else:
+        addstr = "".join(reversed(myinclude))
 
 
 modelstring ='''
@@ -68,13 +67,13 @@ modelstring ='''
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
-'''+"".join(myinclude)+'''
-
+'''+addstr+'''
 
 
 
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
+
 
 
 #DOUBLE ON

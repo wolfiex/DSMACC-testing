@@ -92,8 +92,10 @@ CONTAINS
           INCLUDE './TUV_5.2.1/MCM331.inc'
          CASE(2)
           INCLUDE './TUV_5.2.1/MCM4.inc'
+         CASE(3)
+          INCLUDE './TUV_5.2.1/GC11.inc'
          CASE DEFAULT
-          STOP "Select TUV case between 0 and 2."
+          STOP "Select TUV case between 0 and 3."
         END SELECT
 
       ENDDO
