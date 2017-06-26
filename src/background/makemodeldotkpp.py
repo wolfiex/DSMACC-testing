@@ -15,7 +15,7 @@ if '--custom' in sys.argv:
         None
 
 
-elif '--modelkppinsrc' in sys.argv: 
+elif '--copy' in sys.argv: 
     ## use the old model.kpp in the src folder. 
     os.system('cp ./src/model.kpp .')
     print "'./src/model.kpp' used"
