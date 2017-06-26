@@ -130,7 +130,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             DEPOS = 1.
             print *, 'DEPOSITON ENABLED'
         end if 
-
+      
     CASE('SPINUP') 
         spinup = CONCS(I)
 
@@ -139,7 +139,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             !! for any species in the fixed array 
             if (SPEC_NAME(I)(1:1) .EQ. 'F')  then   
                 SPEC_NAME(i)  = SPEC_NAME(i)(2:)
-            
+               
+                           
                 do Q=NVAR+1,NVAR+NFIX    
                  
                     if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then 
