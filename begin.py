@@ -28,7 +28,7 @@ file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
 
 
 print 'Select file to open: \n\n'
-for i,f in enumerate(file_list): print i , ' - ', f
+for i,f in enumerate(file_list): print i , ' - ', f.replace('InitCons/','').replace('.csv','')
 ic_file = file_list[int(input('Enter Number \n'))]
 
 
