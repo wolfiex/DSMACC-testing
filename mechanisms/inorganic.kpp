@@ -13,7 +13,7 @@ A = IGNORE;
 O3FT=ignore;
 NA=IGNORE;
 SA=IGNORE;
-DUMMY = IGNORE;
+
 #EQUATIONS
 {1.}O = O3 :6.00E-34*O2*O2*((TEMP/300)**-2.6)+5.60E-34*O2*N2*((TEMP/300)**-2.6) ;
 {2.}O + O3 = DUMMY :8.00E-12*EXP(-2060/TEMP) ;
@@ -62,6 +62,6 @@ DUMMY = IGNORE;
 //{34.}  N2O5 = NA + NA : 4.00D-04 ;
 // dsmacc does not run with this /?/ {35.}  SO3 = SA : 1.20D-15*H2O ;
 // others
-{998.}   DUMMY = 0.5DUMMY : 1 ;
-{999.} EMISS = EMISS: 1;// need for intial conditions to work
+
+
 //NO TABS!!!!
