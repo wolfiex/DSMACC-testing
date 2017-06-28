@@ -23,5 +23,5 @@ selected_nc = raw_input("\nEnter number (only 1 choice possible): ")
 i = int(selected_nc) - 1
 
 # Move selected nc file to save folder
-if i >=0: os.system('cp '+nc[i]+' ./save/exec/%s/%s.nc'%(sys.argv[1],sys.argv[1]))
+if i >=0: os.system('cp '+nc[i]+' ./save/ncfiles/%s.nc'%(sys.argv[1],sys.argv[1]))
 print sys.argv[1] + ' saved\n'

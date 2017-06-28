@@ -11,5 +11,6 @@ model
 *.orig
 archive/
 backup/
-save/
+save/ncfiles/
+save/exec/
 ./.git/objects/pack/pack-0cb618f3f4b94d572ea77291beb692bcc6e78668.pack
