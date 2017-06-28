@@ -19,7 +19,7 @@
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables
   include './params'
-  INTEGER :: TUVvers = 1
+  INTEGER :: TUVvers = 2
   REAL(8) ::            bs(szabin,kj), cs(szabin,kj),ds(szabin,kj)
   REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables
