@@ -11,7 +11,7 @@
   F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 ##############################################################################
 
-#do not use -heap arrays in omp or parallel 
+#do not use -heap arrays in omp or parallel
 
 #colour
 black="\033[90m"
@@ -101,7 +101,7 @@ new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs
 
-kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs # makes kpp using the model.kpp file in src!
 	touch model
 	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
 	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)
@@ -121,7 +121,7 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	./src/background/makemodeldotkpp.py --custom
 	cp src/constants.f90 ./model_constants.f90
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
-	
+
 
 ini: # generate kpp files with emission and deposition data
 	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \

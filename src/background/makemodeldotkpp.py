@@ -8,15 +8,15 @@ import glob,sys,os
 
 myinclude = []
 
-#include custom file here 
+#include custom file here
 custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
 
-if '--custom' in sys.argv: 
+if '--custom' in sys.argv:
         None
 
 
-elif '--copy' in sys.argv: 
-    ## use the old model.kpp in the src folder. 
+elif '--copy' in sys.argv:
+    ## use the old model.kpp in the src folder.
     os.system('cp ./src/model.kpp .')
     print "'./src/model.kpp' used"
     sys.exit()
@@ -29,33 +29,49 @@ elif '--default' in sys.argv:
 
 else:
 
+# Retrieve list with kpp file in mechanisms folder
     file_list = glob.glob('mechanisms/*.kpp')
-    file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
-  
 
-    print 'Select file(s) to open: \n\n'
+# Remove emission and deposition files from file list
+    try:
+        file_list.remove('mechanisms/emiss.kpp')
+    except:
+        pass
+    try:
+        file_list.remove('mechanisms/depos.kpp')
+    except:
+        pass
+# Sort files by modified dated
+    file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
+# Add options for emissions and deposisitions
+    file_list.append('emiss.dat (from InitCons)')
+    file_list.append('depos.dat (from InitCons using standard vd)')
+    file_list.append('depos.dat (from InitCons without standard vd)')
+
+
+    print '\n\n\033[92mSelect file(s) for KPP in the correct order\n' \
+        +'(1. organic files, 2.inorganic files, 3. emission/deposition files): \033[0m\n\n'
     for i,f in enumerate(file_list): print '%3d'%i , ' - ', f.replace('mechanisms/','')
-     
+
     selected_files = filter(lambda x: len(x)>0 ,   raw_input('Enter Number(s)\n').split(' '))
-   
-        
+    file_list[-3:] = ['mechanisms/emiss.kpp', 'mechanisms/depos.kpp', 'mechanisms/depos.kpp'] # define file names
+
+
+
     #automatically select inorganic if organic only file selected
     if (len(selected_files)==1) & ('organic' in file_list[int(selected_files[0])]): myinclude.append('\n#INCLUDE ./mechanisms/inorganic.kpp\n')
 
-    
+
+    for i in selected_files:
+        if len(i) > 0:
+            myinclude.append('#INCLUDE '+file_list[int(i)]+'\n')
+            #if(int(i)==len(file_list)-3: os.system('cd mechanisms && perl makedepos.pl "')
 
 
-    
-    for i in selected_files: 
-    
-        if len(i) > 0:   myinclude.append('#INCLUDE '+file_list[int(i)]+'\n')
-
-
-
-if '--custom' in sys.argv: 
-        addstr=custom 
+if '--custom' in sys.argv:
+        addstr=custom
 else:
-        addstr = "".join(reversed(myinclude))
+        addstr = "".join(myinclude)
 
 
 modelstring ='''
@@ -64,7 +80,7 @@ modelstring ='''
 
 
 
-#INCLUDE ./src/background/mechswitches.kpp //KEEP! 
+#INCLUDE ./src/background/mechswitches.kpp //KEEP!
 
 
 '''+addstr+'''
@@ -118,3 +134,22 @@ ALL_SPEC = 0.;
 
 with open("model.kpp", 'w') as f:
     f.write(modelstring)
+
+selected_files = map(int, selected_files)
+
+# Save file list of selected file as script input
+kpp_files = []
+for i in selected_files:
+    if i < len(file_list)-3:
+        file_list[i]
+        kpp_files.append((file_list[i].replace('mechanisms/','').replace('.kpp','')))
+kpp_files = '"'+" ".join(kpp_files)+'"'
+# for i in selected_files:
+#     print " ".join(file_list[int(i)])
+
+# Generate correct ini kpp files
+for i in selected_files:
+    if i == len(file_list)-3: os.system('cd mechanisms && ./makeemiss.pl '+kpp_files+' && cd ..')
+    if i == len(file_list)-2: os.system('cd mechanisms && ./makedepos.pl '+kpp_files+' && cd ..')
+    if i == len(file_list)-1: os.system('cd mechanisms && ./makedepos.pl '+kpp_files+' ../InitCons/depos.dat 0 && cd ..')
+
