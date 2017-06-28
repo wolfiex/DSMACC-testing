@@ -121,7 +121,7 @@ fast2tuv['51'] = 132
 
 mapping = [
         
-['O','O(3P)'],['ClNO3','ClONO2'],['ClNO2','ClONO'],['HO','OH'],['BrNO3','BrONO2'],['BrNO2','BrONO']
+['O','O(3P)'],['ClNO3','ClONO2'],['ClNO2','ClONO'],['HO','OH'],['BrNO3','BrONO2'],['BrNO2','BrONO'],['ALD2','CH3CHO']
 
 
 ]
@@ -141,6 +141,11 @@ direct_mapping = {
 56:132,
 77:69,
 84:41,
+102:92,
+59:333,
+47:115,
+48:117,
+49:118
 
 
 }
@@ -183,7 +188,7 @@ for x in fastjx: ismatch(x)
 found  = multiprocessing.Pool(ncores).map(ismatch,fastjx)
 
 
-toadd =[6,25,34,66,70,93,94,94,96,97,99,100,104,105]
+toadd =[6,25,34,66,70,93,94,96,97,99,100,104,105,53,54,55,69,68,89,90,98,]
 for i in enumerate(found,1): print i 
 
 
