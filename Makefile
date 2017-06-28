@@ -80,7 +80,7 @@ distclean: clean clear # clean all !
 tuv: # compile tuv!
 	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
 	cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params .
-	cd TUV_5.2.1 && make clean && make && cd ../
+	-cd TUV_5.2.1 && make clean && make && cd ../
 
 large: # functions to deal with large mechanisms that wont compile !
 	./src/large_mechanisms.py model_Jacobian*.f90
@@ -101,7 +101,7 @@ new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs
 
-kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs # makes kpp using the model.kpp file in src!
 	touch model
 	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
 	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)
@@ -111,7 +111,7 @@ kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
 	cd $(KPP_PATH)src && make
 	./src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
-	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 
 kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
@@ -120,7 +120,7 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	cd mechanisms && ./makedepos.pl && cd ../
 	./src/background/makemodeldotkpp.py --custom
 	cp src/constants.f90 ./model_constants.f90
-	./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 
 
 ini: # generate kpp files with emission and deposition data

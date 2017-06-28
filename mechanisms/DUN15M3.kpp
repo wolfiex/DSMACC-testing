@@ -14,10 +14,10 @@
 * 5275, 2012), for the beta-caryophyllene scheme and (Jenkin et al., ;
 * Atmos. Chem. Phys., 15, 11433, 2015), for the isoprene scheme.    * ;
 ********************************************************************* ;}
-#INLINE F90_GLOBAL 
- REAL(dp)::M, N2, O2, RO2, H2O 
+#INLINE F90_GLOBAL
+ REAL(dp)::M, N2, O2, RO2, H2O
  #ENDINLINE {above lines go into MODULE KPP_ROOT_Global}
-#INCLUDE atoms 
+#INCLUDE atoms
 #DEFVAR
 NC826OH = IGNORE ;
 HEX3ONANO3 = IGNORE ;
@@ -2440,149 +2440,149 @@ C817OH = IGNORE ;
 C42NO33O2 = IGNORE ;
 C61CO = IGNORE ;
 { Peroxy radicals. }
-#INLINE F90_RCONST 
+#INLINE F90_RCONST
  USE constants
- !end of USE statements 
+ !end of USE statements
  !
  ! start of executable statements
- RO2 = & 
- C(ind_CH3O2) + C(ind_C2H5O2) + C(ind_IC3H7O2) + C(ind_NC3H7O2) + & 
-   C(ind_NC4H9O2) + C(ind_SC4H9O2) + C(ind_IC4H9O2) + C(ind_TC4H9O2) + &  
-   C(ind_PEAO2) + C(ind_PEBO2) + C(ind_PECO2) + C(ind_IPEAO2) + &  
-   C(ind_IPEBO2) + C(ind_IPECO2) + C(ind_HEXAO2) + C(ind_HEXBO2) + &  
-   C(ind_HEXCO2) + C(ind_M2PEAO2) + C(ind_M2PEBO2) + C(ind_M2PECO2) + &  
-   C(ind_M2PEDO2) + C(ind_M3PEAO2) + C(ind_M3PEBO2) + C(ind_M3PECO2) + &  
-   C(ind_HEPTO2) + C(ind_OCTO2) + C(ind_NONO2) + C(ind_DECO2) + &  
-   C(ind_UDECO2) + C(ind_DDECO2) + C(ind_ETHENO3O2) + C(ind_HOCH2CH2O2) + &  
-   C(ind_PRONO3AO2) + C(ind_PRONO3BO2) + C(ind_HYPROPO2) + &  
-   C(ind_IPROPOLO2) + C(ind_BU1ENO3O2) + C(ind_C43NO34O2) + &  
-   C(ind_HO3C4O2) + C(ind_NBUTOLAO2) + C(ind_C42NO33O2) + C(ind_BUT2OLO2) &  
-   + C(ind_MPRANO3O2) + C(ind_MPRBNO3O2) + C(ind_IBUTOLBO2) + &  
-   C(ind_TBUTOLO2) + C(ind_C51NO32O2) + C(ind_C52NO31O2) + &  
-   C(ind_PE1ENEAO2) + C(ind_PE1ENEBO2) + C(ind_C52NO33O2) + &  
-   C(ind_C53NO32O2) + C(ind_PE2ENEAO2) + C(ind_PE2ENEBO2) + &  
-   C(ind_NBUTDAO2) + C(ind_NBUTDBO2) + C(ind_BUTDAO2) + C(ind_BUTDBO2) + &  
-   C(ind_BUTDCO2) + C(ind_NISOPO2) + C(ind_ISOP34O2) + C(ind_CH3CO3) + &  
-   C(ind_HCOCH2O2) + C(ind_C3H7CO3) + C(ind_BUTALO2) + C(ind_IPRCO3) + &  
-   C(ind_IBUTALBO2) + C(ind_IBUTALCO2) + C(ind_C4H9CO3) + C(ind_C4CHOBO2) &  
-   + C(ind_BUT2CO3) + C(ind_C3ME3CO3) + C(ind_C3ME3CHOO2) + &  
-   C(ind_C5H11CO3) + C(ind_HO1C3O2) + C(ind_NBUTOLBO2) + C(ind_CH3C2H2O2) &  
-   + C(ind_MACO3) + C(ind_MACRO2) + C(ind_MACROHO2) + C(ind_CH3COCH2O2) + &  
-   C(ind_MEKAO2) + C(ind_MEKBO2) + C(ind_MEKCO2) + C(ind_CO2C54O2) + &  
-   C(ind_MPRKAO2) + C(ind_HEX2ONAO2) + C(ind_HEX2ONBO2) + &  
-   C(ind_HEX2ONCO2) + C(ind_MIBKAO2) + C(ind_MIBKBO2) + C(ind_CYHXONAO2) &  
-   + C(ind_HMVKAO2) + C(ind_HMVKBO2) + C(ind_NAPINAO2) + C(ind_NAPINBO2) &  
-   + C(ind_APINAO2) + C(ind_APINBO2) + C(ind_APINCO2) + C(ind_NLIMO2) + &  
-   C(ind_LIMAO2) + C(ind_LIMBO2) + C(ind_LIMCO2) + C(ind_C2H5CO3) + &  
-   C(ind_ACO3) + C(ind_ACRO2) + C(ind_OCCOHCO2) + C(ind_MVKO2) + &  
-   C(ind_CISOPAO2) + C(ind_ISOPBO2) + C(ind_CISOPCO2) + C(ind_ISOPDO2) + &  
-   C(ind_NC526O2) + C(ind_C530O2) + C(ind_M3BU3ECO3) + C(ind_C45O2) + &  
-   C(ind_NC51O2) + C(ind_C51O2) + C(ind_CH2CHCH2O2) + C(ind_ISOPAO2) + &  
-   C(ind_ISOPCO2) + C(ind_C107O2) + C(ind_C109O2) + C(ind_C96O2) + &  
-   C(ind_LIMALAO2) + C(ind_LIMALBO2) + C(ind_C923O2) + C(ind_HO1C4O2) + &  
-   C(ind_IBUTOLCO2) + C(ind_HO1C5O2) + C(ind_HO2C5O2) + C(ind_DIEKAO2) + &  
-   C(ind_DIEKBO2) + C(ind_HO3C5O2) + C(ind_C52O2) + C(ind_HM2C43O2) + &  
-   C(ind_M2BUOL2O2) + C(ind_H2M3C4O2) + C(ind_ME2BUOLO2) + C(ind_MIPKAO2) &  
-   + C(ind_MIPKBO2) + C(ind_HO2M2C4O2) + C(ind_ME2BU2OLO2) + &  
-   C(ind_PROL11MO2) + C(ind_HO1C6O2) + C(ind_HO2C6O2) + C(ind_HO3C6O2) + &  
-   C(ind_HEX3ONAO2) + C(ind_HEX3ONBO2) + C(ind_HEX3ONCO2) + &  
-   C(ind_HEX3ONDO2) + C(ind_HO1MC5O2) + C(ind_C54CO3) + C(ind_HO2MC5O2) + &  
-   C(ind_EIPKAO2) + C(ind_EIPKBO2) + C(ind_HO2M2C5O2) + C(ind_H1MC5O2) + &  
-   C(ind_M3C4CO3) + C(ind_H2MC5O2) + C(ind_M2BKAO2) + C(ind_M2BKBO2) + &  
-   C(ind_HO3C76O2) + C(ind_CO3C75O2) + C(ind_HO3C86O2) + C(ind_CO3C85O2) &  
-   + C(ind_HO3C96O2) + C(ind_C91O2) + C(ind_HO3C106O2) + C(ind_C101O2) + &  
-   C(ind_HO3C116O2) + C(ind_C111O2) + C(ind_HO3C126O2) + C(ind_C121O2) + &  
-   C(ind_NO3CH2CO3) + C(ind_HOCH2CO3) + C(ind_PRNO3CO3) + &  
-   C(ind_CH3CHOHCO3) + C(ind_HCOCO3) + C(ind_CO3C4NO3O2) + &  
-   C(ind_HO3C3CO3) + C(ind_MPRBNO3CO3) + C(ind_IPRHOCO3) + &  
-   C(ind_C5NO3COAO2) + C(ind_C4NO3CO3) + C(ind_C5OH2CO4O2) + &  
-   C(ind_C4OHCO3) + C(ind_C5NO3CO4O2) + C(ind_C5CONO34O2) + &  
-   C(ind_HNMVKO2) + C(ind_NC3CO3) + C(ind_C42O2) + C(ind_HC3CO3) + &  
-   C(ind_C41O2) + C(ind_MVKOHAO2) + C(ind_MVKOHBO2) + C(ind_HC3CCO3) + &  
-   C(ind_INCO2) + C(ind_NC4CO3) + C(ind_C510O2) + C(ind_C536O2) + &  
-   C(ind_C537O2) + C(ind_INAO2) + C(ind_C58O2) + C(ind_HC4CO3) + &  
-   C(ind_CO2C3CO3) + C(ind_C4CO2O2) + C(ind_HO2C3CO3) + C(ind_HOIPRCO3) + &  
-   C(ind_IBUDIALCO3) + C(ind_PROPALO2) + C(ind_CO3C4CO3) + &  
-   C(ind_HO3C4CO3) + C(ind_H2M2C3CO3) + C(ind_HOC2H4CO3) + &  
-   C(ind_MACRNCO3) + C(ind_MACRNBCO3) + C(ind_CHOMOHCO3) + &  
-   C(ind_HO1CO3C4O2) + C(ind_BIACETO2) + C(ind_HO2CO4C5O2) + &  
-   C(ind_CO24C53O2) + C(ind_CO23C54O2) + C(ind_CO2HOC61O2) + &  
-   C(ind_CO24C6O2) + C(ind_CO25C6O2) + C(ind_HO2C4O2) + C(ind_C61O2) + &  
-   C(ind_CO23C65O2) + C(ind_MIBKHO4O2) + C(ind_MIBKAOHAO2) + &  
-   C(ind_MIBKAOHBO2) + C(ind_MIBK3COO2) + C(ind_C6COCHOO2) + &  
-   C(ind_CY6DIONO2) + C(ind_CO2H3CO3) + C(ind_NC101O2) + C(ind_C96CO3) + &  
-   C(ind_C720O2) + C(ind_C923CO3) + C(ind_A2PANOO) + C(ind_HCOCOHCO3) + &  
-   C(ind_C527O2) + C(ind_C526O2) + C(ind_HC4ACO3) + C(ind_C58AO2) + &  
-   C(ind_INB1O2) + C(ind_INB2O2) + C(ind_HPC52O2) + C(ind_HC4CCO3) + &  
-   C(ind_C57AO2) + C(ind_C57O2) + C(ind_INDO2) + C(ind_C59O2) + &  
-   C(ind_C524O2) + C(ind_CONM2CO3) + C(ind_CO2N3CO3) + C(ind_PINALO2) + &  
-   C(ind_C108O2) + C(ind_C89CO3) + C(ind_C920CO3) + C(ind_C920O2) + &  
-   C(ind_C97O2) + C(ind_C85CO3) + C(ind_C85O2) + C(ind_C719O2) + &  
-   C(ind_NLIMALO2) + C(ind_LIMALO2) + C(ind_C729CO3) + C(ind_C822CO3) + &  
-   C(ind_C924O2) + C(ind_C816CO3) + C(ind_NORLIMO2) + C(ind_C816O2) + &  
-   C(ind_NLMKAO2) + C(ind_LMKAO2) + C(ind_LMKBO2) + C(ind_HOC3H6CO3) + &  
-   C(ind_HO2C4CO3) + C(ind_HOCO3C54O2) + C(ind_HO13C5O2) + &  
-   C(ind_HOIBUTCO3) + C(ind_C56O2) + C(ind_HO2C43CO3) + C(ind_C53O2) + &  
-   C(ind_C41CO3) + C(ind_C54O2) + C(ind_PROL1MCO3) + C(ind_C63O2) + &  
-   C(ind_HO3C5CO3) + C(ind_C6CO3OH5O2) + C(ind_C6CO34O2) + &  
-   C(ind_C6HO1CO3O2) + C(ind_C3COCCO3) + C(ind_PEN2ONE1O2) + C(ind_C64O2) &  
-   + C(ind_HO2C54O2) + C(ind_HO2C54CO3) + C(ind_C66O2) + C(ind_CO3C54CO3) &  
-   + C(ind_H2M2C4CO3) + C(ind_C67O2) + C(ind_C610O2) + C(ind_H2M3C4CO3) + &  
-   C(ind_C68O2) + C(ind_C69O2) + C(ind_C611O2) + C(ind_C71O2) + &  
-   C(ind_C82O2) + C(ind_C81O2) + C(ind_HO5C6O2) + C(ind_C93O2) + &  
-   C(ind_C92O2) + C(ind_HO6C7O2) + C(ind_C103O2) + C(ind_C102O2) + &  
-   C(ind_HO7C8O2) + C(ind_C113O2) + C(ind_C112O2) + C(ind_HO8C9O2) + &  
-   C(ind_C123O2) + C(ind_C122O2) + C(ind_C3NO3COO2) + C(ind_H13CO2CO3) + &  
-   C(ind_C534O2) + C(ind_C3MCODBCO3) + C(ind_MC3CODBCO3) + &  
-   C(ind_C4M2ALOHO2) + C(ind_C535O2) + C(ind_C58NO3CO3) + C(ind_C62O2) + &  
-   C(ind_HO13C4O2) + C(ind_MIBKCOOHO2) + C(ind_C6COCHOCO3) + &  
-   C(ind_C5COCHOO2) + C(ind_CHOC2H4O2) + C(ind_HCOCH2CO3) + &  
-   C(ind_CY6TRIONO2) + C(ind_C6CYTONO2) + C(ind_NC102O2) + C(ind_C926O2) &  
-   + C(ind_C817CO3) + C(ind_C817O2) + C(ind_NC826O2) + C(ind_C826O2) + &  
-   C(ind_C729O2) + C(ind_LMLKAO2) + C(ind_LMLKBO2) + C(ind_CO2C4CO3) + &  
-   C(ind_HOBUT2CO3) + C(ind_CO3C5CO3) + C(ind_CO2C54CO3) + C(ind_C65O2) + &  
-   C(ind_CO2M3C4CO3) + C(ind_C72O2) + C(ind_CO25C73O2) + C(ind_CO25C74O2) &  
-   + C(ind_C84O2) + C(ind_C94O2) + C(ind_C104O2) + C(ind_C114O2) + &  
-   C(ind_C6H13CO3) + C(ind_C124O2) + C(ind_C3DIOLO2) + C(ind_C531O2) + &  
-   C(ind_INCNCO3) + C(ind_IEACO3) + C(ind_C3MDIALO2) + C(ind_CH3COCO3) + &  
-   C(ind_NPXYFUO2) + C(ind_MCOCOMOXO2) + C(ind_PXYFUO2) + C(ind_IECCO3) + &  
-   C(ind_HPC52CO3) + C(ind_INDHCO3) + C(ind_C57NO3CO3) + C(ind_INAHPCO3) &  
-   + C(ind_INANCO3) + C(ind_INAHCO3) + C(ind_NC524O2) + C(ind_C525O2) + &  
-   C(ind_HMACO3) + C(ind_HMACRO2) + C(ind_COHM2CO3) + C(ind_C106O2) + &  
-   C(ind_C717O2) + C(ind_C811CO3) + C(ind_C89O2) + C(ind_C921O2) + &  
-   C(ind_C98O2) + C(ind_C86O2) + C(ind_C626CO3) + C(ind_C626O2) + &  
-   C(ind_C735O2) + C(ind_C822O2) + C(ind_C823CO3) + C(ind_C925O2) + &  
-   C(ind_C622CO3) + C(ind_C42CO3) + C(ind_H13C43CO3) + C(ind_HO24C5O2) + &  
-   C(ind_C55O2) + C(ind_C67CO3) + C(ind_HO4C5CO3) + C(ind_HO5C5CO3) + &  
-   C(ind_HO5C6CO3) + C(ind_HO6C7CO3) + C(ind_HO7C8CO3) + C(ind_HO8C9CO3) &  
-   + C(ind_C5CO234O2) + C(ind_C47CO3) + C(ind_INB1HPCO3) + &  
-   C(ind_INB1NACO3) + C(ind_INB1NBCO3) + C(ind_MMALNACO3) + &  
-   C(ind_MMALNBCO3) + C(ind_INDHPCO3) + C(ind_INANCOCO3) + C(ind_HIEB1O2) &  
-   + C(ind_HIEB2O2) + C(ind_HO13C3CO3) + C(ind_CHOC2CO3) + &  
-   C(ind_CHOC3COCO3) + C(ind_C5124COCO3) + C(ind_CO235C6CO3) + &  
-   C(ind_NC71O2) + C(ind_C811O2) + C(ind_CHOC3COO2) + C(ind_H3C25C6CO3) + &  
-   C(ind_H3C25C6O2) + C(ind_C818O2) + C(ind_C727CO3) + C(ind_NC728O2) + &  
-   C(ind_C728O2) + C(ind_C622O2) + C(ind_C823O2) + C(ind_C819O2) + &  
-   C(ind_C731CO3) + C(ind_CO23C4CO3) + C(ind_C5CO34CO3) + &  
-   C(ind_C23C54CO3) + C(ind_C73O2) + C(ind_C74O2) + C(ind_C83O2) + &  
-   C(ind_C4COMOH3O2) + C(ind_C95O2) + C(ind_C105O2) + C(ind_C115O2) + &  
-   C(ind_C125O2) + C(ind_C31CO3) + C(ind_C533O2) + C(ind_MMALANHYO2) + &  
-   C(ind_C5124COO2) + C(ind_CO235C6O2) + C(ind_C716O2) + C(ind_C810O2) + &  
-   C(ind_C922O2) + C(ind_C614O2) + C(ind_C511O2) + C(ind_CO25C6CO3) + &  
-   C(ind_C627O2) + C(ind_C727O2) + C(ind_C511CO3) + C(ind_C517CO3) + &  
-   C(ind_C517O2) + C(ind_C628O2) + C(ind_C824O2) + C(ind_C5CO23O2) + &  
-   C(ind_HO24C4CO3) + C(ind_C23O3CCO3) + C(ind_C812O2) + C(ind_C721CO3) + &  
-   C(ind_C721O2) + C(ind_H3C2C4CO3) + C(ind_C820O2) + C(ind_C518CO3) + &  
-   C(ind_NC623O2) + C(ind_C623O2) + C(ind_C825O2) + C(ind_C731O2) + &  
-   C(ind_C732CO3) + C(ind_C312COCO3) + C(ind_CHOCOCH2O2) + C(ind_NC72O2) &  
-   + C(ind_C514O2) + C(ind_C621O2) + C(ind_C821O2) + C(ind_HMVKBCO3) + &  
-   C(ind_C520O2) + C(ind_C624CO3) + C(ind_C732O2) + C(ind_C813O2) + &  
-   C(ind_C722O2) + C(ind_NC730O2) + C(ind_C730O2) + C(ind_C624O2) + &  
-   C(ind_C733O2) + C(ind_NC61CO3) + C(ind_C519CO3) + C(ind_C629O2) + &  
-   C(ind_C734O2) + C(ind_C516O2) + C(ind_C44O2) + C(ind_H1C23C4CO3) + &  
-   C(ind_H1C23C4O2) + C(ind_C519O2) + C(ind_C625O2 ) 
- CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O) 
- #ENDINLINE 
+ RO2 = &
+ C(ind_CH3O2) + C(ind_C2H5O2) + C(ind_IC3H7O2) + C(ind_NC3H7O2) + &
+   C(ind_NC4H9O2) + C(ind_SC4H9O2) + C(ind_IC4H9O2) + C(ind_TC4H9O2) + &
+   C(ind_PEAO2) + C(ind_PEBO2) + C(ind_PECO2) + C(ind_IPEAO2) + &
+   C(ind_IPEBO2) + C(ind_IPECO2) + C(ind_HEXAO2) + C(ind_HEXBO2) + &
+   C(ind_HEXCO2) + C(ind_M2PEAO2) + C(ind_M2PEBO2) + C(ind_M2PECO2) + &
+   C(ind_M2PEDO2) + C(ind_M3PEAO2) + C(ind_M3PEBO2) + C(ind_M3PECO2) + &
+   C(ind_HEPTO2) + C(ind_OCTO2) + C(ind_NONO2) + C(ind_DECO2) + &
+   C(ind_UDECO2) + C(ind_DDECO2) + C(ind_ETHENO3O2) + C(ind_HOCH2CH2O2) + &
+   C(ind_PRONO3AO2) + C(ind_PRONO3BO2) + C(ind_HYPROPO2) + &
+   C(ind_IPROPOLO2) + C(ind_BU1ENO3O2) + C(ind_C43NO34O2) + &
+   C(ind_HO3C4O2) + C(ind_NBUTOLAO2) + C(ind_C42NO33O2) + C(ind_BUT2OLO2) &
+   + C(ind_MPRANO3O2) + C(ind_MPRBNO3O2) + C(ind_IBUTOLBO2) + &
+   C(ind_TBUTOLO2) + C(ind_C51NO32O2) + C(ind_C52NO31O2) + &
+   C(ind_PE1ENEAO2) + C(ind_PE1ENEBO2) + C(ind_C52NO33O2) + &
+   C(ind_C53NO32O2) + C(ind_PE2ENEAO2) + C(ind_PE2ENEBO2) + &
+   C(ind_NBUTDAO2) + C(ind_NBUTDBO2) + C(ind_BUTDAO2) + C(ind_BUTDBO2) + &
+   C(ind_BUTDCO2) + C(ind_NISOPO2) + C(ind_ISOP34O2) + C(ind_CH3CO3) + &
+   C(ind_HCOCH2O2) + C(ind_C3H7CO3) + C(ind_BUTALO2) + C(ind_IPRCO3) + &
+   C(ind_IBUTALBO2) + C(ind_IBUTALCO2) + C(ind_C4H9CO3) + C(ind_C4CHOBO2) &
+   + C(ind_BUT2CO3) + C(ind_C3ME3CO3) + C(ind_C3ME3CHOO2) + &
+   C(ind_C5H11CO3) + C(ind_HO1C3O2) + C(ind_NBUTOLBO2) + C(ind_CH3C2H2O2) &
+   + C(ind_MACO3) + C(ind_MACRO2) + C(ind_MACROHO2) + C(ind_CH3COCH2O2) + &
+   C(ind_MEKAO2) + C(ind_MEKBO2) + C(ind_MEKCO2) + C(ind_CO2C54O2) + &
+   C(ind_MPRKAO2) + C(ind_HEX2ONAO2) + C(ind_HEX2ONBO2) + &
+   C(ind_HEX2ONCO2) + C(ind_MIBKAO2) + C(ind_MIBKBO2) + C(ind_CYHXONAO2) &
+   + C(ind_HMVKAO2) + C(ind_HMVKBO2) + C(ind_NAPINAO2) + C(ind_NAPINBO2) &
+   + C(ind_APINAO2) + C(ind_APINBO2) + C(ind_APINCO2) + C(ind_NLIMO2) + &
+   C(ind_LIMAO2) + C(ind_LIMBO2) + C(ind_LIMCO2) + C(ind_C2H5CO3) + &
+   C(ind_ACO3) + C(ind_ACRO2) + C(ind_OCCOHCO2) + C(ind_MVKO2) + &
+   C(ind_CISOPAO2) + C(ind_ISOPBO2) + C(ind_CISOPCO2) + C(ind_ISOPDO2) + &
+   C(ind_NC526O2) + C(ind_C530O2) + C(ind_M3BU3ECO3) + C(ind_C45O2) + &
+   C(ind_NC51O2) + C(ind_C51O2) + C(ind_CH2CHCH2O2) + C(ind_ISOPAO2) + &
+   C(ind_ISOPCO2) + C(ind_C107O2) + C(ind_C109O2) + C(ind_C96O2) + &
+   C(ind_LIMALAO2) + C(ind_LIMALBO2) + C(ind_C923O2) + C(ind_HO1C4O2) + &
+   C(ind_IBUTOLCO2) + C(ind_HO1C5O2) + C(ind_HO2C5O2) + C(ind_DIEKAO2) + &
+   C(ind_DIEKBO2) + C(ind_HO3C5O2) + C(ind_C52O2) + C(ind_HM2C43O2) + &
+   C(ind_M2BUOL2O2) + C(ind_H2M3C4O2) + C(ind_ME2BUOLO2) + C(ind_MIPKAO2) &
+   + C(ind_MIPKBO2) + C(ind_HO2M2C4O2) + C(ind_ME2BU2OLO2) + &
+   C(ind_PROL11MO2) + C(ind_HO1C6O2) + C(ind_HO2C6O2) + C(ind_HO3C6O2) + &
+   C(ind_HEX3ONAO2) + C(ind_HEX3ONBO2) + C(ind_HEX3ONCO2) + &
+   C(ind_HEX3ONDO2) + C(ind_HO1MC5O2) + C(ind_C54CO3) + C(ind_HO2MC5O2) + &
+   C(ind_EIPKAO2) + C(ind_EIPKBO2) + C(ind_HO2M2C5O2) + C(ind_H1MC5O2) + &
+   C(ind_M3C4CO3) + C(ind_H2MC5O2) + C(ind_M2BKAO2) + C(ind_M2BKBO2) + &
+   C(ind_HO3C76O2) + C(ind_CO3C75O2) + C(ind_HO3C86O2) + C(ind_CO3C85O2) &
+   + C(ind_HO3C96O2) + C(ind_C91O2) + C(ind_HO3C106O2) + C(ind_C101O2) + &
+   C(ind_HO3C116O2) + C(ind_C111O2) + C(ind_HO3C126O2) + C(ind_C121O2) + &
+   C(ind_NO3CH2CO3) + C(ind_HOCH2CO3) + C(ind_PRNO3CO3) + &
+   C(ind_CH3CHOHCO3) + C(ind_HCOCO3) + C(ind_CO3C4NO3O2) + &
+   C(ind_HO3C3CO3) + C(ind_MPRBNO3CO3) + C(ind_IPRHOCO3) + &
+   C(ind_C5NO3COAO2) + C(ind_C4NO3CO3) + C(ind_C5OH2CO4O2) + &
+   C(ind_C4OHCO3) + C(ind_C5NO3CO4O2) + C(ind_C5CONO34O2) + &
+   C(ind_HNMVKO2) + C(ind_NC3CO3) + C(ind_C42O2) + C(ind_HC3CO3) + &
+   C(ind_C41O2) + C(ind_MVKOHAO2) + C(ind_MVKOHBO2) + C(ind_HC3CCO3) + &
+   C(ind_INCO2) + C(ind_NC4CO3) + C(ind_C510O2) + C(ind_C536O2) + &
+   C(ind_C537O2) + C(ind_INAO2) + C(ind_C58O2) + C(ind_HC4CO3) + &
+   C(ind_CO2C3CO3) + C(ind_C4CO2O2) + C(ind_HO2C3CO3) + C(ind_HOIPRCO3) + &
+   C(ind_IBUDIALCO3) + C(ind_PROPALO2) + C(ind_CO3C4CO3) + &
+   C(ind_HO3C4CO3) + C(ind_H2M2C3CO3) + C(ind_HOC2H4CO3) + &
+   C(ind_MACRNCO3) + C(ind_MACRNBCO3) + C(ind_CHOMOHCO3) + &
+   C(ind_HO1CO3C4O2) + C(ind_BIACETO2) + C(ind_HO2CO4C5O2) + &
+   C(ind_CO24C53O2) + C(ind_CO23C54O2) + C(ind_CO2HOC61O2) + &
+   C(ind_CO24C6O2) + C(ind_CO25C6O2) + C(ind_HO2C4O2) + C(ind_C61O2) + &
+   C(ind_CO23C65O2) + C(ind_MIBKHO4O2) + C(ind_MIBKAOHAO2) + &
+   C(ind_MIBKAOHBO2) + C(ind_MIBK3COO2) + C(ind_C6COCHOO2) + &
+   C(ind_CY6DIONO2) + C(ind_CO2H3CO3) + C(ind_NC101O2) + C(ind_C96CO3) + &
+   C(ind_C720O2) + C(ind_C923CO3) + C(ind_A2PANOO) + C(ind_HCOCOHCO3) + &
+   C(ind_C527O2) + C(ind_C526O2) + C(ind_HC4ACO3) + C(ind_C58AO2) + &
+   C(ind_INB1O2) + C(ind_INB2O2) + C(ind_HPC52O2) + C(ind_HC4CCO3) + &
+   C(ind_C57AO2) + C(ind_C57O2) + C(ind_INDO2) + C(ind_C59O2) + &
+   C(ind_C524O2) + C(ind_CONM2CO3) + C(ind_CO2N3CO3) + C(ind_PINALO2) + &
+   C(ind_C108O2) + C(ind_C89CO3) + C(ind_C920CO3) + C(ind_C920O2) + &
+   C(ind_C97O2) + C(ind_C85CO3) + C(ind_C85O2) + C(ind_C719O2) + &
+   C(ind_NLIMALO2) + C(ind_LIMALO2) + C(ind_C729CO3) + C(ind_C822CO3) + &
+   C(ind_C924O2) + C(ind_C816CO3) + C(ind_NORLIMO2) + C(ind_C816O2) + &
+   C(ind_NLMKAO2) + C(ind_LMKAO2) + C(ind_LMKBO2) + C(ind_HOC3H6CO3) + &
+   C(ind_HO2C4CO3) + C(ind_HOCO3C54O2) + C(ind_HO13C5O2) + &
+   C(ind_HOIBUTCO3) + C(ind_C56O2) + C(ind_HO2C43CO3) + C(ind_C53O2) + &
+   C(ind_C41CO3) + C(ind_C54O2) + C(ind_PROL1MCO3) + C(ind_C63O2) + &
+   C(ind_HO3C5CO3) + C(ind_C6CO3OH5O2) + C(ind_C6CO34O2) + &
+   C(ind_C6HO1CO3O2) + C(ind_C3COCCO3) + C(ind_PEN2ONE1O2) + C(ind_C64O2) &
+   + C(ind_HO2C54O2) + C(ind_HO2C54CO3) + C(ind_C66O2) + C(ind_CO3C54CO3) &
+   + C(ind_H2M2C4CO3) + C(ind_C67O2) + C(ind_C610O2) + C(ind_H2M3C4CO3) + &
+   C(ind_C68O2) + C(ind_C69O2) + C(ind_C611O2) + C(ind_C71O2) + &
+   C(ind_C82O2) + C(ind_C81O2) + C(ind_HO5C6O2) + C(ind_C93O2) + &
+   C(ind_C92O2) + C(ind_HO6C7O2) + C(ind_C103O2) + C(ind_C102O2) + &
+   C(ind_HO7C8O2) + C(ind_C113O2) + C(ind_C112O2) + C(ind_HO8C9O2) + &
+   C(ind_C123O2) + C(ind_C122O2) + C(ind_C3NO3COO2) + C(ind_H13CO2CO3) + &
+   C(ind_C534O2) + C(ind_C3MCODBCO3) + C(ind_MC3CODBCO3) + &
+   C(ind_C4M2ALOHO2) + C(ind_C535O2) + C(ind_C58NO3CO3) + C(ind_C62O2) + &
+   C(ind_HO13C4O2) + C(ind_MIBKCOOHO2) + C(ind_C6COCHOCO3) + &
+   C(ind_C5COCHOO2) + C(ind_CHOC2H4O2) + C(ind_HCOCH2CO3) + &
+   C(ind_CY6TRIONO2) + C(ind_C6CYTONO2) + C(ind_NC102O2) + C(ind_C926O2) &
+   + C(ind_C817CO3) + C(ind_C817O2) + C(ind_NC826O2) + C(ind_C826O2) + &
+   C(ind_C729O2) + C(ind_LMLKAO2) + C(ind_LMLKBO2) + C(ind_CO2C4CO3) + &
+   C(ind_HOBUT2CO3) + C(ind_CO3C5CO3) + C(ind_CO2C54CO3) + C(ind_C65O2) + &
+   C(ind_CO2M3C4CO3) + C(ind_C72O2) + C(ind_CO25C73O2) + C(ind_CO25C74O2) &
+   + C(ind_C84O2) + C(ind_C94O2) + C(ind_C104O2) + C(ind_C114O2) + &
+   C(ind_C6H13CO3) + C(ind_C124O2) + C(ind_C3DIOLO2) + C(ind_C531O2) + &
+   C(ind_INCNCO3) + C(ind_IEACO3) + C(ind_C3MDIALO2) + C(ind_CH3COCO3) + &
+   C(ind_NPXYFUO2) + C(ind_MCOCOMOXO2) + C(ind_PXYFUO2) + C(ind_IECCO3) + &
+   C(ind_HPC52CO3) + C(ind_INDHCO3) + C(ind_C57NO3CO3) + C(ind_INAHPCO3) &
+   + C(ind_INANCO3) + C(ind_INAHCO3) + C(ind_NC524O2) + C(ind_C525O2) + &
+   C(ind_HMACO3) + C(ind_HMACRO2) + C(ind_COHM2CO3) + C(ind_C106O2) + &
+   C(ind_C717O2) + C(ind_C811CO3) + C(ind_C89O2) + C(ind_C921O2) + &
+   C(ind_C98O2) + C(ind_C86O2) + C(ind_C626CO3) + C(ind_C626O2) + &
+   C(ind_C735O2) + C(ind_C822O2) + C(ind_C823CO3) + C(ind_C925O2) + &
+   C(ind_C622CO3) + C(ind_C42CO3) + C(ind_H13C43CO3) + C(ind_HO24C5O2) + &
+   C(ind_C55O2) + C(ind_C67CO3) + C(ind_HO4C5CO3) + C(ind_HO5C5CO3) + &
+   C(ind_HO5C6CO3) + C(ind_HO6C7CO3) + C(ind_HO7C8CO3) + C(ind_HO8C9CO3) &
+   + C(ind_C5CO234O2) + C(ind_C47CO3) + C(ind_INB1HPCO3) + &
+   C(ind_INB1NACO3) + C(ind_INB1NBCO3) + C(ind_MMALNACO3) + &
+   C(ind_MMALNBCO3) + C(ind_INDHPCO3) + C(ind_INANCOCO3) + C(ind_HIEB1O2) &
+   + C(ind_HIEB2O2) + C(ind_HO13C3CO3) + C(ind_CHOC2CO3) + &
+   C(ind_CHOC3COCO3) + C(ind_C5124COCO3) + C(ind_CO235C6CO3) + &
+   C(ind_NC71O2) + C(ind_C811O2) + C(ind_CHOC3COO2) + C(ind_H3C25C6CO3) + &
+   C(ind_H3C25C6O2) + C(ind_C818O2) + C(ind_C727CO3) + C(ind_NC728O2) + &
+   C(ind_C728O2) + C(ind_C622O2) + C(ind_C823O2) + C(ind_C819O2) + &
+   C(ind_C731CO3) + C(ind_CO23C4CO3) + C(ind_C5CO34CO3) + &
+   C(ind_C23C54CO3) + C(ind_C73O2) + C(ind_C74O2) + C(ind_C83O2) + &
+   C(ind_C4COMOH3O2) + C(ind_C95O2) + C(ind_C105O2) + C(ind_C115O2) + &
+   C(ind_C125O2) + C(ind_C31CO3) + C(ind_C533O2) + C(ind_MMALANHYO2) + &
+   C(ind_C5124COO2) + C(ind_CO235C6O2) + C(ind_C716O2) + C(ind_C810O2) + &
+   C(ind_C922O2) + C(ind_C614O2) + C(ind_C511O2) + C(ind_CO25C6CO3) + &
+   C(ind_C627O2) + C(ind_C727O2) + C(ind_C511CO3) + C(ind_C517CO3) + &
+   C(ind_C517O2) + C(ind_C628O2) + C(ind_C824O2) + C(ind_C5CO23O2) + &
+   C(ind_HO24C4CO3) + C(ind_C23O3CCO3) + C(ind_C812O2) + C(ind_C721CO3) + &
+   C(ind_C721O2) + C(ind_H3C2C4CO3) + C(ind_C820O2) + C(ind_C518CO3) + &
+   C(ind_NC623O2) + C(ind_C623O2) + C(ind_C825O2) + C(ind_C731O2) + &
+   C(ind_C732CO3) + C(ind_C312COCO3) + C(ind_CHOCOCH2O2) + C(ind_NC72O2) &
+   + C(ind_C514O2) + C(ind_C621O2) + C(ind_C821O2) + C(ind_HMVKBCO3) + &
+   C(ind_C520O2) + C(ind_C624CO3) + C(ind_C732O2) + C(ind_C813O2) + &
+   C(ind_C722O2) + C(ind_NC730O2) + C(ind_C730O2) + C(ind_C624O2) + &
+   C(ind_C733O2) + C(ind_NC61CO3) + C(ind_C519CO3) + C(ind_C629O2) + &
+   C(ind_C734O2) + C(ind_C516O2) + C(ind_C44O2) + C(ind_H1C23C4CO3) + &
+   C(ind_H1C23C4O2) + C(ind_C519O2) + C(ind_C625O2 )
+ CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
+ #ENDINLINE
 {above lines go into the SUBROUTINES UPDATE_RCONST and UPDATE_PHOTO}
 #EQUATIONS
 {1.} 	 CL + CH4 = CH3O2 : 	6.6D-12*EXP(-1240/TEMP) 	;

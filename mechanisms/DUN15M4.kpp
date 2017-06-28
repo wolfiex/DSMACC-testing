@@ -2568,7 +2568,14 @@ C533O = IGNORE ;
 C817OH = IGNORE ;
 C42NO33O2 = IGNORE ;
 C61CO = IGNORE ;
-O = IGNORE ;
+newRAD = IGNORE ;
+newDBS1 = IGNORE ;
+newDBS2 = IGNORE ;
+newMLC1 = IGNORE ;
+newMLC2 = IGNORE ;
+newMLC3 = IGNORE ;
+newCYC1 = IGNORE ;
+newCYC2 = IGNORE ;
 O = IGNORE ;
 { Peroxy radicals. }
 #INLINE F90_RCONST
@@ -9038,7 +9045,6 @@ O = IGNORE ;
 {7524.} 	 C625OOH + OH = C625O2 : 	3.04D-11 	;
 {7527.} 	 C625O = ACETOL + HOC2H4CO3 : 	KDEC 	;
 {7528.} 	 C625OH + OH = HOC2H4CO3 + ACETOL : 	2.70D-11 	;
-
 
 //Photolysis Reactions of the New Protocol
 {J0001}  NC826OH = newRAD + NO2 :  2.0*(J(1068))+J(4018) ;

@@ -33,43 +33,38 @@ or `make clean`
 
 ## Selecting custom mechanisms
 1. For any mechanism, when you run `make kpp` it will ask you what .kpp
-   mechanism (from the mech. folder) you wish to compile.
-2. Choose all mechanisms needed separately (<Number> + <ENTER>) and exit
-   with the last exit option (<last number> + <ENTER>) when finished.
-3. If you use the default names `organic.kpp` and `inorganic.kpp`, you
-   can run the make command with the `--default` option using:
-   ```
-   make kpp MODELKPP='--default'
-   ```
-   __(No spaces around equal sign of MODELKPP!)__
-4. If you want to use the _model.kpp_ file from the _src_ folder, use
+   mechanism (from the ./mechanisms folder) you wish to compile.
+2. Choose all mechanisms needed- if multiple add a space between each selection.
+3. If only one mechanism is selected, and this contains the word 'organic', then inorganic.kpp shall also automatically be included. 
+4. These is also a custom option available from the makemodeldotkpp.py file. 
+5. If you want to use the _model.kpp_ file from the _src_ folder, use
    `make kpp MODELKPP='--custom'`, which will copy _model.kpp_ from the
    _src_ folder to the main folder.
 
 
 ## How to run
 
-- Ensure tuv is compiled, if in doubt run make tuv should no other error
+- Ensure tuv is compiled, if in doubt run `make tuv` should no other error
   be apparent and the program hangs -
 
 1. Create Init cons csv file (methane.csv as a template)
-  * Different columns are different runs
-  * DEPOS and EMISS are deposition/emission constants; set 1 to enable,
-    0 do disable
-  * Run names are useful, see depos etc for examples.
+      * Different columns are different runs
+      * DEPOS and EMISS are deposition/emission constants; set 1 to enable,
+        0 do disable
+      * Run names are useful, see depos etc for examples.
 2. Run `python begin.py` after setting the number of processes inside
    the script
-  * This makes Init_cons.dat
-  * Generates run files: sdout is in run.sdout, individual run.nc
-  * Concatenates nc files including initial conditions and run time into
-    one grouped netcdf
-  * To see the form of this have a look inside begin.py or read_dsmacc.py
-    in AnalysisTools
+      * This makes Init_cons.dat
+      * Generates run files: sdout is in run.sdout, individual run.nc
+      * Concatenates nc files including initial conditions and run time into
+        one grouped netcdf
+      * To see the form of this have a look inside begin.py or read_dsmacc.py
+        in AnalysisTools
 3. To view files, run:
-  * ipython, then type `run AnalysisTools/read_dsmacc.py <ncfilename>`
-    for interactive play
-  * Run the PDF_concentrations.py file for a time series plot of all the
-    runs (diagnostic purposes) - see pdf files
+      * ipython, then type `run AnalysisTools/read_dsmacc.py <ncfilename>`
+        for interactive play
+      * Run the PDF_concentrations.py file for a time series plot of all the
+        runs (diagnostic purposes) - see pdf files
 
 
 ## Errors
@@ -87,7 +82,18 @@ or `make clean`
 
 * only use a hyphen when providing a model name
 
+## Using different TUV hard-wiring 
+To use a different tuv mapping for your mechanism (e.g. MCM or GEOSCHEM), insert the following into your mechanism file. The default is 1 for the MCM3.3.1 using tuv5. 
 
+                #INLINE F90_INIT
+                  TUVvers = 1
+                #ENDINLINE
+
+Currently the switches correspond to 
+
+| tuv_old | tuv5_mcm3 | tuv5_mcm4 | tuv5_geoschem |
+| :---         |     :---:      |     :---:      |         ---: |
+| 0 | 1 | 2 | 3 |   
 
 ## Makefile
 Type `make man` to see a description of available functions.
@@ -103,7 +109,15 @@ Type `make man` to see a description of available functions.
 - [x] animated ropa plotter (alternatively you can use the online version -
   link to be added soon)
 
+## GEOSCHEM
+Globchem files are included in the mechanisms directory. Photolysis rates for v11 are mapped in the TUV folder as GC11 and are taken from the fastjx engine, whose input file is located in src/background/geos...
 
+Newer globchem.eqns files need to have the photolysis array (PHOTOL(x)) renamed as J(x) and checked that the eqns in GC11.inc are correct. 
+
+There are several methods to run this, although using the make kpp_custom? flag may be easiest provided all the other files are correctly assembled. 
+
+Additionally all the '+ hv' parts of the reactions must be removed. This can be done using `perl -p -i -e 's/\+\h*hv//g' mechanisms/geoschem/globchem.eqn` from the main directory. 
+ 
 
 ## Updating the rate constants
 Rate-constant simplification through the use of a symbolic engine has been
