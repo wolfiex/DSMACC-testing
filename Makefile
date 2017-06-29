@@ -95,11 +95,14 @@ change: # changes organic in model.kpp , define new mech by typing mechanism = <
 
 
 ./Outputs:
-	mkdir Outputs
+	mkdir -p Outputs
 
 new: distclean update_submodule tuv
 	./src/sfmakedepend
-	mkdir Outputs
+	mkdir -p Outputs
+	mkdir -p save
+	mkdir -p save/ncfiles
+	mkdir -p save/exec
 
 kpp: clean | ./Outputs # makes kpp using the model.kpp file in src!
 	touch model
@@ -167,7 +170,8 @@ lsmodels:
 
 #removes a saved model - make rmmodel name=<yourmodelname>
 rmmodel:
-	rm -rfI ./save/exec/$(name)
+	-rm -rfI ./save/exec/$(name)
+	-rm -i ./save/ncfiles/$(name).nc
 
 # list of dependencies (via USE statements)
 include depend.mk

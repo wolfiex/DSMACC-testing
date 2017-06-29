@@ -5,6 +5,7 @@ Init_cons.dat
 *.swo
 *.nc
 *.o
+*.mod
 .nfs*
 model*
 Outputs/
@@ -17,3 +18,5 @@ save/ncfiles/*
 save/exec/*
 ./.git/objects/pack/pack-0cb618f3f4b94d572ea77291beb692bcc6e78668.pack
 ./.git/objects/pack/pack-0cb618f3f4b94d572ea77291beb692bcc6e78668.pack
+./.git/objects/pack/pack-f21ad28f939262fe03a80a7d273a9d667e872841.pack
+./.git/objects/pack/pack-f21ad28f939262fe03a80a7d273a9d667e872841.pack
