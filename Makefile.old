@@ -157,7 +157,8 @@ update_submodule: # print each make function in list!
 	git submodule update
 
 #save model for multi use -  make save name=<yourmodelname>
-savemodel: rmmodel
+savemodel:
+	rm -rf ./save/exec/$(name)
 	mkdir ./save/exec/$(name)
 	python	./src/background/movetotemp.py $(name)
 
@@ -167,7 +168,7 @@ lsmodels:
 
 #removes a saved model - make rmmodel name=<yourmodelname>
 rmmodel:
-	rm -rfI ./save/exec/$(name)
+	rm -rf ./save/exec/$(name)
 
 # list of dependencies (via USE statements)
 include depend.mk
