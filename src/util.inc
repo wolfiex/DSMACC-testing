@@ -156,13 +156,15 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
                         else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
                             SPEC_H2=.TRUE.         
                         end if            
-                    else 
+            
+                        exit 
+                   else 
                      WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
                      WRITE(6,*) SPEC_NAME(I),' NOT FOUND (FIXED) - stopping'
                      stop 
                     endif
                     
-                    continue
+                  
                     
                 enddo
                 
