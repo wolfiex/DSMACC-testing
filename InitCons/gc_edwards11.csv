@@ -17,12 +17,12 @@ O3,O3,0,1.45E-008
 NO2,NO2,0,2.9E-009
 CO,CO,0,0.000000145
 C5H8,ISOP,0,0.000000004
-APINENE *lumped,MTPA,0,2E-010
+APINENE *lumped,XMTPA,0,2E-010
 XLIMONENE,XLIMONENE,0,1.6E-010
 ethane,C2H6,0,9E-010
 propane,C3H8,0,3.5E-010
 nbutane*,ALK4,0,1E-010
 Npentane* added to alk4 – order of mag smaller therefore no diff,XX,0,0
-ethene,C2H4,0,5E-010
-propene,C3H6,0,1.4E-010
+ethene,XC2H4,0,5E-010
+propene,XC3H6,0,1.4E-010
 acetylene,XC2H2,0,4.2E-010
