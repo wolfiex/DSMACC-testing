@@ -101,7 +101,7 @@ new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs
 
-kpp: clean | ./Outputs ini  # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch model
 	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
 	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)
@@ -117,7 +117,6 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
 	rm model
 	cd src/kpp/kpp*/src && make
-	cd mechanisms && ./makedepos.pl && cd ../
 	./src/background/makemodeldotkpp.py --custom
 	cp src/constants.f90 ./model_constants.f90
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp

@@ -121,7 +121,7 @@ fast2tuv['51'] = 132
 
 mapping = [
         
-['O','O(3P)'],['ClNO3','ClONO2'],['ClNO2','ClONO'],['HO','OH'],['BrNO3','BrONO2'],['BrNO2','BrONO']
+['O','O(3P)'],['ClNO3','ClONO2'],['ClNO2','ClONO'],['HO','OH'],['BrNO3','BrONO2'],['BrNO2','BrONO'],['ALD2','CH3CHO']
 
 
 ]
@@ -141,6 +141,32 @@ direct_mapping = {
 56:132,
 77:69,
 84:41,
+102:92,
+59:333,
+47:115,
+48:117,
+49:118,
+6:358,
+25:93,
+34:359,
+100:360,
+66:361,
+70:28,
+93:40,
+94:40,
+96:40,
+97:33,
+99:33,
+104:37,
+105:36,
+53:135,
+54:136,
+55:362,
+69:70,
+68:64,
+89:33,
+90:33,
+98:35
 
 
 }
@@ -183,7 +209,7 @@ for x in fastjx: ismatch(x)
 found  = multiprocessing.Pool(ncores).map(ismatch,fastjx)
 
 
-toadd =[6,25,34,66,70,93,94,94,96,97,99,100,104,105]
+toadd =[6,25,34,66,70,93,94,96,97,99,100,104,105,53,54,55,69,68,89,90,98,]
 for i in enumerate(found,1): print i 
 
 
@@ -207,7 +233,7 @@ for i in results:
     string += '''
     CASE(%3d) !%s
         j(%3d) = %s seval(szabin,theta,tmp,tmp2,b,c,d)!%s
-        ''' %(n2, fjxdict[n2], n1, coeff,tuvdata[n1][5:-1] )
+        ''' %(n2, fjxdict[n2], n1, coeff,tuvdata[n1-1][5:-1] )
 
 
 string += '\nEND SELECT'

@@ -70,6 +70,9 @@ or `make clean`
 ## Errors
 1. `depend.mk: No such file or directory`depend.mk: No such file or directory` - run `./src/sfmakedepend`
 2. `for_main.o: In function main:for_main.c:(.text+0x2a): undefined reference to MAIN__` - this is normal, we are pre-compiling tuv and thus it does not have a main body (which it is not)
+3. Anything mentioning tuv or DATAXX folders; `cd TUV_5.2.1/ && git pull && cd ../ && make tuv
+
+
 
 
 ## Running with multiple models
@@ -117,7 +120,19 @@ Newer globchem.eqns files need to have the photolysis array (PHOTOL(x)) renamed 
 There are several methods to run this, although using the make kpp_custom? flag may be easiest provided all the other files are correctly assembled. 
 
 Additionally all the '+ hv' parts of the reactions must be removed. This can be done using `perl -p -i -e 's/\+\h*hv//g' mechanisms/geoschem/globchem.eqn` from the main directory. 
+
+You must create a GC11 file in tuv using /src/background/g\*/c\*.py 
+
  
+## Alias run shortcuts
+For those who do not know, aliases are shortcuts for command line functions and code snipets. For seasoned DSMACC users it may be easier to use these shortcuts than to have to type out the full commands all the time. To use these an alias must be included in your .bashrc or .profile file. Use of combinatory aliases should however be used with caution! 
+
+Examples of some potentially useful commands are: 
+106 alias b="python begin.py"
+107 alias d="cd ~/DSMACC-testing"
+108 alias k="make kpp && make"
+109 alias ics="cd ~/DSMACC-testing/InitCons"
+110 alias m="cd ~/DSMACC-testing/mechanisms"
 
 ## Updating the rate constants
 Rate-constant simplification through the use of a symbolic engine has been
