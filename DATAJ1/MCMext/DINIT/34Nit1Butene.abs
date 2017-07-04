@@ -1,0 +1,26 @@
+Cross sections for 3,4-dinitrooxy-1-butene
+measured by Barnes et al., J Atmos Chem 17, 353-373, 1993.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 29.01.2016
+
+λ/nm	σ/cm2
+245    8.31e-20
+250    7.05e-20
+255    6.39e-20
+260    5.97e-20
+265    5.49e-20
+270    4.89e-20
+275    4.29e-20
+280    3.46e-20
+285    2.68e-20
+290    1.98e-20
+295    1.40e-20
+300    9.8e-21
+305    6.8e-21
+310    4.6e-21
+315    2.9e-21
+320    2.2e-21
+325    1.4e-21
+330    1.0e-21
+335    7.0e-22
+340    2.0e-22

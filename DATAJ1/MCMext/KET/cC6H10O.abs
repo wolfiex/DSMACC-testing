@@ -1,0 +1,29 @@
+Absorption cross sections for cyclohexanone measured by
+Iwasaki et al., Int J Chem Kinet 40, 223-229 (2008).
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 20.01.2016
+
+λ/nm	σ/cm2
+240	3.12e-21
+245	5.24e-21
+250	8.11e-21
+255	1.20e-20
+260	1.68e-20
+265	2.22e-20
+270	2.76e-20
+275	3.33e-20
+280	3.64e-20
+285	3.96e-20
+290	3.93e-20
+295	3.83e-20
+300	3.43e-20
+305	2.98e-20
+310	2.42e-20
+315	1.77e-20
+320	1.21e-20
+325	7.13e-21
+330	3.65e-21
+335	1.63e-21
+340	6.43e-22
+345	2.89e-22
+350	1.18e-22
