@@ -7,4 +7,6 @@
 
 4. Install Flex `brew install flex`
 
-5( alterations to MACEFILE FOR KPP - pathi to local -lfl to -ll etc.. )
+5. `brew install gcc && brew link --overwrite gcc`
+
+5.( alterations to MACEFILE FOR KPP - pathi to local -lfl to -ll etc.. )
