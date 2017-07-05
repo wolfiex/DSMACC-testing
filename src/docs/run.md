@@ -4,6 +4,9 @@
 Ensure tuv is compiled, if in doubt run `make tuv` should no other error
   be apparent and the program hangs -
 
+
+
+
 1. **Create Init cons csv** file in the InitCons directory see (methane.csv as a template)
 
       * Different columns correspond to different runs
@@ -12,6 +15,9 @@ Ensure tuv is compiled, if in doubt run `make tuv` should no other error
         0 do disable
         
       * Run names are useful, see existing files as an example.
+      
+      
+      
       
       
 2. *Run `python begin.py`* after setting the number of processes inside
@@ -25,5 +31,7 @@ Ensure tuv is compiled, if in doubt run `make tuv` should no other error
         
       * To see the form of this have a look inside begin.py or read_dsmacc.py
         in AnalysisTools
+
+
 
 3. To view files: [see this](src/docs/view_results.md)
