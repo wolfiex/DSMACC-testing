@@ -20,7 +20,7 @@ Duplicate warnings will run, although may become problematic when trying to sele
 
 
 
-## Compiling
+## Compiling (old doc)
 1. **Clear the directory.** If you are just starting or want a clean slate use `make distclean && make new` to clear all. 
 Otherwise you can opt for `make clear or make clean` to remove the .f90/other files
 
