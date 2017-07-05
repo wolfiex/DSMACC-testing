@@ -1,5 +1,32 @@
+## An example of how to run DSMACC
+#### Start the Run script. This will open a selection menu showing all available initial conditions files. Please select which one you wish to run. 
 
-## How to run
+**Optional flags are: **
+
+-saved : (advanced) runs model using saved versions when -modelname is provided
+
+-keepx : does not ignore runs marked with an X in the beginning
+
+-icsonly : does not run the model, merely creates an intial conditions file for legacy reasons.
+
+
+```python
+python begin.py
+```
+
+![ ](img/begin)
+
+
+
+#### Running Screen
+A progress bar and initialisation conditions have been added for convenience. These should fill up when model is running. If the model stalls for a long period of time, the likelyness is that tuv may not have been compiled properly. 
+
+
+
+![ ](img/running)
+
+
+## How to run (old doc info)
 
 Ensure tuv is compiled, if in doubt run `make tuv` should no other error
   be apparent and the program hangs -

@@ -1,3 +1,24 @@
+## An example of how to use KPP
+#### Generates required f90 files for DSMACC
+
+
+```
+make kpp
+```
+This opens a list of available kpp files in the mechanisms folder. Select either one, or multiple by supplying a space between each selection. 
+
+
+![ ](img/kppmech)
+
+
+#### If run correctly this should produce no errors. 
+Duplicate warnings will run, although may become problematic when trying to select an equation later on. Use the subset selector to eliminate these. 
+
+
+![ ](img/kpp)
+
+
+
 
 ## Compiling
 1. **Clear the directory.** If you are just starting or want a clean slate use `make distclean && make new` to clear all. 
