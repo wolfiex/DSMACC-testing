@@ -11,6 +11,6 @@ Otherwise you can opt for `make clear or make clean` to remove the .f90/other fi
 
 5. **Compile DSMACC** with `make`
 
-6. If there is an error with the params file, tuv may not have been compiled (ie make new was not run). To fix this type `make tuv`  followed by `make`. 
+\* If there is an error with the params file, tuv may not have been compiled (ie make new was not run). To fix this type `make tuv`  followed by `make`. 
 
 
