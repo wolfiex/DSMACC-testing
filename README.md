@@ -30,7 +30,7 @@ git submodule update` or typing `make update_submodule`
 5. [Advanced features](src/docs/advancedrunning.md)
 6. [Updating TUV](src/docs/newtuv.md)
 7. [GeosCHEM](src/docs/geoschem.md)
-
+8. [Changes](src/docs/changes.md)
 
 
 
