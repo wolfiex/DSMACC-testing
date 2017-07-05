@@ -8,14 +8,14 @@ make kpp
 This opens a list of available kpp files in the mechanisms folder. Select either one, or multiple by supplying a space between each selection. 
 
 
-![ ](img/kppmech)
+![ ](img/kppmech.png)
 
 
 #### If run correctly this should produce no errors. 
 Duplicate warnings will run, although may become problematic when trying to select an equation later on. Use the subset selector to eliminate these. 
 
 
-![ ](img/kpp)
+![ ](img/kpp.png)
 
 
 
