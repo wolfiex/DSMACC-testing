@@ -9,6 +9,8 @@
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
   F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
+  
+
 ##############################################################################
 
 #do not use -heap arrays in omp or parallel 
@@ -106,21 +108,22 @@ new: distclean update_submodule tuv
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch model
-	export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/
-	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01/)
-	$(eval export PATH=$(KPP_PATH)bin:$(PATH))
+	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
+	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
+	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
+	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
 	@echo $(KPP_PATH)
 	rm model
-	cd $(KPP_PATH)src && make
-	./src/background/makemodeldotkpp.py $(MODELKPP)
+	cd $(KPP_PATH)/src && make
+	python src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
-	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	-$(KPP_PATH)/bin/kpp model.kpp
 
 kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
 	rm model
 	cd src/kpp/kpp*/src && make
-	./src/background/makemodeldotkpp.py --custom
+	python src/background/makemodeldotkpp.py --custom
 	cp src/constants.f90 ./model_constants.f90
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	
