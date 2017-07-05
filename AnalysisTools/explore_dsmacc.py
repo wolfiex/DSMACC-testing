@@ -91,8 +91,6 @@ class sim_data():
         exec('data = self.%s'%what)
 
         data.sort_index(axis=1,inplace=True)# arrange alphabetically
-        print data 
-
         pp = PdfPages('%s.pdf'%self.group)
         
         for i in xrange(0, len(data.columns), n_subplot+1):

@@ -78,7 +78,7 @@ distclean: clean clear # clean all !
 	rm -rf Outputs
 	rm -f params
 	rm -f *.png
-	rm -f *.pyo
+	rm -f *.pyc
 
 tuv: # compile tuv!
 	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
@@ -104,7 +104,7 @@ new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs
 	python -O -m py_compile AnalysisTools/explore_dsmacc.py
-	mv AnalysisTools/explore_dsmacc.pyo explore.pyo
+	mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch model
