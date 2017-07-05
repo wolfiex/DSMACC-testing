@@ -254,7 +254,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         !if (SPEC_H2 .EQv. .FALSE.) then 
         WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
           if (ind_H2 .gt. NVAR) then 
-            FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
+            !FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
         else 
             VAR(ind_H2)= 550e-9*CFACTOR
             CONSTRAIN(ind_H2)=VAR(ind_H2)

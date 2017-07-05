@@ -1,5 +1,4 @@
-  F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
-  FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
+
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
   # FDEP ?= 'depos.dat'         # data file variable for makedepos script
@@ -8,8 +7,26 @@
   # FSTD  ?= 1                  # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
-  F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
   
+  
+
+
+
+if hash ifort 2>/dev/null; then
+	echo 'ifort exists'
+	F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
+	FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
+	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
+else
+	echo 'no ifort using gfort'
+	F90=gfortran
+	FC=gfortran
+	F90FLAGS= -cpp -O0 -g -ffree-line-length-none
+fi
+
+
+
+
 
 ##############################################################################
 
@@ -174,6 +191,9 @@ lsmodels:
 #removes a saved model - make rmmodel name=<yourmodelname>
 rmmodel:
 	rm -rf ./save/exec/$(name)
+
+gfortran:
+	cd TUV_5.2.1/ && git remote add wolfiex https://github.com/wolfiex/TUV_DSMACC.git && git fetch wolfiex && git checkout -b gfortran wolfiex/gfortran
 
 # list of dependencies (via USE statements)
 include depend.mk

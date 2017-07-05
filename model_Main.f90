@@ -279,7 +279,7 @@ ENDDO time_loop
 
     
 
-    if(OUTPUT_LAST .EQ. .true.) then 
+    if(OUTPUT_LAST .EQv. .true.) then 
         do I=1,DAYCOUNTER
         !not yet tested. 
         output_s(I,1)= Jday*86400  + I*dt
