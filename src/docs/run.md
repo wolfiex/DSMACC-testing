@@ -4,7 +4,7 @@
 Ensure tuv is compiled, if in doubt run `make tuv` should no other error
   be apparent and the program hangs -
 
-1. **Create Init cons csv** file in hte InitCons directory see (methane.csv as a template)
+1. **Create Init cons csv** file in the InitCons directory see (methane.csv as a template)
 
       * Different columns correspond to different runs
       
