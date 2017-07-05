@@ -14,7 +14,7 @@
 python begin.py
 ```
 
-![ ](img/begin)
+![ ](img/begin.png)
 
 
 
@@ -23,7 +23,7 @@ A progress bar and initialisation conditions have been added for convenience. Th
 
 
 
-![ ](img/running)
+![ ](img/running.png)
 
 
 ## How to run (old doc info)
