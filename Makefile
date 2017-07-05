@@ -78,6 +78,7 @@ distclean: clean clear # clean all !
 	rm -rf Outputs
 	rm -f params
 	rm -f *.png
+	rm -f *.pyo
 
 tuv: # compile tuv!
 	rm -rf DATAJ1/ DATAE1/ DATAS1/ params
@@ -102,6 +103,8 @@ change: # changes organic in model.kpp , define new mech by typing mechanism = <
 new: distclean update_submodule tuv
 	./src/sfmakedepend
 	mkdir Outputs
+	python -O -m py_compile AnalysisTools/explore_dsmacc.py
+	mv AnalysisTools/explore_dsmacc.pyo explore.pyo
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch model
