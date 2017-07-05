@@ -1,0 +1,31 @@
+Quantum yields for CH3CHO photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 03.12.2015; last update of data sheet: June 2013
+
+QY1:    CH3CHO + hv -> CH4 + CO
+QY2:    CH3CHO + hv -> CH3 + CHO
+QY3:    CH3CHO + hv -> CH3CO + H
+
+!!! WARNING !!!
+ -  QY1(UIPAC) = QY2(TUV)
+ -  QY2(UIPAC) = QY1(TUV)
+
+λ/nm	QY1	QY2	QY3 	QYtot
+
+255	0.46	0.30	0.12	0.88
+260	0.44	0.31	0.11	0.86
+265	0.39	0.35	0.10	0.84
+270	0.30	0.41	0.10	0.81
+275	0.17	0.51	0.09	0.77
+280	0.05	0.59	0.09	0.73
+285	0.02	0.58	0.08	0.68
+290	0.01	0.55	0.07	0.63
+295	0.00	0.50	0.07	0.57
+300	0.00	0.44	0.06	0.50
+305	0.00	0.36	0.06	0.42
+310	0.00	0.28	0.04	0.32
+315	0.00	0.18	0.02	0.20
+320	0.00	0.09	0.01	0.10
+325	0.00	0.04	0.00	0.04
+330	0.00	0.01	0.00	0.10
+335	0.00	0.00	0.00	0.00
