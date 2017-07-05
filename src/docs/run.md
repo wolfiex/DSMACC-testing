@@ -7,7 +7,9 @@ Ensure tuv is compiled, if in doubt run `make tuv` should no other error
 
 
 
-1. **Create Init cons csv** file in the InitCons directory see (methane.csv as a template)
+1. **Create Init cons csv** file in the InitCons directory 
+
+      * See (methane.csv as a template)
 
       * Different columns correspond to different runs
       
@@ -20,8 +22,9 @@ Ensure tuv is compiled, if in doubt run `make tuv` should no other error
       
       
       
-2. **Run `python begin.py`** after setting the number of processes inside
-   this script - the default is 4.
+2. **Run `python begin.py`** 
+
+      *setting the number of processes inside this script - the default is 4.
   
       * This makes the `Init_cons.dat` as used by DSMACC
       
