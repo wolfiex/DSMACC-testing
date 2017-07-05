@@ -21,6 +21,8 @@ Can be accomplished through `git submodule init;
 git submodule update` or typing `make update_submodule`
 
 
+## Documentation Contents
+
 1. [How to compile](src/docs/compile.md)
 2. [How to run](src/docs/run.md)
 3. [Errors](src/docs/errors.md)
