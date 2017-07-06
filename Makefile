@@ -180,7 +180,8 @@ man: # print each make function in list!
 #downloads required submodules
 update_submodule: # print each make function in list!
 	git submodule init
-	git submodule update --recursive --remote
+	#git submodule update --recursive --remote
+	git submodule foreach git pull origin master
 
 
 #save model for multi use -  make save name=<you@rmodelname>
@@ -196,6 +197,9 @@ lsmodels:
 #removes a saved model - make @rmmodel name=<you@rmodelname>
 @rmmodel:
 	@rm -rf ./save/exec/$(name)
+	
+update:
+	git pull origin master
 
 # list of dependencies (via USE statements)
 include depend.mk
