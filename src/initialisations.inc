@@ -38,7 +38,7 @@ runtimestep=int(Inttime / dt) !used for netcdf
 
 
 READ(21,'(*(a15,x))') spec_name
-READ(21,'(*(a15,x))') const_method
+READ(21,'(*(i15.1,x))') const_method
 
 print*, 'if -checks all this is an incorrect conversion'
 
@@ -48,7 +48,7 @@ if (line.gt.1) then !skip lines
 end if
 
 !get required concentrations
-READ (21,'(10000(e15.4,x))') concs
+READ (21,'(*(e15.4,x))') concs
  close(21)
 
 
