@@ -99,7 +99,7 @@ ICNTRL_U = ICNTRL_U,IERR_U=ERROR)
 DO I=1,NVAR
 IF (ISNAN(C(I)) .or. (ERROR .NE. 1)) then
     write (OUTPUT_UNIT,*) 'Integration error / NaN, Skipping Point'
-    !print *, '\033[95m', c,'\033[97m'
+    !print *, ''//achar(27)//'[95m', c,''//achar(27)//'[97m'
     !if (i .eqv. ind_DUMMY) then 
     !    c(i)= 0.
     !    cycle
@@ -158,7 +158,7 @@ if (run_counter > nc_set) then !increased at start
     end do
 
     if (mod(run_counter/nc_set,10)==0) then 
-        print*, '\033[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| \033[97m'//trim(counter)
+        print*, ''//achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
     end if
 
 else 
@@ -234,7 +234,7 @@ ENDIF
 ENDDO time_loop
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-1000  print *, ' \033[91m exit condition 1000 \033[97m'
+1000  print *, ' '//achar(27)//'[91m exit condition 1000 '//achar(27)//'[97m'
 !if (CONSTRAIN_RUN .EQ. .true.) .AND. (OUTPUT_LAST .EQ. .false.)  print*, 'why not SaveOut(run_counter) work dammit'
    
        
