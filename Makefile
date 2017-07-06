@@ -12,21 +12,19 @@
 
 
 
-if hash ifort 2>/dev/null; then
-	echo 'ifort exists'
-	F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
-	FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
-	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
-else
-	echo 'no ifort using gfort'
-	F90=gfortran
-	FC=gfortran
-	F90FLAGS= -cpp -O0 -g -ffree-line-length-none
-fi
 
 
 
 
+
+#F90        = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
+	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
+	#F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
+
+
+	#F90=gfortran
+	#FC=gfortran
+	#F90FLAGS= -cpp -O0 -g -ffree-line-length-none
 
 ##############################################################################
 
@@ -61,8 +59,28 @@ MAKEFILE_INC = depend.mk
 F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
 perl = /usr/bin/perl #perl path
 
-all: $(PROG) # default make cmd !
-	ulimit -s unlimited #unlimit stack size
+intel := $(shell command -v ifort 2> /dev/null)
+ #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
+ #-fp-stack-check -check bou    nds -check arg_temp_created -check all #-warn all # -openmp
+all: compiler $(PROG) # default make cmd !
+	
+	#ulimit -s unlimited #unlimit stack size
+
+compiler:	
+ifndef intel
+	@echo 'using gfortran'
+	$(eval export FC=gfortran)
+	$(eval export F90=gfortran)
+	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none)
+else
+	@echo 'using ifort'  
+	$(eval export FC=ifort)
+	$(eval export F90=ifort)
+	$(eval export F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict)
+endif
+
+test:compiler
+	echo 'aaa $(F90FLAGS)'
 
 # the dependencies depend on the link
 # the executable depends on depend and also on all objects
