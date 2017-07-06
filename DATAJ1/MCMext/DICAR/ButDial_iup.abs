@@ -1,0 +1,38 @@
+Absorption cross sections for cis/trans-butenedial photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 08.12.2015; last update of data sheet: May 2012
+
+λ/nm	σ(298) / 1E-20 cm-2
+193	688
+200	732
+210	758
+220	841
+225	966
+230	933
+235	395
+240	149
+248	36.2
+250	17.3
+260	0.80
+265	0.22
+270	0.07
+272	0.04
+280	0.27
+290	0.54
+300	1.00
+310	1.40
+320	1.92
+330	2.29
+340	2.38
+350	2.06
+360	1.57
+370	1.34
+380	1.07
+390	0.73
+400	0.45
+410	0.26
+420	0.13
+430	0.05
+440	0.03
+450	0.02
+460	0.01
