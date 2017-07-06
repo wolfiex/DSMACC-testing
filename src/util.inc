@@ -35,7 +35,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             
             
             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            print*,  ''//achar(27)//'[95m' , spec_name(i), concs(i),''//achar(27)//'[97m'
+            print*,  achar(27)//'[95m' , spec_name(i),&
+               & concs(i),achar(27)//'[97m'
             
             
 
