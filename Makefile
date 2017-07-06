@@ -77,7 +77,8 @@ $(PROG): depend $(OBJS1) $(OBJS2)
 
 # update file dependencies
 depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2)
-	@$(F_makedepend) $(SRCS1) $(SRCS2)> del.txt 2>&1
+	@$(F_makedepend) $(SRCS1) $(SRCS2)> /dev/null 
+	
 
 clean: # remove others
 	@rm -f $(OBJS1) *model* *.mod *.log *~ depend.mk.old *.o *.sdout *.tee #$(OBJS2)
