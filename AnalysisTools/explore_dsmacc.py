@@ -251,7 +251,25 @@ class sim_data():
         print 'nc write'        
         
         
+
+    def symdiff(self, other ,what='specs'):
+        '''
+        Return elements which exist in only one sett
+        '''    
+        exec('data = self.%s'%what)
+        exec('data1 = other.%s'%what)
         
+        return set(data.columns) ^ set(data.columns)
+        
+    def intersect(self, other ,what='specs'):
+            '''
+            Return elements which exists in both sets
+            '''    
+            exec('data = self.%s'%what)
+            exec('data1 = other.%s'%what)
+            
+            return set(data.columns) & set(data.columns)
+            
         
 print 'ready'            
 

@@ -216,6 +216,14 @@ example_file.d3ropatool()
 ![Alt Text](img/multiropa.gif)
 
 
+##### Mechanism or species comparison
+
 ```python
+# selection which only exists in one group or another 
+example_file.symdiff(   other_examplefile , what='specs')
+
+#selection that exists in both groups
+example_file.intersect( other_examplefile , what='rates')
+
 
 ```
