@@ -77,8 +77,7 @@ $(PROG): depend $(OBJS1) $(OBJS2)
 
 # update file dependencies
 depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2)
-	@$(F_makedepend) $(SRCS1) $(SRCS2)> /dev/null 
-	
+	@$(F_makedepend) $(SRCS1) $(SRCS2) > /dev/null 2>&1
 
 clean: # remove others
 	@rm -f $(OBJS1) *model* *.mod *.log *~ depend.mk.old *.o *.sdout *.tee #$(OBJS2)
@@ -123,9 +122,10 @@ change: # changes organic in model.kpp , define new mech by typing mechanism = <
 	mkdir Outputs
 
 new: distclean depend update_submodule tuv
-	mkdir Outputs
-	python -O -m py_compile AnalysisTools/explore_dsmacc.py
-	mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
+	@mkdir Outputs
+	@python -O -m py_compile AnalysisTools/explore_dsmacc.py
+	@mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
+	@echo 'All set up to begin.'
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch model
