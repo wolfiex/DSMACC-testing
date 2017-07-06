@@ -61,7 +61,7 @@ else
 	@echo 'using ifort'  
 	$(eval export FC=ifort)
 	$(eval export F90=ifort)
-	$(eval export F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict)
+	$(eval export F90FLAGS   = -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict)
 endif
 
 test:compiler
