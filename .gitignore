@@ -14,10 +14,14 @@ model
 depend.*
 archive/
 backup/
-save/ncfiles/*
-save/exec/*
+save/ncfiles
+save/exec
 ./.git/objects/pack/pack-0cb618f3f4b94d572ea77291beb692bcc6e78668.pack
 ./.git/objects/pack/pack-0cb618f3f4b94d572ea77291beb692bcc6e78668.pack
 ./.git/objects/pack/pack-f21ad28f939262fe03a80a7d273a9d667e872841.pack
 ./.git/objects/pack/pack-f21ad28f939262fe03a80a7d273a9d667e872841.pack
 ./.git/objects/pack/pack-f21ad28f939262fe03a80a7d273a9d667e872841.pack
+./.git/objects/pack/pack-3b38df0a71f0fa02ce3a838eef800255925e1cc5.pack
+./.git/objects/pack/pack-3b38df0a71f0fa02ce3a838eef800255925e1cc5.pack
+
+*.pyc

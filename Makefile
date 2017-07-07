@@ -48,17 +48,17 @@ intel := $(shell command -v ifort 2> /dev/null)
  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
  #-fp-stack-check -check bou    nds -check arg_temp_created -check all #-warn all # -openmp
 all: compiler $(PROG) # default make cmd !
-	
+
 	#ulimit -s unlimited #unlimit stack size
 
-compiler:	
+compiler:
 ifndef intel
 	@echo 'using gfortran'
 	$(eval export FC=gfortran)
 	$(eval export F90=gfortran)
 	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none )
 else
-	@echo 'using ifort'  
+	@echo 'using ifort'
 	$(eval export FC=ifort)
 	$(eval export F90=ifort)
 	$(eval export F90FLAGS   = -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict)
@@ -122,11 +122,13 @@ change: # changes organic in model.kpp , define new mech by typing mechanism = <
 	mkdir -p Outputs
 
 new: distclean depend update_submodule tuv
-	@mkdir Outputs
-	mkdir -p Outputs
-	mkdir -p save
-	mkdir -p save/ncfiles
-	mkdir -p save/exec
+	@mkdir -p Outputs
+	@mkdir -p save
+	@mkdir -p save/ncfiles
+	@mkdir -p save/exec
+	@python -O -m py_compile AnalysisTools/explore_dsmacc.py
+	@mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
+	@echo 'All set up to begin.'
 
 kpp: clean | ./Outputs # makes kpp using the model.kpp file in src!
 	touch model

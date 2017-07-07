@@ -14,7 +14,7 @@
 * 5275, 2012), for the beta-caryophyllene scheme and (Jenkin et al., ;
 * Atmos. Chem. Phys., 15, 11433, 2015), for the isoprene scheme.    * ;
 ********************************************************************* ;}
-//Set photolysis scheme to new MCM/GECKO-A protocol
+{Set photolysis scheme to new MCM/GECKO-A protocol}
 #INLINE F90_INIT
   TUVvers = 2
 #ENDINLINE
