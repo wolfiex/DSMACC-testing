@@ -23,7 +23,7 @@ if (INTTIME .LE. 0)  then
 
     else;
         WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-        But not a special case'
+        &But not a special case'
         STOP
     endif
 else

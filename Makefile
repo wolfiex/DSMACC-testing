@@ -197,7 +197,8 @@ lsmodels:
 #removes a saved model - make @rmmodel name=<you@rmodelname>
 @rmmodel:
 	@rm -rf ./save/exec/$(name)
-	
+
+#Does a git pull	
 update:
 	git pull origin master
 
