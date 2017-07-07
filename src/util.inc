@@ -35,7 +35,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            print*,  '\033[95m' , spec_name(i), concs(i),'\033[97m'
+            print*,  achar(27)//'[95m' , spec_name(i),&
+               & concs(i),achar(27)//'[97m'
+            
+            
 
 
 
@@ -154,17 +157,18 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
                         else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then
                             SPEC_CH4=.TRUE.
                         else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
-                            SPEC_H2=.TRUE.
-                        end if
-                        exit
-                    else
+                            SPEC_H2=.TRUE.         
+                        end if            
+            
+                        exit 
+                   else 
                      WRITE(OUTPUT_UNIT,*) SPEC_NAME(I),' NOT FOUND - stopping'
                      WRITE(6,*) SPEC_NAME(I),' NOT FOUND (FIXED) - stopping'
                      stop
                     endif
-
-                    continue
-
+                    
+                  
+                    
                 enddo
 
             end if
@@ -252,9 +256,9 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
         !if (SPEC_H2 .EQv. .FALSE.) then
         WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
-          if (ind_H2 .gt. NVAR) then
-            FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
-        else
+          if (ind_H2 .gt. NVAR) then 
+            !FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
+        else 
             VAR(ind_H2)= 550e-9*CFACTOR
             CONSTRAIN(ind_H2)=VAR(ind_H2)
         end if

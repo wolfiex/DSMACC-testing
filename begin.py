@@ -162,7 +162,7 @@ for group_name in numbered:
 
 # close the file.
 ncfile.close()
-print '*** SUCCESS writing %s!'%filename
+print '*** Possible-SUCCESS writing %s!'%filename
 
 
 

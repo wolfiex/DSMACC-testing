@@ -48,7 +48,7 @@ if (line.gt.1) then !skip lines
 end if
 
 !get required concentrations
-READ (21,'(10000(e15.4,x))') concs
+READ (21,'(*(e15.4,x))') concs
  close(21)
 
 

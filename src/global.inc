@@ -2,7 +2,8 @@
   REAL(dp) :: PRESS, LAT, LON, O3COL, JO1D, JNO2,DEPOS
   REAL(dp) :: JDAY, JREPEAT, ALBEDO, SAREA, RP1
   INTEGER :: INIT_TIME, NOX(NVAR)
-  REAL(dp):: CONSTRAIN(NVAR),const_method(NSPEC+10)
+  REAL(dp):: CONSTRAIN(NVAR)
+  INTEGER :: const_method(NSPEC+10)
   REAL(dp), allocatable :: SPIN_CONST(:) ! constrain array for spinup
   CHARACTER(LEN=15) :: spec_name(NSPEC+10)!10000
   LOGICAL :: SPEC_CH4, SPEC_H2
