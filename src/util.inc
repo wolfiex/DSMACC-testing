@@ -262,8 +262,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         end if
         end if
 
-
-
+        !set R value to 0 
+        FIX(indf_R)= 1
 
         END SUBROUTINE Initval
         ! End of InitVal function
