@@ -7,17 +7,15 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP!
 
 
-#INCLUDE mechanisms/organic.kpp
+#INCLUDE mechanisms/DUN15M3.kpp
 #INCLUDE mechanisms/inorganic.kpp
-#INCLUDE mechanisms/emiss.kpp
-#INCLUDE mechanisms/depos.kpp
-
 
 
 
 
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
+
 
 
 #DOUBLE ON

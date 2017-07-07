@@ -9,7 +9,7 @@ import glob,sys,os
 myinclude = []
 
 #include custom file here
-custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
+custom = '\n#INCLUDE ./mechanisms/DUN15M4.kpp\n#INCLUDE ./mechanisms/inorganicM4.kpp\n'
 
 if '--custom' in sys.argv:
         None
