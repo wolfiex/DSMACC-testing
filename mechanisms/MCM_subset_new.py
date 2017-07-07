@@ -339,6 +339,8 @@ for i,j in enumerate(eqn):
 
 string = re.sub(r';\h*;',';',string)
 
+icfile = icfile.replace('../InitCons/','').replace('.csv','')
+
 with open("subset_"+ic_file+'.kpp', 'w') as f:
     f.write(string)
     print "\n subset_"+ic_file+' written'
