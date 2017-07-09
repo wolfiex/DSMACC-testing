@@ -339,7 +339,7 @@ for i,j in enumerate(eqn):
 
 string = re.sub(r';\h*;',';',string)
 
-ic_file = filename1.replace('../InitCons/','').replace('.csv','')
+ic_file = filename1.replace('../InitCons/','').replace('.csv','').replace('../src/background/','')
 
 with open("subset_"+ic_file+'.kpp', 'w') as f:
     f.write(string)
