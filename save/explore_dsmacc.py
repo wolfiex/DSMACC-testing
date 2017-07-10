@@ -5,7 +5,7 @@ import netCDF4
 from netCDF4 import Dataset
 import glob,sys,os,re
 from matplotlib.pyplot import *
-
+from copy import copy
 
 class new():
     #reads in a selected file
@@ -274,25 +274,54 @@ class new():
         
 """ multiclass"""
 
-def mechcomp (mechanisms,species = None,n_subplot = 5):
+def geos2mcm(x):
+
+    dictionary = {
+    'HNO2':'HONO',
+    'ISOP':'C5H8',
+    'HAC':'ACETOL',
+    'INPN':'NISPOOH',
+    'ISN1':'NC4CHO',
+    'ISNOOA':'NC4CO3'
+    }
+    
+    try: y = dictionary[x]
+    except: y=x
+    return y
+    
+    
+
+def mechcomp (mechanisms,species = None,n_subplot = 5, parsenames = False,log=False, ppb = True):
     from matplotlib.backends.backend_pdf import PdfPages
     from matplotlib import patches
     df = pd.DataFrame()
     style.use('ggplot')
-    pd.options.display.mpl_style = 'default'
     
+    leg = []
         
-    linetypes = ['solid','dashed','dotted','dashdot','-','--','-.','-,',';']
+    linetypes = ['solid','dashed','dotted','dashdot']
+    
     if len(mechanisms) > len(linetypes): 
         print 'Number of mechanisms must be less than' + len(linetypes)
         return None
 
-    leg = []
+
     
-    for n,i in enumerate(mechanisms):
+    for n,cls in enumerate(mechanisms):
+        i = copy(cls); mechanisms[n] = i #make a copy so that we dont overwrite the original 
+        
+        if ppb: i.specs = i.specs*1e9
+        
         i.specs['id'] = i.filename
+        
+        if parsenames: i.specs.columns = [geos2mcm(k) for k in i.specs.columns]
+        
+        if (len(i.specs.columns) != len(set(i.specs.columns))) : 
+            print 'duplicate columns detected in '+ i.filename+i.group +'+ , collapsing these through summation'
+            i.specs= i.specs.groupby(i.specs.columns,axis=1).sum()
+            
         df = pd.concat([df,i.specs])
-        leg.append(patches.Patch(label = i.filename,ls = linetypes[n]))
+        leg.append(patches.Patch(label = i.filename,ls = linetypes[n],capstyle = 'round',lw=0.01,color = 'grey',fill=False,clip_on = True,aa=True))
         
     df.dropna(axis = 1 , inplace=True)     
     df.sort_index(axis=1,inplace=True)# arrange alphabetically
@@ -303,13 +332,11 @@ def mechcomp (mechanisms,species = None,n_subplot = 5):
     for sbplt in xrange(0, len(df.columns), n_subplot+1):
             
             cols = list(set(df.columns)^set(['id']))[sbplt:sbplt+n_subplot]
-            print list(cols)
-            print cols
-            for c in mechanisms:    
-                if c is not mechanisms[0]:
-                    ax = df.loc[df.id == c.filename][cols].plot(ax=ax, linestyle = linetypes[n],legend = False, subplots = True)#, title = cols)
+            for n,c in enumerate(mechanisms):  
+                if n > 0 :
+                    ax = df.loc[df.id == c.filename][cols].plot(ax=ax , linestyle = linetypes[n],legend = False,logy=log, subplots = True)
                 else: 
-                    ax = df.loc[df.id == c.filename][cols].plot(subplots = True, legend = False, title = [ i for i  in cols],fontsize=10)
+                    ax = df.loc[df.id == c.filename][cols].plot(subplots = True, legend = False, logy=log,title = [ i for i  in cols],fontsize=10)
             
             Axes = ax
             tick_params(labelsize=6)
@@ -328,10 +355,11 @@ def mechcomp (mechanisms,species = None,n_subplot = 5):
             #titles 
 
            
-    
-            ylabel('mix ratio')
+            if ppb:ylabel('ppbV')
+            else:ylabel('mix ratio')
             
-            legend(handles = leg, loc='lower right',bbox_to_anchor = (0,0,1,1),bbox_transform = gcf().transFigure,fontsize = 5, )
+            
+            legend(handles = leg, loc='lower right',bbox_to_anchor = (0,0,1,1),bbox_transform = gcf().transFigure,fontsize = 5,fancybox=True,handlelength = 3 )
             tight_layout()
             
             #aha.dsju(3)
