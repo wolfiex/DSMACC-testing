@@ -17,11 +17,11 @@ import dsmacc
 
 #### For each NetCDF file, we can select a run and create an object that contains its data
 
-The `sim_data` class may be given arguments for a filename or groupid (index number of the required group should we not require interactive selection. 
+The `new` class may be given arguments for a filename or groupid (index number of the required group should we not require interactive selection. 
 
 
 ```python
-example_file = dsmacc.sim_data()
+example_file = dsmacc.new()
 ```
 
     Select file to open: 

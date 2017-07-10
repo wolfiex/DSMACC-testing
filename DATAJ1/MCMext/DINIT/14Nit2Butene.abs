@@ -1,0 +1,24 @@
+Cross sections for 1,4-dinitrooxy-2-butene
+measured by Barnes et al., J Atmos Chem 17, 353-373, 1993.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 29.01.2016
+
+λ/nm	σ/cm2
+245    9.28e-20
+250    7.63e-20
+255    6.63e-20
+260    5.92e-20
+265    5.29e-20
+270    4.66e-20
+275    4.13e-20
+280    3.38e-20
+285    2.66e-20
+290    2.03e-20
+295    1.52e-20
+300    1.14e-20
+305    9.2e-21
+310    6.5e-21
+315    4.2e-21
+320    3.3e-21
+325    1.4e-21
+330    2.0e-22
