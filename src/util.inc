@@ -13,7 +13,7 @@ REAL(kind=dp) :: oldvar(NSPEC)
 INTEGER :: COUNT_NOX_CONSTRAINTS, i_EMISS
 CHARACTER(len=6), dimension(8) :: NOXARRAY
 NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
-    'HO2NO2','HNO4  ','PNA   '/)
+    &'HO2NO2','HNO4  ','PNA   '/)
     OLDVAR(1:NVAR)=C(1:NVAR)
     VAR(1:NVAR)=0.
     C(1:NVAR)=0.
@@ -264,8 +264,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         end if
         end if
 
-
-
+        !set R value to 0 
+        FIX(indf_R)= 1
 
         END SUBROUTINE Initval
         ! End of InitVal function

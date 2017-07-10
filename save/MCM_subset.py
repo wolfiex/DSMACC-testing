@@ -61,7 +61,7 @@ def reorder(x):
 
 eqdf = pd.DataFrame(eqn) 
 eqdf[0] = [reorder(i) for i in eqdf[0]]
-eqdf[1] =[rx.sub(r'(\d)[dD]([+-\.\d])',r'\1e\2',  str(i).split('//')[0].replace('EXP','exp')) for i in eqdf[1]]
+eqdf[1] =[re.sub(r'(\d)[dD]([+-\.\d])',r'\1e\2',  str(i).split('//')[0].replace('EXP','exp')) for i in eqdf[1]]
  
  
 grp = ','.join(eqdf[1])
@@ -75,11 +75,13 @@ print 'waiting for simplification'
 
 new1=[]
 for i in eqdf[1]:
-    exec('dummyvar = str(N(simplify(%s),3))'%(i.replace(';','')))#symbolic engineness
+    exec('dummyvar = str(N(expand(%s),3))'%(i.replace(';','')))#symbolic engineness
     new1.append(dummyvar)
 
 
 eqdf[1]=new1
+
+
 
 eqdf = eqdf.drop_duplicates() #remove exact duplicates
 # combine reaction rates for other duplicates
@@ -87,7 +89,7 @@ dupreactions = np.array(eqdf[eqdf[0].duplicated()][0])
 dup = eqdf[0].duplicated(keep=False)
 eqn = np.array(eqdf[[not i for i in dup]])
 for q in dupreactions: 
-    exec('joined = str(N(simplify(%s),3))'%('+'.join(eqdf[eqdf[0] == q][1])))
+    exec('joined = str(N(expand(%s),3))'%('+'.join(eqdf[eqdf[0] == q][1])))
     eqn = np.append(eqn,[q,joined])
 try: eqn.shape[1]
 except: eqn = eqn.reshape((len(eqn)/2,2))
@@ -205,7 +207,7 @@ c =[]
 
 if include_CO2: 
 
-    species = species^set(['CO2'])
+    species = species|set(['CO2'])
 
     def is_excited (x):
         try: return len(cs.findall(smiles[r[:-1]])) 
@@ -235,7 +237,7 @@ if include_CO2:
             cstr += '+'.join([j for j in i[0]]) + ' --> ' + '+'.join([j for j in i[1]]) + '  ' + str(rc-pc) + ' r:%s p:%s '%(rc,pc)+ '\n'
 
     with open('C_mismatch.txt', 'w') as f: f.write(cstr)
-    
+    #add CO
     
 
 traces = multiprocessing.Pool(4).map( trace , s.index ) 
