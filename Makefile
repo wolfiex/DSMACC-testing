@@ -183,8 +183,8 @@ man: # print each make function in list!
 #downloads required submodules
 update_submodule: # print each make function in list!
 	git submodule init
-	#git submodule update --recursive --remote
-	git submodule foreach git pull origin master
+	git submodule update --recursive
+	#git submodule foreach git pull origin master
 
 
 savemodel: rmmodel #save executable, kpp file and 1 nc file (optional)

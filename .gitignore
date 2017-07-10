@@ -25,3 +25,4 @@ save/exec
 ./.git/objects/pack/pack-3b38df0a71f0fa02ce3a838eef800255925e1cc5.pack
 
 *.pyc
+./.git/objects/pack/pack-80ba1611f08faff721fb43c792d66d2b713e19bd.pack
