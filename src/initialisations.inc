@@ -21,12 +21,12 @@ if (INTTIME .LE. 0)  then
         OUTPUT_LAST=.TRUE.
 
 
-    else;
+    else
         WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
         &But not a special case'
         STOP
     endif
-else
+
 
 endif
 

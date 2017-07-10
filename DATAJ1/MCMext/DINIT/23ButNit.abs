@@ -1,0 +1,26 @@
+Cross sections for 2,3-butylene dinitrate
+measured by Barnes et al., J Atmos Chem 17, 353-373, 1993.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 29.01.2016
+
+λ/nm	σ/cm2
+245    1.269e-19
+250    1.088e-19
+255    9.89e-20
+260    9.23e-20
+265    8.47e-20
+270    7.55e-20
+275    6.40e-20
+280    5.19e-20
+285    3.98e-20
+290    2.91e-20
+295    2.04e-20
+300    1.42e-20
+305    1.01e-20
+310    6.7e-21
+315    4.3e-21
+320    3.4e-21
+325    2.4e-21
+330    1.8e-21
+335    1.4e-21
+340    1.0e-21

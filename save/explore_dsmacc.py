@@ -7,7 +7,7 @@ import glob,sys,os,re
 from matplotlib.pyplot import *
 
 
-class sim_data():
+class new():
     #reads in a selected file
     def __init__(self,filename='',groupid=None):
         self.flux=False
@@ -85,13 +85,13 @@ class sim_data():
         
         
          
-    def pdfdiagnostics(self, namepreface='', what='specs',n_subplot = 5):
-        print 'creating a diagnostic pdf of '+ what
+    def pdfdiagnostics(self,what='specs',n_subplot = 5):
+        print 'creating a diagnostic pdf of '+what
         from matplotlib.backends.backend_pdf import PdfPages
         exec('data = self.%s'%what)
 
         data.sort_index(axis=1,inplace=True)# arrange alphabetically
-        pp = PdfPages('%s%s.pdf'%(namepreface,self.group))
+        pp = PdfPages('%s.pdf'%self.group)
         
         for i in xrange(0, len(data.columns), n_subplot+1):
             Axes = data[data.columns[i:i+n_subplot]].plot(subplots=True)  
@@ -270,6 +270,90 @@ class sim_data():
             
             return set(data.columns) & set(data.columns)
             
+        
+        
+""" multiclass"""
+
+def mechcomp (mechanisms,species = None,n_subplot = 5):
+    from matplotlib.backends.backend_pdf import PdfPages
+    from matplotlib import patches
+    df = pd.DataFrame()
+    style.use('ggplot')
+    pd.options.display.mpl_style = 'default'
+    
+        
+    linetypes = ['solid','dashed','dotted','dashdot','-','--','-.','-,',';']
+    if len(mechanisms) > len(linetypes): 
+        print 'Number of mechanisms must be less than' + len(linetypes)
+        return None
+
+    leg = []
+    
+    for n,i in enumerate(mechanisms):
+        i.specs['id'] = i.filename
+        df = pd.concat([df,i.specs])
+        leg.append(patches.Patch(label = i.filename,ls = linetypes[n]))
+        
+    df.dropna(axis = 1 , inplace=True)     
+    df.sort_index(axis=1,inplace=True)# arrange alphabetically
+    pp = PdfPages('compare.pdf')
+        
+
+        
+    for sbplt in xrange(0, len(df.columns), n_subplot+1):
+            
+            cols = list(set(df.columns)^set(['id']))[sbplt:sbplt+n_subplot]
+            print list(cols)
+            print cols
+            for c in mechanisms:    
+                if c is not mechanisms[0]:
+                    ax = df.loc[df.id == c.filename][cols].plot(ax=ax, linestyle = linetypes[n],legend = False, subplots = True)#, title = cols)
+                else: 
+                    ax = df.loc[df.id == c.filename][cols].plot(subplots = True, legend = False, title = [ i for i  in cols],fontsize=10)
+            
+            Axes = ax
+            tick_params(labelsize=6)
+
+            #y ticklabels
+            [setp(item.yaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
+            #x ticklabels
+            [setp(item.xaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
+            #y labels
+            [setp(item.yaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+            #x labels
+            [setp(item.xaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+
+            
+
+            #titles 
+
+           
+    
+            ylabel('mix ratio')
+            
+            legend(handles = leg, loc='lower right',bbox_to_anchor = (0,0,1,1),bbox_transform = gcf().transFigure,fontsize = 5, )
+            tight_layout()
+            
+            #aha.dsju(3)
+            print '%.03f'%(float(sbplt) / float(len(df.columns)) ) , '% done'  
+            savefig(pp, format='pdf')
+            close('all') 
+                            
+    pp.close()
+    print 'PDF out'
+    close('all')     
+        
+        
+
+    
+
+
+    show()
+    
+    ##return df 
+        
+    
+    
         
 print 'ready'            
 
