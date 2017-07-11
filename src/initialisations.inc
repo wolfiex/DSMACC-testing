@@ -21,12 +21,12 @@ if (INTTIME .LE. 0)  then
         OUTPUT_LAST=.TRUE.
 
 
-    else;
+    else
         WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-        But not a special case'
+        &But not a special case'
         STOP
     endif
-else
+
 
 endif
 
@@ -139,6 +139,10 @@ if (JNO2 .NE. 0.) then
     if (J(4) .GT. 0.) JFACTNO2=JNO2/J(4)
     if (JO1D .NE. 0.) JFACTNO2=JFACTO1D
 endif
+
+! Fix JFACTO1D and JFACTNO2 to observed
+ JFACTO1D=0.5167336
+ JFACTNO2=0.6643193
 
 write (OUTPUT_UNIT,*) 'JO1D Calc=', J(1)
 write (OUTPUT_UNIT,*) 'JO1D Measre =', JO1D

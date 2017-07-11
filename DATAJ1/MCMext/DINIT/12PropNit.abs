@@ -1,0 +1,26 @@
+Cross sections for isopropylene dinitrate
+measured by Barnes et al., J Atmos Chem 17, 353-373, 1993.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 29.01.2016
+
+λ/nm	σ/cm2
+245    1.046e-19
+250    9.24e-20
+255    8.54e-20
+260    7.98e-20
+265    7.30e-20
+270    6.49e-20
+275    5.54e-20
+280    4.49e-20
+285    3.47e-20
+290    2.60e-20
+295    1.87e-20
+300    1.32e-20
+305    9.6e-21
+310    6.2e-21
+315    4.2e-21
+320    3.2e-21
+325    2.5e-21
+330    2.0e-21
+335    1.4e-21
+340    8.0e-22
