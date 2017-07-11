@@ -24,7 +24,8 @@ my $flstd = 1; # 0: use only values from data file
 ## file handling
 #  $dfu:       file unit for data file "depos.dat"
 #              with predefined deposition velocities
-my $fdat;#     file name (and path) of data file
+my $fdat = "";#file name (and path) of data file
+my $fout;#     name of output kpp file with depositon mechanism
 #  $kfu:       input KPP files with definitions of species
 #              used in current mechanism
 my @fkpp;#     list of file names (and paths) of input KPP files
@@ -34,21 +35,10 @@ my @fkpp;#     list of file names (and paths) of input KPP files
 my $writefile;#output KPP file "depos.kpp"
 
 ########################################################################
-
 ### Retrieval of script arguments
-# Define use of standard value:
-if (exists $ARGV[2]) {
-  $flstd = $ARGV[2];
-}
 
-# Define input data file:
-if (exists $ARGV[1]) {
-  $fdat = $ARGV[1];
-} else {
-  $fdat = '../InitCons/depos.dat';
-}
-
-# Define input kpp files:
+# Read in input kpp file(s) from 1st script argument
+# or set default as inorganic/organic
 if (exists $ARGV[0]) {
   my $targ = $ARGV[0];
   $targ =~ s/^\s+//;
@@ -58,33 +48,46 @@ if (exists $ARGV[0]) {
   @fkpp = ('inorganic','organic');
 }
 
+# Read in input data file from 2nd script argument
+# or ask for folder path and file name
+if (exists $ARGV[1]) {
+  $fdat = $ARGV[1];
+} #else {
+#   print "Enter folder path and name of data file: ";
+#   $fdat = <STDIN>;
+#   chomp $fdat;
+#   print "$fdat\n";
+# }
+
+# Read in output kpp file from 3rd script argument
+# or define default as "./mechanisms/depos_<data file name>.kpp"
+if (exists $ARGV[2]) {
+  $fout = $ARGV[2];
+} elsif ($fdat eq "") {
+  $fout = "";
+} else {
+  $fout = $fdat;
+  $fout =~ s/\.\/InitCons\//\.\/mechanisms\/depos_/;
+  $fout =~ s/\.dep/\.kpp/;
+}
+
+# Define use of standard value from third script argument
+# or use as default
+if (exists $ARGV[3]) {
+  $flstd = $ARGV[3];
+}
+
+########################################################################
+
 ### Screen output and checks
 if (-f "$fdat") {
   print "\n\033[94mData file:         $fdat\n";
-} elsif ($fdat eq "0" || $fdat eq '-') {
-  print "\033[95m\nWarning! Option '$ARGV[1]':\n",
-        "An empty KPP deposition file has been created!\033[0m\n\n";
-  print "\n\033[94mOutput written to 'depos.kpp'.\033[0m\n\n";
-  open($writefile, ">","depos.kpp")
-  or die "Could not open file depos.kpp: $!";
-  print $writefile "//Currently no depositions.\n",
-                   "//Template file with sample equation:\n\n",
-                   "//{D1.} O3 = DUMMY :  DEPOS*(4.00d-7) ;\n";
-  close($writefile);
-  exit;
 } else {
-  print "\033[95m\nWarning! File '$fdat' does not exist.\n",
-        "An empty KPP deposition file has been created!\033[0m\n\n";
-  print "\n\033[94mOutput written to 'depos.kpp'.\033[0m\n\n";
-  open($writefile, ">","depos.kpp")
-  or die "Could not open file depos.kpp: $!";
-  print $writefile "//Currently no depositions.\n",
-                   "//Template file with sample equation:\n\n",
-                   "//{D1.} O3 = DUMMY :  DEPOS*(4.00d-7) ;\n";
-  close($writefile);
+  print "\033[95m\nWarning! No deposition scheme generated.\033[0m\n\n";
   exit;
 }
 
+print "KPP output file:   $fdat\n";
 print "KPP input file(s): ", join(", ", @fkpp), "\n";
 if ($flstd =~ 0) {
   print "Only deposition data from $fdat used.\033[0m\n";
@@ -102,7 +105,7 @@ close($dfu);
 
 # Split array of input lines into array of species names and vd
 # unless it is an empty line or comment line starting with '#'
-print "\nPredefined values\n-----------------\n";
+print "\nPredefined deposition values\n----------------------------\n";
 foreach (@lines) {
   $_  =~ s/\#.*//;
   if ($_ !~ /^\s*$/) {
@@ -123,23 +126,24 @@ if ($idx[-1] > 0) { # for double entries, always the last entry is used
 }
 
 if ($flstd =~ 1) {
-  print "---------------------\n",
+  print "----------------------------\n",
         "\033[92m\e[1mvd(standard): ",$vdstd, "\033[0m\n",
-        "---------------------\n" ;
+        "----------------------------\n" ;
 } else {
-  print "-----------------\n";
+  print "----------------------------\n";
 }
 
 
 ########################################################################
 
 # Open output file and set KPP EQUATIONS variable
-open(my $writefile, ">","depos.kpp") or die "Could not open file depos.kpp: $!";
+open(my $writefile, ">",$fout) or die "Could not open file $fout: $!";
 print $writefile "#EQUATIONS\n";
 
 # Loop over KPP files
 for my $kfu (@fkpp) {
-  open( FILE, "<$kfu.kpp" )  or die("Couldn't open file $kfu.kpp:$!\\n");
+  open( FILE, "<./mechanisms/$kfu.kpp" )
+  or die("Couldn't open file ./mechanisms/$kfu.kpp:$!\\n");
 # Find lines with species definitions
   while (<FILE>) {
     if (/.*\=\s*IGNORE.*/) {
@@ -168,18 +172,6 @@ for my $kfu (@fkpp) {
 }
 close($writefile);
 
-if ($num ==0) {
-  open($writefile, ">","depos.kpp")
-  or die "Could not open file depos.kpp: $!";
-  print $writefile "//Currently no depositions.\n",
-                   "//Template file with sample equation:\n\n",
-                   "//{D1.} O3 = DUMMY :  DEPOS*(4.00d-7) ;\n";
-  close($writefile);
-  print "\n\033[95mWarning! No species in the data file\n",
-        "matched the species in the current mechanism.\n",
-        "An empty sample KPP depositions file has been created.\033[0m\n"
-}
-
-print "\n\033[94mOutput written to 'depos.kpp'.\033[0m\n\n";
+print "\n\033[94mOutput written to $fout.\033[0m\n\n";
 
 #######################################################################
