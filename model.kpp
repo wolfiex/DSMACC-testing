@@ -1,4 +1,3 @@
-
 // include file with definition of the chemical species
 // and chemical equations
 
@@ -7,8 +6,10 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP!
 
 
-#INCLUDE mechanisms/DUN15M4.kpp
-#INCLUDE mechanisms/inorganicM4.kpp
+#INCLUDE ./mechanisms/DUN15M3.kpp
+#INCLUDE ./mechanisms/inorganicM4.kpp
+#INCLUDE ./mechanisms/emiss_Edw14.kpp
+#INCLUDE ./mechanisms/depos_CAPRAM.kpp
 
 
 
@@ -55,4 +56,3 @@ ALL_SPEC = 0.;
 
 // equation IDs
 #EQNTAGS ON
-

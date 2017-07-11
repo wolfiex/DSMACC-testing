@@ -1,0 +1,36 @@
+# Emissions for a fracking side in the Uintah Basin UT, U.S.A.
+# Taken from: Edwards et al., High winter ozone pollution from carbonyl
+# photolysis in an oil and gas basin, Nature 514(7522), 351-354, 2014.
+NO            4.50E-05
+CH4           7.60E-11
+C2H6          3.60E-12
+C2H4          3.00E-14
+C2H2          7.00E-15
+C3H8          1.60E-12
+C3H6          4.60E-15
+IC4H10        3.60E-13
+NC4H10        5.60E-13
+IC5H12        2.60E-13
+NC5H12        2.20E-13
+NEOP          3.60E-15
+NC6H14        1.10E-13
+M22C4         6.40E-15
+M3PE          2.00E-13
+NC7H16        5.20E-14
+CHEX          2.40E-13
+TM123B        7.60E-16
+BENZENE       3.00E-14
+TOLUENE       4.60E-14
+OXYL          3.80E-15
+MXYL          2.30E-14
+EBENZ         2.40E-15
+TM124B        2.20E-15
+TM135B        2.00E-15
+IPBENZ        1.80E-16
+PBENZ         2.20E-16
+OETHTOL       1.80E-16
+METHTOL       1.30E-15
+# DIME35EB    0.00E+00
+# DIET35TOL   0.00E+00
+# CH3CHO      2.00E-17
+CH3OH         5.00E-13
