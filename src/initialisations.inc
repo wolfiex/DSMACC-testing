@@ -140,6 +140,10 @@ if (JNO2 .NE. 0.) then
     if (JO1D .NE. 0.) JFACTNO2=JFACTO1D
 endif
 
+! Fix JFACTO1D and JFACTNO2 to observed
+ JFACTO1D=0.5167336
+ JFACTNO2=0.6643193
+
 write (OUTPUT_UNIT,*) 'JO1D Calc=', J(1)
 write (OUTPUT_UNIT,*) 'JO1D Measre =', JO1D
 write (OUTPUT_UNIT,*) 'Correction JO1D and JNO2 by', JFACTO1D,JFACTNO2

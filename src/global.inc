@@ -15,7 +15,7 @@
   INTEGER, PARAMETER :: SPEC_UNIT = 10
   INTEGER, PARAMETER :: RATE_UNIT = 12
   INTEGER, PARAMETER :: jmax= 8100, szabin=19
-  
+
   character(len=3) :: mechanism
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables

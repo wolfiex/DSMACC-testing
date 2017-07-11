@@ -19,7 +19,8 @@ my $num= 0 ;  # counter for reaction labels in output file
 ## file handling
 #  $dfu:       file unit for data file "depos.dat"
 #              with predefined deposition velocities
-my $fdat;#     file name (and path) of data file
+my $fdat = "";#file name (and path) of data file
+my $fout;#     name of output kpp file with depositon mechanism
 #  $kfu:       input KPP files with definitions of species
 #              used in current mechanism
 my @fkpp;#     list of file names (and paths) of input KPP files
@@ -29,40 +30,10 @@ my @fkpp;#     list of file names (and paths) of input KPP files
 my $writefile;#output KPP file "depos.kpp"
 
 ########################################################################
+### Retrieval of script arguments
 
-# Define input data file:
-if (exists $ARGV[1]) {
-  $fdat = $ARGV[1];
-} else {
-  $fdat = '../InitCons/emiss.dat';
-}
-if (-f "$fdat") {
-  print "\n\033[94mData file:         $fdat\n";
-} elsif ($fdat eq "0" || $fdat eq '-') {
-  print "\033[95m\nWarning! Option '$ARGV[1]':\n",
-        "An empty KPP emissions file has been created!\033[0m\n\n";
-  print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n";
-  open($writefile, ">","emiss.kpp")
-  or die "Could not open file emiss.kpp: $!";
-  print $writefile "//Currently no emissions.\n",
-                   "//Template file with sample equation:\n\n",
-                   "//{E1.} EMISS = CH4 : 9.62E+07;\n";
-  close($writefile);
-  exit;
-} else {
-  print "\033[95m\nWarning! File '$fdat' does not exist.\n",
-        "An empty KPP emissions file has been created!\033[0m\n\n";
-  print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n";
-  open($writefile, ">","emiss.kpp")
-  or die "Could not open file emiss.kpp: $!";
-  print $writefile "//Currently no emissions.\n",
-                   "//Template file with sample equation:\n\n",
-                   "//{E1.} EMISS = CH4 : 9.62E+07;\n";
-  close($writefile);
-  exit;
-}
-
-# Define input kpp files:
+# Read in input kpp file(s) from 1st script argument
+# or set default as inorganic/organic
 if (exists $ARGV[0]) {
   my $targ = $ARGV[0];
   $targ =~ s/^\s+//;
@@ -71,6 +42,41 @@ if (exists $ARGV[0]) {
 } else {
   @fkpp = ('inorganic','organic');
 }
+
+# Read in input data file from 2nd script argument
+# or ask for folder path and file name
+if (exists $ARGV[1]) {
+  $fdat = $ARGV[1];
+} #else {
+#   print "Enter folder path and name of data file: ";
+#   $fdat = <STDIN>;
+#   chomp $fdat;
+#   print "$fdat\n";
+# }
+
+# Read in output kpp file from 3rd script argument
+# or define default as "./mechanisms/emiss_<data file name>.kpp"
+if (exists $ARGV[2]) {
+  $fout = $ARGV[2];
+} elsif ($fdat eq "") {
+  $fout = "";
+} else {
+  $fout = $fdat;
+  $fout =~ s/\.\/InitCons\//\.\/mechanisms\/emiss_/;
+  $fout =~ s/\.emi/\.kpp/;
+}
+
+########################################################################
+
+### Screen output and checks
+if (-f "$fdat") {
+  print "\n\033[94mData file:         $fdat\n";
+} else {
+  print "\033[95m\nWarning! No emission scheme generated.\033[0m\n";
+  exit;
+}
+
+print "KPP output file:   $fout\n";
 print "KPP input file(s): ", join(", ", @fkpp), "\033[0m\n\n";
 
 ########################################################################
@@ -101,12 +107,13 @@ print "\033[95mEmissions are only used for species included in the input ",
 ########################################################################
 
 # Open output file and set KPP EQUATIONS variable
-open($writefile, ">","emiss.kpp") or die "Could not open file emiss.kpp: $!";
+open($writefile, ">",$fout) or die "Could not open file $fout: $!";
 print $writefile "#EQUATIONS\n";
 
 # Loop over KPP files
 for my $kfu (@fkpp) {
-  open( FILE, "<$kfu.kpp" )  or die("Couldn't open file $kfu.kpp:$!\\n");
+  open( FILE, "<./mechanisms/$kfu.kpp" )
+  or die("Couldn't open file ./mechanisms/$kfu.kpp:$!\\n");
 # Find lines with species definitions
   while (<FILE>) {
     if (/.*\=\s*IGNORE.*/) {
@@ -130,18 +137,6 @@ for my $kfu (@fkpp) {
 }
 close($writefile);
 
-if ($num ==0) {
-  open($writefile, ">","emiss.kpp")
-  or die "Could not open file emiss.kpp: $!";
-  print $writefile "//Currently no emissions.\n",
-             "//Template file with sample equation:\n\n",
-             "//{E1.} EMISS = CH4 : 9.62E+07;\n";
-  close($writefile);
-  print "\n\033[95mWarning! No species in the data file\n",
-        "matched the species in the current mechanism.\n",
-        "An empty sample KPP emissions file has been created.\033[0m\n";
-}
-
-print "\n\033[94mOutput written to 'emiss.kpp'.\033[0m\n\n";
+print "\n\033[94mOutput written to $fout.\033[0m\n\n";
 
 #######################################################################
