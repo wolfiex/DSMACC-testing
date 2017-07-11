@@ -1,19 +1,19 @@
 
   #F90FLAGS  = -Cpp --pca
   # F90FLAGS   = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap
-  # FDEP ?= 'depos.dat'         # data file variable for makedepos script
-  # FEMI ?= 'emiss.dat'         # data file variable for makedepos script
-  # FKPP ?= 'inorganic organic' # kpp input file variable for makedepos scrpit
-  # FSTD  ?= 1                  # option to extend standard vd to all species
+  # FDEP ?= 'depos.dat'           # data file variable for makedepos script
+  # FEMI ?= 'emiss.dat'           # data file variable for makedepos script
+  # FKPP ?= "'inorganic organic'" # kpp input file variable for makedepos scrpit
+  # FSTD  ?= 1                    # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
-  
-	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
-	#F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
+
+#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
+#F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -g -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 
 ##############################################################################
 
-#do not use -heap arrays in omp or parallel 
+#do not use -heap arrays in omp or parallel
 
 #colour
 black="\033[90m"
@@ -48,17 +48,17 @@ intel := $(shell command -v ifort 2> /dev/null)
  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
  #-fp-stack-check -check bou    nds -check arg_temp_created -check all #-warn all # -openmp
 all: compiler $(PROG) # default make cmd !
-	
+
 	#ulimit -s unlimited #unlimit stack size
 
-compiler:	
+compiler:
 ifndef intel
 	@echo 'using gfortran'
 	$(eval export FC=gfortran)
 	$(eval export F90=gfortran)
 	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none )
 else
-	@echo 'using ifort'  
+	@echo 'using ifort'
 	$(eval export FC=ifort)
 	$(eval export F90=ifort)
 	$(eval export F90FLAGS   = -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict)
@@ -119,15 +119,18 @@ change: # changes organic in model.kpp , define new mech by typing mechanism = <
 
 
 ./Outputs:
-	mkdir Outputs
+	mkdir -p Outputs
 
 new: distclean depend update_submodule tuv
-	@mkdir Outputs
+	@mkdir -p Outputs
+	@mkdir -p save
+	@mkdir -p save/ncfiles
+	@mkdir -p save/exec
 	@python -O -m py_compile AnalysisTools/explore_dsmacc.py
 	@mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
 	@echo 'All set up to begin.'
 
-kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
+kpp: clean | ./Outputs # makes kpp using the model.kpp file in src!
 	touch model
 	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
@@ -138,7 +141,7 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	cd $(KPP_PATH)/src && make
 	python src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
-	-$(KPP_PATH)/bin/kpp model.kpp
+	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 
 kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model
@@ -149,6 +152,7 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	echo 'now run make to compile'
 	
+
 
 ini: # generate kpp files with emission and deposition data
 	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
@@ -186,21 +190,18 @@ update_submodule: # print each make function in list!
 	#git submodule foreach git pull origin master
 
 
-#save model for multi use -  make save name=<you@rmodelname>
-savemodel:
-	@rm -rf ./save/exec/$(name)
+savemodel: rmmodel #save executable, kpp file and 1 nc file (optional)
 	mkdir ./save/exec/$(name)
 	python	./src/background/movetotemp.py $(name)
 
 #lists all models
-lsmodels:
+lsmodels: # list all saved models
 	ls ./save/exec
 
 #removes a saved model - make @rmmodel name=<you@rmodelname>
-@rmmodel:
-	@rm -rf ./save/exec/$(name)
-
-#Does a git pull	
+rmmodel: # delete saved scenarios
+	-rm -rfI ./save/exec/$(name)
+	-rm -i ./save/ncfiles/$(name).nc
 update:
 	git pull origin master
 

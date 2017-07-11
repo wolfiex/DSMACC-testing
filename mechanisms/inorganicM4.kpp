@@ -1,7 +1,5 @@
-#DEFFIX
-EMISS = IGNORE;
 #DEFVAR
-O=IGNORE;
+//O=IGNORE;
 O1D = IGNORE ;
 N2O5 = IGNORE ;
 HONO = IGNORE ;
@@ -13,7 +11,6 @@ A = IGNORE;
 O3FT=ignore;
 NA=IGNORE;
 SA=IGNORE;
-
 #EQUATIONS
 {1.}O = O3 :6.00E-34*O2*O2*((TEMP/300)**-2.6)+5.60E-34*O2*N2*((TEMP/300)**-2.6) ;
 {2.}O + O3 = DUMMY :8.00E-12*EXP(-2060/TEMP) ;
@@ -61,7 +58,4 @@ SA=IGNORE;
 //{33.}  HNO3 = NA : 6.00D-06 ;
 //{34.}  N2O5 = NA + NA : 4.00D-04 ;
 // dsmacc does not run with this /?/ {35.}  SO3 = SA : 1.20D-15*H2O ;
-// others
-
-
 //NO TABS!!!!
