@@ -27,6 +27,7 @@ if (INTTIME .LE. 0)  then
         STOP
     endif
 
+
 endif
 
 runtimestep=int(Inttime / dt) !used for netcdf

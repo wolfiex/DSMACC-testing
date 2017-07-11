@@ -1,0 +1,29 @@
+# Average of absorption cross sections of 2- and 3-pentyl nitrate from least square fit by
+# Roberts and Fajer, Environ Sci Technol 23, 945-951, 1989.
+# taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+# last checked: 28.01.2016
+#
+# λ/nm   σ/cm2
+270    4.335E-20
+272    4.185E-20
+274    4.005E-20
+276    3.785E-20
+278    3.54E-20
+280    3.28E-20
+282    3.005E-20
+284    2.725E-20
+286    2.44E-20
+288    2.165E-20
+290    1.905E-20
+292    1.65E-20
+294    1.42E-20
+296    1.2E-20
+298    1.012E-20
+300    8.42E-21
+302    6.925E-21
+304    5.635E-21
+306    4.54E-21
+308    3.62E-21
+310    2.85E-21
+312    2.225E-21
+314    1.715E-21

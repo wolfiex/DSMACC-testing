@@ -150,6 +150,8 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	python src/background/makemodeldotkpp.py --custom
 	cp src/constants.f90 ./model_constants.f90
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
+	echo 'now run make to compile'
+	
 
 
 ini: # generate kpp files with emission and deposition data
@@ -183,7 +185,8 @@ man: # print each make function in list!
 #downloads required submodules
 update_submodule: # print each make function in list!
 	git submodule init
-	git submodule update --recursive
+	git submodule update
+	#git submodule update --recursive --remote
 	#git submodule foreach git pull origin master
 
 

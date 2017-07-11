@@ -1,0 +1,25 @@
+Pressure dependence of quantum yields for CH3CHO photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 03.12.2015; last update of data sheet: June 2013
+
+1/QY = 1/QY0 + kM/kD[M]
+
+λ/nm  QY0   kM/kD / 1E-21 cm3 mlc-1
+255	1.000	5
+260	1.000	6
+265	1.000	8
+270	1.000	10
+275	1.000	13
+280	1.000	16
+285	1.000	19
+290	1.000	25
+295	0.999	32
+300	0.995	45
+305	0.983	71
+310	0.941	129
+315	0.811	260
+320	0.537	562
+325	0.238	1253
+330	0.078	2802
+335	0.022	6204
+340	0.006	13519
