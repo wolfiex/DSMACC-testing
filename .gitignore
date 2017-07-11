@@ -26,3 +26,5 @@ save/exec
 
 *.pyc
 ./.git/objects/pack/pack-80ba1611f08faff721fb43c792d66d2b713e19bd.pack
+
+*.xlsx
