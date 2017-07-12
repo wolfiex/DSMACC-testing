@@ -23,6 +23,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     ALBEDO=0.
     RP1=0.
     
+    
     do I=1,NSPEC+1
     FOUND=0
     if (SPEC_NAME(I) .NE. '') then
@@ -91,8 +92,6 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
     SELECT CASE (TRIM(SPEC_NAME(I)))
 
-    CASE('R') 
-    FIX(indf_R) = 1
    
     CASE('H2O') 
     H2O=CONCS(I)
@@ -227,7 +226,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     FIX(:)=FIX(:)*CFACTOR
     if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR 
     !correct emissions ^^
-
+    FIX(indf_R) = 1.
     
     if (CONSTRAIN_NOX) then 
         COUNT_NOX_CONSTRAINTS=0
