@@ -150,7 +150,7 @@ full_counter=0
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!NETCDF INITIALISATIONS
+
 
         filename='./Outputs/'//trim(counter)//'_'//trim(mechanism)//'.spec'
         open(SPEC_UNIT, file=filename,action="write",form='unformatted')

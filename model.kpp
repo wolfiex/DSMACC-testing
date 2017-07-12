@@ -7,7 +7,7 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
-#INCLUDE mechanisms/new_CRIedwards.kpp
+#INCLUDE mechanisms/methane.kpp
 
 
 

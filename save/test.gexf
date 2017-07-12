@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf version="1.1" xmlns="http://www.gexf.net/1.1draft" xmlns:viz="http://www.gexf.net/1.1draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="static">
+    <nodes>
+      <node id="CH3NO3" label="CH3NO3" />
+      <node id="C2H5O2" label="C2H5O2" />
+      <node id="CH3OH" label="CH3OH" />
+      <node id="PAN" label="PAN" />
+      <node id="IPROPOL" label="IPROPOL" />
+      <node id="C2H5CO3" label="C2H5CO3" />
+      <node id="CH3O2" label="CH3O2" />
+      <node id="NC4H10" label="NC4H10" />
+      <node id="C2H5OH" label="C2H5OH" />
+      <node id="HCOOH" label="HCOOH" />
+      <node id="HCHO" label="HCHO" />
+      <node id="C3H8" label="C3H8" />
+      <node id="NPROPOL" label="NPROPOL" />
+      <node id="NC5H12" label="NC5H12" />
+      <node id="IC3H7NO3" label="IC3H7NO3" />
+      <node id="HOCH2CO3" label="HOCH2CO3" />
+      <node id="C2H6" label="C2H6" />
+      <node id="CH3CHO" label="CH3CHO" />
+      <node id="IC3H7O2" label="IC3H7O2" />
+      <node id="NOA" label="NOA" />
+      <node id="IC3H7OOH" label="IC3H7OOH" />
+      <node id="C2H5OOH" label="C2H5OOH" />
+      <node id="PHAN" label="PHAN" />
+      <node id="CH3COCH3" label="CH3COCH3" />
+      <node id="CO" label="CO" />
+      <node id="C5H8" label="C5H8" />
+      <node id="HOCH2CO3H" label="HOCH2CO3H" />
+      <node id="HOCH2CHO" label="HOCH2CHO" />
+      <node id="C2H5CHO" label="C2H5CHO" />
+      <node id="PPN" label="PPN" />
+      <node id="HOCH2CH2O2" label="HOCH2CH2O2" />
+      <node id="CH3OOH" label="CH3OOH" />
+      <node id="CH3CO3" label="CH3CO3" />
+      <node id="MPAN" label="MPAN" />
+      <node id="C2H5NO3" label="C2H5NO3" />
+      <node id="CH3CO3H" label="CH3CO3H" />
+    </nodes>
+    <edges>
+      <edge id="0" source="CH3NO3" target="HCHO" weight="11.9344533921" />
+      <edge id="1" source="C2H5O2" target="C2H5NO3" weight="269.431905237" />
+      <edge id="2" source="C2H5O2" target="C2H5OH" weight="67.8971560829" />
+      <edge id="3" source="C2H5O2" target="CH3CHO" weight="203.691475669" />
+      <edge id="4" source="C2H5O2" target="C2H5OOH" weight="62976.1393448" />
+      <edge id="5" source="CH3OH" target="HCHO" weight="2584.61871128" />
+      <edge id="6" source="PAN" target="HCHO" weight="17126.5035852" />
+      <edge id="7" source="PAN" target="CO" weight="17126.5035852" />
+      <edge id="8" source="PAN" target="CH3CO3" weight="1846134.27111" />
+      <edge id="9" source="IPROPOL" target="CH3COCH3" weight="3.3134457436" />
+      <edge id="10" source="C2H5CO3" target="C2H5O2" weight="2182.55148158" />
+      <edge id="11" source="C2H5CO3" target="PPN" weight="30656.5042832" />
+      <edge id="12" source="CH3O2" target="HCHO" weight="5367.24174618" />
+      <edge id="13" source="CH3O2" target="CH3NO3" weight="693.316717886" />
+      <edge id="14" source="CH3O2" target="CH3OH" weight="5447.61607324" />
+      <edge id="15" source="CH3O2" target="CH3OOH" weight="775402.426932" />
+      <edge id="16" source="C2H5OH" target="HOCH2CH2O2" weight="6.15773114129" />
+      <edge id="17" source="C2H5OH" target="CH3CHO" weight="48.3443632974" />
+      <edge id="18" source="HCHO" target="CO" weight="282881.956899" />
+      <edge id="19" source="C3H8" target="IC3H7O2" weight="57414.1521652" />
+      <edge id="20" source="HOCH2CO3" target="HCHO" weight="67624.8992869" />
+      <edge id="21" source="HOCH2CO3" target="PHAN" weight="871806.716695" />
+      <edge id="22" source="HOCH2CO3" target="HOCH2CO3H" weight="597766.090873" />
+      <edge id="23" source="C2H6" target="C2H5O2" weight="74687.3840678" />
+      <edge id="24" source="CH3CHO" target="CH3O2" weight="430.77734435" />
+      <edge id="25" source="CH3CHO" target="CO" weight="430.77734435" />
+      <edge id="26" source="CH3CHO" target="CH3CO3" weight="96763.2651546" />
+      <edge id="27" source="IC3H7O2" target="IPROPOL" weight="4.11494163475" />
+      <edge id="28" source="IC3H7O2" target="IC3H7NO3" weight="693.46215071" />
+      <edge id="29" source="IC3H7O2" target="IC3H7OOH" weight="40755.140853" />
+      <edge id="30" source="IC3H7O2" target="CH3COCH3" weight="12.3448244686" />
+      <edge id="31" source="NOA" target="HCHO" weight="535.866256202" />
+      <edge id="32" source="NOA" target="CH3CO3" weight="535.866256202" />
+      <edge id="33" source="IC3H7OOH" target="CH3COCH3" weight="146.90036984" />
+      <edge id="34" source="C2H5OOH" target="CH3CHO" weight="448.719974118" />
+      <edge id="35" source="PHAN" target="HOCH2CO3" weight="778684.198267" />
+      <edge id="36" source="CH3COCH3" target="CH3O2" weight="882.030778588" />
+      <edge id="37" source="CH3COCH3" target="CH3CO3" weight="882.030778588" />
+      <edge id="38" source="C5H8" target="CO" weight="2096.15535616" />
+      <edge id="39" source="C5H8" target="HCOOH" weight="5675.43955142" />
+      <edge id="40" source="HOCH2CO3H" target="HCHO" weight="8967.36220678" />
+      <edge id="41" source="HOCH2CHO" target="HCHO" weight="18520.9062621" />
+      <edge id="42" source="HOCH2CHO" target="CO" weight="18520.9062621" />
+      <edge id="43" source="HOCH2CHO" target="HOCH2CO3" weight="16.8099043155" />
+      <edge id="44" source="C2H5CHO" target="C2H5CO3" weight="33.4487679188" />
+      <edge id="45" source="C2H5CHO" target="C2H5O2" weight="209.695224174" />
+      <edge id="46" source="C2H5CHO" target="CO" weight="209.695224174" />
+      <edge id="47" source="PPN" target="C2H5CO3" weight="27678.1910637" />
+      <edge id="48" source="HOCH2CH2O2" target="HCHO" weight="0.0699694461597" />
+      <edge id="49" source="HOCH2CH2O2" target="HOCH2CHO" weight="0.0202234269133" />
+      <edge id="50" source="CH3OOH" target="HCHO" weight="12550.5945078" />
+      <edge id="51" source="CH3OOH" target="CH3O2" weight="438513.651824" />
+      <edge id="52" source="CH3CO3" target="CH3O2" weight="120501.268156" />
+      <edge id="53" source="CH3CO3" target="CH3CO3H" weight="1123788.89105" />
+      <edge id="54" source="CH3CO3" target="PAN" weight="1875293.44903" />
+      <edge id="55" source="C2H5NO3" target="CH3CHO" weight="5.69759106622" />
+      <edge id="56" source="CH3CO3H" target="CH3O2" weight="25155.3326717" />
+    </edges>
+  </graph>
+</gexf>

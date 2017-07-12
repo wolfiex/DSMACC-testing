@@ -1,0 +1,25 @@
+<gexf xmlns:viz="http://www.gexf.net/1.1draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.gephi.org/gexf/1.1draft" xmlns:ns0="xsi" version="1.1" ns0:schemaLocation="http://www.gephi.org/gexf/1.1draft http://gephi.org/gexf/1.1draft.xsd">
+  <meta lastmodified="2017-07-11T00:08:18.620746">
+    <creator>newgcmcm.nc</creator>
+    <description>Description: Optional,Do not write time more than once. ,,</description>
+  </meta>
+  <graph defaultedgetype="directed" label="a hello world graph" mode="static">
+    <attributes class="node" mode="dynamic"/>
+    <attributes class="node" mode="static"/>
+    <attributes class="edge" mode="dynamic"/>
+    <attributes class="edge" mode="static"/>
+    <nodes>
+      <node id="ee" label="ee">
+        <attvalues/>
+      </node>
+      <node id="oo" label="oo">
+        <attvalues/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="1" source="oo" target="ee">
+        <attvalues/>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
