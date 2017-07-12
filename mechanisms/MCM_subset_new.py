@@ -7,13 +7,14 @@ use --CO2 to inclide co2 reactions where all species have smiles strings (i.e. M
 use --onefile to ignore inorganics
 use --RO2 to add R as a reaction species for all RO2 reactions. 
 use --primary only use species from orgin (set below) in addition to inorganics. If --onefile is used, only reactions containing reactants entirely from origin are used. Not using this flag prompts for a IC file selection, or all option during the program run. {'O3','NO','NO2','CH4'} are added automatically
+use --additional:<filename.add> for additional functions to model.kpp (e.g. --additional:geosfns.add)
 
 D.Ellis 2017
 '''
 
 import pandas as pd
 import numpy as np
-import os, sys, multiprocessing, re , glob
+import os, sys, multiprocessing, re, glob
 from sympy import Symbol, expand, N
 
 available_cores = 4
@@ -28,13 +29,30 @@ include_RO2 = '--RO2' in sys.argv
 if '--primary' in sys.argv: origin = set(origin.split(','))
 else: origin = set()
 
+additional = False
+for i in sys.argv:
+    if '--additional:' in i:
+        additional = i.replace('--additional:','')
+        break
+
 sys.argv = list(filter(lambda x: '--' not in x, sys.argv))#remove any flags, leaving only filenames
 
 try: filename1=sys.argv[1]
 except:filename1 = '../src/background/mcm331complete.kpp'
 full = tuple(open(filename1))
 
+TUVvers=''
+for i in full: 
+    if 'TUVvers' in i:
+        print i 
+        TUVvers = '''
+#INLINE F90_INIT
+  TUVvers = %d
+#ENDINLINE'''%re.findall(r'=\s*(\d+)\s*', i)[0]
+        break
+
 if(single_file):
+    print 'only using one file'
     inorganics=()
 else:
     try: filename=sys.argv[2]
@@ -63,8 +81,8 @@ spec2num = {v: k for k, v in num2spec.iteritems()}
 
 ####################################################################################
 ''' Step 2 split array into reactants and products '''
-fullstr=''.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
-eqn = [i.replace(' ','').split(':') for i in re.findall(r'[^/]{0,2}\{[\. \s\w\d]*\}([A-z0-9+-=:()*/]*);' ,fullstr)] 
+fullstr='~'.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
+eqn = [i.replace(' ','').split(':') for i in re.findall(r'[^/]{0,2}\{[\. \s\w\d]*\}([A-z0-9+-=:()*/]*);~' ,fullstr)] 
 
 
 
@@ -292,7 +310,14 @@ r2=re.compile(r'_([A-z0-9]*)\)')
 ro2 = [y for y in ro2 if r2.search(y).group(1) in species]
 
 
+'''
+correct species only
+'''
 
+species = list(set(species) & set(all_species))
+species.sort()
+
+if inpt=='a': origin=['all']
 
 string = '''// parsed by MCMsubset.py 
 // contact: daniel.ellis.research@googlemail.com
@@ -303,6 +328,8 @@ string = '''// parsed by MCMsubset.py
 ''' %(ic_file,list(origin),len(species),len(reactions))
 
 print string
+
+string+= TUVvers
 
 string += '''
 #INLINE F90_GLOBAL
@@ -336,12 +363,15 @@ CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 for i,j in enumerate(eqn):
     string += '{%04d} %s : %s;\n'%(i,j[0],j[1]) 
 
-
 string = re.sub(r';\h*;',';',string)
 
-ic_file = filename1.replace('../InitCons/','').replace('.csv','').replace('../src/background/','')
+if additional:
+    string+= '''
+#INCLUDE ./mechanisms/''' + additional
 
-with open("subset_"+ic_file+'.kpp', 'w') as f:
+
+ic_file = filename1.replace('../InitCons/','').replace('.csv','').replace('../src/background/','')
+with open("subset_"+ic_file, 'w') as f:
     f.write(string)
     print "\n subset_"+ic_file+' written'
     

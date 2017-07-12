@@ -174,7 +174,7 @@ NAP=IGNORE;{Naphthalene;IVOCsurrogate}
 NRO2=IGNORE;{PeroxyradicalfromNAPoxidation}
 LNRO2H=IGNORE;{TrackoxidationofNRO2byHO2}
 LNRO2N=IGNORE;{TrackoxidationofNRO2byNO}
-//#DEFFIX
+#DEFFIX
 EOH=IGNORE;{Ethanol}
 H2=IGNORE;{Molecularhydrogen}
 MNO3=IGNORE;{Methylnitrate}
