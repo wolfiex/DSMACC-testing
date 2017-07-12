@@ -287,8 +287,13 @@ class new():
         info_file.close()
         print 'nc write'        
         
+    def reactswith(self,spec,d='all'):
+        dirdict = {'all':re.compile(r'.*\b[\d\.]*'+spec+r'\b.*'),
+            'reactants':re.compile(r'.*\b[\d\.]*'+spec+r'\b.*-->.*'),
+            'products':re.compile(r'.*-->.*\b[\d\.]*'+spec+r'\b.*')}
+        return filter(lambda x: dirdict[direction].match(x),self.rnames)
         
-
+        
     def symdiff(self, other ,what='specs'):
         '''
         Return elements which exist in only one sett
@@ -332,7 +337,7 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
                         res.append([rn.sub(r'\2',i),rn.sub(r'\2',j),weight])
                         
             return res
-            mat
+            
         matrix = [getedges(i) for i in xrange(len(self.rnames))]# multiprocessing.Pool(4).map(getedges,[1,2,3,4,5,6,7,8,9])    
         matrix = [item for sublist in matrix for item in sublist]
         
