@@ -314,7 +314,7 @@ ro2 = [y for y in ro2 if r2.search(y).group(1) in species]
 correct species only
 '''
 
-species = list(set(species) & set(all_species))
+species = list(set(species))
 species.sort()
 
 if inpt=='a': origin=['all']
@@ -341,9 +341,10 @@ REAL(dp)::M, N2, O2, RO2, H2O
 #DEFVAR
 '''
 
+rint = re.compile(r'[^\d]')
 
 for i in species:
-    if i == '': continue#i = 'DUMMY'
+    if i == '' and rint.match(i[0]): continue#i = 'DUMMY'
     string += i+'=IGNORE;\n'
     
 string +='''#INLINE F90_RCONST

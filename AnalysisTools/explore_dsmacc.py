@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import netCDF4
 from netCDF4 import Dataset
-import glob,sys,os,re
+import glob,sys,os,re,multiprocessing
 from matplotlib.pyplot import *
 from copy import copy
 
@@ -21,6 +21,8 @@ class new():
         self.filename = filename
         self.date = nc.date
         self.description = nc.description
+        self.icsstr = nc.initial_conditions_str
+        
 
   
         if len(nc.groups) > 1: 
@@ -42,6 +44,8 @@ class new():
              
         specs = pd.DataFrame(nc.groups[self.group].variables['Spec'][:])
         specs.columns = nc.groups[self.group].variables['Spec'].head.split(',')
+        
+
         
         self.M = specs.M.mean()
         
@@ -67,12 +71,22 @@ class new():
         rates=rates[rates.columns[hasrate]] 
    
         specs = specs/(self.M)
+             
+        if (len(specs.columns) != len(set(specs.columns))) : 
+            print 'duplicate columns detected in specs, collapsing these through summation'
+            specs= specs.groupby(specs.columns,axis=1).sum()
+            
+        if (len(rates.columns) != len(set(specs.columns))) : 
+            print 'duplicate columns detected in rates , collapsing these through summation'
+            rates=rates.groupby(rates.columns,axis=1).sum()     
+             
                    
         self.specs = specs
         self.rates = rates
         
         self.snames = specs.columns
         self.rnames = rates.columns
+        
         
         
     def plot(self,cols,what='specs', **kwargs):
@@ -82,8 +96,30 @@ class new():
         legend()
         show()
         
-        
-        
+    def ics(self,latex=True,remake=''):
+           if sys.version_info[0] <3: from StringIO import StringIO
+           else: from io import StringIO
+           df = pd.read_csv(StringIO(self.icsstr),sep=',',header=1)
+           df.index= df.Species
+           df.drop(['Index','Species'], axis = 1 , inplace=True)
+           df = df[[i[0] not in ['x','X'] for i in df.index]]
+
+           print df
+           
+           if latex: 
+               data = r'''
+                \documentclass{article}   
+                \usepackage{booktabs}
+                \begin{document}
+
+                '''+ df.to_latex() + r'''
+                
+                \end{document}'''
+                             
+               with open('latex_ics.tex','w') as f: f.write(data)
+               os.system('pdflatex latex_ics.tex && rm *.aux *.log')
+           if remake != '':
+               with open(remake+'.csv' ,'w') as f : f.write(self.icsstr)
          
     def pdfdiagnostics(self,what='specs',n_subplot = 5):
         print 'creating a diagnostic pdf of '+what
@@ -137,15 +173,16 @@ class new():
         specs = self.specs*self.M         
 
         flux = []
-
+        rn = re.compile(r'([\.\d\s]*)(\D[\d\D]*)')
+        ren2 = re.compile(r'([\.\d]*)\s*\D[\d\D]*')
         for i in self.xlen(self.reactants):
             rcol = []
             for j in self.reactants[i]:
-                selection = re.sub(r'([\.\d\s]*)(\D[\d\D]*)', r'\2', j)
+                selection = rn.sub( r'\2', j)
                 if selection in self.noconc: dummy = 0 
                 else: dummy = specs[selection]
 
-                try: rcol.append( float(re.sub(r'([\.\d]*)\s*\D[\d\D]*', r'\1', j) * dummy ))
+                try: rcol.append( float(rn2.sub( r'\1', j) * dummy ))
                 except: rcol.append(dummy) # coeff = 1 if not yet specified
 
             prod = 1
@@ -250,8 +287,13 @@ class new():
         info_file.close()
         print 'nc write'        
         
+    def reactswith(self,spec,d='all'):
+        dirdict = {'all':re.compile(r'.*\b[\d\.]*'+spec+r'\b.*'),
+            'reactants':re.compile(r'.*\b[\d\.]*'+spec+r'\b.*-->.*'),
+            'products':re.compile(r'.*-->.*\b[\d\.]*'+spec+r'\b.*')}
+        return filter(lambda x: dirdict[direction].match(x),self.rnames)
         
-
+        
     def symdiff(self, other ,what='specs'):
         '''
         Return elements which exist in only one sett
@@ -269,6 +311,60 @@ class new():
             exec('data1 = other.%s'%what)
             
             return set(data.columns) & set(data.columns)
+            
+
+''' to gephi'''
+def togephi(self,tmin = 1, tmax =144, edgelist = True):
+        #pip install netwrokx --user`
+        #use R and Igraph if possible!
+        if type(self.flux)==bool: self.ropa()
+        import networkx as nx
+        #snames
+        rn = re.compile(r'([\.\d\s]*)(\D[\d\D]*)')
+        
+        
+        def getedges(iloc):
+            print self,tmin,tmax,iloc
+            weight = self.flux[tmin:tmax,iloc].mean()
+            
+            
+            rxn = self.rnames[iloc].split('-->')
+            res = []
+            if weight>0:
+                for i in rxn[0].split('+'):
+                    for j in rxn[1].split('+'):
+                        
+                        res.append([rn.sub(r'\2',i),rn.sub(r'\2',j),weight])
+                        
+            return res
+            
+        matrix = [getedges(i) for i in xrange(len(self.rnames))]# multiprocessing.Pool(4).map(getedges,[1,2,3,4,5,6,7,8,9])    
+        matrix = [item for sublist in matrix for item in sublist]
+        
+        df = pd.DataFrame(matrix)
+        
+        df.groupby([0,1],as_index=False ).sum()
+        
+        G = nx.DiGraph() 
+
+        for i in df.iterrows():
+            i=i[1]
+            G.add_edge(i[0],i[1],weight=i[2])
+#           
+        #degree = G.degree()
+        #nolinks = [n for n in degree if degree[n] == 0]
+        
+        #only carbons
+        for i in set(G.nodes())-set(pd.read_csv('carbons.csv').species):#|set(nolinks):
+            G.remove_node(i)
+        
+        nx.write_gexf(G, "test.gexf")
+        
+        if edgelist: nx.write_edgelist(G,'test.edgelist',comments = '# ', data = ['weight'] ) 
+        
+        return G
+        
+        
             
         
         
@@ -332,10 +428,15 @@ def mechcomp (mechanisms,species = None,n_subplot = 5, parsenames = False,log=Fa
     for sbplt in xrange(0, len(df.columns), n_subplot+1):
             
             cols = list(set(df.columns)^set(['id']))[sbplt:sbplt+n_subplot]
+            if cols == []:
+                print 'no columns left, omitting'
+                continue
+            
             for n,c in enumerate(mechanisms):  
                 if n > 0 :
                     ax = df.loc[df.id == c.filename][cols].plot(ax=ax , linestyle = linetypes[n],legend = False,logy=log, subplots = True)
                 else: 
+                    
                     ax = df.loc[df.id == c.filename][cols].plot(subplots = True, legend = False, logy=log,title = [ i for i  in cols],fontsize=10)
             
             Axes = ax
