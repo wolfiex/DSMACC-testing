@@ -48,7 +48,7 @@ for i in full:
         TUVvers = '''
 #INLINE F90_INIT
   TUVvers = %d
-#ENDINLINE'''%re.findall(r'=\s*(\d+)\s*', i)[0]
+#ENDINLINE'''%(re.findall(r'=\s*(\d+)\s*', i)[0])
         break
 
 if(single_file):
@@ -341,10 +341,10 @@ REAL(dp)::M, N2, O2, RO2, H2O
 #DEFVAR
 '''
 
-rint = re.compile(r'[^\d]')
+rint = re.compile(r'\d')
 
 for i in species:
-    if i == '' and rint.match(i[0]): continue#i = 'DUMMY'
+    if i == '' and not rint.match(i[0]): continue#i = 'DUMMY'
     string += i+'=IGNORE;\n'
     
 string +='''#INLINE F90_RCONST
