@@ -336,7 +336,7 @@ class new():
             #lets get a quantile based cut
             c=df.mean()
             c.sort_values()
-            cut = pd.qcut(c, q=100,labels=False,duplicates=')
+            cut = pd.qcut(c, q=100,labels=False)
 
             main= c[cut>=percent].index
             other = c[cut<percent].index
