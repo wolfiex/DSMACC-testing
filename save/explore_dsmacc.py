@@ -302,7 +302,19 @@ class new():
         exec('data = self.%s'%what)
         exec('data1 = other.%s'%what)
 
-        return set(data.columns) ^ set(data.columns)
+        return set(data.columns) ^ set(data1.columns)
+        
+    def printdiff(self, other ,what='specs'):
+        '''
+        Return elements which exist in only one sett
+        '''
+        exec('data = set(self.%s.columns)'%what)
+        exec('data1 = set(other.%s.columns)'%what)
+        
+        print '\033[1;31,m',sorted(list(data -data1))
+        print  '\033[0;0,m' ,sorted(list(data1-data))
+    
+        
 
     def intersect(self, other ,what='specs'):
             '''
@@ -458,6 +470,8 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
         for i in df.iterrows():
             i=i[1]
             G.add_edge(i[0],i[1],weight=i[2])
+        
+        print df
 #
         #degree = G.degree()
         #nolinks = [n for n in degree if degree[n] == 0]
@@ -592,6 +606,7 @@ def mechcomp (mechanisms,species = None,n_subplot = 5, parsenames = False,log=Fa
     ##return df
 
 
-
+if __name__ == '__main__':
+    a = new()
 
 print 'ready'

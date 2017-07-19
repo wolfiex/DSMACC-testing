@@ -1,0 +1,27 @@
+Cross sections for generic unsaturated dinitrates:
+Average of 1,4-dinitroxy-2-butene and 3,4-dinitrooxy-1-butene
+measured by Barnes et al., J Atmos Chem 17, 353-373, 1993.
+taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+last checked: 29.01.2016
+
+λ/nm	σ/cm2
+245	8.795E-20
+250	7.34E-20
+255	6.51E-20
+260	5.945E-20
+265	5.39E-20
+270	4.775E-20
+275	4.21E-20
+280	3.42E-20
+285	2.67E-20
+290	2.005E-20
+295	1.46E-20
+300	1.06E-20
+305	8E-21
+310	5.55E-21
+315	3.55E-21
+320	2.75E-21
+325	1.4E-21
+330	6E-22
+335	1.40E-22
+340	4.00E-23

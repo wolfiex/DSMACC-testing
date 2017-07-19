@@ -68,9 +68,28 @@ ic_file = 'primary'
 
 ####################################################################################
 
+
+####################################################################################
+''' Step 1 split array into reactants and products '''
+fullstr='~'.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
+eqn = [i.replace(' ','').split(':') for i in re.findall(r'[^/]{0,2}\{[\. \s\w\d]*\}([A-z0-9+-=:()*/]*);~' ,fullstr)]
+
+#sort
+eqn = sorted(eqn,key = lambda x: x[1])
+
+
+
+allspecstest = '='.join([i[0] for i in eqn])
+all_species = set(nocoeff.findall(allspecstest))
+
+inorganic_species = set(['DUMMY', 'N2O5', 'H2O2', 'NO', 'H2', 'NA', 'HONO', 'OH', 'SO2', 'O', 'HNO3', 'SO3', 'O1D', 'HO2', 'HO2NO2', 'CO', 'SA', 'O3', 'HSO3', 'NO2', 'NO3'])
+ #inorganic_species =   set(re.findall(r'[^/]{0,2}\{[\. \s\w\d]*\}([A-z0-9+-=:()*/]*);~' ,'~'.join(inorganics).replace('\n','').replace('\t','').replace(' ','')))
+
+
 ''' Step 1 extract all species '''
-inorganic_species = set(re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
-all_species = re.findall(r'\b[\d\.]*(\w+)\b[\s=]*IGNORE' ,str(full))
+#inorganic_species = set(re.findall(r'([A-z0-9]*)[\s=]*IGNORE' ,str(inorganics)))
+#'all_species = re.findall(r'\b[\d\.]*(\w+)\b[\s=]*IGNORE' ,str(full))
+
 if all_species==[]: sys.exit('Failed to load file-'+filename1)
 
 #species dataframe
@@ -79,12 +98,6 @@ sarr = pd.Series(index=all_species); sarr[:]=-1
 #dictionarys for reference
 num2spec = dict(enumerate(all_species))
 spec2num = {v: k for k, v in num2spec.iteritems()}
-
-
-####################################################################################
-''' Step 2 split array into reactants and products '''
-fullstr='~'.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
-eqn = [i.replace(' ','').split(':') for i in re.findall(r'[^/]{0,2}\{[\. \s\w\d]*\}([A-z0-9+-=:()*/]*);~' ,fullstr)]
 
 
 

@@ -1,0 +1,27 @@
+Parameters for T-depedenecy of absorption cross sections for CH3NO3 photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 08.12.2015; last update of data sheet: 16.5.2002
+
+Parameterisation for T-dependency:
+ln σ(T) = ln σ(298 K) + B × (T-298) at T = 240-360 K:
+
+λ/nm   B / 1E-3 K-1
+240    3.48
+245    3.29
+250    2.96
+255    2.82
+260    2.83
+265    2.92
+270    3.08
+275    3.28
+280    3.51
+285    3.78
+290    4.04
+295    4.47
+300    4.94
+305    5.56
+310    6.33
+315    7.34
+320    8.74
+325    9.97
+330    13.6
