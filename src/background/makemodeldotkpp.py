@@ -8,46 +8,72 @@ import glob,sys,os
 
 myinclude = []
 
-if '--custom' in sys.argv:
+#include custom file here 
+custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
+
+if '--custom' in sys.argv: 
+        None
+
+
+elif '--copy' in sys.argv: 
+    ## use the old model.kpp in the src folder. 
     os.system('cp ./src/model.kpp .')
     print "'./src/model.kpp' used"
     sys.exit()
 
 elif '--default' in sys.argv:
+    ## use only organic and inorganic .kpp
     myinclude.append('#INCLUDE ./mechanisms/organic.kpp\n')
-    myinclude.append('#INCLUDE ./mechanisms/inorganic.kp\n')
+    myinclude.append('#INCLUDE ./mechanisms/inorganic.kpp\n')
     myinclude.append('')
 
 else:
 
-    inc_id = []
     file_list = glob.glob('mechanisms/*.kpp')
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
-    file_list.append('exit')
+  
 
-    print 'Select file to open: \n\n'
-    for i,f in enumerate(file_list): print i , ' - ', f
-    while inc_id != len(file_list)-1:
-        inc_id = input('Enter Number(s)\n')
-        myinclude.append('#INCLUDE '+file_list[inc_id]+'\n')
+    print 'Select file(s) to open: \n\n'
+    for i,f in enumerate(file_list): print '%3d'%i , ' - ', f.replace('mechanisms/','')
+     
+    selected_files = filter(lambda x: len(x)>0 ,   raw_input('Enter Number(s)\n').split(' '))
+   
+        
+    #automatically select inorganic if organic only file selected
+    if (len(selected_files)==1) & ('organic' in file_list[int(selected_files[0])]): myinclude.append('\n#INCLUDE ./mechanisms/inorganic.kpp\n')
 
-    #if 'organic' in inc_file: myinclude+='\n#INCLUDE ./mechanisms/inorganic.kpp'
+    
 
 
-print "".join(myinclude[:-1])
+    
+    for i in selected_files: 
+    
+        if len(i) > 0:   myinclude.append('#INCLUDE '+file_list[int(i)]+'\n')
 
 
 
+if '--custom' in sys.argv: 
+        addstr=custom 
+else:
+        addstr = "".join(reversed(myinclude))
 
 
 modelstring ='''
 // include file with definition of the chemical species
 // and chemical equations
 
-'''+"".join(myinclude[:-1])+'''
+
+
+#INCLUDE ./src/background/mechswitches.kpp //KEEP! 
+
+
+'''+addstr+'''
+
+
 
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
+
 
 
 #DOUBLE ON

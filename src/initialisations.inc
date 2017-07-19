@@ -21,12 +21,12 @@ if (INTTIME .LE. 0)  then
         OUTPUT_LAST=.TRUE.
 
 
-    else;
+    else
         WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-        But not a special case'
+        &But not a special case'
         STOP
     endif
-else
+
 
 endif
 
@@ -48,7 +48,7 @@ if (line.gt.1) then !skip lines
 end if
 
 !get required concentrations
-READ (21,'(10000(e15.4,x))') concs
+READ (21,'(*(e15.4,x))') concs
  close(21)
 
 
@@ -150,7 +150,7 @@ full_counter=0
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!NETCDF INITIALISATIONS
+
 
         filename='./Outputs/'//trim(counter)//'_'//trim(mechanism)//'.spec'
         open(SPEC_UNIT, file=filename,action="write",form='unformatted')

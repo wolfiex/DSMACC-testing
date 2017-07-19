@@ -25,6 +25,8 @@ if '-icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X 
 file_list = glob.glob('InitCons/*.csv')
 file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
 
+if not os.path.exists('./model'): sys.exit('No model file found. Please run "make kpp" followed by "make"')
+
 
 
 print 'Select file to open: \n\n'
@@ -162,7 +164,7 @@ for group_name in numbered:
 
 # close the file.
 ncfile.close()
-print '*** SUCCESS writing %s!'%filename
+print '*** Possible-SUCCESS writing %s!'%filename
 
 
 

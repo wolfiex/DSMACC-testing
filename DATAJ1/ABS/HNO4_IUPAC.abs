@@ -1,0 +1,38 @@
+Absorption cross sections for HNO4 photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 24.11.2015; last update of data sheet: 16.7.2001
+
+QY recommendation:
+HNO4 -> HO2 + NO2: 0.59
+HNO4 -> OH + NO3:  0.41
+
+lamda/nm	xs / cm2
+190    1.01e-17
+195    8.16e-18
+200    5.63e-18
+205    3.67e-18
+210    2.39e-18
+215    1.61e-18
+220    1.18e-18
+225    9.32e-19
+230    7.88e-19
+235    6.80e-19
+240    5.79e-19
+245    4.97e-19
+250    4.11e-19
+255    3.49e-19
+260    2.84e-19
+265    2.29e-19
+270    1.80e-19
+275    1.33e-19
+280    9.3e-20
+285    6.2e-20
+290    3.9e-20
+295    2.4e-20
+300    1.4e-20
+305    8.5e-21
+310    5.3e-21
+315    3.9e-21
+320    2.4e-21
+325    1.5e-21
+330    9.0e-22

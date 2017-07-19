@@ -1,7 +1,7 @@
 #DEFFIX
 EMISS=IGNORE;
-#DEFVAR
+R=IGNORE;
 DUMMY=IGNORE;
 #EQUATIONS
-{dummy}   DUMMY = 0.5DUMMY : 1 ;
 {emissions} EMISS = EMISS: 1;
+{ro2dummy} R = R: 1;
