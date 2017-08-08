@@ -7,7 +7,7 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
-#INCLUDE mechanisms/subset_CRIr3.kpp
+#INCLUDE mechanisms/subset_CRIv2.kpp
 
 
 

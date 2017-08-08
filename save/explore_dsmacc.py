@@ -49,13 +49,17 @@ class new():
 
         self.M = specs.M.mean()
 
+
+
+        specs = specs.iloc[1:]
+        rates = rates.iloc[1:]
+
         specs.index = pd.to_datetime(specs.TIME, unit='s')
         rates.index = pd.to_datetime(specs.TIME, unit='s')
 
-        specs = specs.ix[1:]
-        rates = rates.ix[1:]
 
-        self.params = specs[specs.columns[:7]].describe().ix[['mean','std']]
+
+        self.params = specs[specs.columns[:7]].describe().loc[['mean','std']]
         specs = specs[specs.columns[7:]]
         rates = rates[rates.columns[6:]]
 
@@ -96,7 +100,7 @@ class new():
         legend()
         show()
 
-    def ics(self,latex=True,remake=''):
+    def ics(self,latex=False,remake=''):
            if sys.version_info[0] <3: from StringIO import StringIO
            else: from io import StringIO
            df = pd.read_csv(StringIO(self.icsstr),sep=',',header=1)
@@ -120,6 +124,8 @@ class new():
                os.system('pdflatex latex_ics.tex && rm *.aux *.log')
            if remake != '':
                with open(remake+'.csv' ,'w') as f : f.write(self.icsstr)
+
+           return df
 
     def pdfdiagnostics(self,what='specs',n_subplot = 5):
         print 'creating a diagnostic pdf of '+what
@@ -303,18 +309,18 @@ class new():
         exec('data1 = other.%s'%what)
 
         return set(data.columns) ^ set(data1.columns)
-        
+
     def printdiff(self, other ,what='specs'):
         '''
         Return elements which exist in only one sett
         '''
         exec('data = set(self.%s.columns)'%what)
         exec('data1 = set(other.%s.columns)'%what)
-        
+
         print '\033[1;31,m',sorted(list(data -data1))
         print  '\033[0;0,m' ,sorted(list(data1-data))
-    
-        
+
+
 
     def intersect(self, other ,what='specs'):
             '''
@@ -433,7 +439,7 @@ class new():
 
         return [rcdf,prdf]
 
-''' to gephi'''
+''' to i'''
 def togephi(self,tmin = 1, tmax =144, edgelist = True):
         #pip install netwrokx --user`
         #use R and Igraph if possible!
@@ -470,7 +476,7 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
         for i in df.iterrows():
             i=i[1]
             G.add_edge(i[0],i[1],weight=i[2])
-        
+
         print df
 #
         #degree = G.degree()
@@ -480,9 +486,27 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
         for i in set(G.nodes())-set(pd.read_csv('carbons.csv').species):#|set(nolinks):
             G.remove_node(i)
 
+        nodenames = G.nodes()
+
+        mu = self.specs.iloc[tmin:tmax].mean()
+        mu = np.log10(mu)
+        mu += mu.min()
+        mu /= mu.max()
+        mu = mu[nodenames]
+
+        nx.set_node_attributes(G, 'conc', dict(zip(mu.index,[float(i) for i in mu])))
+
+        primaryHC = self.ics().index
+        nx.set_node_attributes(G, 'primary', dict(zip(nodenames,[int(i in primaryHC ) for i in nodenames])))
+
+
+
+
         nx.write_gexf(G, "test.gexf")
 
         if edgelist: nx.write_edgelist(G,'test.edgelist',comments = '# ', data = ['weight'] )
+
+
 
         return G
 

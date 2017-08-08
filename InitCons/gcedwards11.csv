@@ -1,6 +1,6 @@
 Description: Optional,Do not write time more than once. ,,
 ,,,
-Index,Species,Constrain,Borneo
+Index,Species,Constrain,Borneo-all
 ii,TIME,NA,432000
 ii,TEMP,0,298
 ii,LAT,0,0.9619
@@ -12,7 +12,7 @@ ii,PRESS,0,1013.25
 ii,NOx,0,0
 ii,DEPOS,0,0
 ii,FEMISS,0,0
-ii,CH4,0,1.18E-006
+ii,CH4,0,0.00000118
 ii,H2,0,0.0000005
 ,O3,0,1.45E-008
 ,NO2,0,2.9E-009
@@ -25,5 +25,5 @@ propane,C3H8,0,3.5E-010
 nbutane,NC4H10,0,1E-010
 npentane,NC5H12,0,3.5E-011
 ethene,XC2H4,0,5E-010
-propene,XC3H6,0,1.4E-010
+propene,C3H6,0,1.4E-010
 acetylene,XC2H2,0,4.2E-010
