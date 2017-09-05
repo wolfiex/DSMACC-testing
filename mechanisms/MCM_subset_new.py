@@ -303,7 +303,7 @@ if include_RO2 and ('RO2' not in all_species):
     print 'Including RO2'
 
     r=[]
-    rs= re.compile(r'\*RO2[^\w]',re.IGNORECASE)
+    rs= re.compile(r'\*RO2',re.IGNORECASE)
     for n,i in enumerate(eqn):
         if rs.search(i[1]):
             r.append(n)

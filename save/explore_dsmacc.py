@@ -354,7 +354,7 @@ class new():
             #lets get a quantile based cut
             c=df.mean()
             c.sort_values()
-            cut = pd.qcut(c, q=100,labels=False)
+            cut = pd.qcut(c, q=100,labels=False,duplicates='drop')
 
             main= c[cut>=percent].index
             other = c[cut<percent].index
@@ -436,11 +436,33 @@ class new():
 
             clf()
 
-
+        print 'returning lossdf,proddf'
         return [rcdf,prdf]
 
+
+    def tsne_adjacency(self,tsp):
+       if type(self.flux==bool): self.ropa()
+       c = set(set(a.snames)&set(pd.read_csv('carbons.csv').species))
+       ref = dict([[j,i] for i,j in enumerate(c)])
+       f= self.flux[tsp]
+       array = np.zeros((len(c),len(c)))
+       rn = re.compile(r'[\.\d\s]*(\D[\d\D]*)')
+       for i in xrange(len(self.products)):
+            pc = float(i)/len(self.products) 
+            if (pc%10 ==0) :print pc
+            for j in self.reactants[i]:
+                for k in self.products[i]:
+                    try:
+                        array[ref[rn.findall(j)[-1]],ref[rn.findall(k)[-1]]] += f[i]
+                    except:None
+
+       self.adj = pd.DataFrame(array)
+       self.adj.columns = c
+       self.adj.index = c
+       self.adj.to_csv('adjacency.csv')
+
 ''' to i'''
-def togephi(self,tmin = 1, tmax =144, edgelist = True):
+def togephi(self,tmin = 1, tmax =144, edgelist = True, norm_flux = F):
         #pip install netwrokx --user`
         #use R and Igraph if possible!
         if type(self.flux)==bool: self.ropa()
@@ -470,6 +492,12 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
         df = pd.DataFrame(matrix)
 
         df.groupby([0,1],as_index=False ).sum()
+        
+        if norm_flux:
+            dmy = df[2]
+            dmy -=dmy.min()
+            dmy /=dmy.max()
+            df[2]=dmy+1e-6
 
         G = nx.DiGraph()
 
@@ -479,6 +507,8 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
 
         print df
 #
+
+        print 'normalise edge weight'
         #degree = G.degree()
         #nolinks = [n for n in degree if degree[n] == 0]
 
@@ -490,8 +520,10 @@ def togephi(self,tmin = 1, tmax =144, edgelist = True):
 
         mu = self.specs.iloc[tmin:tmax].mean()
         mu = np.log10(mu)
-        mu += mu.min()
+        print  mu.min()
+        mu -= mu.min()
         mu /= mu.max()
+        print mu.max()
         mu = mu[nodenames]
 
         nx.set_node_attributes(G, 'conc', dict(zip(mu.index,[float(i) for i in mu])))

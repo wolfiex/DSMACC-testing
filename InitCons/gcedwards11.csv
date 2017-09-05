@@ -1,6 +1,6 @@
 Description: Optional,Do not write time more than once. ,,
 ,,,
-Index,Species,Constrain,Borneo-all
+Index,Species,Constrain,Borneox
 ii,TIME,NA,432000
 ii,TEMP,0,298
 ii,LAT,0,0.9619

@@ -11,11 +11,11 @@ pre_formatted_style=False #slower
 
 
 runsaved = False
-if '-saved' in sys.argv: runsaved=True #runs model using saved versions when -modelname is provided
+if '--saved' in sys.argv: runsaved=True #runs model using saved versions when -modelname is provided
 keepx = False
-if '-keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
+if '--keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
 icsonly = False
-if '-icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X in the begining
+if '--icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X in the begining
 
 
 
