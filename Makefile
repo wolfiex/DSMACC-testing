@@ -27,7 +27,12 @@ white="\033[97m"
 nocol="\033[0m"
 #################
 
-if [[ $(hostname -s) =~ (login[0-9])$ ]]; then echo 'running on YARCC' && module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174 ; fi
+
+#yarcc: 
+#	echo 'running on YARCC'
+YARCC := $(module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174)
+
+
 
 PROG = model
 
