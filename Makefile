@@ -27,6 +27,8 @@ white="\033[97m"
 nocol="\033[0m"
 #################
 
+if [[ $(hostname -s) =~ (login[0-9])$ ]]; then echo 'running on YARCC' && module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174 ; fi
+
 PROG = model
 
 # complete list of all f90 source files
