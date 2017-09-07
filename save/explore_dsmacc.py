@@ -462,7 +462,7 @@ class new():
        self.adj.to_csv('adjacency.csv')
 
 ''' to i'''
-def togephi(self,tmin = 1, tmax =144, edgelist = True, norm_flux = F):
+def togephi(self,tmin = 1, tmax =144, edgelist = True, norm_flux = False):
         #pip install netwrokx --user`
         #use R and Igraph if possible!
         if type(self.flux)==bool: self.ropa()
