@@ -1,0 +1,41 @@
+Absorption cross sections for methyleneperoxy Criegee intermediate photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 08.12.2015; last update of data sheet: June 2015
+
+λ/nm	σ(298) / 1E-20 cm-2
+280	190
+285	290
+290	380
+295	490
+300	551
+305	660
+310	785
+315	920
+320	979
+325	1075
+330	1140
+335	1195
+340	1230
+345	1215
+350	1200
+355	1125
+360	1050
+365	1004
+370	844
+375	767
+380	720
+385	455
+390	520
+395	300
+400	345
+405	190
+410	230
+415	110
+420	120
+425	45
+430	50
+435	30
+440	0
+445	0
+450	0
+455	0

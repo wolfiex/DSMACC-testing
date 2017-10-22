@@ -137,11 +137,12 @@ ncfile.description = ic_open[0].strip()
 
 spec = ncfile.createDimension('spec', None)
 time = ncfile.createDimension('time', None)
-rate = ncfile.createDimension('rate', None)
+rate = ncfile.createDimension('rate', None) 
 
 
 #for each simulation
 
+l = 0 
 
 for group_name in numbered:
     print group_name
@@ -156,6 +157,9 @@ for group_name in numbered:
     specvar[:] = read_fbin('./Outputs/run_%s_.spec'%group_name[1])
     ratevar[:] = read_fbin('./Outputs/run_%s_.rate'%group_name[1])
 
+
+    l += len(specvar)    
+    
     print group
     specvar.head = ''.join(tuple(open('./Outputs/spec.names'))).replace(' ','').replace('\n','')
     ratevar.head = ''.join(tuple(open('./Outputs/rate.names'))).replace(' ','').replace('\n','')
@@ -164,7 +168,12 @@ for group_name in numbered:
 
 # close the file.
 ncfile.close()
-print '*** Possible-SUCCESS writing %s!'%filename
+
+if l = 0 :
+    os.system('rm '+filename
+    print 'Failed!'
+else:
+    print '*** SUCCESS writing %s!'%filename
 
 
 
