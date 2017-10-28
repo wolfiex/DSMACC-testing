@@ -27,6 +27,12 @@ MODULE constants
   REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)
   REAL(dp) :: kalkpxy,kalkoxy
   INTEGER  :: k
+
+!remove these just for testing lumping
+real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff 
+
+
+
   INCLUDE './src/rate_coeff/new_rate.inc.def'
 CONTAINS
 

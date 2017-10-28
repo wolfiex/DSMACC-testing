@@ -46,6 +46,23 @@ database.
  RO2 = & 
  C(ind_CH3O2) 
  !C(ind_LUMPCH3O2)*(DIVIDE BY FRACTION) 
+ 
+ 
+prodhcho = c(ind_CH3O2)*c(ind_HO2)* 3.8D-13*EXP(780/TEMP)*(1/(1+498*EXP(-1160/TEMP)))+
+c(ind_CH3OOH)*c(ind_oh)*5.3D-12*EXP(190/TEMP)*0.4+
+c(ind_CH3NO3)c(ind_OH)*4.0D-13*EXP(-845/TEMP)+
+c(ind_CH3O)*7.2D-14*EXP(-1080/TEMP)*O2+
+c(ind_CH3OH)*c(ind_OH)* 2.85D-12*EXP(-345/TEMP)
+
+prodch3o = c(ind_CH3NO3)* J(51)
+
+
+hchocoeff = prodhcho / (prodhcho + prodch3o) 
+ch3ocoeff = prosch3o / (prodhcho + prodch3o) 
+
+
+
+
  CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O) 
  #ENDINLINE 
 {above lines go into the SUBROUTINES UPDATE_RCONST and UPDATE_PHOTO}

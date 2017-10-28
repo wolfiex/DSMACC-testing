@@ -158,8 +158,8 @@ for group_name in numbered:
     ratevar[:] = read_fbin('./Outputs/run_%s_.rate'%group_name[1])
 
 
-    l += len(specvar)    
-    
+    l += len(specvar[:])    
+
     print group
     specvar.head = ''.join(tuple(open('./Outputs/spec.names'))).replace(' ','').replace('\n','')
     ratevar.head = ''.join(tuple(open('./Outputs/rate.names'))).replace(' ','').replace('\n','')
@@ -169,8 +169,8 @@ for group_name in numbered:
 # close the file.
 ncfile.close()
 
-if l = 0 :
-    os.system('rm '+filename
+if l <= 1 :
+    os.system('rm '+filename)
     print 'Failed!'
 else:
     print '*** SUCCESS writing %s!'%filename

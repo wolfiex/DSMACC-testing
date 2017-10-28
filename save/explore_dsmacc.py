@@ -7,6 +7,7 @@ import glob,sys,os,re,multiprocessing
 from matplotlib.pyplot import *
 from copy import copy
 
+
 class new():
     #reads in a selected file
     def __init__(self,filename='',groupid=None):
@@ -91,7 +92,8 @@ class new():
         self.snames = specs.columns
         self.rnames = rates.columns
 
-
+    def getall():
+        return [new(filename=i) for i in  glob.glob('*.nc')]
 
     def plot(self,cols,what='specs', **kwargs):
         exec('data = self.%s'%what)
