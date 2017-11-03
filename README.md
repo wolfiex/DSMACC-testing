@@ -28,7 +28,7 @@ git submodule update` or typing `make update_submodule`
 3. [ErrorCodes](src/docs/errors.md)
 4. [**How to plot**](src/docs/view_results.md)
 5. [Advanced features](src/docs/advancedrunning.md)
-6. [Constrain to obs.](src/docs/constrain_obs.html)
+6. [Constrain to obs.](http://htmlpreview.github.io/?https://github.com/wolfiex/DSMACC-testing/blob/master/src/docs/constrain_obs.html)
 7. [Updating TUV](src/docs/newtuv.md)
 8. [GeosCHEM](src/docs/geoschem.md)
 9. [Changes](src/docs/changes.md)
