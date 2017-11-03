@@ -92,8 +92,6 @@ class new():
         self.snames = specs.columns
         self.rnames = rates.columns
 
-    def getall():
-        return [new(filename=i) for i in  glob.glob('*.nc')]
 
     def plot(self,cols,what='specs', **kwargs):
         exec('data = self.%s'%what)
@@ -568,6 +566,8 @@ def geos2mcm(x):
     return y
 
 
+def getall():
+        return [new(filename=i) for i in  glob.glob('*.nc')]
 
 def mechcomp (mechanisms,species = None,n_subplot = 5, parsenames = False,log=False, ppb = True):
     from matplotlib.backends.backend_pdf import PdfPages

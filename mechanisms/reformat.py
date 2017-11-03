@@ -5,6 +5,10 @@ from sympy import Symbol, expand, N
 
 available_cores=4
 
+
+print 'THIS ADDS INORGANICS< DO NOT USE COMPLETE MECH'
+print 'todo - check duplicate matches, then also check combinations'
+
 try: filename1=sys.argv[1]
 except:filename1 = '../src/background/mcm331complete.kpp'
 full = tuple(open(filename1))
@@ -14,9 +18,7 @@ except: filename = '../src/background/inorganic_mcm.kpp'
 inorganics = tuple(open(filename))
  
 fullstr='~'.join(full+inorganics).replace('\n','').replace('\t','').replace(' ','')
-eqn = [i.replace(' ','').split(':') for i in 
-re.findall(r'(\{[\. \s\w\d]*\}.*\:.*);\r*~' ,fullstr)]
-
+eqn = [re.sub(r"[\r\s\n]*",'',i).split(':') for i in re.findall(r'(\{[\. \s\w\d]*\}.*\:*);\r*~' ,fullstr)]
 
 
 
@@ -47,7 +49,6 @@ def pool_eqn(x):
     return x
 
 eqn = multiprocessing.Pool(available_cores).map(pool_eqn,combined1)
-
 
 
 nocoeff = re.compile(r'\b[\d\.]*(\w+)\b')
@@ -120,7 +121,8 @@ CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 '''
 
 for i,j in enumerate(eqn):
-    string += '{%04d} %s : %s;\n'%(i,j[0],j[1])
+    if j[0][-1]=='=':j[0]+='DUMMY'
+    string += '{%04d} %s : %s;\n'%(i,j[0],j[1].replace('\r',''))
 
 string = re.sub(r';\h*;',';',string)
 

@@ -6,7 +6,8 @@ MODULE constants
 
   INTEGER, PARAMETER :: mnsp=250, mre=2000
   INTEGER  :: i
-! variables for zenith routine which calculates zenith angle
+  real(kind=4):: DFRACT
+  ! variables for zenith routine which calculates zenith angle
   REAL(dp) :: theta, secx, cosx
 ! generic reaction rate variables
 ! variables for calculation of photolysis reaction rates

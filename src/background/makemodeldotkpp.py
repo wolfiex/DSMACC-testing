@@ -27,7 +27,7 @@ elif '--default' in sys.argv:
     myinclude.append('#INCLUDE ./mechanisms/inorganic.kpp\n')
     myinclude.append('')
 
-elif '-l' or '--last' in sys.argv:
+elif ('-l' in sys.argv) or ('--last' in sys.argv):
     file_list = glob.glob('mechanisms/*.kpp')
     file_list.sort(key=os.path.getmtime)
     myinclude.append('#INCLUDE '+file_list[-1]+'\n')
