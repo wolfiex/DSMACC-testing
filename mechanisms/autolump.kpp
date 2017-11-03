@@ -1,0 +1,169 @@
+{Lumping methanecomplete.kpp using lumper.jl tool. D.Ellis 2017
+
+Add defns to constants file 
+
+
+Species - Lumping combinations are : 
+
+ LMP(1,String["CH3O2","CH3O2NO2"]) 
+ LMP(2,String["HCHO","CH3O"]) 
+}
+
+// reformatted by reformat.py
+// contact: daniel.ellis.research@googlemail.com
+// filedata: methane_complete.kpp+../src/background/inorganic_mcm.kpp
+// 30 species  66 reactions
+
+
+#INLINE F90_GLOBAL
+REAL(dp)::M, N2, O2, RO2, H2O
+#ENDINLINE
+#INLINE F90_RCONST
+#ENDINLINE
+#INCLUDE atoms
+#DEFVAR
+CH3NO3 = IGNORE;
+CH3OH = IGNORE;
+CH3OOH = IGNORE;
+CH4 = IGNORE;
+CL = IGNORE;
+CO = IGNORE;
+H2 = IGNORE;
+H2O2 = IGNORE;
+HNO3 = IGNORE;
+HO2 = IGNORE;
+HO2NO2 = IGNORE;
+HONO = IGNORE;
+HSO3 = IGNORE;
+LMP1 = IGNORE;
+LMP2 = IGNORE;
+N2O5 = IGNORE;
+NA = IGNORE;
+NO = IGNORE;
+NO2 = IGNORE;
+NO3 = IGNORE;
+O = IGNORE;
+O1D = IGNORE;
+O3 = IGNORE;
+OH = IGNORE;
+SA = IGNORE;
+SO2 = IGNORE;
+SO3 = IGNORE;
+#INLINE F90_RCONST
+USE constants
+USE lumpedrates
+! end of USE statements
+! start of executable statements
+
+Real(dp)::PA(4)
+Real(dp)::LC(4)
+Integer::index
+
+! LMP1: 1 -> CH3O2, 2 -> CH3O2NO2
+
+    PA(1)=0&
+      +C(ind_CH4)*C(ind_CL)*6.6D-12*ET(-1240)&
+      +C(ind_CH4)*C(ind_OH)*1.85D-12*ET(-1690)&
+      +C(ind_CH3OOH)*C(ind_OH)*5.3D-12*ET(190)*0.6&
+      +C(ind_LMP1)*LC(2)*KMT14
+    LC(1) =  PA(1)/(PA(1)+PA(2))
+    PA(2)=0&
+      +C(ind_LMP1)*LC(1)*C(ind_NO2)*KMT13
+    LC(2) =  PA(2)/(PA(1)+PA(2))
+    
+! LMP2: 3 -> HCHO, 4 -> CH3O
+
+    PA(3)=0&
+      +C(ind_LMP1)*LC(1)*C(ind_HO2)*3.8D-13*ET(780)*(1/(1&
+      +498*ET(-1160)))&
+      +C(ind_LMP1)*LC(1)*2*KCH3O2*RO2*0.5*(1-7.18*ET(-885))&
+      +C(ind_CH3OOH)*C(ind_OH)*5.3D-12*ET(190)*0.4&
+      +C(ind_CH3NO3)*C(ind_OH)*4.0D-13*ET(-845)&
+      +C(ind_LMP2)*LC(4)*7.2D-14*ET(-1080)*O2&
+      +C(ind_CH3OH)*C(ind_OH)*2.85D-12*ET(-345)
+    LC(3) =  PA(3)/(PA(3)+PA(4))
+    PA(4)=0&
+      +C(ind_LMP1)*LC(1)*C(ind_NO)*2.3D-12*ET(360)*0.999&
+      +C(ind_LMP1)*LC(1)*C(ind_NO3)*1.2D-12&
+      +C(ind_LMP1)*LC(1)*2*KCH3O2*RO2*7.18*ET(-885)&
+      +C(ind_CH3OOH)*J(41)&
+      +C(ind_CH3NO3)*J(51)
+    LC(4) =  PA(4)/(PA(3)+PA(4))
+
+do index = 1, 4
+  if (isnan(LC(index))) LC(index) = 0
+end do
+
+
+RO2 = 0 &
++ C(IND_LMP1) * LC(1) 
+  CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
+#ENDINLINE 
+
+#EQUATIONS
+{1} CH4+CL = LMP1 : 6.6D-12*ET(-1240);
+{2} CH4+OH = LMP1 : 1.85D-12*ET(-1690);
+{3} LMP1+HO2 = CH3OOH : 3.8D-13*ET(780)*(1-1/(1+498*ET(-1160)))*LC(1);
+{4} LMP1+HO2 = LMP2 : 3.8D-13*ET(780)*(1/(1+498*ET(-1160)))*LC(1);
+{5} LMP1+NO = CH3NO3 : 2.3D-12*ET(360)*0.001*LC(1);
+{6} LMP1+NO = LMP2+NO2 : 2.3D-12*ET(360)*0.999*LC(1);
+{7} LMP1+NO2 = LMP1 : KMT13*LC(1);
+{8} LMP1+NO3 = LMP2+NO2 : 1.2D-12*LC(1);
+{9} LMP1 = LMP2 : 2*KCH3O2*RO2*7.18*ET(-885)*LC(1);
+{10} LMP1 = CH3OH : 2*KCH3O2*RO2*0.5*(1-7.18*ET(-885))*LC(1);
+{11} LMP1 = LMP2 : 2*KCH3O2*RO2*0.5*(1-7.18*ET(-885))*LC(1);
+{12} CH3OOH = LMP2+OH : J(41);
+{13} CH3OOH+OH = LMP1 : 5.3D-12*ET(190)*0.6;
+{14} CH3OOH+OH = LMP2+OH : 5.3D-12*ET(190)*0.4;
+{15} LMP2 = CO+HO2+HO2 : J(11)*LC(3);
+{16} LMP2 = CO+H2 : J(12)*LC(3);
+{17} LMP2+NO3 = CO+HNO3+HO2 : 5.5D-16*LC(3);
+{18} LMP2+OH = CO+HO2 : 5.4D-12*ET(135)*LC(3);
+{19} CH3NO3 = LMP2+NO2 : J(51);
+{20} CH3NO3+OH = LMP2+NO2 : 4.0D-13*ET(-845);
+{21} LMP2 = LMP2+HO2 : 7.2D-14*ET(-1080)*O2*LC(4);
+{22} LMP1 = LMP1+NO2 : KMT14*LC(2);
+{23} CH3OH+OH = LMP2+HO2 : 2.85D-12*ET(-345);
+{24} O = O3 : 6.00E-34*O2*O2*((TEMP/300)**-2.6)+5.60E-34*O2*N2*((TEMP/300)**-2.6);
+{25} O+O3 = DUMMY : 8.00E-12*ET(-2060);
+{26} NO+O = NO2 : KMT01;
+{27} NO2+O = NO : 5.50E-12*ET(188);
+{28} NO2+O = NO3 : KMT02;
+{29} NO+O3 = NO2 : 1.40E-12*ET(-1310);
+{30} NO2+O3 = NO3 : 1.40E-13*ET(-2470);
+{31} NO+NO = NO2+NO2 : 3.30E-39*ET(530)*O2;
+{32} NO+NO3 = NO2+NO2 : 1.80E-11*ET(110);
+{33} NO2+NO3 = NO+NO2 : 4.50E-14*ET(-1260);
+{34} NO2+NO3 = N2O5 : KMT03;
+{35} N2O5 = NO2+NO3 : KMT04;
+{36} O1D = OH+OH : 2.14E-10*H2O;
+{37} O3+OH = HO2 : 1.70E-12*ET(-940);
+{38} H2+OH = HO2 : 7.70E-12*ET(-2100);
+{39} CO+OH = HO2 : KMT05;
+{40} H2O2+OH = HO2 : 2.90E-12*ET(-160);
+{41} HO2+O3 = OH : 2.03E-16*((TEMP/300)**4.57)*ET(693);
+{42} HO2+OH = DUMMY : 4.80E-11*ET(250);
+{43} NO+OH = HONO : KMT07;
+{44} NO2+OH = HNO3 : KMT08;
+{45} NO3+OH = HO2+NO2 : 2.00E-11;
+{46} HO2+NO = NO2+OH : 3.45E-12*ET(270);
+{47} HO2+NO2 = HO2NO2 : KMT09;
+{48} HO2NO2 = HO2+NO2 : KMT10;
+{49} HO2NO2+OH = NO2 : 3.20E-13*ET(690);
+{50} HO2+NO3 = NO2+OH : 4.00E-12;
+{51} HONO+OH = NO2 : 2.50E-12*ET(260);
+{52} HNO3+OH = NO3 : KMT11;
+{53} O+SO2 = SO3 : 4.00E-32*ET(-1000)*M;
+{54} OH+SO2 = HSO3 : KMT12;
+{55} HSO3 = HO2+SO3 : 1.30E-12*ET(-330)*O2;
+{56} O3 = O1D : J(1);
+{57} O3 = O : J(2);
+{58} H2O2 = OH+OH : J(3);
+{59} NO2 = NO+O : J(4);
+{60} NO3 = NO : J(5);
+{61} NO3 = NO2+O : J(6);
+{62} HONO = NO+OH : J(7);
+{63} HNO3 = NO2+OH : J(8);
+{64} HNO3 = NA : 6.00D-06;
+{65} N2O5 = NA+NA : 4.00D-04;
+{66} SO3 = SA : 1.20D-15*H2O;

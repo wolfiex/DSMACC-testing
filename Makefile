@@ -27,6 +27,13 @@ white="\033[97m"
 nocol="\033[0m"
 #################
 
+
+#yarcc: 
+#	echo 'running on YARCC'
+YARCC := $(module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174)
+
+
+
 PROG = model
 
 # complete list of all f90 source files
@@ -139,6 +146,21 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	python src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
+
+
+kppl: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
+	touch model
+	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
+	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
+	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
+	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
+	@echo $(KPP_PATH)
+	@rm model
+	cd $(KPP_PATH)/src && make
+	python src/background/makemodeldotkpp.py $(MODELKPP) -l
+	cp src/constants.f90 ./model_constants.f90
+	-$(KPP_PATH)/bin/kpp model.kpp
+
 
 kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	touch model

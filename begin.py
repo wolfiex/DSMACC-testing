@@ -11,11 +11,11 @@ pre_formatted_style=False #slower
 
 
 runsaved = False
-if '-saved' in sys.argv: runsaved=True #runs model using saved versions when -modelname is provided
+if '--saved' in sys.argv: runsaved=True #runs model using saved versions when -modelname is provided
 keepx = False
-if '-keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
+if '--keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
 icsonly = False
-if '-icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X in the begining
+if '--icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X in the begining
 
 
 
@@ -25,7 +25,7 @@ if '-icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X 
 file_list = glob.glob('InitCons/*.csv')
 file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
 
-if not os.path.exists('./model'): sys.exit('No model file found. Please run "make kpp" followed by "make"')
+if (not os.path.exists('./model') & runsaved==0): sys.exit('No model file found. Please run "make kpp" followed by "make"')
 
 
 
@@ -137,11 +137,12 @@ ncfile.description = ic_open[0].strip()
 
 spec = ncfile.createDimension('spec', None)
 time = ncfile.createDimension('time', None)
-rate = ncfile.createDimension('rate', None)
+rate = ncfile.createDimension('rate', None) 
 
 
 #for each simulation
 
+l = 0 
 
 for group_name in numbered:
     print group_name
@@ -156,6 +157,9 @@ for group_name in numbered:
     specvar[:] = read_fbin('./Outputs/run_%s_.spec'%group_name[1])
     ratevar[:] = read_fbin('./Outputs/run_%s_.rate'%group_name[1])
 
+
+    l += len(specvar[:])    
+
     print group
     specvar.head = ''.join(tuple(open('./Outputs/spec.names'))).replace(' ','').replace('\n','')
     ratevar.head = ''.join(tuple(open('./Outputs/rate.names'))).replace(' ','').replace('\n','')
@@ -164,7 +168,12 @@ for group_name in numbered:
 
 # close the file.
 ncfile.close()
-print '*** Possible-SUCCESS writing %s!'%filename
+
+if l <= 1 :
+    os.system('rm '+filename)
+    print 'Failed!'
+else:
+    print '*** SUCCESS writing %s!'%filename
 
 
 

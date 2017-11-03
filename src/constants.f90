@@ -6,7 +6,8 @@ MODULE constants
 
   INTEGER, PARAMETER :: mnsp=250, mre=2000
   INTEGER  :: i
-! variables for zenith routine which calculates zenith angle
+  real(kind=4):: DFRACT
+  ! variables for zenith routine which calculates zenith angle
   REAL(dp) :: theta, secx, cosx
 ! generic reaction rate variables
 ! variables for calculation of photolysis reaction rates
@@ -27,6 +28,12 @@ MODULE constants
   REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)
   REAL(dp) :: kalkpxy,kalkoxy
   INTEGER  :: k
+
+!remove these just for testing lumping
+real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff 
+
+
+
   INCLUDE './src/rate_coeff/new_rate.inc.def'
 CONTAINS
 
