@@ -18,8 +18,8 @@ pre_formatted_style=False #slower
 
 run_simulate = True
 
-n_runs = 1
-duration = 2400#24*60*60*2/10
+n_runs = 300
+duration = 24*60*60*2
  ##################
  ####read files####
 
