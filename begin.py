@@ -21,10 +21,17 @@ if '--obs' in sys.argv:
     obs=int(tuple(open('include.obs'))[0].strip().replace('!obs:','')) # does not ignore runs marked with an X in the begining
     print 'running with %s observations, with %s lines'%((obs-1.)/4.,obs)
 last = False    
-if '--last': last = True
+if '--last' in sys.argv: last = -1
+if '--run' in sys.argv: 
+    for i in sys.argv:
+        try:
+            last=int(i)
+        except: None
 
 print 'if obs unconstrain species where obs is used'
 
+
+print sys.argv,last
  ##################
  ####read files####
 
@@ -37,8 +44,8 @@ if (not os.path.exists('./model') & runsaved==0): sys.exit('No model file found.
 
 print 'Select file to open: \n\n'
 for i,f in enumerate(file_list): print i , ' - ', f.replace('InitCons/','').replace('.csv','')
-if last : ic_file = file_list[-1]
-else : ic_file = file_list[int(input('Enter Number \n'))]
+if (last) : ic_file = file_list[last]
+else : ic_file = file_list[int(raw_input('Enter Number \n'))]
 
 
 #run simulations

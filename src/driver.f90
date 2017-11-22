@@ -91,6 +91,8 @@ WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP, M, RCONST(:NREACT)
 TEND = TEND + spinup*dt !additional spinup time added if included
 
 
+print*,  achar(27)//'[2J'
+print*, 'Run Progress'
 time_loop: DO WHILE (time < TEND)! This is the main loop for integrations
 run_counter = run_counter+1
 
@@ -169,7 +171,7 @@ if (run_counter > nc_set) then !increased at start
     end do
 
     if (mod(run_counter/nc_set,20)==0) then
-        print*, ''//achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
+        print*, achar(27)//'[f', achar(27)//'['//trim(ln)//'B', achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
     end if
 
 else
