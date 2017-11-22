@@ -5,7 +5,7 @@ if (obs>0) then
     open(UNIT=99, FORM='unformatted', FILE='spline.obs')
            READ(99) spcf
     close(unit=99)
-    print*, //achar(27)//'[91m Using observations! '//achar(27)//'[97m
+    print*,achar(27)//'[91m Using observations! '//achar(27)//'[97m'
 end if
 
 !print*, spcf(:,1)!dayslice
