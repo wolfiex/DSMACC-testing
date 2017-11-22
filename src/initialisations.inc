@@ -1,5 +1,18 @@
 !!!!!Input arguments!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+if (obs>0) then
+    allocate(spcf(obs,27))
+    open(UNIT=99, FORM='unformatted', FILE='spline.obs')
+           READ(99) spcf
+    close(unit=99)
+    print*, //achar(27)//'[91m Using observations! '//achar(27)//'[97m
+end if
+
+!print*, spcf(:,1)!dayslice
+
+
+
+
 !open the init cons file.
 open(UNIT=21,FILE='Init_cons.dat')
 READ(21,'(i10)') IntTime

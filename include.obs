@@ -1,0 +1,22 @@
+!obs:25
+
+!! Constrain from observations
+!USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
+DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+
+ C(ind_C2H6)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(1,:),spcf(2,:),spcf(3,:),spcf(4,:))
+ CONSTRAIN(ind_C2H6) = C(ind_C2H6)
+
+ C(ind_C5H8)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(5,:),spcf(6,:),spcf(7,:),spcf(8,:))
+ CONSTRAIN(ind_C5H8) = C(ind_C5H8)
+
+ C(ind_O3)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(9,:),spcf(10,:),spcf(11,:),spcf(12,:))
+ CONSTRAIN(ind_O3) = C(ind_O3)
+
+ C(ind_TOLUENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(13,:),spcf(14,:),spcf(15,:),spcf(16,:))
+ CONSTRAIN(ind_TOLUENE) = C(ind_TOLUENE)
+
+ C(ind_APINENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(17,:),spcf(18,:),spcf(19,:),spcf(20,:))
+ CONSTRAIN(ind_APINENE) = C(ind_APINENE)
+
+ TNOX_OLD = CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(21,:),spcf(22,:),spcf(23,:),spcf(24,:))

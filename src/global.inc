@@ -5,9 +5,10 @@
   REAL(dp):: CONSTRAIN(NVAR)
   INTEGER :: const_method(NSPEC+10)
   REAL(dp), allocatable :: SPIN_CONST(:) ! constrain array for spinup
+  REAL(dp), allocatable :: spcf(:,:) !spline coeff
   CHARACTER(LEN=15) :: spec_name(NSPEC+10)!10000
   LOGICAL :: SPEC_CH4, SPEC_H2
-  INTEGER :: IntTime,daycounter,SPINUP
+  INTEGER :: IntTime,daycounter,SPINUP,obs
   LOGICAL :: CONSTRAIN_NOX, SAVE_LEGACY
   LOGICAL :: CONSTRAIN_RUN, LAST_POINT, OUTPUT_LAST
   INTEGER, PARAMETER :: OUTPUT_UNIT = 24

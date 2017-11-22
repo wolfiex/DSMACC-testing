@@ -42,9 +42,12 @@ SO2=IGNORE;
 SO3=IGNORE;
 #INLINE F90_RCONST
 USE constants
+USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
 RO2 = 0&
 +C(ind_CH3O2)
 CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
+
+
 #ENDINLINE
 #EQUATIONS
 {0000} CH4+CL=CH3O2 : 6.6D-12*EXP(-1240/TEMP);

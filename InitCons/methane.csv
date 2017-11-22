@@ -5,11 +5,11 @@ ii ,TIME,NA,259200
 ii,TEMP,0,298
 ii ,LAT,0,53.958
 ii,LON,0,0
-ii ,JDAY,0,173
+ii ,JDAY,0,173.5
 ii,H2O,0,0.01
 ii,ALBEDO,0,0
 ii ,PRESS,0,1013
-ii,NOx,0,
+ii,NOx,1,
 ii ,DEPOS,1,0
 ii,FEMISS,1,0
 ii,SPINUP,0,0

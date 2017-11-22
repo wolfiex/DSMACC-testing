@@ -16,8 +16,14 @@ keepx = False
 if '--keepx' in sys.argv: keepx=True # does not ignore runs marked with an X in the begining
 icsonly = False
 if '--icsonly' in sys.argv: icsonly=True # does not ignore runs marked with an X in the begining
+obs= 0
+if '--obs' in sys.argv: 
+    obs=int(tuple(open('include.obs'))[0].strip().replace('!obs:','')) # does not ignore runs marked with an X in the begining
+    print 'running with %s observations, with %s lines'%((obs-1.)/4.,obs)
+last = False    
+if '--last': last = True
 
-
+print 'if obs unconstrain species where obs is used'
 
  ##################
  ####read files####
@@ -31,7 +37,8 @@ if (not os.path.exists('./model') & runsaved==0): sys.exit('No model file found.
 
 print 'Select file to open: \n\n'
 for i,f in enumerate(file_list): print i , ' - ', f.replace('InitCons/','').replace('.csv','')
-ic_file = file_list[int(input('Enter Number \n'))]
+if last : ic_file = file_list[-1]
+else : ic_file = file_list[int(input('Enter Number \n'))]
 
 
 #run simulations
@@ -104,7 +111,7 @@ def simulate (arg_in):
             
         print 'aaaa'    
         linenumber = "%s"%(int(arg_in[0])+1)
-        run ='./%s %s %s 1'%(model, description,int(linenumber))
+        run ='./%s %s %s %d'%(model, description,int(linenumber),obs)
         print run ;       os.system(run)
         return int(time.strftime("%s")) - int(start)
     except Exception as e:
