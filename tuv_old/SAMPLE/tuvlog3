@@ -1,0 +1,126 @@
+TUV inputs:
+==================================================================
+inpfil =      defin3   outfil =      usrout   nstr =             4
+lat =          0.000   lon =          0.000   tmzone =         0.0
+iyear =         2002   imonth =           3   iday =            21
+zstart =       0.000   zstop =      100.000   nz =             101
+wstart =     120.000   wstop =      735.000   nwint =         -156
+tstart =       0.000   tstop =       23.750   nt =              96
+lzenit =           F   alsurf =       0.100   psurf =       -999.0
+o3col =      300.000   so2col =       0.000   no2col =       0.000
+taucld =       0.000   zbase =        4.000   ztop =         5.000
+tauaer =       0.235   ssaaer =       0.990   alpha =        1.000
+dirsun =       1.000   difdn =        1.000   difup =        1.000
+zout =         0.500   zaird =   -9.990E+02   ztemp =     -999.000
+lirrad =           F   laflux =           F   lmmech =           T
+lrates =           F   isfix =            0   nms =              0
+ljvals =           F   ijfix =            0   nmj =              0
+iwfix =            0   itfix =            0   izfix =            0
+==================================================================
+==== Spectral weighting functions used:
+==== Photolysis reactions used:
+==================================================================
+ Discrete ordinates  4-stream radiative transfer
+ air temperature: USSA, 1976
+ air density: USSA, 1976
+ ozone profile: USSA, 1976
+ DATAE1/SUN/susim_hi.flx
+ DATAE1/SUN/atlas3_1994_317_a.dat        
+ DATAE1/SUN/neckel.flx                   
+ aerosols:  Elterman (1968) continental profile
+step =    1 zen =   178.153 esfact =  1.0079633
+step =    2 zen =   178.093 esfact =  1.0079575
+step =    3 zen =   174.343 esfact =  1.0079515
+step =    4 zen =   170.592 esfact =  1.0079457
+step =    5 zen =   166.842 esfact =  1.0079397
+step =    6 zen =   163.091 esfact =  1.0079337
+step =    7 zen =   159.340 esfact =  1.0079279
+step =    8 zen =   155.590 esfact =  1.0079219
+step =    9 zen =   151.839 esfact =  1.0079161
+step =   10 zen =   148.088 esfact =  1.0079101
+step =   11 zen =   144.337 esfact =  1.0079042
+step =   12 zen =   140.587 esfact =  1.0078983
+step =   13 zen =   136.836 esfact =  1.0078924
+step =   14 zen =   133.085 esfact =  1.0078865
+step =   15 zen =   129.334 esfact =  1.0078804
+step =   16 zen =   125.584 esfact =  1.0078746
+step =   17 zen =   121.833 esfact =  1.0078686
+step =   18 zen =   118.082 esfact =  1.0078627
+step =   19 zen =   114.331 esfact =  1.0078568
+step =   20 zen =   110.580 esfact =  1.0078509
+step =   21 zen =   106.830 esfact =  1.0078450
+step =   22 zen =   103.079 esfact =  1.0078391
+step =   23 zen =    99.328 esfact =  1.0078332
+step =   24 zen =    95.577 esfact =  1.0078273
+step =   25 zen =    91.827 esfact =  1.0078213
+step =   26 zen =    88.076 esfact =  1.0078155
+step =   27 zen =    84.325 esfact =  1.0078095
+step =   28 zen =    80.574 esfact =  1.0078037
+step =   29 zen =    76.824 esfact =  1.0077977
+step =   30 zen =    73.073 esfact =  1.0077919
+step =   31 zen =    69.322 esfact =  1.0077859
+step =   32 zen =    65.571 esfact =  1.0077798
+step =   33 zen =    61.821 esfact =  1.0077740
+step =   34 zen =    58.070 esfact =  1.0077680
+step =   35 zen =    54.319 esfact =  1.0077622
+step =   36 zen =    50.569 esfact =  1.0077562
+step =   37 zen =    46.818 esfact =  1.0077503
+step =   38 zen =    43.067 esfact =  1.0077444
+step =   39 zen =    39.316 esfact =  1.0077385
+step =   40 zen =    35.566 esfact =  1.0077326
+step =   41 zen =    31.815 esfact =  1.0077267
+step =   42 zen =    28.065 esfact =  1.0077208
+step =   43 zen =    24.314 esfact =  1.0077147
+step =   44 zen =    20.564 esfact =  1.0077088
+step =   45 zen =    16.813 esfact =  1.0077029
+step =   46 zen =    13.063 esfact =  1.0076970
+step =   47 zen =     9.314 esfact =  1.0076911
+step =   48 zen =     5.566 esfact =  1.0076852
+step =   49 zen =     1.829 esfact =  1.0076793
+step =   50 zen =     1.963 esfact =  1.0076734
+step =   51 zen =     5.701 esfact =  1.0076675
+step =   52 zen =     9.449 esfact =  1.0076615
+step =   53 zen =    13.198 esfact =  1.0076555
+step =   54 zen =    16.948 esfact =  1.0076497
+step =   55 zen =    20.699 esfact =  1.0076437
+step =   56 zen =    24.449 esfact =  1.0076379
+step =   57 zen =    28.200 esfact =  1.0076319
+step =   58 zen =    31.950 esfact =  1.0076261
+step =   59 zen =    35.701 esfact =  1.0076201
+step =   60 zen =    39.452 esfact =  1.0076140
+step =   61 zen =    43.202 esfact =  1.0076082
+step =   62 zen =    46.953 esfact =  1.0076022
+step =   63 zen =    50.704 esfact =  1.0075964
+step =   64 zen =    54.454 esfact =  1.0075904
+step =   65 zen =    58.205 esfact =  1.0075846
+step =   66 zen =    61.956 esfact =  1.0075786
+step =   67 zen =    65.706 esfact =  1.0075727
+step =   68 zen =    69.457 esfact =  1.0075667
+step =   69 zen =    73.208 esfact =  1.0075607
+step =   70 zen =    76.959 esfact =  1.0075549
+step =   71 zen =    80.709 esfact =  1.0075489
+step =   72 zen =    84.460 esfact =  1.0075431
+step =   73 zen =    88.211 esfact =  1.0075371
+step =   74 zen =    91.961 esfact =  1.0075312
+step =   75 zen =    95.712 esfact =  1.0075252
+step =   76 zen =    99.463 esfact =  1.0075194
+step =   77 zen =   103.213 esfact =  1.0075134
+step =   78 zen =   106.964 esfact =  1.0075074
+step =   79 zen =   110.715 esfact =  1.0075016
+step =   80 zen =   114.465 esfact =  1.0074955
+step =   81 zen =   118.216 esfact =  1.0074897
+step =   82 zen =   121.967 esfact =  1.0074837
+step =   83 zen =   125.717 esfact =  1.0074779
+step =   84 zen =   129.468 esfact =  1.0074719
+step =   85 zen =   133.218 esfact =  1.0074661
+step =   86 zen =   136.969 esfact =  1.0074600
+step =   87 zen =   140.719 esfact =  1.0074540
+step =   88 zen =   144.470 esfact =  1.0074482
+step =   89 zen =   148.220 esfact =  1.0074422
+step =   90 zen =   151.970 esfact =  1.0074364
+step =   91 zen =   155.721 esfact =  1.0074303
+step =   92 zen =   159.470 esfact =  1.0074245
+step =   93 zen =   163.220 esfact =  1.0074185
+step =   94 zen =   166.969 esfact =  1.0074127
+step =   95 zen =   170.716 esfact =  1.0074067
+step =   96 zen =   174.458 esfact =  1.0074006

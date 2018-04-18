@@ -1,0 +1,17 @@
+Description: Optional,Do not write time more than once.,,
+TUV version,0,0,TUV5.2.1
+Index,Species,Constrain,BaseRun
+ii,TIME,NA,259200
+ii,TEMP,0,298.0
+ii,LAT,0,39.904
+ii,LON,0,116.407
+ii,JDAY,0,160.6839
+ii,H2O,0,0.01
+ii,ALBEDO,0,0.1
+ii,PRESS,0,1013.0
+ii,NOx,0,0
+ii,DEPOS,0,1
+ii,FEMISS,0,0
+1,O3,0,4.5e-08
+2,H2,1,5e-07
+3,CH4,0,5e-09

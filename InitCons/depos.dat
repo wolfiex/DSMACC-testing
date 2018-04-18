@@ -1,0 +1,37 @@
+# Values taken from CAPRAM database, see e.g.,
+# P. Bräuer (2015), 'Extension and application of a tropospheric aqueous phase
+# chemical mechanism (CAPRAM) for aerosol and cloud models', Dissertation,
+# available at:
+# www.qucosa.de/recherche/frontdoor/?tx_slubopus4frontend[id]=urn:nbn:de:bsz:15-qucosa-183743
+
+#Species  vd / s-1
+DEPOS     5.00d-6
+CH3OH     1.00d-5
+CO        1.00d-6
+C2H5OH    5.00d-6
+H2O2      5.00d-6
+HCHO      5.00d-6
+HCL       5.00d-6
+HNO3      5.00d-6
+N2O5      5.00d-6
+NH3       1.00d-5
+NO2       1.00d-6
+O3        4.00d-7
+CH3OOH    5.00d-6
+HCOOH     5.00d-6
+SO2       5.00d-6
+SA        5.00d-6
+HOCL      2.00d-6
+HBR       5.00d-6
+HOBR      2.00d-6
+HI        1.00d-5
+HOI       1.00d-5
+INO3      1.00d-5
+INO2      1.00d-5
+DMSO2     5.00d-6
+DMSO      5.00d-6
+MSA       2.00d-6
+O1D       0.00d+0 # no depositon of atoms
+O         0.00d+0
+CL        0.00d+0
+BR        0.00d+0

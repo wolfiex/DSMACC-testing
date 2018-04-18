@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="8.10" ProjectIdGuid="{EAF8D33D-60AE-46F9-AC30-95C5DAD35AD3}">
+	<Platforms>
+		<Platform Name="Win32"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32" DeleteExtensionsOnClean="*.obj;*.mod;*.pdb;*.asm;*.map;*.dyn;*.dpi;*.tmp;*.log;*.ilk;*.exe;$(TargetPath)" Command="$(TargetPath)">
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" HeaderFileName="$(InputName).h" TypeLibraryName="$(IntDir)/$(InputName).tlb"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" ModulePath="$(INTDIR)/" ObjectFile="$(INTDIR)/" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtSingleThreadedDebug" CompileOnly="true"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OUTDIR)/tuv4.2_arr.exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" ProgramDatabaseFile="$(OUTDIR)/tuv4.2_arr.pdb" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool" ResourceOutputFileName="$(IntDir)/$(InputName).res"/>
+				<Tool Name="VFPreLinkEventTool"/></Configuration>
+		<Configuration Name="Release|Win32" DeleteExtensionsOnClean="*.obj;*.mod;*.pdb;*.asm;*.map;*.dyn;*.dpi;*.tmp;*.log;*.ilk;*.exe;$(TargetPath)" MustRebuild="true" Command="$(TargetPath)">
+				<Tool Name="VFMidlTool" SwitchesHaveChanged="true" SuppressStartupBanner="true" HeaderFileName="$(InputName).h" TypeLibraryName="$(IntDir)/$(InputName).tlb"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFFortranCompilerTool" SwitchesHaveChanged="true" SuppressStartupBanner="true" ModulePath="$(INTDIR)/" ObjectFile="$(INTDIR)/" CompileOnly="true"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFLinkerTool" SwitchesHaveChanged="true" MustRebuild="true" OutputFile="$(OUTDIR)/tuv4.2_arr.exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool" SwitchesHaveChanged="true" ResourceOutputFileName="$(IntDir)/$(InputName).res"/>
+				<Tool Name="VFPreLinkEventTool"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath="foil.for"/>
+		<File RelativePath="functs.f"/>
+		<File RelativePath="grids.f"/>
+		<File RelativePath="la_srb.f"/>
+		<File RelativePath="numer.f"/>
+		<File RelativePath="odo3.f"/>
+		<File RelativePath="odrl.f"/>
+		<File RelativePath="orbit.f"/>
+		<File RelativePath="rdetfl.f"/>
+		<File RelativePath="rdinp.f"/>
+		<File RelativePath="rdxs.f"/>
+		<File RelativePath="rtrans.f"/>
+		<File RelativePath="rxn.f">
+			<FileConfiguration Name="Debug|Win32">
+				<Tool Name="VFFortranCompilerTool"/></FileConfiguration></File>
+		<File RelativePath="savout.f"/>
+		<File RelativePath="setaer.f"/>
+		<File RelativePath="setalb.f"/>
+		<File RelativePath="setcld.f"/>
+		<File RelativePath="setno2.f"/>
+		<File RelativePath="seto2.f"/>
+		<File RelativePath="setso2.f"/>
+		<File RelativePath="sphers.f"/>
+		<File RelativePath="swbiol.f"/>
+		<File RelativePath="swbiol2.f"/>
+		<File RelativePath="swbiol3.f"/>
+		<File RelativePath="swchem.f"/>
+		<File RelativePath="swphys.f"/>
+		<File RelativePath="TUV42.f">
+			<FileConfiguration Name="Debug|Win32">
+				<Tool Name="VFFortranCompilerTool"/></FileConfiguration></File>
+		<File RelativePath="vpair.f"/>
+		<File RelativePath="vpo3.f"/>
+		<File RelativePath="vptmp.f"/>
+		<File RelativePath="wshift.f"/></Filter>
+		<Filter Name="Header Files" Filter="fi;fd"/>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<File RelativePath="ReadMe.txt"/></Files>
+	<Globals/></VisualStudioProject>

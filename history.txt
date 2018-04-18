@@ -1,0 +1,12 @@
+get_ipython().magic(u'history ')
+get_ipython().magic(u'history')
+get_ipython().magic(u'history -g')
+import core
+a = get_ipython().magic(u'history -g')
+a
+a = get_ipython().magic(u'history -g')
+a
+a = get_ipython().magic(u'history')
+a
+a -g
+get_ipython().magic(u'history -t -f history.txt')

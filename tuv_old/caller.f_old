@@ -1,0 +1,27 @@
+        program caller
+         incLude 'params'
+        real*8 b(19),c(19),d(19)
+        real*8 bs(19,kj), cs(19,kj), ds(19,kj)
+        REAL O3col, alta
+        REAL*8 y,dy,x
+        integer i, n, j
+        real svj_tj(kt,kj), sza(kt)
+        real*8 temp2(19), temp(19)
+
+
+        call set_up_photol(O3col, alta, b,c,d,sza,svj_tj)
+        do x=0.,90.,1.
+                do j=1,kj
+                        do i=1,19
+                                temp(i)=sza(i)
+                                temp2(i)=svj_tj(i,j)
+
+                                b(i)=bs(i,j)
+                                c(i)=cs(i,j)
+                                d(i)=ds(i,j)
+                        enddo
+                        write (6,*) x,seval(n,x,temp, temp2, b,c,d)
+                enddo
+        enddo
+        END
+

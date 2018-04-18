@@ -1,0 +1,8 @@
+!obs:5
+
+!! Constrain from observations
+!USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
+DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+
+ C(ind_O3)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(1,:),spcf(2,:),spcf(3,:),spcf(4,:))
+ CONSTRAIN(ind_O3) = C(ind_O3)
