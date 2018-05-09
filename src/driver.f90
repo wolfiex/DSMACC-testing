@@ -4,7 +4,7 @@ USE model_Parameters
 USE model_Rates,       ONLY: Update_SUN, Update_RCONST
 USE model_integrator,  ONLY: integrate
 USE model_monitor,     ONLY: spc_names,Eqn_names
-USE model_Function, ONLY: A
+USE model_Function, ONLY: A!,fun
 USE model_Util
 USE constants
 
@@ -25,10 +25,9 @@ REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime
  character(50) :: cw,filename
  character (10) :: ln
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
-Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
+Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter,run_counter
  character(200) :: dummychar
-integer :: run_counter = 0
-
+real(dp) :: vdot(nreact)! for fun functiuon no other use 
 
 STEPMIN = 0.0_dp
 STEPMAX = 0.0_dp
@@ -169,6 +168,8 @@ newtime = Jday*86400 + DAYCOUNTER*dt
 
 WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
+
+!call FUN( C(:NSPEC),FIX,RCONST,VDOT)!recalc flux
 WRITE (FLUX_UNIT) newtime, A(:NREACT)
 
 

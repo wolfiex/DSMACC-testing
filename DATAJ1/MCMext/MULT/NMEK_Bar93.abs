@@ -1,0 +1,24 @@
+# Absorption cross sections for nitroxymethyl ethyl ketone (NMEK, CH3CH2C(O)CH2ONO2)
+# measured by Barnes et al., J Atmos Chem 17, 353-373, 1993.
+#
+# λ / nm	σ / cm2
+245		3.36e-19
+250		2.40e-19
+255		1.81e-19
+260		1.40e-19
+265		1.12e-19
+270		9.48e-20
+275		9.68e-20
+280		8.69e-20
+285		7.59e-20
+290		6.55e-20
+295		5.19e-20
+300		4.02e-20
+305		2.91e-20
+310		1.92e-20
+315		1.16e-20
+320		7.20e-21
+325		2.90e-21
+330		2.40e-21
+335		1.20e-21
+340		7.00e-22

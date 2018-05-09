@@ -22,6 +22,20 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     SAREA=0.
     ALBEDO=0.
     RP1=0.
+    !petes add
+    BVOCFAC=1.
+    ANTHFAC=1.
+    NOXFAC=1.
+    COFAC=1.
+    LAROMF=1.
+    SAROMF=1.
+    ALKEFAC=1.
+    SAFAC=1.
+    CH4FAC=1.
+    FORMLOS=0.
+    !end pete
+    
+    
     
     
     do I=1,NSPEC+1
@@ -158,7 +172,40 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
       
     CASE('SPINUP') 
         spinup = CONCS(I)
+!petes additional 
 
+    CASE('BVOCFAC') 
+        BVOCFAC = CONCS(I)
+
+    CASE('ANTHFAC') 
+        ANTHFAC = CONCS(I)
+
+    CASE('NOXFAC') 
+        NOXFAC = CONCS(I)
+
+    CASE('COFAC') 
+        COFAC = CONCS(I)
+
+    CASE('LAROMF') 
+        LAROMF = CONCS(I)
+
+    CASE('SAROMF') 
+        SAROMF = CONCS(I)
+
+    CASE('ALKEFAC') 
+        ALKEFAC = CONCS(I)
+
+    CASE('SAFAC') 
+        SAFAC = CONCS(I)
+
+    CASE('CH4FAC') 
+        CH4FAC = CONCS(I)
+
+    CASE('FORMLOS') 
+        FORMLOS = CONCS(I)
+        
+!end petesadditional        
+        
     CASE DEFAULT
             
             !! for any species in the fixed array 

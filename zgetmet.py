@@ -1,7 +1,7 @@
 from zhdf import new,loaddump,pool,ncores,da,progressbar,h5py,np,pd
 import networkx as nx
 
-a = new('BaseRun_init.h5')
+a = new('methane.h5')
 
 print 'read the file'
 #    g.attrs['adjspec']  = ','.join(what_specs)

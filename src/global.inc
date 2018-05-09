@@ -1,6 +1,7 @@
 #INLINE F90_GLOBAL
-  REAL(dp) :: PRESS, LAT, LON, O3COL, JO1D, JNO2,DEPOS
-  REAL(dp) :: JDAY, JREPEAT, ALBEDO, SAREA, RP1
+  REAL(dp) :: PRESS, LAT, LON, O3COL, JO1D, JNO2, DEPOS, FORMLOS
+  REAL(dp) :: JDAY, JREPEAT, ALBEDO, SAREA, RP1, BLH, DILUTE, CH4FAC
+  REAL(dp) :: BVOCFAC, ANTHFAC, NOXFAC, COFAC, LAROMF, SAROMF, SAFAC, ALKEFAC
   INTEGER :: INIT_TIME, NOX(NVAR)
   REAL(dp):: CONSTRAIN(NVAR)
   INTEGER :: const_method(NSPEC+10)
@@ -27,5 +28,8 @@
   REAL(8) ::            bs(szabin,kj), cs(szabin,kj),ds(szabin,kj)
   REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables
+!Custom Depos variables for easy changing
+  include './src/mydepos.inc'
+!End depos variables
 #ENDINLINE {above lines go into MODULE KPP_ROOT_Global}
 

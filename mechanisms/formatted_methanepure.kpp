@@ -3,7 +3,9 @@
 // filedata: methanepure.kpp+../src/background/inorganic_mcm.kpp
 // 31 species  66 reactions
 
+// ver: methane test mechanism
 
+    
 #INLINE F90_GLOBAL
 REAL(dp)::M, N2, O2, RO2, H2O
 #ENDINLINE

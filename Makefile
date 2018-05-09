@@ -7,11 +7,11 @@
   # FSTD  ?= 1                  # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
-  
+     
 	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
 	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -pg -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict -openmp #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 
- export OMP_NUM_THREADS=4
+export OMP_NUM_THREADS=4
 
 ##############################################################################
 
@@ -47,7 +47,7 @@ OBJS1 := $(SRCS1:.f90=.o)
 OBJS2 := $(SRCS2:.f=.o)
 
 MAKEFILE_INC = depend.mk
-
+DSMACC_HOME := $(shell pwd)
 # If you don't have the perl script sfmakedepend, get it from:
 # http://www.arsc.edu/~kate/Perl
 F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
@@ -138,31 +138,20 @@ new: distclean depend update_submodule tuv
 	@echo 'All set up to begin.'
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
-	touch model
+	touch model model.kpp
 	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
 	@echo $(KPP_PATH)
-	@rm model
+	@rm model model.kpp
 	cd $(KPP_PATH)/src && make > kpp.log
 	python src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
+editkpp:
+	echo $(DSMACC_HOME)/ && mech:=$(shell egrep -o 'mechanisms/.*\.kpp' $(DSMACC_HOME)/model.kpp) && mech:=$(shell egrep -o 'ver[^\n]' $(mech)) && echo $(mech) && sed -e s/Unknown/$(mech)/g model_Global.f90
 
-
-kppl: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
-	touch model
-	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
-	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
-	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
-	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
-	@echo $(KPP_PATH)
-	@rm model
-	cd $(KPP_PATH)/src && make
-	python src/background/makemodeldotkpp.py $(MODELKPP) -l
-	cp src/constants.f90 ./model_constants.f90
-	-$(KPP_PATH)/bin/kpp model.kpp
 
 
 kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!

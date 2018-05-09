@@ -65,6 +65,7 @@ READ (21,'(*(e15.4,x))') concs
  close(21)
 
 
+
 if (save_legacy) nc_set = 144 ! 1day
 if (nc_set .eq. 0)  nc_set = runtimestep
 

@@ -1,0 +1,10 @@
+Estimates of quantum yields for methyl n-propyl ketone
+based on the book of Calvert et al. (2011):
+The Mechanisms of Atmospheric Oxidation of the Oxygenates,
+Oxford University Press, 2011.
+
+λ / nm	  Φ1	  Φ2	 Φ3
+254.0	0.058	0.007	0.05
+280.0	0.098	0.012	0.10
+296.5	0.209	0.026	0.08
+313.0	0.200	0.025	0.05

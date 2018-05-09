@@ -34,23 +34,27 @@ if ncpus > 80:
 #if (not os.path.exists('./model') & runsaved==0): sys.exit('No model file found. Please run "make kpp" followed by "make"')
 
 
-filename = 'BaseRun_init.h5'
+#filename = sys.argv[1]
 
-obs = int(tuple(open('include.obs'))[0].strip().replace('!obs:',''))
-
-
-'''
-for i in sys.argv[1:]:
-    if i=='--obs':
-        if rank==0:print 'observations being used' 
-        obs = True
-    if '.h5' in i :
-        filename = i.strip()    
-'''
-
+obs=False
 
 groups = None
 debug=None #'for boradcast'
+
+
+
+
+for i in sys.argv[1:]:
+    if i=='--obs':
+        if rank==0:
+            obs = int(tuple(open('include.obs'))[0].strip().replace('!obs:',''))
+            print 'observations being used, number of obs: ',int(obs)
+    if '.h5' in i :
+        filename = i.strip()    
+    if '--debug' in i:
+        debug = True
+        
+
 
 
 try:
@@ -59,7 +63,7 @@ try:
         ###read args 
         extend = True 
         rewind = False
-        debug = 1 
+        
         
         if not debug: 
             os.system(' touch temp.txt && rm temp.txt')
@@ -88,21 +92,27 @@ try:
 
         import h5py
         hf = h5py.File(filename, 'a')
-        ics = []
-        ics.extend([hf['icspecs'],hf['icconst']])           
+        #ics = []
+        #ics.extend([hf['icspecs'],hf['icconst']])           
         
         
         
         ###extend????
-        [ics.append(i) for i in hf['icruns']]
-        ics = np.array(ics)
+        #[ics.append(i) for i in hf['icruns']]
+        
+        
+        #ics = np.array(ics)
+        
+        head= hf.attrs['ictime'] + '\n' + '!'.join(['%15s'%i for i in hf['icspecs']])+ '\n' + '!'.join(['%15s'%i for i in hf['icconst']]) 
+        
         
         ############################################            
         ###hf.attrs['ictime']=1000
         ##################### DEL
+        
         print 'duration' , hf.attrs['ictime']
         
-        np.savetxt('Init_cons.dat', ics, fmt='%15s', delimiter='!', newline='\n', header='%s'% hf.attrs['ictime'],comments='')  
+        np.savetxt('Init_cons.dat', hf['icruns'], fmt='%15e', delimiter='!', newline='\n', header= head,comments='')  
 
         groups = [[int(item.attrs['id']),item.name] for item in hf.values() if isinstance(item, h5py.Group)]
        

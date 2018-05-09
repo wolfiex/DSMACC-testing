@@ -70,18 +70,17 @@ class new():
         self.origin = h5file 
         #self.hf = h5py.File( h5file, 'r')
         with h5py.File(h5file) as hf:
-            groups = hf.items()
+            groups = list(filter(lambda x: type(x[1])==h5py._hl.group.Group, hf.items()))
             self.groupkeys = groups[0][1].attrs.keys()
             self.flux=False
             
             g = groups[0][1]
             self.groupname = groups[0][0]
 
-
             shead = g.attrs['spechead'].split(',')
             rhead = g.attrs['ratehead'].split(',')
             fhead = g.attrs['fluxhead'].split(',')
-            
+            self.fhd = g.attrs['ratehead'].split(',')
             spec = dd.from_array(g.get('spec')[1:,:],chunksize=50000, columns = shead)
             
             if len(rhead) != len(set(rhead)):
@@ -165,9 +164,20 @@ class new():
  
 
     def splot (self,what):
-        (self.spec[what]/self.M).compute().plot()
+        df = pd.DataFrame((self.spec[what]/self.M).compute()).plot()
         plt.show()          
+        return df
           
+    def fplot (self,what):
+        df = pd.DataFrame(self.flux[what].compute()).plot()
+        plt.show() 
+        return df 
+        
+    def rplot (self,what):
+        df = pd.DataFrame(self.rate[what].compute()).plot()
+        plt.show() 
+        return df
+        
     def dump(self,location = './', name = False):
         if not name: name = self.origin.replace('.h5','')  + self.groupname+'.dill'
         import dill
@@ -185,6 +195,16 @@ class new():
 def loaddump(filename):
     import dill
     return dill.load(open(filename))
+
+
+
+def joyplot(self):
+     df = pd.DataFrame((self.spec[what]/self.M).compute())
+     import seaborn as sns
+     
+     
+
+
 
 
   

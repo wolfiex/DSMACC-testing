@@ -10,6 +10,26 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 **9(5)**, pp1831-1845 [doi:
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
 
+# Updates to run procedures
+Compile and prep as before, these changes only affect the running.
+Filenames may have to be manually changed for the time being, .... sorry.
+
+To create ics: `python run.py -i`
+
+This makes a hdf5 file containing all your information. 
+
+
+To run: `python run.py -s`
+
+If the env variable NCPUS is set, it uses this for an mpi run of the model, else a serial run is set. On earth, each queue automatically  sets the NCPUS environment variable. 
+
+To read: in ipython `run zhdf;  a = new('yourfilename.hdf'); a.specs / rates / flux`
+
+
+
+Custom mydepos definition file in src - change depos without having to run kpp, just make 
+
+# Install and run kpp as before! Run / read model using above
 
 ## New user
 Run `make new` to clean everything, update latest TUV, and download KPP. __In order to
