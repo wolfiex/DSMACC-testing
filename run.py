@@ -15,7 +15,6 @@ args = parser.parse_args()
 print args
 
 
-
 #for debugging#
 #args.dev=True
 if args.dev: 
@@ -42,6 +41,9 @@ except:
 
 print 'cpus' ,ncores   
 
+
+
+
 if args.ics != False:
     import zics
     filename = zics.create_ics(fileic=args.ics)
@@ -52,12 +54,14 @@ if args.start==None:
     
     
 if args.start!=False:
+    obs =''
+    if args.obs: obs = '--obs'
     if ncores>1:
-        cmd = 'mpiexec -n %d python zmpiout.py %s'%(ncores,args.start)
+        cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
         print cmd
         os.system(cmd)
     else:
-        cmd = 'python zserialout.py %s'%(args.start)
+        cmd = 'python zserialout.py %s %s'%(args.start,obs)
         print cmd
         os.system(cmd)
 

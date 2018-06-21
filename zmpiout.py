@@ -123,6 +123,7 @@ try:
 
     debug = comm.bcast(debug,root=0)
     groups = comm.bcast(groups,root=0)
+    obs = comm.bcast(obs,root=0)
     lgroups = len(groups)
        
 
@@ -196,8 +197,8 @@ try:
                         fltr=set(fltr)
                         keep = [len(set(match.findall(i))-fltr)==0 for i in dataarr]
                         
-                        mask *= np.array(keep)
-                    
+                        try: mask *= np.array(keep)
+                        except:None
                     mask = np.where(mask)
   
                     fltr = np.array(dataarr)[mask]

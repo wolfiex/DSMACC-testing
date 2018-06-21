@@ -18,7 +18,8 @@ try:
 except:
     'no plotting allowed'
 try:
-    ncores = int(os.popen('echo $NCPUS').read())
+    ncores = int(os.popen('qstat -f $PBS_JOBID | grep resources.used.ncpus').read().split(' ')[-1])
+    
 except:
     ncores=1
     
@@ -142,14 +143,16 @@ class new():
             #if (len(reactants) + len(products))/2 != len(rhead)-ratebuff : print 'reactants and poducts differing lengths' , len(reactants) , len(products) , len(rhead) 
             
             
-            
+            #shead.extend(['DUMMY','CL','CLO'])
             self.prodloss = {k: {'loss':[],'prod':[]} for k in shead}
             ### reaction prodloss arrays     
             for idx in xrange(len(self.reactants)):    
-
-                for i in self.reactants[idx]: self.prodloss[i]['loss'].append(idx)
-                for i in self.products[idx]:  self.prodloss[i]['prod'].append(idx)
-            
+                for i in self.reactants[idx]: 
+                    try:self.prodloss[i]['loss'].append(idx)
+                    except:None
+                for i in self.products[idx]:  
+                    try:self.prodloss[i]['prod'].append(idx)
+                    except:None
         
         
      

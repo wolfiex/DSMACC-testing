@@ -1,12 +1,18 @@
 #!/usr/local/anaconda/bin/python
 #/usr/bin/python
-import glob,sys,os
+import glob,sys,os,re
 
 ##################
  ####read files####
 
 
 myinclude = []
+vers = 'Unknown'
+tuv='1'
+
+verre = re.compile(r'\/\/\s*(?i)vers\s*=\s*\'(.*)\'')
+tuvre = re.compile(r'\/\/\s*(?i)tuv\s*=\s*\'(.*)\'')
+
 
 #include custom file here 
 custom = '\n'.join(tuple(open('mechanisms/geoschem/gckpp.kpp')))
@@ -57,10 +63,18 @@ else:
     
     for i in selected_files: 
     
-        if len(i) > 0:   myinclude.append('#INCLUDE '+file_list[int(i)]+'\n')
-
-
-
+        if len(i) > 0:   
+            thisfile = file_list[int(i)]
+            print thisfile
+            myinclude.append('#INCLUDE '+thisfile+'\n')
+            for line in tuple(open(thisfile)):
+                if verre.match(line): 
+                    vers = verre.match(line).group(1)
+                if tuvre.match(line):
+                    tuv = tuvre.match(line).group(1)
+                    
+print 'tuv',tuv,'. ver',vers
+                    
 if '--custom' in sys.argv: 
         addstr=custom 
 else:
@@ -83,7 +97,11 @@ modelstring ='''
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
 
-
+#INLINE F90_GLOBAL
+!model  variable parameters
+character(len=30) :: version="'''+vers+'''"
+INTEGER :: TUVvers='''+str(int(tuv))+'''
+#ENDINLINE
 
 #DOUBLE ON
 // computer language for code produced by kpp

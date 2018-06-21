@@ -19,12 +19,11 @@
   INTEGER, PARAMETER :: FLUX_UNIT = 14
   INTEGER, PARAMETER :: jmax= 8100, szabin=19 
   
-  character(len=30) ::version='Unknown'
-  character(len=3) :: mechanism
+  !character(len=30) :: version
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables
   include './params'
-  INTEGER :: TUVvers = 1
+  !INTEGER :: TUVvers 
   REAL(8) ::            bs(szabin,kj), cs(szabin,kj),ds(szabin,kj)
   REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables
