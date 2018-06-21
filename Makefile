@@ -80,6 +80,7 @@ test:compiler
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
 $(PROG): depend $(OBJS1) $(OBJS2)
+	@perl -p -i -e "s/SUBROUTINE Update_PHOTO.*END SUBROUTINE Update_PHOTO//g" model_Rates.f90;
 	@perl -p -i -e "s/\!\s*EQUIVALENCE/EQUIVALENCE/g" model_Global.f90;
 	@$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
 	@echo 'DSMACC is loaded and ready to go!'
@@ -144,7 +145,8 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
 	@echo $(KPP_PATH)
-	@rm model model.kpp
+	@rm model model.kpp include.obs
+	touch include.obs
 	cd $(KPP_PATH)/src && make > kpp.log
 	python src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90

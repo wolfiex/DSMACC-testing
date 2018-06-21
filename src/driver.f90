@@ -39,7 +39,6 @@ ATOL(:) = 1.0_dp    !-16?
 
 !rtol - #sig fig
 
-mechanism=''
 LAST_POINT=.False.
 CONSTRAIN_NOX=.False.
 CONSTRAIN_RUN=.FALSE.

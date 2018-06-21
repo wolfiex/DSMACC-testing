@@ -7,8 +7,7 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
-#INCLUDE mechanisms/formatted_GCGC_full.kpp
-#INCLUDE mechanisms/depos_CAPRAM.kpp
+#INCLUDE mechanisms/gc_v11-02_gckpp.kpp
 
 
 
@@ -16,7 +15,11 @@
 #INCLUDE ./src/util.inc
 #INCLUDE ./src/global.inc
 
-
+#INLINE F90_GLOBAL
+!model  variable parameters
+character(len=30) :: version="GeosChemV11"
+INTEGER :: TUVvers=3
+#ENDINLINE
 
 #DOUBLE ON
 // computer language for code produced by kpp

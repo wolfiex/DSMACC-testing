@@ -9,6 +9,10 @@ Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
 chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 **9(5)**, pp1831-1845 [doi:
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
+  
+If mpirun failes with [] then run has failed.
+
+
 
 # Updates to run procedures
 Compile and prep as before, these changes only affect the running.
