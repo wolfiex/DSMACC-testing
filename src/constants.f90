@@ -25,7 +25,7 @@ MODULE constants
 ! - 7000 - 7999: Criegee intermediates
 ! - 8000 - 8100: Polyfunctional chromophores
 ! Old MCM labelling from the MCM website still available
-  REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)
+  REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)=0.
   REAL(dp) :: kalkpxy,kalkoxy
   INTEGER  :: k
 
