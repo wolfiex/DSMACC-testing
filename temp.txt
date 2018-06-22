@@ -1,0 +1,14 @@
+ if -checks all this is an incorrect conversion
+ rename ncset
+ [95mH2O              2.000000000000000E-002 [97m
+ hard-constrained EMISS           at   0.000000000000000E+000
+ mechanism-constrained H2              at   5.000000000000000E-007
+ [95mNO               1.000000000000000E-008 [97m
+ [95mNO2              0.000000000000000E+000 [97m
+ [95mO3               4.000000000000000E-008 [97m
+ [95mCH4              2.000000000000000E-008 [97m
+ 
+ 
+ TUV 5.2.1: Calculating photolysis rates...
+ equally spaced z-grid
+  [91m exit condition 1000 [97m
