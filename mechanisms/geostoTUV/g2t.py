@@ -107,13 +107,13 @@ with open('GC11.inc','w') as f:
     for n,i in enumerate(output):
         if i:             
           f.write('''    CASE(%3d) !%s
-       j(%3d) =  seval(szabin,theta,tmp,tmp2,b,c,d)!%s\n\n'''%(int(i[0]),i[1],int(i[2]),i[3]))
+       j(%3d) =  seval(szabin,theta,tmp,tmp2,b,c,d)!%s\n\n'''%(int(i[2]),i[3],int(i[0]),i[1]))
         else:
-          f.write('''    CASE(%3d) !%s
-       0 \n!j() =  seval(szabin,theta,tmp,tmp2,b,c,d)!unknown\n\n'''%(int(gcphoto[n][1]),gcphoto[n][0]))
+          f.write('''!CASE() !unknown
+!j(%3d) =  seval(szabin,theta,tmp,tmp2,b,c,d)!%s\n\n'''%(int(gcphoto[n][1]),gcphoto[n][0]))
         
             
-          
+    f.write('END SELECT')
           
           
           
