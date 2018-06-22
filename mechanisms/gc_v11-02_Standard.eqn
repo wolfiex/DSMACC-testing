@@ -1220,7 +1220,7 @@ HONIT = MONITA :                             HET(ind_HONIT,1);                  
 IONITA = INDIOL + HNO3 :                     HET(ind_IONITA,1);                   {2017/07/14; Fisher2016; KRT,JAF,CCM,EAM,KHB,RHS}
 MONITA = INDIOL + HNO3 :                     HET(ind_MONITA,1);                   {2017/07/14; Fisher2016; KRT,JAF,CCM,EAM,KHB,RHS}
 //
-// Photolysis reactions J compare for TUV -> file not finished 
+// Photol ysis reactions J compare for TUV -> file not finished 
 //
 O3 + hv = O + O2 :                           J(2);      {2014/02/03; Eastham2014; SDE}
 O3 + hv = O1D + O2 :                         J(3);      {2014/02/03; Eastham2014; SDE}

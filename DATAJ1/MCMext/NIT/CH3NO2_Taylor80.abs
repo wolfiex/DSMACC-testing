@@ -1,0 +1,43 @@
+# Absorption cross sections for nitromethane measured by
+#W.D. Taylor, T.D. Allston, M.J. Moscato, G.B. Fazekas, R. Koslowski, and G.A. Takacs,
+# "Atmospheric photodissociation lifetimes for nitromethane, methyl nitrite, and methyl nitrate,"
+# Int. J. Chem. Kinet. 12, 231-240 (1980); DOI: 10.1002/kin.550120404
+# taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+# last checked: 14.09.2017
+#
+# λ / nm	σ / cm2
+190    1.50e-17
+195    1.80e-17
+197    1.86e-17
+200    1.75e-17
+205    1.42e-17
+210    1.00e-17
+215    6.00e-18
+220    3.03e-18
+225    1.10e-18
+230    3.10e-19
+235    7.00e-20
+240    1.90e-20
+245    1.30e-20
+250    1.60e-20
+255    2.10e-20
+260    2.55e-20
+265    3.00e-20
+270    3.30e-20
+275    3.37e-20
+280    3.25e-20
+285    2.90e-20
+290    2.50e-20
+295    2.00e-20
+300    1.55e-20
+305    1.25e-20
+310    1.00e-20
+315    8.00e-21
+320    6.50e-21
+325    5.00e-21
+330    4.00e-21
+335    3.10e-21
+340    2.40e-21
+345    1.90e-21
+350    1.50e-21
+355    1.20e-21

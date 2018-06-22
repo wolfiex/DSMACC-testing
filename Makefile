@@ -80,7 +80,7 @@ test:compiler
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
 $(PROG): depend $(OBJS1) $(OBJS2)
-	@perl -p -i -e "s/SUBROUTINE Update_PHOTO.*END SUBROUTINE Update_PHOTO//g" model_Rates.f90;
+	#@perl -p -i -e "s/SUBROUTINE Update_PHOTO.*END SUBROUTINE Update_PHOTO//g" model_Rates.f90;
 	@perl -p -i -e "s/\!\s*EQUIVALENCE/EQUIVALENCE/g" model_Global.f90;
 	@$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
 	@echo 'DSMACC is loaded and ready to go!'

@@ -320,7 +320,7 @@ CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O)
 #ENDINLINE
 
 #INLINE F90_GLOBAL
-      REAL(kind=dp) :: HET(NSPEC,7), PHOTOL(1000)
+      REAL(kind=dp) :: HET(NSPEC,7)!   we use tuv and the J array, PHOTOL(1000)
       REAL(kind=dp) :: NUMDEN, H2O!, PRESS
       REAL(kind=dp) :: RO2=0,O2=0,N2=0,M=0
 
