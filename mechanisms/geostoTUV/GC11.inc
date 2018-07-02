@@ -10,11 +10,11 @@ SELECT CASE(jl)
     CASE(  2) !O3 -> O2 + O(1D)
        j(  3) =  seval(szabin,theta,tmp,tmp2,b,c,d)!O3 + hv = O1D + O2 
 
-    CASE(357) !NO -> N + O(3P)
+    CASE(326) !NO -> N + O(3P)
        j(  6) =  seval(szabin,theta,tmp,tmp2,b,c,d)!NO + hv = O + N 
 
-    CASE( 23) !CH2O -> H2 + CO
-       j(  7) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH2O + hv = HO2 + H + CO 
+!CASE() !unknown
+!j(  7) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH2O + hv = HO2 + H + CO 
 
     CASE( 23) !CH2O -> H2 + CO
        j(  8) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH2O + hv = H2 + CO 
@@ -49,58 +49,58 @@ SELECT CASE(jl)
     CASE( 18) !HNO4 -> HO2 + NO2
        j( 18) =  seval(szabin,theta,tmp,tmp2,b,c,d)!HNO4 + hv = HO2 + NO2 
 
-    CASE( 97) !ClONO2 -> Cl + NO3
+    CASE( 96) !ClONO2 -> Cl + NO3
        j( 19) =  seval(szabin,theta,tmp,tmp2,b,c,d)!ClNO3 + hv = Cl + NO3 
 
-    CASE( 98) !ClONO2 -> ClO + NO2
+    CASE( 97) !ClONO2 -> ClO + NO2
        j( 20) =  seval(szabin,theta,tmp,tmp2,b,c,d)!ClNO3 + hv = ClO + NO2 
 
-    CASE( 95) !ClNO2 -> Cl + NO2
+    CASE( 94) !ClNO2 -> Cl + NO2
        j( 21) =  seval(szabin,theta,tmp,tmp2,b,c,d)!ClNO2 + hv = Cl + NO2 
 
-    CASE( 86) !Cl2 -> Cl + Cl
+    CASE( 85) !Cl2 -> Cl + Cl
        j( 22) =  seval(szabin,theta,tmp,tmp2,b,c,d)!Cl2 + hv = 2.000Cl 
 
-    CASE(118) !Br2 -> Br + Br
+    CASE(117) !Br2 -> Br + Br
        j( 23) =  seval(szabin,theta,tmp,tmp2,b,c,d)!Br2 + hv = 2.000Br 
 
-    CASE( 93) !HOCl -> OH + Cl
+    CASE( 92) !HOCl -> OH + Cl
        j( 24) =  seval(szabin,theta,tmp,tmp2,b,c,d)!HOCl + hv = Cl + OH 
 
-    CASE( 90) !OClO -> Products
+    CASE( 89) !OClO -> Products
        j( 25) =  seval(szabin,theta,tmp,tmp2,b,c,d)!OClO + hv = ClO + O 
 
-    CASE( 91) !ClOOCl -> Cl + ClOO
+    CASE( 90) !ClOOCl -> Cl + ClOO
        j( 26) =  seval(szabin,theta,tmp,tmp2,b,c,d)!Cl2O2 + hv = Cl + ClOO 
 
-    CASE( 88) !ClO -> Cl + O(3P)
+    CASE( 87) !ClO -> Cl + O(3P)
        j( 27) =  seval(szabin,theta,tmp,tmp2,b,c,d)!ClO + hv = Cl + O 
 
-    CASE(119) !BrO -> Br + O
+    CASE(118) !BrO -> Br + O
        j( 28) =  seval(szabin,theta,tmp,tmp2,b,c,d)!BrO + hv = Br + O 
 
-    CASE(126) !BrONO2 -> Br + NO3
+    CASE(125) !BrONO2 -> Br + NO3
        j( 29) =  seval(szabin,theta,tmp,tmp2,b,c,d)!BrNO3 + hv = Br + NO3 
 
-    CASE(125) !BrONO2 -> BrO + NO2
+    CASE(124) !BrONO2 -> BrO + NO2
        j( 30) =  seval(szabin,theta,tmp,tmp2,b,c,d)!BrNO3 + hv = BrO + NO2 
 
-    CASE(124) !BrNO2 -> Br + NO2
+    CASE(123) !BrNO2 -> Br + NO2
        j( 31) =  seval(szabin,theta,tmp,tmp2,b,c,d)!BrNO2 + hv = Br + NO2 
 
-    CASE(120) !HOBr -> OH + Br
+    CASE(119) !HOBr -> OH + Br
        j( 32) =  seval(szabin,theta,tmp,tmp2,b,c,d)!HOBr + hv = Br + OH 
 
-    CASE(127) !BrCl -> Br + Cl
+    CASE(126) !BrCl -> Br + Cl
        j( 33) =  seval(szabin,theta,tmp,tmp2,b,c,d)!BrCl + hv = Br + Cl 
 
-    CASE(358) !OCS -> CO + SO2
+    CASE(327) !OCS -> CO + SO2
        j( 34) =  seval(szabin,theta,tmp,tmp2,b,c,d)!OCS + hv = SO2 + CO 
 
     CASE(  9) !N2O -> N2 + O(1D)
        j( 36) =  seval(szabin,theta,tmp,tmp2,b,c,d)!N2O + hv = N2 + O1D 
 
-!CASE() !Unknown
+!CASE() !unknown
 !j( 37) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CFC11 + hv = 3.000Cl 
 
 !CASE() !unknown
@@ -115,13 +115,13 @@ SELECT CASE(jl)
 !CASE() !unknown
 !j( 41) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CFC115 + hv = Cl 
 
-    CASE( 99) !CCl4 -> Products
+    CASE( 98) !CCl4 -> Products
        j( 42) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CCl4 + hv = 4.000Cl 
 
-    CASE(102) !CH3Cl -> Products
+    CASE(101) !CH3Cl -> Products
        j( 43) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH3Cl + hv = MO2 + Cl 
 
-    CASE(103) !CH3CCl3 -> Products
+    CASE(102) !CH3CCl3 -> Products
        j( 44) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH3CCl3 + hv = 3.000Cl 
 
 !CASE() !unknown
@@ -139,7 +139,7 @@ SELECT CASE(jl)
 !CASE() !unknown
 !j( 49) =  seval(szabin,theta,tmp,tmp2,b,c,d)!HCFC142b + hv = 2.000Cl 
 
-    CASE(128) !CH3Br -> Products
+    CASE(127) !CH3Br -> Products
        j( 50) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH3Br + hv = MO2 + Br 
 
 !CASE() !unknown
@@ -154,14 +154,14 @@ SELECT CASE(jl)
 !CASE() !unknown
 !j( 55) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CH2Br2 + hv = 2.000Br 
 
-    CASE(129) !CHBr3 -> Products
+    CASE(128) !CHBr3 -> Products
        j( 56) =  seval(szabin,theta,tmp,tmp2,b,c,d)!CHBr3 + hv = 3.000Br 
 
     CASE( 25) !CH3CHO -> CH4 + CO
        j( 62) =  seval(szabin,theta,tmp,tmp2,b,c,d)!ALD2 + hv = CH4 + CO 
 
-    CASE( 63) !CH3COCH=CH2 -> C3H6 + CO
-       j( 63) =  seval(szabin,theta,tmp,tmp2,b,c,d)!MVK + hv = PRPE + CO 
+!CASE() !unknown
+!j( 63) =  seval(szabin,theta,tmp,tmp2,b,c,d)!MVK + hv = PRPE + CO 
 
 !CASE() !unknown
 !j( 64) =  seval(szabin,theta,tmp,tmp2,b,c,d)!MVK + hv = MCO3 + CH2O + CO + HO2 
@@ -169,7 +169,7 @@ SELECT CASE(jl)
 !CASE() !unknown
 !j( 65) =  seval(szabin,theta,tmp,tmp2,b,c,d)!MVK + hv = MO2 + RCO3 
 
-    CASE(360) !MACR -> products
+    CASE(329) !MACR -> products
        j( 66) =  seval(szabin,theta,tmp,tmp2,b,c,d)!MACR + hv = CO + HO2 + CH2O + MCO3 
 
 !CASE() !unknown
@@ -247,7 +247,7 @@ SELECT CASE(jl)
 !CASE() !unknown
 !j(100) =  seval(szabin,theta,tmp,tmp2,b,c,d)!SO4 + hv = SO2 + 2.000OH 
 
-    CASE( 89) !ClOO -> Products
+    CASE( 88) !ClOO -> Products
        j(102) =  seval(szabin,theta,tmp,tmp2,b,c,d)!ClOO + hv = Cl + O2 
 
 !CASE() !unknown

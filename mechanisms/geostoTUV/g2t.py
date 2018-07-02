@@ -5,12 +5,13 @@
 
 import re 
 
-gcfile = ' '.join(tuple(open('../gc_v11-02_Standard.eqn')))
+gcfile = ' '.join(tuple(open('../gc_v11-02_Standard.eqn'))).replace('\r','')
 
 gcphoto = re.findall(r'\n\s*(.*=.*):\s*J\((\d+)\);', gcfile)
 gcphoto.sort(key = lambda x:int(x[1]))
 
 tuvfile = ' '.join(tuple(open('../../TUV_5.2.1/INPUTS/MCMTUV')))
+tuvfile = ' '.join(tuple(open('DSMACC'))).replace('\r','')
 
 tuvphoto = re.findall(r'\s*[TF]\s*(\d+)\s(.*->.*)\n', tuvfile)
 
