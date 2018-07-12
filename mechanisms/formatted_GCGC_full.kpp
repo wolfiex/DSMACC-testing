@@ -3,6 +3,7 @@
 // filedata: GCGC_full.kpp+inorganic.kpp
 // 4065 species  11781 reactions
 
+// vers : 'pete beijing'
 
 #INLINE F90_GLOBAL
 REAL(dp)::M, N2, O2, RO2, H2O

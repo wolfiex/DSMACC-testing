@@ -7,7 +7,7 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
-#INCLUDE mechanisms/gc_v11-02_gckpp.kpp
+#INCLUDE mechanisms/lumped_formatted_GCGC_full.kpp
 
 
 
@@ -17,8 +17,8 @@
 
 #INLINE F90_GLOBAL
 !model  variable parameters
-character(len=30) :: version="GeosChemV11"
-INTEGER :: TUVvers=3
+character(len=30) :: version="pete beijing"
+INTEGER :: TUVvers=1
 #ENDINLINE
 
 #DOUBLE ON

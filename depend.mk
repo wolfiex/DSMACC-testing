@@ -53,10 +53,13 @@ model_Model.o: model_Jacobian.o model_LinearAlgebra.o model_Monitor.o
 model_Model.o: model_Parameters.o model_Precision.o model_Rates.o model_Util.o
 model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
+model_Rates.o: model_lumpedrates.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: params src/rate_coeff/new_rate.inc.def TUV_5.2.1/MCM4.inc
-model_constants.o: TUV_5.2.1/MCM331.inc TUV_5.2.1/GC11.inc tuv_old/MCM3.inc
-model_constants.o: src/rate_coeff/new_rate.inc.var
+model_constants.o: TUV_5.2.1/MCM331.inc TUV_5.2.1/GC11.inc TUV_5.2.1/MCM4.inc
+model_constants.o: src/rate_coeff/new_rate.inc.var tuv_old/MCM3.inc params
+model_constants.o: src/rate_coeff/new_rate.inc.def
 model_constants.o: model_Global.o model_Precision.o
+model_lumpedrates.o: model_Global.o
 constants.mod: model_constants.o
+lumpedrates.mod: model_lumpedrates.o

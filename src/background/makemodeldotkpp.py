@@ -10,8 +10,9 @@ myinclude = []
 vers = 'Unknown'
 tuv='1'
 
-verre = re.compile(r'\/\/\s*(?i)vers\s*=\s*\'(.*)\'')
-tuvre = re.compile(r'\/\/\s*(?i)tuv\s*=\s*\'(.*)\'')
+verre = re.compile(r'\/\/\s*(?i)ver[s]*\s*[:=]\s*\'(.*)\'')
+
+tuvre = re.compile(r'\/\/\s*(?i)tuv\s*[:=]\s*\'(.*)\'')
 
 
 #include custom file here 
