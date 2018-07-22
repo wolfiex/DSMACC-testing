@@ -2,7 +2,7 @@ from zhdf import new,loaddump,pool,ncores,da,progressbar,h5py
 import numpy as np
 import pandas as pd
 import os,json,re,sys
-import multiprocessing as mp
+#import multiprocessing as mp
 import networkx as nx
 print ''
 print ncores
@@ -42,10 +42,10 @@ cs.extend('RO2')
 allspecs = filter(lambda x: x not in ['LAT', 'PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O'],a.spec.columns)
 allspecs = filter(lambda x: x in cs,allspecs)
 print allspecs
+if len(allspecs)<1: sys.exit('no species in allspecs, exiting')
 
 
-
-tsps = a.ts[[143,143+144/2]]# 6 hoursr a.ts[range(0,len(a.ts),4)]
+tsps = a.ts[[45,45+144/2]]# 6 hoursr a.ts[range(0,len(a.ts),4)]
 print tsps
 if ro2go:
     ro2fract = a.spec.loc[tsps,ro2].compute()
@@ -228,10 +228,10 @@ for i,j in enumerate(nodes.columns):
     title.append(str(j)+dt)
     title.append(str(j)+dt)
 
-    a = nodes[j].sort_values(ascending=False).head(20)
-    pnt.append(a.index )
-    pnt.append(['%.2f'%k for k in a.values])
-    specs.extend(a.index)
+    a1 = nodes[j].sort_values(ascending=False).head(20)
+    pnt.append(a1.index )
+    pnt.append(['%.2f'%k for k in a1.values])
+    specs.extend(a1.index)
 
 t20 = pd.DataFrame(pnt).T
 t20.columns=title

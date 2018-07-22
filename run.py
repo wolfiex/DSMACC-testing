@@ -10,6 +10,7 @@ parser.add_argument('-s','--start', dest='start',nargs='?', action='store', defa
 parser.add_argument('-c','--ics', dest='ics',nargs='?', action='store', default=False, help='create new ics h5')
 #parser.add_argument('--version', dest='vers', action='store_true', default=False, help='add a watch relaod for dev')
 parser.add_argument('--version', dest='vers', action='store_true', default=False, help='add a watch relaod for dev')
+parser.add_argument('-v','--verbose', dest='verbose',nargs='?', action='store',     default=False, help='print temp')
 args = parser.parse_args()
 
 print args
@@ -65,6 +66,10 @@ if args.start!=False:
         print cmd
         os.system(cmd)
 
+if args.verbose:
+     a = tuple(open('temp.txt'))
+     for i in a:
+         print i 
 
- 
+#path to module os.path.dirname(amodule.__file__) 
 #if name is main run main 

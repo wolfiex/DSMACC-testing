@@ -154,16 +154,6 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 editkpp:
 	echo $(DSMACC_HOME)/ && mech:=$(shell egrep -o 'mechanisms/.*\.kpp' $(DSMACC_HOME)/model.kpp) && mech:=$(shell egrep -o 'ver[^\n]' $(mech)) && echo $(mech) && sed -e s/Unknown/$(mech)/g model_Global.f90
 
-
-
-kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
-	touch model
-	@rm model
-	cd src/kpp/kpp*/src && make
-	python src/background/makemodeldotkpp.py --custom
-	cp src/constants.f90 ./model_constants.f90
-	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
-	-echo 'now run make to compile'
 	
 ini: # generate kpp files with emission and deposition data
 	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
@@ -199,7 +189,7 @@ update_submodule: # print each make function in list!
 	git submodule update
 	#git submodule update --recursive --remote
 	#git submodule foreach git pull origin master
-
+	find . -exec chmod 0755 {} \;
 
 #save model for multi use -  make save name=<you@rmodelname>
 savemodel:

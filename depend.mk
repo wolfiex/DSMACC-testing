@@ -44,22 +44,21 @@ model_Integrator.o: model_Function.o model_Global.o model_Jacobian.o
 model_Integrator.o: model_LinearAlgebra.o model_Parameters.o model_Rates.o
 model_Jacobian.o: model_JacobianSP.o model_Parameters.o
 model_LinearAlgebra.o: model_JacobianSP.o model_Parameters.o
-model_Main.o: include.obs src/initialisations.inc
+model_Main.o: src/initialisations.inc include.obs
 model_Main.o: model_Function.o model_Global.o model_Integrator.o
 model_Main.o: model_Monitor.o model_Parameters.o model_Rates.o model_Util.o
-model_Main.o: model_constants.o
+model_Main.o: model_constants.o model_ropa.o
 model_Model.o: model_Function.o model_Global.o model_Integrator.o
 model_Model.o: model_Jacobian.o model_LinearAlgebra.o model_Monitor.o
 model_Model.o: model_Parameters.o model_Precision.o model_Rates.o model_Util.o
 model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
-model_Rates.o: model_lumpedrates.o
 model_Util.o: model_Global.o model_Integrator.o model_Monitor.o
 model_Util.o: model_Parameters.o
-model_constants.o: TUV_5.2.1/MCM331.inc TUV_5.2.1/GC11.inc TUV_5.2.1/MCM4.inc
-model_constants.o: src/rate_coeff/new_rate.inc.var tuv_old/MCM3.inc params
-model_constants.o: src/rate_coeff/new_rate.inc.def
+model_constants.o: TUV_5.2.1/GC11.inc params src/rate_coeff/new_rate.inc.def
+model_constants.o: src/rate_coeff/new_rate.inc.var TUV_5.2.1/MCM4.inc
+model_constants.o: TUV_5.2.1/MCM331.inc tuv_old/MCM3.inc
 model_constants.o: model_Global.o model_Precision.o
-model_lumpedrates.o: model_Global.o
+model_ropa.o: model_Global.o
 constants.mod: model_constants.o
-lumpedrates.mod: model_lumpedrates.o
+model_flux.mod: model_ropa.o
