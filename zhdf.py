@@ -111,7 +111,7 @@ class new():
             self.timesteps = spec['TIME'].astype('M8[s]').compute()
             spec['TIME'] = self.timesteps
             rate['TIME'] = self.timesteps
-            flux['TIME'] = dd.from_array(np.array(self.timesteps[1:]))
+            flux['TIME'] = self.timesteps #dd.from_array(np.array(self.timesteps[1:]))
             self.ts= np.array(self.timesteps)
             '''
             n = int(len(shead)/5)

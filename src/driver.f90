@@ -4,7 +4,7 @@ USE model_Parameters
 USE model_Rates,       ONLY: Update_SUN, Update_RCONST
 USE model_integrator,  ONLY: integrate
 USE model_monitor,     ONLY: spc_names,Eqn_names
-USE model_Function, ONLY: A!,fun
+USE model_Function, ONLY: A,fun
 USE model_Util
 USE constants
 
@@ -92,7 +92,8 @@ INCLUDE './src/initialisations.inc'
 
 WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
-
+call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
+WRITE (FLUX_UNIT) newtime, A(:NREACT)
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 TEND = TEND + spinup*dt !additional spinup time added if included
@@ -169,6 +170,7 @@ WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 
 !call FUN( C(:NSPEC),FIX,RCONST,VDOT)!recalc flux
+call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
 WRITE (FLUX_UNIT) newtime, A(:NREACT)
 
 
@@ -256,7 +258,7 @@ ENDIF
 
 ENDDO time_loop
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+print *, 'Finished Simulation Sucessfully!'
 1000  print *, ' '//achar(27)//'[91m exit condition 1000 '//achar(27)//'[97m'
 !if (CONSTRAIN_RUN .EQ. .true.) .AND. (OUTPUT_LAST .EQ. .false.)  print*, 'why not SaveOut(run_counter) work dammit'
 

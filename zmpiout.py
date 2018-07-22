@@ -186,7 +186,7 @@ try:
                 for dataset in ['spec','rate','flux']:
                     data = readfun('%s.%s'%(req['id'],dataset))
 
-                    print data[1].shape,len(data[0].split(','),dataset)#remove non/zero results through mask
+                    print data[1].shape,len(data[0].split(',')),dataset#remove non/zero results through mask
 
                     dataarr = data[0].split(',')
                     mask = data[1].sum(axis=0)
