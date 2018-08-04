@@ -16,7 +16,7 @@ a = new(filename)
 
 #ro2 considerations qsub -I  -q x-large -X -lselect=7:ncpus=1:mem=50G -l place=vscatter:shared
 try:
-    if noro2: print dsafdsa
+    if noro2: print dsafdsa #intentional fallover
     a.spec.RO2
     ro2go=True
 except:

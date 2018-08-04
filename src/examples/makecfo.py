@@ -2,9 +2,9 @@ import pandas as pd
 import os,re
 import numpy as np
 
-filen = 'ClearFlo_SUMMER_iop_15_min_merges_sep_2014.xls'
-path = filen.split('.')[0]
-df = pd.read_excel(filen)
+filen = 'clfo/ClearFlo_SUMMER_iop_15_min_merges_sep_2014.xls'
+path = ''+ filen.split('.')[0]
+df  = pd.read_excel(filen)
 
 os.system('mkdir '+path)
 os.system('touch '+path+'/empty')
@@ -49,7 +49,7 @@ remove = [
 "WindDir (local)",
 "Wind dir (BT tower)",
 "GCFID (All ppb)",
-"total NOy_ppbv"
+#"total NOy_ppbv"
 ]
 
 
@@ -81,7 +81,8 @@ mcmd['TRANS-2-butene'.upper()]='BUT1ENE'
 
 
 
-keep=[['PXYL+MXYL','m+p-xylene']]
+
+keep=[['PXYL+MXYL','m+p-xylene'],['NOY','total NOy_ppbv']]
 dismiss=[]
 
 for i in df.columns:
@@ -124,10 +125,37 @@ df.columns = df.columns.map(lambda x: keepcol[x])
 
 
 df = df.groupby(by=df.columns, axis=1).mean()
-df['index'] = pd.to_datetime(index).map(lambda x: x.hour)
+df['index'] = pd.to_datetime(index).map(lambda x: int(x.hour))
 
+'''
+steps = 4
+
+def even (x):
+    if x>0: return x
+    elif(x%steps==0): return x
+    else: return x+1
+    
+for i in xrange(steps):    
+    df['index'] = df['index'].map(even)
+    
+'''    
+    
 print df['index']
+
 df = df.groupby(['index']).mean()
+
+
+##### SMoothing
+for repeat in xrange(5):
+    for i in range(len(df)):
+        df.iloc[i] = df.iloc[[i-1,i,1+1]].mean(axis = 0)
+
+
+
+
+
+
+
 
 
 correctorvalue = {'ppbv':1,'pptv':1e-12*1e+9,'molec cm-3':1e+9}
@@ -148,6 +176,6 @@ for i in multiply:
 
 df.to_csv('ClearFloDiurnal.csv')
 for i in df.columns:
-    df[i].to_csv(path+'/'+i+'.csv')
+    df[i].to_csv(path+'/'+i+'_units.csv')
 
 print 'done',df.mean()

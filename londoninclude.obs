@@ -1,0 +1,208 @@
+!obs:277
+
+!! Constrain from observations
+!USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
+DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+
+ C(ind_APINENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(1,:),spcf(2,:),spcf(3,:),spcf(4,:))
+ CONSTRAIN(ind_APINENE) = C(ind_APINENE)
+
+ C(ind_BENZAL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(5,:),spcf(6,:),spcf(7,:),spcf(8,:))
+ CONSTRAIN(ind_BENZAL) = C(ind_BENZAL)
+
+ C(ind_BENZENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(9,:),spcf(10,:),spcf(11,:),spcf(12,:))
+ CONSTRAIN(ind_BENZENE) = C(ind_BENZENE)
+
+ C(ind_BUT1ENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(13,:),spcf(14,:),spcf(15,:),spcf(16,:))
+ CONSTRAIN(ind_BUT1ENE) = C(ind_BUT1ENE)
+
+ C(ind_BUT2CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(17,:),spcf(18,:),spcf(19,:),spcf(20,:))
+ CONSTRAIN(ind_BUT2CHO) = C(ind_BUT2CHO)
+
+ C(ind_C2H2)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(21,:),spcf(22,:),spcf(23,:),spcf(24,:))
+ CONSTRAIN(ind_C2H2) = C(ind_C2H2)
+
+ C(ind_C2H4)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(25,:),spcf(26,:),spcf(27,:),spcf(28,:))
+ CONSTRAIN(ind_C2H4) = C(ind_C2H4)
+
+ C(ind_C2H5OH)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(29,:),spcf(30,:),spcf(31,:),spcf(32,:))
+ CONSTRAIN(ind_C2H5OH) = C(ind_C2H5OH)
+
+ C(ind_C2H6)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(33,:),spcf(34,:),spcf(35,:),spcf(36,:))
+ CONSTRAIN(ind_C2H6) = C(ind_C2H6)
+
+ C(ind_C3H6)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(37,:),spcf(38,:),spcf(39,:),spcf(40,:))
+ CONSTRAIN(ind_C3H6) = C(ind_C3H6)
+
+ C(ind_C3H7CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(41,:),spcf(42,:),spcf(43,:),spcf(44,:))
+ CONSTRAIN(ind_C3H7CHO) = C(ind_C3H7CHO)
+
+ C(ind_C3H8)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(45,:),spcf(46,:),spcf(47,:),spcf(48,:))
+ CONSTRAIN(ind_C3H8) = C(ind_C3H8)
+
+ C(ind_C3ME3CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(49,:),spcf(50,:),spcf(51,:),spcf(52,:))
+ CONSTRAIN(ind_C3ME3CHO) = C(ind_C3ME3CHO)
+
+ C(ind_C4H6)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(53,:),spcf(54,:),spcf(55,:),spcf(56,:))
+ CONSTRAIN(ind_C4H6) = C(ind_C4H6)
+
+ C(ind_C4H9CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(57,:),spcf(58,:),spcf(59,:),spcf(60,:))
+ CONSTRAIN(ind_C4H9CHO) = C(ind_C4H9CHO)
+
+ C(ind_C5H11CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(61,:),spcf(62,:),spcf(63,:),spcf(64,:))
+ CONSTRAIN(ind_C5H11CHO) = C(ind_C5H11CHO)
+
+ C(ind_C5H8)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(65,:),spcf(66,:),spcf(67,:),spcf(68,:))
+ CONSTRAIN(ind_C5H8) = C(ind_C5H8)
+
+ C(ind_CH2CL2)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(69,:),spcf(70,:),spcf(71,:),spcf(72,:))
+ CONSTRAIN(ind_CH2CL2) = C(ind_CH2CL2)
+
+ C(ind_CH3CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(73,:),spcf(74,:),spcf(75,:),spcf(76,:))
+ CONSTRAIN(ind_CH3CHO) = C(ind_CH3CHO)
+
+ C(ind_CH3COCH3)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(77,:),spcf(78,:),spcf(79,:),spcf(80,:))
+ CONSTRAIN(ind_CH3COCH3) = C(ind_CH3COCH3)
+!no!
+ !C(ind_CH3O2)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(81,:),spcf(82,:),spcf(83,:),spcf(84,:))
+ !CONSTRAIN(ind_CH3O2) = C(ind_CH3O2)
+!no?
+ !C(ind_CH3OH)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(85,:),spcf(86,:),spcf(87,:),spcf(88,:))
+ !CONSTRAIN(ind_CH3OH) = C(ind_CH3OH)
+
+ C(ind_CH4)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(89,:),spcf(90,:),spcf(91,:),spcf(92,:))
+ CONSTRAIN(ind_CH4) = C(ind_CH4)
+
+ C(ind_CO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(93,:),spcf(94,:),spcf(95,:),spcf(96,:))
+ CONSTRAIN(ind_CO) = C(ind_CO)
+
+ C(ind_CYHEXONE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(97,:),spcf(98,:),spcf(99,:),spcf(100,:))
+ CONSTRAIN(ind_CYHEXONE) = C(ind_CYHEXONE)
+
+ C(ind_EBENZ)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(101,:),spcf(102,:),spcf(103,:),spcf(104,:))
+ CONSTRAIN(ind_EBENZ) = C(ind_EBENZ)
+
+ C(ind_ETHACET)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(105,:),spcf(106,:),spcf(107,:),spcf(108,:))
+ CONSTRAIN(ind_ETHACET) = C(ind_ETHACET)
+
+ C(ind_HCHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(109,:),spcf(110,:),spcf(111,:),spcf(112,:))
+ CONSTRAIN(ind_HCHO) = C(ind_HCHO)
+
+ C(ind_HEX2ONE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(113,:),spcf(114,:),spcf(115,:),spcf(116,:))
+ CONSTRAIN(ind_HEX2ONE) = C(ind_HEX2ONE)
+
+ C(ind_HNO3)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(117,:),spcf(118,:),spcf(119,:),spcf(120,:))
+ CONSTRAIN(ind_HNO3) = C(ind_HNO3)
+!no
+ !C(ind_HO2)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(121,:),spcf(122,:),spcf(123,:),spcf(124,:))
+ !CONSTRAIN(ind_HO2) = C(ind_HO2)
+
+ C(ind_HONO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(125,:),spcf(126,:),spcf(127,:),spcf(128,:))
+ CONSTRAIN(ind_HONO) = C(ind_HONO)
+
+ C(ind_IC4H10)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(129,:),spcf(130,:),spcf(131,:),spcf(132,:))
+ CONSTRAIN(ind_IC4H10) = C(ind_IC4H10)
+
+ C(ind_IC5H12)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(133,:),spcf(134,:),spcf(135,:),spcf(136,:))
+ CONSTRAIN(ind_IC5H12) = C(ind_IC5H12)
+
+ C(ind_IPRCHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(137,:),spcf(138,:),spcf(139,:),spcf(140,:))
+ CONSTRAIN(ind_IPRCHO) = C(ind_IPRCHO)
+
+ C(ind_LIMONENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(141,:),spcf(142,:),spcf(143,:),spcf(144,:))
+ CONSTRAIN(ind_LIMONENE) = C(ind_LIMONENE)
+
+ C(ind_MACR)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(145,:),spcf(146,:),spcf(147,:),spcf(148,:))
+ CONSTRAIN(ind_MACR) = C(ind_MACR)
+
+ C(ind_MEK)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(149,:),spcf(150,:),spcf(151,:),spcf(152,:))
+ CONSTRAIN(ind_MEK) = C(ind_MEK)
+
+ C(ind_MEPROPENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(153,:),spcf(154,:),spcf(155,:),spcf(156,:))
+ CONSTRAIN(ind_MEPROPENE) = C(ind_MEPROPENE)
+
+ C(ind_METHTOL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(157,:),spcf(158,:),spcf(159,:),spcf(160,:))
+ CONSTRAIN(ind_METHTOL) = C(ind_METHTOL)
+
+ C(ind_MPRK)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(161,:),spcf(162,:),spcf(163,:),spcf(164,:))
+ CONSTRAIN(ind_MPRK) = C(ind_MPRK)
+
+ C(ind_MVK)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(165,:),spcf(166,:),spcf(167,:),spcf(168,:))
+ CONSTRAIN(ind_MVK) = C(ind_MVK)
+
+ C(ind_NC10H22)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(169,:),spcf(170,:),spcf(171,:),spcf(172,:))
+ CONSTRAIN(ind_NC10H22) = C(ind_NC10H22)
+
+ C(ind_NC11H24)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(173,:),spcf(174,:),spcf(175,:),spcf(176,:))
+ CONSTRAIN(ind_NC11H24) = C(ind_NC11H24)
+
+ C(ind_NC12H26)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(177,:),spcf(178,:),spcf(179,:),spcf(180,:))
+ CONSTRAIN(ind_NC12H26) = C(ind_NC12H26)
+
+ C(ind_NC4H10)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(181,:),spcf(182,:),spcf(183,:),spcf(184,:))
+ CONSTRAIN(ind_NC4H10) = C(ind_NC4H10)
+
+ C(ind_NC5H12)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(185,:),spcf(186,:),spcf(187,:),spcf(188,:))
+ CONSTRAIN(ind_NC5H12) = C(ind_NC5H12)
+
+ C(ind_NC6H14)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(189,:),spcf(190,:),spcf(191,:),spcf(192,:))
+ CONSTRAIN(ind_NC6H14) = C(ind_NC6H14)
+
+ C(ind_NC7H16)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(193,:),spcf(194,:),spcf(195,:),spcf(196,:))
+ CONSTRAIN(ind_NC7H16) = C(ind_NC7H16)
+
+ C(ind_NC8H18)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(197,:),spcf(198,:),spcf(199,:),spcf(200,:))
+ CONSTRAIN(ind_NC8H18) = C(ind_NC8H18)
+
+ C(ind_NC9H20)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(201,:),spcf(202,:),spcf(203,:),spcf(204,:))
+ CONSTRAIN(ind_NC9H20) = C(ind_NC9H20)
+
+ TNOX_OLD = CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(205,:),spcf(206,:),spcf(207,:),spcf(208,:))
+
+ C(ind_NPROPOL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(209,:),spcf(210,:),spcf(211,:),spcf(212,:))
+ CONSTRAIN(ind_NPROPOL) = C(ind_NPROPOL)
+
+ C(ind_O3)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(213,:),spcf(214,:),spcf(215,:),spcf(216,:))
+ CONSTRAIN(ind_O3) = C(ind_O3)
+
+ C(ind_OETHTOL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(217,:),spcf(218,:),spcf(219,:),spcf(220,:))
+ CONSTRAIN(ind_OETHTOL) = C(ind_OETHTOL)
+
+ C(ind_OH)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(221,:),spcf(222,:),spcf(223,:),spcf(224,:))
+ CONSTRAIN(ind_OH) = C(ind_OH)
+
+ C(ind_OXYL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(225,:),spcf(226,:),spcf(227,:),spcf(228,:))
+ CONSTRAIN(ind_OXYL) = C(ind_OXYL)
+!no1
+ !C(ind_PAN)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(229,:),spcf(230,:),spcf(231,:),spcf(232,:))
+ !CONSTRAIN(ind_PAN) = C(ind_PAN)
+
+ C(ind_PBENZ)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(233,:),spcf(234,:),spcf(235,:),spcf(236,:))
+ CONSTRAIN(ind_PBENZ) = C(ind_PBENZ)
+
+ C(ind_PETHTOL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(237,:),spcf(238,:),spcf(239,:),spcf(240,:))
+ CONSTRAIN(ind_PETHTOL) = C(ind_PETHTOL)
+
+ C(ind_PXYL)= CFACTOR*.5*10**seval(27,dfract,spcf(obs,:)    ,spcf(241,:),spcf(242,:),spcf(243,:),spcf(244,:))
+ CONSTRAIN(ind_PXYL) = C(ind_PXYL)
+
+ C(ind_MXYL)= CFACTOR*.5*10**seval(27,dfract,spcf(obs,:)    ,spcf(245,:),spcf(246,:),spcf(247,:),spcf(248,:))
+ CONSTRAIN(ind_MXYL) = C(ind_MXYL)
+
+ C(ind_STYRENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(249,:),spcf(250,:),spcf(251,:),spcf(252,:))
+ CONSTRAIN(ind_STYRENE) = C(ind_STYRENE)
+
+ C(ind_TM123B)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(253,:),spcf(254,:),spcf(255,:),spcf(256,:))
+ CONSTRAIN(ind_TM123B) = C(ind_TM123B)
+
+ C(ind_TM124B)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(257,:),spcf(258,:),spcf(259,:),spcf(260,:))
+ CONSTRAIN(ind_TM124B) = C(ind_TM124B)
+
+ C(ind_TM135B)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(261,:),spcf(262,:),spcf(263,:),spcf(264,:))
+ CONSTRAIN(ind_TM135B) = C(ind_TM135B)
+
+ C(ind_TOLUENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(265,:),spcf(266,:),spcf(267,:),spcf(268,:))
+ CONSTRAIN(ind_TOLUENE) = C(ind_TOLUENE)
+
+ C(ind_TRICLETH)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(269,:),spcf(270,:),spcf(271,:),spcf(272,:))
+ CONSTRAIN(ind_TRICLETH) = C(ind_TRICLETH)
