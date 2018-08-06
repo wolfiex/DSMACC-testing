@@ -169,7 +169,7 @@ class new():
 
 
     def splot (self,what):
-        df = pd.DataFrame((self.spec[what]/self.M).compute()).plot()
+        df = pd.DataFrame((self.spec[what]).compute()).plot()
         plt.show()
         return df
 
@@ -182,6 +182,14 @@ class new():
         df = pd.DataFrame(self.rate[what].compute()).plot()
         plt.show()
         return df
+
+
+    def loss(self,spec):
+        return self.rate.columns[self.prodloss[spec]['loss']]
+
+    def prod(self,spec):
+        return self.rate.columns[self.prodloss[spec]['prod']]
+
 
     def dump(self,location = './', name = False):
         if not name: name = self.origin.replace('.h5','')  + self.groupname+'.dill'
