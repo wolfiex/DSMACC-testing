@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DatabaseMinorVersion</key>
+	<integer>1</integer>
+	<key>DatabaseVersion</key>
+	<integer>112</integer>
+	<key>HistoricalMarker</key>
+	<dict>
+		<key>LastHistoryRowId</key>
+		<integer>322</integer>
+		<key>LibraryBuildTag</key>
+		<string>EEACC5E2-6F21-41EB-BD61-380BDF7753EE</string>
+		<key>LibrarySchemaVersion</key>
+		<integer>3301</integer>
+	</dict>
+	<key>LibrarySchemaVersion</key>
+	<integer>3301</integer>
+	<key>MetaSchemaVersion</key>
+	<integer>2</integer>
+	<key>SnapshotComplete</key>
+	<true/>
+	<key>SnapshotCompletedDate</key>
+	<date>2017-12-06T20:20:37Z</date>
+	<key>SnapshotLastAttemptStartDate</key>
+	<date>2017-12-06T20:20:32Z</date>
+	<key>SnapshotLastValidated</key>
+	<date>2018-08-07T03:51:18Z</date>
+	<key>SnapshotTables</key>
+	<dict>
+		<key>RKAdminData</key>
+		<dict>
+			<key>0000000000.lisj</key>
+			<string>6fa2a1b1577392b0583fa2a847d858933d2e1bc3</string>
+		</dict>
+		<key>RKAlbum</key>
+		<dict>
+			<key>0000000000.lisj</key>
+			<string>e7440ea97ab17f26b4002bb227152347be2587ca</string>
+		</dict>
+		<key>RKCustomSortOrder</key>
+		<dict>
+			<key>0000000000.lisj</key>
+			<string>244414fa76ee116855f5c51cfdb6280777933da4</string>
+		</dict>
+		<key>RKFolder</key>
+		<dict>
+			<key>0000000000.lisj</key>
+			<string>928abbda2abec65b6da3870e6abe6705ff03e14f</string>
+		</dict>
+		<key>RKKeyword</key>
+		<dict>
+			<key>0000000000.lisj</key>
+			<string>0ad3748d0bf41f75a579ac604a2bff7997c14dbf</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

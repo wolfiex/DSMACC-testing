@@ -81,7 +81,10 @@ class new():
             shead = g.attrs['spechead'].split(',')
             rhead = g.attrs['ratehead'].split(',')
             fhead = g.attrs['fluxhead'].split(',')
-            self.fhd = g.attrs['ratehead'].split(',')
+
+
+
+            #self.fhd = g.attrs['ratehead'].split(',')
             spec = dd.from_array(g.get('spec')[1:,:],chunksize=50000, columns = shead)
 
             if len(rhead) != len(set(rhead)):

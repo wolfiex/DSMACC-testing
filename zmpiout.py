@@ -1,5 +1,4 @@
 from mpi4py import MPI
-from scipy.io import FortranFile
 
 import os,sys,time,re
 import numpy as np
@@ -69,24 +68,7 @@ try:
             os.system(' touch temp.txt && rm temp.txt')
             debug = '>>temp.txt'
 
-
-        def readfun(filename):
-            '''
-            reads unformatted fortran files
-            '''
-            f = FortranFile('Outputs/'+filename, 'r')
-            names = ''.join(f.read_reals('c'))
-            data = []
-            while True:
-                    try:
-                        data.append(f.read_reals(dtype=np.float_))
-                    except TypeError:
-                        break
-                #array = np.reshape(array, (nspecs,-1))
-
-            f.close()
-            return [names.replace(' ',''),np.array(data)]
-
+        from zuf90 import*
         from progressbar import ProgressBar
         pbar = ProgressBar()
 
@@ -184,7 +166,7 @@ try:
                 g.attrs['version'] = req['vers']
 
                 for dataset in ['spec','rate','flux']:
-                    data = readfun('%s.%s'%(req['id'],dataset))
+                    data = readfun('Outputs/%s.%s'%(req['id'],dataset))
 
                     print data[1].shape,len(data[0].split(',')),dataset#remove non/zero results through mask
 
@@ -192,7 +174,7 @@ try:
                     mask = data[1].sum(axis=0)
                     if dataset == 'rate':
                         #only save reaction which contain species
-                        match = re.compile(r'\b(\w+)\b')
+                        match = re.compile(r'\b[\d\.]*(\w+)\b')
                         fltr=set(fltr)
                         keep = [len(set(match.findall(i))-fltr)==0 for i in dataarr]
 

@@ -7,7 +7,7 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
-#INCLUDE mechanisms/formatted_ClearFlo.kpp
+#INCLUDE mechanisms/formatted_GCGC_full.kpp
 
 
 
@@ -17,7 +17,7 @@
 
 #INLINE F90_GLOBAL
 !model  variable parameters
-character(len=30) :: version="Unknown"
+character(len=30) :: version="pete beijing"
 INTEGER :: TUVvers=1
 #ENDINLINE
 
