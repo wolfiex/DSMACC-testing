@@ -128,7 +128,7 @@ class new():
             self.rate = rate.set_index('TIME', sorted=True)
             self.flux = flux.set_index('TIME', sorted=True)
 
-            fcol = ','.join(rhead)
+            fcol = ','.join(fhead)
 
             self.products = [i.split('+') for i in re.findall(r'-->([A-z0-9+]*)',fcol)]
             self.reactants = np.array([j.split('+') for j in re.findall(r'([A-z0-9+]{1,60})-->',fcol)])
@@ -188,10 +188,10 @@ class new():
 
 
     def loss(self,spec):
-        return self.rate.columns[self.prodloss[spec]['loss']]
+        return self.flux.columns[self.prodloss[spec]['loss']]
 
     def prod(self,spec):
-        return self.rate.columns[self.prodloss[spec]['prod']]
+        return self.flux.columns[self.prodloss[spec]['prod']]
 
 
     def dump(self,location = './', name = False):

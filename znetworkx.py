@@ -52,7 +52,7 @@ if ro2go:
     ro2val = a.spec.loc[tsps,'RO2'].compute()
 
 
-def getedge(num,allspecs,prodloss,columns,flux,ro2list,tsps):#,allspecs,a,tsps):
+def getedge(num,allspecs,prodloss,flux,ro2list,tsps):#,allspecs,a,tsps):
     edges = []
     print len(num)
     print ''
@@ -70,11 +70,11 @@ def getedge(num,allspecs,prodloss,columns,flux,ro2list,tsps):#,allspecs,a,tsps):
 
             if len(fluxes & ro2list)>0:
                 fluxes = fluxes & ro2list
-                arr = 20 +  np.log10(np.array(flux.loc[tsps,columns[list(fluxes)]].sum(axis=1)))
+                arr = 20 +  np.log10(np.array(flux.loc[tsps,flux.columns[list(fluxes)]].sum(axis=1)))
                 edges.append(['RO2',spec,re.sub(r'\s+',' ',str(arr)) ])
 
             if len(fluxes) > 0 :
-                arr = 20 +  np.log10(np.array(flux.loc[tsps,columns[list(fluxes)]].sum(axis=1)))
+                arr = 20 +  np.log10(np.array(flux.loc[tsps,flux.columns[list(fluxes)]].sum(axis=1)))
                 edges.append([i,spec,re.sub(r'\s+',' ',str(arr)) ])
 
 
@@ -152,7 +152,7 @@ def minigraph(edgelist,i,ro2ts):
 edgelist=[]
 
 bar = progressbar.ProgressBar()
-results  = [pool.apply_async(getedge, args=(x,allspecs,a.prodloss,a.rate.columns,a.flux.compute(),ro2list,tsps)) for x in np.array_split(range(len(allspecs)),ncores)]
+results  = [pool.apply_async(getedge, args=(x,allspecs,a.prodloss,a.flux.compute(),ro2list,tsps)) for x in np.array_split(range(len(allspecs)),ncores)]
 [edgelist.extend(p.get()) for p in bar(results)]
 
 print 'edgelist ready'

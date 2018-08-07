@@ -17,4 +17,5 @@ save/
 *.pkl
 *.mat
 *.h5
+*.gexf
 temp.txt
