@@ -10,7 +10,7 @@ daniel.ellis@york.ac.uk 2017
 
 
 from sympy import * 
-import re, numpy,sys
+import re, numpy,sys,mpmath
 
 ## Rate file we wish to open
 filename = sys.argv[1]#'new_rate.inc'
@@ -26,7 +26,7 @@ for i in data: string+= i; datalower=str(string).lower()
 
 #get constants
 constants = re.findall(r'\b(\w+)\b\s*=',datalower)
-for i in constants + ['temp','m','o2','h2o','LOG10']:  exec(i + '= symbols("%s")'%i)
+for i in constants + ['temp','m','o2','h2o','no','no3','ho2','ro2','LOG10']:  exec(i + '= symbols("%s")'%i)
 #dictionary of coefficients
 coeff_d = dict([[j,i] for i,j in enumerate(constants)])
 

@@ -3,8 +3,9 @@ from scipy.io import FortranFile
 import os,sys,time,re,glob
 import numpy as np
 
-files = glob.glob('Outputs/*')
-print files
+if __name__ == '__main__':
+    files = glob.glob('Outputs/*')
+    print files
 
 def readfun(filename):
     '''
@@ -22,3 +23,10 @@ def readfun(filename):
 
     f.close()
     return [names.replace(' ',''),np.array(data)]
+
+def asdf(filename):
+    import pandas as pd
+    data = readfun(filename)
+    df = pd.DataFrame(data[1])
+    df.columns = data[0].split(',')
+    return df

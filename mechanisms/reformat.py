@@ -9,7 +9,7 @@ except Exception as e :
     ncores=1
 print ncores
 available_cores=ncores
-co2 =True
+co2 =False
 
 if co2:
     smilesdf = pd.read_csv('../src/background/smiles_mined.csv')

@@ -38,7 +38,7 @@ if ro2go:
 mcm = list(pd.read_csv('src/background/smiles_mined.csv').name)
 if ro2go:  mcm.extend(['CO2','RO2'])
 cs = [i.split(',')[-1].replace('\n','') for i in tuple(open('carbons.csv'))]
-cs.extend('RO2')
+cs.extend(['RO2','CO'])
 allspecs = filter(lambda x: x not in ['LAT', 'PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O'],a.spec.columns)
 allspecs = filter(lambda x: x in cs,allspecs)
 print allspecs

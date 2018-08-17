@@ -30,7 +30,7 @@ MODULE constants
   INTEGER  :: k
 
 !remove these just for testing lumping
-real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff 
+real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff
 
 
 
@@ -52,8 +52,7 @@ CONTAINS
 
 ! Time2 is local time in hours
     Time2=mod(Time/(60.*60.), 24.)
-   
-  
+
 
     IF (TIME2 .LT. 0) TIME2=TIME2+24.
     LAT2=LAT
@@ -239,8 +238,7 @@ CONTAINS
 !  if  u .lt. x(1) then  i = 1  is used.
 !  if  u .ge. x(n) then  i = n  is used.
 !  input..
-!    n = the number of data points
-!    u = the abscissa at which the spline is to be evaluated
+!    n = the number of data points cissa at which the spline is to be evaluated
 !    x,y = the arrays of data abscissas and ordinates
 !    b,c,d = arrays of spline coefficients computed by spline
 !  if  u  is not in the same interval as the previous call, then a

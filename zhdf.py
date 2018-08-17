@@ -194,6 +194,81 @@ class new():
         return self.flux.columns[self.prodloss[spec]['prod']]
 
 
+    def halflife(self,spec,starttime):
+            rxns = self.loss(spec)
+            coeff = re.compile(r'([\.\d]*)(\w+)')
+            life = 0.
+
+            def calc(r):
+                calc = 1.
+                for spc in r.split('-->')[0].split('+'):
+                    splt = coeff.match(spc).groups()
+                    if splt[1] != spec:
+                        if splt[0] != '': calc *= float(splt[0])
+                        calc *= self.spec.loc[starttime,spec]
+                try:
+                    return 1./(calc*self.rate.loc[starttime,r])
+
+                except KeyError:
+                    # removed rate col based on no-reaction
+                    print 'Skipped '+r
+                    return 0
+
+            res = pool.map(calc,rxns)
+            try:
+                return (1. / sum(res)).compute()
+            except:
+                return 0
+
+
+
+
+
+    def lifetime(self,spec,timestep=''):
+            '''
+            a + b + c > d     @ r1
+            a         > f + h @ r2
+
+            tau_A = 1/(   1/[c][d]r1   + 1/r2      )
+
+
+            timestep: [NoneType=diurnalprofile, Timestring=point, default=return all, str=data]
+            '''
+            '''
+            for prod in self.prod(spec):
+
+                            try:
+                                lifetimev-= self.flux[prod]
+                            except NameError:
+                                lifetimev  = -1.*self.flux[prod]
+
+                                '''
+            for loss in self.loss(spec):
+
+                try:
+                    lifetimev+= self.flux[loss]
+                except NameError:
+                    lifetimev  = self.flux[loss]
+            if 'lifetimev' in locals() :
+
+                tau = lifetimev/self.spec[spec]
+
+                timetype = type(timestep).__name__
+
+                if timetype == 'str':
+                    rtn = tau.describe().compute()
+                elif timetype == 'bool':
+                    rtn = tau
+                elif timetype == 'pandas._libs.tslib.Timestamp':
+                    rtn = tau.loc[timestep].compute()[0]
+                elif timetype == 'list':
+                    rtn = tau.loc[timestep[0]:timestep[1]].compute()
+                else:
+                    rtn =tau.groupby(tau.index.map_partitions(lambda x: x.hour)).mean().compute()
+
+                return rtn
+
+
     def dump(self,location = './', name = False):
         if not name: name = self.origin.replace('.h5','')  + self.groupname+'.dill'
         import dill
@@ -219,14 +294,27 @@ def joyplot(self):
      import seaborn as sns
 
 
+def alllifetimes(self):
+    print 'Calculating lifetimes for all species...'
+    mcm = list(pd.read_csv('src/background/smiles_mined.csv').name)
+
+    cs = [i.split(',')[-1].replace('\n','') for i in tuple(open('carbons.csv'))]
+    cs.extend('RO2')
+    allspecs = filter(lambda x: x not in ['LAT', 'PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O'],self.spec.columns)
+    allspecs = filter(lambda x: x in cs,allspecs)
 
 
+    return dict([[i,self.lifetime(i)] for i in allspecs])#pool.map(self.lifetime,self.spec.columns)
+
+    #[[f,l[f]['mean']] for f in l if type(l[f]).__name__!='NoneType'] a.timesteps[int(144*1.84)]
 
 
 
 
 
 #
+if __name__ == "__main__":
+    a=new('BaseRun_init_0406.h5')
 '''
 a = new()
 a.calcFlux(specs=['CH4'],timesteps=[i for i in range(18)])
@@ -235,4 +323,17 @@ iup
 
 b = new()
 b.calcFlux(specs=['CH4'],timesteps=[i for i in range(11)])
-print b'''
+print b
+
+
+
+l=alllifetimes(a)
+v=[[f,l[f]['mean']] for f in l if type(l[f]).__name__!='NoneType']
+df  =  pd.DataFrame(np.array(v)).set_index(0).astype(float)
+df[1]= [np.log10(d) for d in df[1]]
+df.T.to_csv('lifetimes.csv', index = False)
+df = df.sort_values(1)
+df.plot()
+
+
+'''

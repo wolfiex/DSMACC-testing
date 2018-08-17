@@ -9,7 +9,7 @@ ii,JDAY,0,160.6839
 ii,H2O,0,0.01
 ii,ALBEDO,0,0.1
 ii,PRESS,0,1013.0
-ii,NOx,0,0
+ii,NOx,1,0
 ii,NO,0,1e-8
 ii,DEPOS,0,1
 ii,FEMISS,0,0

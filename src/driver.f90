@@ -27,7 +27,7 @@ REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter,run_counter
  character(200) :: dummychar
-real(dp) :: vdot(nreact)! for fun functiuon no other use 
+real(dp) :: vdot(nreact)! for fun functiuon no other use
 
 STEPMIN = 0.0_dp
 STEPMAX = 0.0_dp
@@ -75,6 +75,8 @@ call getarg(1,ln)!location in Init Cons
 read(ln, *) line
 
 
+
+CALL system("echo $(date '+%A %W %Y %X') >> temp.txt") 
 
 
 !set OUTPUT_UNIT to 6 in globals file.

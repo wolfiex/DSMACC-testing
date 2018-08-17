@@ -160,7 +160,7 @@ c = count(len(cfarray)+4) #+4 as extra row
 n=next
 
 
-ignore = ['XNO','XNO2','HO2','CH3O2','OH']
+ignore = ['XNO','XNO2','HO2','CH3O2','OH','TRICLETH','BUT2CHO', 'C3ME3CHO', 'C5H11CHO', 'CH2CL2', 'LIMONENE', 'MACR', 'MVK']
 
 for i in names:
     if i in ignore:
@@ -177,7 +177,7 @@ for i in names:
     elif i in ['H2O','h2o']:
         ratestring += "\n H2O = CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))"%(n(c),n(c),n(c),n(c))
 
-    elif i == 'PXYL+MXYL' :
+    elif i == 'PXYL+MXYL':
         #n is a generator and must only be called once
         id = (n(c),n(c),n(c),n(c))
         ratestring += "\n C(ind_PXYL)= CFACTOR*.5*10**seval(27,dfract,spcf(obs,:)    ,spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))"%(id)
