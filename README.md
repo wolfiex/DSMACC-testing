@@ -3,6 +3,8 @@
 Dan's version of the Dynamically Simple Model for Atmospheric Chemical
 Complexity --- still in development/testing
 
+Try the wiki - also in progress but contains some debug tips. 
+
 
 ## Cite
 Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
