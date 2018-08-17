@@ -21,7 +21,7 @@ If mpirun failes with [] then run has failed.
 Compile and prep as before, these changes only affect the running.
 Filenames may have to be manually changed for the time being, .... sorry.
 
-To create ics: `python run.py -i`
+To create ics: `python run.py -c`
 
 This makes a hdf5 file containing all your information. 
 
