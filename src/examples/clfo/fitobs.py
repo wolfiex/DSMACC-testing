@@ -146,7 +146,7 @@ ratestring = "!obs:%d\n"%len(cfarray)
 ratestring+='''
 !! Constrain from observations
 !USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
-DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+!DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
 '''
 
 #generator to increase nubmers
@@ -160,7 +160,7 @@ c = count(len(cfarray)+4) #+4 as extra row
 n=next
 
 
-ignore = ['XNO','XNO2','HO2','CH3O2','OH','TRICLETH','BUT2CHO', 'C3ME3CHO', 'C5H11CHO', 'CH2CL2', 'LIMONENE', 'MACR', 'MVK']
+ignore = ['NO','NO2','HO2','CH3O2','OH','TRICLETH','HONO','BUT2CHO', 'C3ME3CHO', 'C5H11CHO', 'CH2CL2', 'LIMONENE', 'MACR', 'MVK']
 
 for i in names:
     if i in ignore:
@@ -169,7 +169,7 @@ for i in names:
         ratestring += '\n !CONSTRAIN(ind_%s) = C(ind_%s)\n'%(i,i)
 
     elif i in ['NOX','nox','NOx','NOY']:
-        ratestring += "\n !TNOX_OLD = CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))\n"%(n(c),n(c),n(c),n(c))
+        ratestring += "\n TNOX_OLD = CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))\n"%(n(c),n(c),n(c),n(c))
     elif i in ['DEPOS','depos']:
         ratestring += "\n DEPOS = 10**seval(27,dfract,spcf(obs,:),spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))"%(n(c),n(c),n(c),n(c))
     elif i in ['TEMP','temp']:

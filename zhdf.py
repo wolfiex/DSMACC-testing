@@ -132,14 +132,14 @@ class new():
 
             self.products = [i.split('+') for i in re.findall(r'-->([A-z0-9+]*)',fcol)]
             self.reactants = np.array([j.split('+') for j in re.findall(r'([A-z0-9+]{1,60})-->',fcol)])
-
+            '''
             try:
                 self.adj = np.array(g['adj'])
                 self.adjspec = np.array(g.attrs['adjspec'].split(','))
                 self.adjts= np.array(g.attrs['adjts'].split(','))
             except Exception as e:
                 print e,'no adjacency matrix data'
-
+            '''
 
 
             hf.close()
@@ -193,7 +193,7 @@ class new():
     def prod(self,spec):
         return self.flux.columns[self.prodloss[spec]['prod']]
 
-
+    '''
     def halflife(self,spec,starttime):
             rxns = self.loss(spec)
             coeff = re.compile(r'([\.\d]*)(\w+)')
@@ -219,7 +219,7 @@ class new():
                 return (1. / sum(res)).compute()
             except:
                 return 0
-
+'''
 
 
 
@@ -289,9 +289,66 @@ def loaddump(filename):
 
 
 
-def joyplot(self):
-     df = pd.DataFrame((self.spec[what]/self.M).compute())
-     import seaborn as sns
+def mechcomp(mechs,what='spec',n_subplot = 4):
+        if type(mechs) != type([]):mechs = [mechs]
+
+        print 'creating a comparison pdf of '+what
+        from matplotlib.backends.backend_pdf import PdfPages
+        from matplotlib.pyplot import tick_params,setp,tight_layout,ylabel,xlabel,savefig,close
+        import progressbar
+
+        bar = progressbar.ProgressBar()
+
+        linestyles = ['-', ':', '--', '-.']
+        data = []
+        for i in mechs:
+            exec('data.append(i.%s.compute())'%what)
+
+        #data.sort_index(axis=1,inplace=True)# arrange alphabetically
+        crossover = set(data[0])
+        for i in data[1:]:
+            crossover = crossover & set(list(i.columns))
+        crossover = sorted(list(set(crossover)))
+        print crossover,data
+
+        pp = PdfPages('compare_%s.pdf'%('_'.join([i.groupname for i in mechs])))
+
+        for i in bar(xrange(0, len(crossover), n_subplot+1)):
+            spselect = crossover[i:i+n_subplot]
+
+            Axes = data[0][spselect].plot(subplots=True)
+            for l,d in enumerate(data[1:]):
+                d[spselect].plot(ax = Axes,linestyle = linestyles[-1*(l+1)],alpha =.8 , subplots=True)
+
+            tick_params(labelsize=6)
+
+            #y ticklabels
+            [setp(item.yaxis.get_majorticklabels(), 'size', 7) for item in Axes.ravel()]
+            #x ticklabels
+            [setp(item.xaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
+            #y labels
+            [setp(item.yaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+            #x labels
+            [setp(item.xaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+
+            tight_layout()
+            ylabel('mix ratio')
+
+            #plt.locator_params(axis='y',nbins=2)
+
+            savefig(pp, format='pdf')
+            close('all')
+
+        pp.close()
+        print 'PDF out'
+        close('all')
+
+
+
+
+
+
+
 
 
 def alllifetimes(self):
@@ -314,7 +371,7 @@ def alllifetimes(self):
 
 #
 if __name__ == "__main__":
-    a=new('BaseRun_init_0406.h5')
+    a=new('clfo.h5')
 '''
 a = new()
 a.calcFlux(specs=['CH4'],timesteps=[i for i in range(18)])

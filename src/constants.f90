@@ -6,7 +6,7 @@ MODULE constants
 
   INTEGER, PARAMETER :: mnsp=250, mre=2000
   INTEGER  :: i
-  real(dp):: DFRACT
+
   ! variables for zenith routine which calculates zenith angle
   REAL(dp) :: theta, secx, cosx
 ! generic reaction rate variables
@@ -50,15 +50,20 @@ CONTAINS
     INTEGER :: LK
     include './params'
 
+
+
 ! Time2 is local time in hours
+
     Time2=mod(Time/(60.*60.), 24.)
+
+
 
 
     IF (TIME2 .LT. 0) TIME2=TIME2+24.
     LAT2=LAT
 
     THETA=ZENANG(int(jday)+int((time-time2)/(60.*60.*24.)),Time2,LAT2)*180./PI
-    WRITE (OUTPUT_UNIT,*) jday, time, time2, theta
+    !WRITE (OUTPUT_UNIT,*) jday, time, time2, theta
 ! ************************************************************************
 ! define generic reaction rates.
 ! ************************************************************************

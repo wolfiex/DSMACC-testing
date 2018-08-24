@@ -3,7 +3,7 @@ Description: Optional,Do not write time more than once. ,,
 Index,Species,Constrain,methane
 ii,TIME,0,259200
 ii,TEMP,0,298
-ii,LAT,0,53.958
+ii,LAT,0,52.1
 ii,LON,0,0
 ii,JDAY,0,173.5
 ii,H2O,0,0.02

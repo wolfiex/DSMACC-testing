@@ -39,19 +39,19 @@ mcm = list(pd.read_csv('src/background/smiles_mined.csv').name)
 if ro2go:  mcm.extend(['CO2','RO2'])
 cs = [i.split(',')[-1].replace('\n','') for i in tuple(open('carbons.csv'))]
 cs.extend('RO2')
-allspecs = filter(lambda x: x not in ['LAT', 'PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O'],a.spec.columns)
-allspecs = filter(lambda x: x in cs,allspecs)
+allspecs = filter(lambda x: x not in ['LAT', 'LON','PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O','O1D', 
+ 'O3', 'O2', 'NO2', 'NO3', 'N2O5', 'H2O2', 'TEMP', 'NO', 'NA',
+ 'KMT05', 'KMT04', 'KMT07', 'KMT06', 'KMT01', 'HO2NO2', 'KMT03',
+  'KMT02', 'HO2', 'KMT09', 'KMT08', 'CO', 'HNO3', 'SO3', 'SO2', 
+  'N2', 'OH', 'H2', 'HONO', 'HSO3', 'H2O', 'KMT12', 'KMT11', 'SA'],a.spec.columns)
+
+
+#allspecs = filter(lambda x: x in cs,allspecs)
 print allspecs
 
 speclist = list(allspecs)
 toindex = dict(zip(speclist,range(len(speclist))))
 fromindex = dict(zip(range(len(speclist)),speclist))
-
-tsps = a.ts[[143]]#,143+144/2 6 hoursr a.ts[range(0,len(a.ts),4)]
-print tsps
-if ro2go:
-    ro2fract = a.spec.loc[tsps,ro2].compute()
-    ro2val = a.spec.loc[tsps,'RO2'].compute()
 
 
 def getedge(num,allspecs,prodloss,flux,ro2list,tsps):#,allspecs,a,tsps):
@@ -81,6 +81,19 @@ def getedge(num,allspecs,prodloss,flux,ro2list,tsps):#,allspecs,a,tsps):
 
 
     return edges
+    
+    ################################
+
+tsps = a.ts#[[143,144,33]]#,143+144/2 6 hoursr a.ts[range(0,len(a.ts),4)]
+print tsps
+
+##########################
+
+if ro2go:
+    ro2fract = a.spec.loc[tsps,ro2].compute()
+    ro2val = a.spec.loc[tsps,'RO2'].compute()
+
+
 
 
 
@@ -109,21 +122,23 @@ rcParams['axes.titlepad'] = 12
 rcParams['axes.titlesize'] = 18
 rcParams['axes.labelsize'] = 12
 
-if True:
+#for t in xrange(len(tsps)):
+def mapinfomap(t):    
+    
     print 'Infomap'
-    i=0 # location in time array
+    #i=0 # location in time array
 
 
-    G = infomap.Infomap("-d -0")
+    G = infomap.Infomap("-d -N 100")
     Gnx = nx.DiGraph()
 
-    jval = np.array([float(k[2][i]) for k in edgelist if (len(k[-1])>0 and len(k[-3])>0 and k[2][i]!='')])
+    jval = np.array([float(k[2][t]) for k in edgelist if (len(k[-1])>0 and len(k[-3])>0 and k[2][t]!='')])
     #if len(jval)<1: continue
     jval = jval[jval>0]
     jmin = np.min(jval)
     jmax = np.max(jval)-jmin
     for j in edgelist:
-            jedge = j[2][i]
+            jedge = j[2][t]
             if str(jedge) not in ['','-inf']:
                 jedge = float(jedge)
 
@@ -144,28 +159,54 @@ if True:
         partition[node.originalLeafIndex] = node.moduleIndex()
 
 
-groups = [[] for i in  np.empty(np.array(partition.values()).max())]
+    groups = [[] for i in  np.empty(np.array(partition.values()).max())]
 
-for i,j in enumerate(speclist):
-    try:
-        groups[partition[i]].append(j)
-    except:
-        print 'no node', i,j
-
-
-groups = sorted(groups,key=lambda x : len(x),reverse=True)
-
-with open('groups.txt','w') as f:
-    f.write('lumplist=\n')
-    f.write(str(groups).replace("'",'"'))
-
-with open('groupslimited.txt','w') as f:
-    f.write('lumplist=\n')
-    f.write(str(filter(lambda x : len(x) in [2,3],groups)).replace("'",'"'))
+    for i,j in enumerate(speclist):
+        try:
+            groups[partition[i]].append(j)
+        except:
+            print 'no node', i,j
 
 
+    groups = sorted(groups,key=lambda x : len(x),reverse=True)
+    '''
+    with open('centrality/%04d.groups'%t,'w') as f:
+        f.write('lumplist=\n')
+        f.write(str(groups).replace("'",'"'))
+
+    with open('centrality/%04d.groupslimited'%t,'w') as f:
+        f.write('lumplist=\n')
+        lumpedlim = str(filter(lambda x : len(x) in range(2,11),groups)).replace("'",'"')
+        f.write(lumpedlim)
+        '''
+    with open('centrality/%04d.gps'%t,'w') as f:
+    
+            for i in groups:#filter(lambda x : len(x) in range(2,11),groups)
+                f.write('-'.join(set(i))+'\n')
+    return ['-'.join(set(i)) for i in groups]
+
+pool.close()
+
+words = mp.Pool(ncores).map(mapinfomap,xrange(len(tsps)))
+
+l =[]
+for i in words:
+    l.extend(i)
+
+from collections import Counter
+
+with open('centrality/collected.txt','w') as f:
+        items = Counter(l).items()
+        items = sorted(items,key=lambda x:x[1],reverse=True)
+        
+        for i in items:
+            f.write('%d,%s\n'%(i[1],i[0]))
 
 
+
+
+
+'''
 
 
 
@@ -177,26 +218,29 @@ def merge_nodes(G,nodes, new_node, attr_dict=None, **attr):
     `nodes` will point to or from the `new_node`.
     attr_dict and **attr are defined as in `G.add_node`.
     """
+    if len(nodes)>1:
+        G.add_node(new_node,attr_dict=attr_dict) # Add the 'merged' node
+        ln = len(nodes)
+        add=[]
+        sn = set(nodes)
+        for n1,n2,data in G.edges(data=True):
+            # For all edges related to one of the nodes to merge,
+            # make an edge going to or coming from the `new gene`.
+            if len(sn & set([n1,n2]))==1:
+                if n1 in nodes:
+                    add.append([new_node,n2,data['weight']])
+                elif n2 in nodes:
+                    add.append([n1,new_node,data['weight']])
 
-    G.add_node(new_node,attr_dict=attr_dict) # Add the 'merged' node
-    ln = len(nodes)
-    add=[]
-    sn = set(nodes)
-    for n1,n2,data in G.edges(data=True):
-        # For all edges related to one of the nodes to merge,
-        # make an edge going to or coming from the `new gene`.
-        if len(sn & set([n1,n2]))==1:
-            if n1 in nodes:
-                add.append([new_node,n2,data['weight']])
-            elif n2 in nodes:
-                add.append([n1,new_node,data['weight']])
-
-    for n in nodes: # remove the merged nodes
-        G.remove_node(n)
-
-    for i in pd.DataFrame(add).groupby([0,1],as_index=False).sum().values:
-        G.add_edge(i[0],i[1],weight = float(i[2])/ln)
-        print i
+        for n in nodes: # remove the merged nodes
+            try:
+                G.remove_node(n)
+            except:
+                print 'cant remove' + n , nodes,add
+    
+        for i in pd.DataFrame(add).groupby([0,1],as_index=False).sum().values:
+            G.add_edge(i[0],i[1],weight = float(i[2])/ln)
+            print i
 
 
 
@@ -218,3 +262,8 @@ data = nx.readwrite.json_graph.node_link_data(Gnx, attrs={'source': 'source', 't
 import json
 with open('data.json', 'w') as outfile:
     json.dump(data, outfile)
+
+
+print lumpedlim.replace(']',']\n')
+
+'''

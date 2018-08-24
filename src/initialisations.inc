@@ -8,8 +8,6 @@ if (obs>0) then
     print*,achar(27)//'[91m Using observations! '//achar(27)//'[97m'
 end if
 
-!print*, spcf(:,1)!dayslice
-
 
 
 
@@ -43,12 +41,6 @@ if (INTTIME .LE. 0)  then
 
 endif
 
-runtimestep=int(Inttime / dt) !used for netcdf
-
-
-!read species and concentrations
-!number of read == 10000
-
 
 READ(21,'(*(a15,x))') spec_name
 READ(21,'(*(i15,x))') const_method
@@ -66,18 +58,10 @@ READ (21,'(*(e15.4,x))') concs
 
 
 
-if (save_legacy) nc_set = 144 ! 1day
-if (nc_set .eq. 0)  nc_set = runtimestep
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!Variable Initialisation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-allocate(output_s(1:nc_set, Nspec+10))
-allocate(output_r(1:nc_set, Nreact+6))
-print*, 'rename ncset'
-allocate(s_names(Nspec+10))
-allocate(r_names(Nreact+6))
-output_s(:,:) = 0.
-output_r(:,:) = 0.
+
 call initVal(concs)!initialise values
 M   = CFACTOR
 O2 = 0.21 * CFACTOR
@@ -85,7 +69,9 @@ N2 = 0.78 * CFACTOR
 tstart = (mod(jday,1.))*24.*60.*60. ! time start
 tstart = tstart+LON/360.*24.*60.*60.!conv 2 localtime
 tend = tstart + IntTime  !end time
-nc_counter=0
+floorjday = int(jday)*24*60*60
+
+
 
 
 write (OUTPUT_UNIT,*) 'Initializing model ', line
@@ -173,8 +159,7 @@ full_counter=0
         filename='./Outputs/'//trim(ln)//'.flux'
         open(FLUX_UNIT, file=filename,action="write",form='unformatted')
 
-        write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
-        !write(RATE_UNIT)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT)
+        write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,JO1D,JNO2,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         write(RATE_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT) !       (I)),I=1,NREACT)
         write(FLUX_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT )!,I=1,NREACT))
 
