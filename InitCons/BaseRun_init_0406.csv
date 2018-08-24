@@ -1,7 +1,7 @@
 Description: Optional,Do not write time more than once.,,
 TUV version,0,0,TUV5.2.1
 Index,Species,Constrain,BaseRun
-ii,TIME,NA,259200
+ii,TIME,NA,2592
 ii,TEMP,0,298.0
 ii,LAT,0,39.904
 ii,LON,0,116.407

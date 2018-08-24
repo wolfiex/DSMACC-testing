@@ -21,7 +21,7 @@ REAL(dp) :: FULL_CONCS(NSPEC,999999), concs(NSPEC)
 
 ! DO NOT NEED ABOVE
 
-REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime
+REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime,floorjday
  character(50) :: cw,filename
  character (10) :: ln
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
@@ -47,18 +47,11 @@ time=tstart
 !tuv defined globally
 
 
-!spinup time 0 for false, number timesteps otherwise
-
 
 !dt is the output timestep and the timestep between times
 !rate constants and notably photolysis rates are calcualted " 600 = ten minutes
 dt = 600.
-nc_set=1!36 ! the grouping factor that decides how often to write to file (modulo daycounter/nc_set)
-!use nc_set = 0 for a single memory dump at the end of simulation.
 
-
-spinup=0 !allocate this within ics
-allocate(spin_const(NVAR))
 
 
 call getarg(3,ln)!name
@@ -76,7 +69,7 @@ read(ln, *) line
 
 
 
-CALL system("echo $(date '+%A %W %Y %X') >> temp.txt") 
+CALL system("echo $(date '+%A %W %Y %X') >> temp.txt")
 
 
 !set OUTPUT_UNIT to 6 in globals file.
@@ -92,14 +85,12 @@ INCLUDE './src/initialisations.inc'
 !so T=0 of the output file gives the initial condition
 !i'cs copied from python initiation program
 
-WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
+WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
 WRITE (FLUX_UNIT) newtime, A(:NREACT)
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-TEND = TEND + spinup*dt !additional spinup time added if included
-
 
 !print*,  achar(27)//'[2J'
 !print*, 'Run Progress'
@@ -109,6 +100,8 @@ run_counter = run_counter+1
 
 CALL Update_RCONST()! Update the rate constants
 
+! DFRACT - day fraction
+DFRACT = Time/(60.*60.*24.)
 if (obs>0) then
         include 'include.obs'
 end if
@@ -137,9 +130,6 @@ End Do
 time = RSTATE(1)
 Daycounter=Daycounter+1
 
-
-
-
 !print*, 'list of nox locations, no need to loop over all species again'
 
 IF (CONSTRAIN_NOX) THEN
@@ -166,9 +156,9 @@ END DO
 
 
 
-newtime = Jday*86400 + DAYCOUNTER*dt
+  newtime = time
 
-WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O, CFACTOR, RO2, C(:NSPEC)
+WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 
 !call FUN( C(:NSPEC),FIX,RCONST,VDOT)!recalc flux
@@ -176,26 +166,12 @@ call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
 WRITE (FLUX_UNIT) newtime, A(:NREACT)
 
 
-if (run_counter > nc_set) then !increased at start
-    !print*, testcounter ,' write '
-
-    DO i = 1,daycounter
-    !write (SPEC_UNIT, 999) output_s(i,:) !(output_s(i,ij), ij=1,NSPEC)
-    !write (RATE_UNIT, 999) output_r(i,:) !(output_r(i,ij), ij=1,NREACT)
-    end do
 
     !if (mod(run_counter/nc_set,20)==0) then
     !    print*, achar(27)//'['//trim(ln)//';10 H ', achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
     !end if
 
-else
-    run_counter = 1
-    output_s(:,:)=0.
-    output_r(:,:)=0.
-    !SaveOut(run_counter)
 
-
-end if
 
 
 ! If we are doing a constrained run we need to store the diurnal profile of all the species
@@ -261,61 +237,16 @@ ENDIF
 ENDDO time_loop
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 print *, 'Finished Simulation Sucessfully!'
+
+
 1000  print *, ' '//achar(27)//'[91m exit condition 1000 '//achar(27)//'[97m'
 !if (CONSTRAIN_RUN .EQ. .true.) .AND. (OUTPUT_LAST .EQ. .false.)  print*, 'why not SaveOut(run_counter) work dammit'
 
 
-
-
-    !NETCDF // WRITE TO FILE //
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-    !print*, 'special case if so, deallocate and allocate array'
-
-
-
-    if(OUTPUT_LAST .eqv. .true.) then
-        do I=1,DAYCOUNTER
-        !not yet tested.
-        output_s(I,1)= Jday*86400  + I*dt
-        output_s(I,2)=Lat
-        output_s(I,3)=Lon
-        output_s(I,4)=Press
-        output_s(I,5)=Temp
-        output_s(I,6)=H2O
-        output_s(I,7)=Cfactor
-
-        output_s(I,8)=RO2
-        output_s(I,9:)=(DIURNAL_NEW(1:NVAR,I))
-
-        output_r(I,1)= Jday*86400  + I*dt
-        output_r(I,2)=Lat
-        output_r(I,3)=Lon
-        output_r(I,4)=Press
-        output_r(I,5)=Temp
-        output_r(I,6)=H2O
-        output_r(I,7)=Cfactor
-        output_r(I,8:)=(DIURNAL_RATES(1:NREACT,I))
-        enddo
-    endif
-
-
-
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !adjust for special cases
-
-
-    CLOSE(10)
-    CLOSE(12)
-
-
-
+    CLOSE(rate_unit)
+    CLOSE(spec_unit)
+    CLOSE(flux_unit)
     close(output_unit)
-    deallocate(output_s)
-    deallocate(output_r)
-    deallocate(s_names)
-    deallocate(r_names)
 
 
     END PROGRAM driver

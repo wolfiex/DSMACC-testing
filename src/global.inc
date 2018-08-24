@@ -1,5 +1,5 @@
 #INLINE F90_GLOBAL
-  REAL(dp) :: PRESS, LAT, LON, O3COL, JO1D, JNO2, DEPOS, FORMLOS
+  REAL(dp) :: PRESS, LAT, LON, O3COL, JO1D, JNO2, DEPOS, FORMLOS,DFRACT
   REAL(dp) :: JDAY, JREPEAT, ALBEDO, SAREA, RP1, BLH, DILUTE, CH4FAC
   REAL(dp) :: BVOCFAC, ANTHFAC, NOXFAC, COFAC, LAROMF, SAROMF, SAFAC, ALKEFAC
   INTEGER :: INIT_TIME, NOX(NVAR)
@@ -17,13 +17,12 @@
   INTEGER, PARAMETER :: SPEC_UNIT = 10
   INTEGER, PARAMETER :: RATE_UNIT = 12
   INTEGER, PARAMETER :: FLUX_UNIT = 14
-  INTEGER, PARAMETER :: jmax= 8100, szabin=19 
-  
+  INTEGER, PARAMETER :: jmax= 8100, szabin=19
+
   !character(len=30) :: version
-  REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
 !Photolysis variables
   include './params'
-  !INTEGER :: TUVvers 
+  !INTEGER :: TUVvers
   REAL(8) ::            bs(szabin,kj), cs(szabin,kj),ds(szabin,kj)
   REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables
@@ -31,4 +30,3 @@
   include './src/mydepos.inc'
 !End depos variables
 #ENDINLINE {above lines go into MODULE KPP_ROOT_Global}
-

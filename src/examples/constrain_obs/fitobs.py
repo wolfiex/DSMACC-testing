@@ -123,7 +123,7 @@ ratestring = "!obs:%d\n"%len(cfarray)
 ratestring+='''
 !! Constrain from observations
 !USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
-DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+!DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
 '''
 
 #generator to increase nubmers
