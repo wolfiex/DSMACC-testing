@@ -62,15 +62,19 @@ try:
         ###read args
         extend = True
         rewind = False
-
+        print "\033]0; running dsmacc...  \007"
 
         if not debug:
             os.system(' touch temp.txt && rm temp.txt')
             debug = '>>temp.txt'
 
         from zuf90 import*
-        from progressbar import ProgressBar
-        pbar = ProgressBar()
+        from progressbar import ProgressBar,Bar
+
+
+        pbar = ProgressBar(widgets=[Bar()])
+
+
 
         import h5py
         hf = h5py.File(filename, 'a')
@@ -155,7 +159,8 @@ try:
     else:
 
         for i in pbar(xrange(lgroups)):
-
+                #clear flash
+                #pbar.fd.write('\033[5m')
                 #blocking recieve!
                 req = comm.recv(source=MPI.ANY_SOURCE,tag=MPI.ANY_TAG)
                 #req.Wait()
@@ -202,13 +207,16 @@ try:
                         #use lines below
                         #g[dataset].resize((g[dataset].shape[0] + data[1].shape[0]),axis=0)
                         #g[dataset][-data[1].shape[0]:] = data[1]
-                ### move status bar to here !!!
-                #print g[dataset]
+                    ### move status bar to here !!!
+                    #print g[dataset]
+
 
 
 
             #print req,g.items()
 
+        import sys
+        sys.stderr.flush()
 
 
 
@@ -217,6 +225,7 @@ try:
     comm.Barrier()
 
     if rank ==0 :
+        print "\033]0; Simulation Finished \007"
         hf.close()
         print 'written' , filename
 
@@ -224,7 +233,6 @@ try:
 
 
 except Exception as e:
-
 
     #if rank ==0 :
       #  hf.close()
@@ -234,7 +242,6 @@ except Exception as e:
     traceback.print_exc()
 
     comm.Abort()
-
 
 
 '''
