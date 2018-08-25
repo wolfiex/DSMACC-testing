@@ -1,6 +1,7 @@
 
 
 def create_ics(fileic=False,    last=False,    keepx=True ):
+    print "\033]0;creating ics\007"
     import h5py,glob,os,sys,re
     import numpy as np
 
@@ -92,4 +93,5 @@ def create_ics(fileic=False,    last=False,    keepx=True ):
     #try: os.environ['NCPUS']
     #except:  print 'serial'
     #h5dump file.h5
+    print "\033]0;   \007"
     return h5file
