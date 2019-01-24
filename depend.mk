@@ -36,7 +36,7 @@ vpair.o: params
 vpo3.o: params
 vptmp.o: params
 wshift.o: params
-model_constants.o: params TUV_5.2.1/MCM4.inc TUV_5.2.1/MCM331.inc
-model_constants.o: src/rate_coeff/new_rate.inc.def tuv_old/MCM3.inc
-model_constants.o: TUV_5.2.1/GC11.inc src/rate_coeff/new_rate.inc.var
+model_constants.o: src/rate_coeff/new_rate.inc.var TUV_5.2.1/GC11.inc params
+model_constants.o: src/rate_coeff/new_rate.inc.def TUV_5.2.1/MCM4.inc
+model_constants.o: TUV_5.2.1/MCM331.inc tuv_old/MCM3.inc
 constants.mod: model_constants.o
