@@ -108,6 +108,8 @@ CONTAINS
           INCLUDE './TUV_5.2.1/MCM4.inc'
          CASE(3)
           INCLUDE './TUV_5.2.1/GC11.inc'
+         CASE(-1)
+            print *, 'I want to use Flexchem'
          CASE DEFAULT
           STOP "Select TUV case between 0 and 3."
         END SELECT

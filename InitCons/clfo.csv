@@ -1,18 +1,18 @@
 Description: Optional,Do not write time more than once.,,
 TUV version,0,0,TUV5.2.1
-Index,Species,Constrain,Loondonnnn
-ii,TIME,NA,259200
+Index,Species,Constrain,BaseRun
+ii,TIME,NA,518400
 ii,TEMP,0,298.0
-ii,LAT,0,51.5
-ii,LON,0,0.12
-ii,JDAY,0,160.6839
+ii,LAT,0,39.904
+ii,LON,0,116.407
+ii,JDAY,0,160.5
 ii,H2O,0,0.01
 ii,ALBEDO,0,0.1
 ii,PRESS,0,1013.0
-ii,NOx,1,0
-ii,NO,0,1e-8
+ii,NOx,0,0
 ii,DEPOS,0,1
 ii,FEMISS,0,0
 1,O3,0,3.2e-08
 2,H2,1,5.31e-07
 14,CH4,0,0.0
+15,SPINUP,0,3.5

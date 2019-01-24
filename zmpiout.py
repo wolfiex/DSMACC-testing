@@ -169,7 +169,7 @@ try:
                 print 'Finished' , req, '. Cleaning and Saving.'
 
                 g.attrs['version'] = req['vers']
-
+                g.attrs['wall']= req['wall']
                 for dataset in ['spec','rate','flux']:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
 

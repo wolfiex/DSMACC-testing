@@ -66,17 +66,22 @@ def mp (x,fn,pool):
 
 class new():
     #reads in a selected file
-    def __init__(self,h5file,groupid=None):
+    def __init__(self,h5file,groupid=False):
 
         self.origin = h5file
+        #if not os.path.isfile(h5file) : print 'no file found'; return None
         #self.hf = h5py.File( h5file, 'r')
-        with h5py.File(h5file) as hf:
+        with h5py.File(h5file,'r') as hf:
             groups = list(filter(lambda x: type(x[1])==h5py._hl.group.Group, hf.items()))
+            self.groups = dict([[i[0],j] for j,i in enumerate(groups)])
             self.groupkeys = groups[0][1].attrs.keys()
             self.flux=False
-
-            g = groups[0][1]
+            if groupid:
+                g = groups[int(groupid)][1]
+            else:
+                g = groups[0][1]
             self.groupname = groups[0][0]
+            self.wall= g.attrs['wall']
 
             shead = g.attrs['spechead'].split(',')
             rhead = g.attrs['ratehead'].split(',')
@@ -222,6 +227,69 @@ class new():
 '''
 
 
+    def ropa(self, spec, save = False, top=False, time = False, plot=True,net= False):
+
+        pr = self.prod(spec)
+        ls = self.loss(spec)
+
+        if not time: time=self.ts
+
+        prod = abs(self.flux.loc[time,pr]).compute()
+        prod = prod[prod.mean().sort_values(ascending=True).index]
+
+        loss = abs(self.flux.loc[time,ls]).compute()
+        loss = loss[loss.mean().sort_values(ascending=True).index]
+
+
+        if top:
+            plt.close()
+            prod=prod[prod.columns[-top:]]
+            loss=loss[loss.columns[-top:]]
+
+
+        if net:
+            plot=False
+            (prod.sum(axis=1)-loss.sum(axis=1)).plot(c='orange',legend=False)
+            plt.ticklabel_format(style='sci', axis='y', scilimits=(-2,2))
+            if save:
+                plt.savefig(save)
+
+
+        if plot:
+            from matplotlib import colors
+            from matplotlib import cm
+
+            x = np.linspace( .9,.3, 256)
+            red = colors.LinearSegmentedColormap.from_list('',cm.Reds(x))
+            blue = colors.LinearSegmentedColormap.from_list('',cm.Blues(x))
+
+            plt.close()
+            plt.style.use('seaborn-darkgrid')
+            fig = plt.figure(1)
+            ax0=plt.subplot(211)
+            try:prod.plot.area(colormap=red,legend=False,ax=ax0, alpha=.7,stacked=True)
+            except:None
+            #ax.xlabel('')
+            ax0.tick_params(
+                axis='x',          # changes apply to the x-axis
+                which='both',      # both major and minor ticks are affected
+                bottom=False,      # ticks along the bottom edge are off
+                top=False,         # ticks along the top edge are off
+                labelbottom=False)
+            ax0.ticklabel_format(style='sci', axis='y', scilimits=(-2,2))
+
+            ax = plt.subplot(212,sharex=ax0)
+            try:loss.plot.area(colormap=blue,legend=False,ax=ax, alpha=.7,stacked=True)
+            except:None
+            ax.axes.invert_yaxis()
+            plt.figlegend()
+            ax.ticklabel_format(style='sci', axis='y', scilimits=(-2,2))
+
+            plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.001)
+
+            if save:
+                fig.savefig(save)
+        return {'prod':prod,'loss':loss}
 
 
     def lifetime(self,spec,timestep=''):
@@ -345,6 +413,78 @@ def mechcomp(mechs,what='spec',n_subplot = 4):
 
 
 
+def pdiff(base,lump,what='spec',n_subplot = 4):
+
+
+        print 'creating a comparison pdf of '+what
+        from matplotlib.backends.backend_pdf import PdfPages
+        from matplotlib.pyplot import tick_params,setp,tight_layout,ylabel,xlabel,savefig,close
+        import progressbar
+
+        bar = progressbar.ProgressBar()
+
+        linestyles = ['-', ':', '--', '-.']
+        data = []
+        for i in [base,lump]:
+            exec('data.append(i.%s.compute())'%what)
+
+
+
+
+
+
+        #data.sort_index(axis=1,inplace=True)# arrange alphabetically
+
+
+
+        crossover = set(data[0])
+
+        crossover = crossover & set(list(data[1].columns))
+
+        crossover = sorted(list(set(crossover)))
+        print crossover,data
+
+
+        pp = PdfPages('pdiff_%s.pdf'%('_'.join([i.groupname for i in [base,lump]])))
+
+        for i in bar(xrange(0, len(crossover), n_subplot+1)):
+            spselect = crossover[i:i+n_subplot]
+
+            df = 100*(data[1][spselect]/data[0][spselect])
+            Axes = df.plot(subplots=True)
+
+
+            #data[0][spselect].plot(subplots=True)
+
+            #for l,d in enumerate(data[1]):
+                #d[spselect].plot(ax = Axes,linestyle = linestyles[-1*(l+1)],alpha =.8 , subplots=True)
+
+
+
+            tick_params(labelsize=6)
+
+
+
+            #y ticklabels
+            [setp(item.yaxis.get_majorticklabels(), 'size', 7) for item in Axes.ravel()]
+            #x ticklabels
+            [setp(item.xaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
+            #y labels
+            [setp(item.yaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+            #x labels
+            [setp(item.xaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+
+            tight_layout()
+            ylabel('mix ratio')
+
+            #plt.locator_params(axis='y',nbins=2)
+
+            savefig(pp, format='pdf')
+            close('all')
+
+        pp.close()
+        print 'PDF out'
+        close('all')
 
 
 
@@ -366,12 +506,47 @@ def alllifetimes(self):
     #[[f,l[f]['mean']] for f in l if type(l[f]).__name__!='NoneType'] a.timesteps[int(144*1.84)]
 
 
+def lumpdiagnostics(original,lumped,filename= 'lump.mech'):
+
+    exec(''.join(tuple(open(filename))).replace('\n',';\n'))
+    ts=original.ts
+    #lumplist, lumpcoeff
+    print len(lumplist)
+    for i,lump in enumerate(lumplist):
+         ax = original.spec.loc[ts,lump].compute().plot.area(alpha=0.2)
+         lumped.spec.loc[ts,'LMP%d'%(i+1)].compute().plot(ax = ax,c= 'blue',style='^-')
+         print i+1,lumped.spec.loc[ts,'LMP%d'%(i+1)].compute().mean(), original.spec.loc[ts,lump].compute().mean().sum()
+
+         breakme = raw_input('enter for next')
+         if breakme=='break':break
+         plt.clf()
+
+
+
+
+#All groups
+
+def plotall(self,spec):
+    '''
+    plots a species from all groups run
+    '''
+    data = []
+
+    for e in self.groups.values():
+         b = new(self.origin,groupid=e)
+         data.append(np.array(b.spec[spec].compute()))
+
+    return pd.DataFrame(data).T.plot()
+
 
 
 
 #
 if __name__ == "__main__":
-    a=new('clfo.h5')
+    #4a=new('lhs.h5')
+    q =3
+    #a = new('BaseRun_init_0406.h5')
+    #a.ropa('HONO')
 '''
 a = new()
 a.calcFlux(specs=['CH4'],timesteps=[i for i in range(18)])

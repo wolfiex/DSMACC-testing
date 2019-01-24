@@ -9,7 +9,7 @@
   # MODELKPP ?= '--custom'
      
 	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
-	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -pg -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict -openmp #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
+	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -pg -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict -openmp -qsmp #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 
 export OMP_NUM_THREADS=4
 

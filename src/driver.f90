@@ -51,6 +51,8 @@ time=tstart
 !dt is the output timestep and the timestep between times
 !rate constants and notably photolysis rates are calcualted " 600 = ten minutes
 dt = 600.
+!spinup default 
+spinup = 9999.
 
 
 
@@ -100,10 +102,16 @@ run_counter = run_counter+1
 
 CALL Update_RCONST()! Update the rate constants
 
-! DFRACT - day fraction
-DFRACT = Time/(60.*60.*24.)
+!If we wish to spinup or constrain to observations
 if (obs>0) then
+    ! DFRACT - day fraction
+    DFRACT = Time/(60.*60.*24.)
+    
+    if (DFRACT< spinup) then
+        DFRACT = mod(dfract,1.)
         include 'include.obs'
+        
+    end if    
 end if
 
 

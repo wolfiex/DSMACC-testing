@@ -45,7 +45,7 @@ print allspecs
 if len(allspecs)<1: sys.exit('no species in allspecs, exiting')
 
 
-tsps = a.ts[[45,45+144/2]]# 6 hoursr a.ts[range(0,len(a.ts),4)]
+tsps = a.ts[[144*4,144*4+144/2]]# 6 hoursr a.ts[range(0,len(a.ts),4)]
 print tsps
 if ro2go:
     ro2fract = a.spec.loc[tsps,ro2].compute()
@@ -174,6 +174,9 @@ nodes[nodes<0]=0
 nodes/=nodes.max()
 
 
+
+####################
+
 for i in xrange(len(tsps)):
     if ro2go:
         ro2ts = ro2fract.iloc[i]/ro2val.iloc[i]
@@ -243,3 +246,20 @@ t20.to_csv('t20.csv')
 
 
 specs=set(specs)
+'''
+rgroups = set(['NO','NO2','OH','HO2','NO3','O3','H2'])
+
+res=[]
+for t in tsps:
+    r = {}
+    for s in specs:
+        try:
+            pr = set(str(a.ropa(s,top=1,plot=False)['prod'].columns[0]).split('-->')[0].split('+'))
+            gr = pr & rgroups
+            r[s]= list(gr)[0]
+        except Exception as e:
+            print e
+
+
+    res.append(r)
+'''

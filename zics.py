@@ -41,6 +41,8 @@ def create_ics(fileic=False,    last=False,    keepx=True ):
     time = data[3,3]
     data = data[1:,4:]
 
+    print data
+
     ##make ics
     #np.savetxt('Init_cons.dat', data, fmt='%15s', delimiter='!', newline='\n', header='%s'%time,comments='')
 

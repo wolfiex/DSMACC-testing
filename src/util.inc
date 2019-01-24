@@ -168,6 +168,11 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             print *, 'DEPOSITON ENABLED'
         end if
 
+    CASE('SPINUP')
+        spinup = concs(I)
+        print *, 'Spinupvar: ',spinup
+        
+
 
 !petes additional
 
