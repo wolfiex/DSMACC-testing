@@ -1,0 +1,11 @@
+------ Build started: Project: tuv4.2_arr, Configuration: Debug|Win32 ------
+
+Compiling with Intel Fortran 8.1...
+ifort /nologo /Zi /Od /module:"Debug/" /object:"Debug/" /traceback /check:bounds /libs:static /dbglibs /c  /extfor:f "C:\Documents and Settings\andrewr\My Documents\tuv4.2_arr\rxn.f"
+Linking...
+Link /OUT:"Debug/tuv4.2_arr.exe" /INCREMENTAL:NO /NOLOGO /DEBUG /PDB:"Debug/tuv4.2_arr.pdb" /SUBSYSTEM:CONSOLE  Debug/swchem.obj Debug/la_srb.obj Debug/setalb.obj Debug/orbit.obj Debug/vpo3.obj Debug/setso2.obj Debug/rtrans.obj Debug/swbiol3.obj Debug/grids.obj Debug/setaer.obj Debug/odrl.obj Debug/vpair.obj Debug/seto2.obj Debug/rdxs.obj Debug/swbiol2.obj Debug/TUV42.obj Debug/functs.obj Debug/savout.obj Debug/odo3.obj Debug/setno2.obj Debug/rdinp.obj Debug/wshift.obj Debug/swbiol.obj Debug/swphys.obj Debug/numer.obj Debug/setcld.obj Debug/rdetfl.obj Debug/foil.obj Debug/vptmp.obj Debug/sphers.obj Debug/rxn.obj
+Link: executing 'link'
+
+
+tuv4.2_arr build succeeded.
+

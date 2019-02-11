@@ -15,7 +15,7 @@ ignore = ['PXYL+MXYL','NO2','NOY','R','RO2','M','HO2','CH3O2','OH','TRICLETH','H
 df = df[filter(lambda x: x not in ignore, df.columns)]
 
 
-nruns = 500#df.shape[1]**2
+nruns = 5#df.shape[1]**2
 
 print nruns
 
@@ -65,6 +65,10 @@ for i in xrange(nruns-1):
     data.append(data[3])
 
 combined = pd.concat([pd.DataFrame(data),pd.DataFrame(myarray).T],axis=1).T
+
+
+khdjfhdsa= stop 
+
 
 print combined
 

@@ -1,21 +1,3 @@
-{Lumping formatted_CRI_FULL_2.2.kpp using lumper.jl tool. D.Ellis 2017
-
-Add defns to constants file
-
-
-Species - Lumping combinations are :
-
-LMP1, String"NRN6OOH", "NRN6O2"
-LMP2, String"RTN26O2", "TNCARB26", "RTN26PAN", "RTN26OOH"
-LMP3, String"NRN12OOH", "NRN12O2"
-LMP4, String"CARB34", "RN36OOH", "RN36AO2", "RN36NO3", "RN36O2
-////   ", "RN34AO2"
-LMP5, String"MACO3", "HMML", "MPAN"
-LMP6, String"RTN28OOH", "RTN28NO3", "RTN28O2"
-LMP7, String"RU11O2", "RU11NO3", "RU11OOH"
-LMP8, String"RI12O2", "RI12NO3", "RI12OOH"
-}
-
 // reformatted by reformat.py
 // contact: daniel.ellis.research@googlemail.com
 // filedata: CRI_FULL_2.2.kpp+../src/background/inorganic_mcm.kpp

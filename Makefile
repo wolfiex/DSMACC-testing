@@ -7,7 +7,7 @@
   # FSTD  ?= 1                  # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
-     
+
 	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
 	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -pg -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict -openmp -qsmp #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 
@@ -15,7 +15,7 @@ export OMP_NUM_THREADS=4
 
 ##############################################################################
 
-#do not use -heap arrays in omp or parallel 
+#do not use -heap arrays in omp or parallel
 
 #colour
 black="\033[90m"
@@ -30,10 +30,11 @@ nocol="\033[0m"
 #################
 
 
-#yarcc: 
+#yarcc:
 #	echo 'running on YARCC'
 YARCC := $(module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174)
-
+KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01
+KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01
 
 
 PROG = model
@@ -57,17 +58,17 @@ intel := $(shell command -v ifort 2> /dev/null)
  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
  #-fp-stack-check -check bou    nds -check arg_temp_created -check all #-warn all # -openmp
 all: compiler $(PROG) # default make cmd !
-	
+
 	#ulimit -s unlimited #unlimit stack size
 
-compiler:	
+compiler:
 ifndef intel
 	@echo 'using gfortran'
 	$(eval export FC=gfortran)
 	$(eval export F90=gfortran)
 	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none )
 else
-	@echo 'using ifort'  
+	@echo 'using ifort'
 	$(eval export FC=ifort)
 	$(eval export F90=ifort)
 	$(eval export F90FLAGS   = -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict )
@@ -147,14 +148,14 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	@echo $(KPP_PATH)
 	@rm model model.kpp include.obs
 	touch include.obs
-	cd $(KPP_PATH)/src && make > kpp.log
+	#cd $(KPP_PATH)/src && make > kpp.log
 	python src/background/makemodeldotkpp.py $(MODELKPP)
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
 editkpp:
 	echo $(DSMACC_HOME)/ && mech:=$(shell egrep -o 'mechanisms/.*\.kpp' $(DSMACC_HOME)/model.kpp) && mech:=$(shell egrep -o 'ver[^\n]' $(mech)) && echo $(mech) && sed -e s/Unknown/$(mech)/g model_Global.f90
 
-	
+
 ini: # generate kpp files with emission and deposition data
 	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
 	perl makeemiss.pl $(FKPP) $(FEMI) && cd ..
@@ -205,7 +206,7 @@ lsmodels:
 @rmmodel:
 	@rm -rf ./save/exec/$(name)
 
-#Does a git pull	
+#Does a git pull
 update:
 	git pull origin master
 

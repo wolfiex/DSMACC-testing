@@ -27,6 +27,8 @@ REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime,flo
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter,run_counter
  character(200) :: dummychar
+ 
+ 
 real(dp) :: vdot(nreact)! for fun functiuon no other use
 
 STEPMIN = 0.0_dp
@@ -91,6 +93,9 @@ WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
 WRITE (FLUX_UNIT) newtime, A(:NREACT)
+WRITE (VDOT_UNIT) newtime, VDOT
+WRITE (JACSP_UNIT) newtime, JVS
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -172,7 +177,8 @@ WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 !call FUN( C(:NSPEC),FIX,RCONST,VDOT)!recalc flux
 call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
 WRITE (FLUX_UNIT) newtime, A(:NREACT)
-
+WRITE (VDOT_UNIT) newtime, VDOT
+WRITE (JACSP_UNIT) newtime, JVS
 
 
     !if (mod(run_counter/nc_set,20)==0) then
@@ -254,6 +260,8 @@ print *, 'Finished Simulation Sucessfully!'
     CLOSE(rate_unit)
     CLOSE(spec_unit)
     CLOSE(flux_unit)
+    CLOSE(vdot_unit)
+    CLOSE(jacsp_unit)
     close(output_unit)
 
 

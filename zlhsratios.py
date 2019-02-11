@@ -69,8 +69,8 @@ for j in flist:
             x = range(len(d))
 
             #print i, s.mean(), sd
-            
-            
+
+
             if sun == 0 :
                             splitlist_day[i]=m
             else:
@@ -90,8 +90,8 @@ for j in flist:
             plt.plot(x,d, label=i+' %d +- %e %s'%(float(percent),s.std(),['day','night'][sun]),c=col[n],alpha=0.8)
             #plt.plot(x,md, label=i,c=col[n])
 
-            
-            
+
+
         dummy.append(i)
     if len(dummy)>1:
         lumplist.append(dummy)
@@ -108,16 +108,16 @@ for j in flist:
 
 splitlist = dict()
 for i in flatlist:
-    dummy  = '(ISDAY * %.3e + ISNIGHT * %.3e)'%(splitlist_day[i],splitlist_night[i]) 
+    dummy  = "(ISDAY * %.3e + %.3e * ISNIGHT)"%(splitlist_day[i],splitlist_night[i])
     splitlist[i]  = dummy.replace('e','D').replace("'",'"')
-    
+
 
 
 with open('lhsgrouplimited.txt','w') as f:
     f.write(('lumplist = %s ;\n'%lumplist).replace("'",'"'))
-    f.write(('keys = %s ;\n'%splitlist.keys()).replace("'",'"'))
-    f.write('values = %s ;\n'%(splitlist.values()))
-    f.write(('specval = Dict(zip(keys,["( $i )" for i in values]))').replace("'",'"'))
+    f.write(('keys = %s ;\n'%str(splitlist.keys()).replace("'",'"')))
+    f.write(('values = %s ;\n'%str(splitlist.values()).replace("'",'"')))
+    f.write(('specval = Dict(zip(keys,["$i" for i in values]))').replace("'",'"'))
 
 
 print 'montage'

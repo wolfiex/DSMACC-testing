@@ -60,10 +60,12 @@ def create_ics(fileic=False,    last=False,    keepx=True ):
 
     hf.attrs[u'startTime'] = ''#time.strftime("%A %d %B %Y   %H:%M")
 
-
+    print data
+    
+    
     hf.attrs[u'ictime'] = time
     hf.create_dataset(  name = 'icspecs',data = data[0],dtype='S15',shuffle=True, chunks=True, compression="gzip", compression_opts=9)
-    hf.create_dataset(  name = 'icconst',data = data[1].astype(int) ,dtype='I',shuffle=True, chunks=True, compression="gzip", compression_opts=9)
+    hf.create_dataset(  name = 'icconst',data = data[1].astype(np.float).astype(np.int) ,dtype='I',shuffle=True, chunks=True, compression="gzip", compression_opts=9)
     hf.create_dataset(  name = 'icruns',data = np.array(data[2:]).astype(np.float) ,dtype=np.float,shuffle=True, chunks=True, compression="gzip", compression_opts=9)
 
 
