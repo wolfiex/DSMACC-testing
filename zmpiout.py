@@ -36,10 +36,9 @@ if ncpus > 80:
 #filename = sys.argv[1]
 
 obs=False
-
 groups = None
 debug=None #'for boradcast'
-
+savelist = ['spec','rate','flux','vdot','jacsp']
 
 
 
@@ -63,6 +62,21 @@ try:
         extend = True
         rewind = False
         print "\033]0; running dsmacc...  \007"
+
+        #### jacheader ###
+        
+        
+        ids = ''.join( reversed(list(open('model_Parameters.f90').readlines() ) )).replace(' ','')
+        ids = re.findall('ind_([\w\d]+)=(\d+)',ids)
+        ids = dict(([key,value] for value,key in ids))
+        
+        jacfile = ''.join( open('model_Jacobian.f90').readlines()  ).replace(' ','')
+        edges = re.findall('JVS\(\d+\)=Jac_FULL\((\d+),(\d+)\)\\n*JVS\(\d+\)',jacfile)
+        edges = ['->'.join([ids[i[0]],ids[i[1]]]) for i in edges]
+
+
+        print len(edges)
+        ### end jacheader ###
 
         if not debug:
             os.system(' touch temp.txt && rm temp.txt')
@@ -170,12 +184,24 @@ try:
 
                 g.attrs['version'] = req['vers']
                 g.attrs['wall']= req['wall']
-                for dataset in ['spec','rate','flux']:
+                for dataset in savelist:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
+                    
+                    
+                    
+                    if dataset == 'jacsp':
+                        dataarr = ['Time']
+                        dataarr.extend(edges)
+                    elif dataset == 'vdot':
+                        dataarr = [ids[str(i+1)] for i in range(len(data[1][1]))]
+                    
+                    else:
+                        dataarr = data[0].split(',')
+                        
+                        
+                    print data[1].shape,len(dataarr),dataset#remove non/zero results through mask
 
-                    print data[1].shape,len(data[0].split(',')),dataset#remove non/zero results through mask
-
-                    dataarr = data[0].split(',')
+                    
                     mask = data[1].sum(axis=0)
                     if dataset == 'rate':
                         #only save reaction which contain species
@@ -185,6 +211,8 @@ try:
 
                         try: mask *= np.array(keep)
                         except:None
+                        
+                    
                     mask = np.where(mask)
 
                     fltr = np.array(dataarr)[mask]

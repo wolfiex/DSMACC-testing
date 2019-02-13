@@ -27,10 +27,10 @@
   REAL(8) ::            bs(szabin,kj), cs(szabin,kj),ds(szabin,kj)
   REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
   !fastjx var
-    REAL(kind=dp) :: JSCALE = 1.0d0
-    INTEGER :: NJREACT
-    integer, parameter :: JVN_ = 2000 ! see cmn_fjx_mod.F90
-    character*50, dimension(JVN_) :: JLABELS
+    !REAL(kind=dp) :: JSCALE = 1.0d0
+    !INTEGER :: NJREACT
+    !integer, parameter :: JVN_ = 2000 ! see cmn_fjx_mod.F90
+    !character*50, dimension(JVN_) :: JLABELS
   
 !End photolysis variables
 !Custom Depos variables for easy changing

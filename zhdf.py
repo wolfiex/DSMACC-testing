@@ -86,11 +86,16 @@ class new():
             shead = g.attrs['spechead'].split(',')
             rhead = g.attrs['ratehead'].split(',')
             fhead = g.attrs['fluxhead'].split(',')
+            vhead = g.attrs['vdothead'].split(',')
+            jhead = g.attrs['jacsphead'].split(',')
+
 
 
 
             #self.fhd = g.attrs['ratehead'].split(',')
             spec = dd.from_array(g.get('spec')[1:,:],chunksize=50000, columns = shead)
+            vdot = dd.from_array(g.get('vdot')[1:,:],chunksize=50000, columns = vhead)
+            jacsp = dd.from_array(g.get('jacsp')[1:,:],chunksize=50000, columns = jhead)
 
             if len(rhead) != len(set(rhead)):
                 print 'Duplicates detected, please parse mecnahisms in future to prevent this'
@@ -114,12 +119,12 @@ class new():
                 flux = dd.from_pandas(flux,chunksize=50000)
             else:
                 flux = dd.from_array(g.get('flux')[1:,:],chunksize=50000,columns = fhead)
-
-
+                
+                
+     
             self.timesteps = spec['TIME'].astype('M8[s]').compute()
-            spec['TIME'] = self.timesteps
-            rate['TIME'] = self.timesteps
-            flux['TIME'] = self.timesteps #dd.from_array(np.array(self.timesteps[1:]))
+            spec['TIME'] = vdot['TIME'] = rate['TIME'] = flux['TIME'] = self.timesteps 
+            #dd.from_array(np.array(self.timesteps[1:]))
             self.ts= np.array(self.timesteps)
             '''
             n = int(len(shead)/5)
@@ -130,6 +135,8 @@ class new():
             spec = spec.set_index('TIME', sorted=True)
             self.M =  spec.M.mean()
             self.spec = spec/self.M
+            self.vdot = vdot.set_index('TIME', sorted=True)
+            self.jacsp=jacsp.set_index('TIME', sorted=True)
             self.rate = rate.set_index('TIME', sorted=True)
             self.flux = flux.set_index('TIME', sorted=True)
 

@@ -100,8 +100,8 @@ CONTAINS
         ENDDO
 
         SELECT CASE (TUVvers)
-         CASE(0)
-          INCLUDE './tuv_old/MCM3.inc'
+        ! CASE(0)
+         ! INCLUDE './tuv_old/MCM3.inc'
          CASE(1)
           INCLUDE './TUV_5.2.1/MCM331.inc'
          CASE(2)

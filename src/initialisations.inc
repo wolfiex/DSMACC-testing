@@ -160,14 +160,16 @@ full_counter=0
         open(FLUX_UNIT, file=filename,action="write",form='unformatted')
         filename='./Outputs/'//trim(ln)//'.vdot'
         open(VDOT_UNIT, file=filename,action="write",form='unformatted')
-                filename='./Outputs/'//trim(ln)//'.jacsp'
+        filename='./Outputs/'//trim(ln)//'.jacsp'
         open(JACSP_UNIT, file=filename,action="write",form='unformatted')
 
         write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,JO1D,JNO2,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         write(RATE_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT) !       (I)),I=1,NREACT)
         write(FLUX_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT )!,I=1,NREACT))
-        
         write(vdot_UNIT)'TIME',(','//trim(SPC_NAMES(I)),I=1,NSPEC)
+        
+        write(jacsp_UNIT) ''
+
 
 
          !999 FORMAT(*(E24.16,"!"))
