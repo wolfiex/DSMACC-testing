@@ -25,5 +25,7 @@ save/
 *.vdot
 *.jacsp
 del*
+*.pyc
 temp.txt
 percent.csv
+*.npy
