@@ -7,7 +7,11 @@
 #INCLUDE ./src/background/mechswitches.kpp //KEEP! 
 
 
+<<<<<<< HEAD
+#INCLUDE mechanisms/formatted_propane.kpp
+=======
 #INCLUDE mechanisms/formatted_GCGC_full.kpp
+>>>>>>> master
 
 
 

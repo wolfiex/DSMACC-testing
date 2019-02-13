@@ -123,8 +123,28 @@ keepcol = dict(zip(keep[:,1],keep[:,0]))
 df.columns = df.columns.map(lambda x: keepcol[x])
 
 
+correctorvalue = {'ppbv':1,'pptv':1e-12*1e+9,'molec cm-3':1e+9}
+multiply=[]
+for i in cols:
+    if '_' in i:
+        try:
+            j = i.split('_')
+            multiply.append([mcmd[j[0].upper()],j[-1]])
+        except:None
+
+#molecules cm3
+df = df*1e-9
+for i in multiply:
+    j=i[0]
+    df[j] = df[j]*correctorvalue[i[1]]
+
 
 df = df.groupby(by=df.columns, axis=1).mean()
+
+
+df.describe().to_csv('clfo_describe.csv')
+
+
 df['index'] = pd.to_datetime(index).map(lambda x: int(x.hour))
 
 '''
@@ -134,12 +154,12 @@ def even (x):
     if x>0: return x
     elif(x%steps==0): return x
     else: return x+1
-    
-for i in xrange(steps):    
+
+for i in xrange(steps):
     df['index'] = df['index'].map(even)
-    
-'''    
-    
+
+'''
+
 print df['index']
 
 df = df.groupby(['index']).mean()
@@ -158,20 +178,8 @@ for repeat in xrange(5):
 
 
 
-correctorvalue = {'ppbv':1,'pptv':1e-12*1e+9,'molec cm-3':1e+9}
-multiply=[]
-for i in cols:
-    if '_' in i:
-        try:
-            j = i.split('_')
-            multiply.append([mcmd[j[0].upper()],j[-1]])
-        except:None
 
-#molecules cm3
-df = df*1e-9
-for i in multiply:
-    j=i[0]
-    df[j] = df[j]*correctorvalue[i[1]]
+
 
 
 df.to_csv('ClearFloDiurnal.csv')

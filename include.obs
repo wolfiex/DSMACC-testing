@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 !obs:229
 
 !! Constrain from observations
@@ -166,3 +168,4 @@ DFRACT = mod(DFRACT,1.)
 
  C(ind_NOEMISS) = NOXFAC*CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(225,:),spcf(226,:),spcf(227,:),spcf(228,:))
  CONSTRAIN(ind_NOEMISS) = C(ind_NOEMISS)
+>>>>>>> master

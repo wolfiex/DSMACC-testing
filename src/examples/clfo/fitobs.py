@@ -117,6 +117,8 @@ def get_spline(match='*.csv',plot=True):
 
 
         if plot:
+            import matplotlib
+            matplotlib.use('Agg')
             import matplotlib.pyplot as plt
             plt.clf()
             plt.plot(x, y, 'o', newx, spyint, '+', modelfit, modelresult, '--')
@@ -147,6 +149,10 @@ ratestring+='''
 !! Constrain from observations
 !USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
 !DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+<<<<<<< HEAD
+dfract = mod(dfract,1.)!uncomment if creating a constraint over multiple days.
+=======
+>>>>>>> master
 '''
 
 #generator to increase nubmers
@@ -181,13 +187,13 @@ for i in names:
         #n is a generator and must only be called once
         id = (n(c),n(c),n(c),n(c))
         ratestring += "\n C(ind_PXYL)= CFACTOR*.5*10**seval(27,dfract,spcf(obs,:)    ,spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))"%(id)
-        ratestring += '\n CONSTRAIN(ind_PXYL) = C(ind_PXYL)\n'
+        ratestring += '\n !CONSTRAIN(ind_PXYL) = C(ind_PXYL)\n'
         ratestring += "\n C(ind_MXYL)= CFACTOR*.5*10**seval(27,dfract,spcf(obs,:)    ,spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))"%(id)
-        ratestring += '\n CONSTRAIN(ind_MXYL) = C(ind_MXYL)\n'
+        ratestring += '\n !CONSTRAIN(ind_MXYL) = C(ind_MXYL)\n'
     else:
         print i
         ratestring += "\n C(ind_%s)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(%d,:),spcf(%d,:),spcf(%d,:),spcf(%d,:))"%(i,n(c),n(c),n(c),n(c))
-        ratestring += '\n CONSTRAIN(ind_%s) = C(ind_%s)\n'%(i,i)
+        ratestring += '\n !CONSTRAIN(ind_%s) = C(ind_%s)\n'%(i,i)
 
 
 print ratestring
