@@ -7,12 +7,15 @@ if __name__ == '__main__':
     files = glob.glob('Outputs/*')
     print files
 
-def readfun(filename):
+def readfun(filename,header = True):
     '''
     reads unformatted fortran files
     '''
     f = FortranFile(filename, 'r')
-    names = ''.join(f.read_reals('c'))
+    names = ''
+    if header:
+        names = ''.join(f.read_reals('c'))
+    
     data = []
     while True:
             try:
@@ -23,6 +26,9 @@ def readfun(filename):
 
     f.close()
     return [names.replace(' ',''),np.array(data)]
+    
+    
+
 
 def asdf(filename):
     import pandas as pd
