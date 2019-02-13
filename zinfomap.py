@@ -42,10 +42,17 @@ mcm = list(pd.read_csv('src/background/smiles_mined.csv').name)
 if ro2go:  mcm.extend(['CO2','RO2'])
 cs = [i.split(',')[-1].replace('\n','') for i in tuple(open('carbons.csv'))]
 cs.extend('RO2')
+<<<<<<< HEAD
 allspecs = filter(lambda x: x not in ['LAT', 'LON','PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O','O1D',
  'O3', 'O2', 'NO2', 'NO3', 'N2O5', 'H2O2', 'TEMP', 'NO', 'NA',
  'KMT05', 'KMT04', 'KMT07', 'KMT06', 'KMT01', 'HO2NO2', 'KMT03',
   'KMT02', 'HO2', 'KMT09', 'KMT08', 'CO', 'HNO3', 'SO3', 'SO2',
+=======
+allspecs = filter(lambda x: x not in ['LAT', 'LON','PRESS', 'TEMP', 'H2O', 'M','NA', 'O1D', 'R','O','O1D', 
+ 'O3', 'O2', 'NO2', 'NO3', 'N2O5', 'H2O2', 'TEMP', 'NO', 'NA',
+ 'KMT05', 'KMT04', 'KMT07', 'KMT06', 'KMT01', 'HO2NO2', 'KMT03',
+  'KMT02', 'HO2', 'KMT09', 'KMT08', 'CO', 'HNO3', 'SO3', 'SO2', 
+>>>>>>> master
   'N2', 'OH', 'H2', 'HONO', 'HSO3', 'H2O', 'KMT12', 'KMT11', 'SA'],a.spec.columns)
 
 
@@ -84,6 +91,19 @@ def getedge(num,allspecs,prodloss,flux,ro2list,tsps):#,allspecs,a,tsps):
 
 
     return edges
+    
+    ################################
+
+tsps = a.ts#[[143,144,33]]#,143+144/2 6 hoursr a.ts[range(0,len(a.ts),4)]
+print tsps
+
+##########################
+
+if ro2go:
+    ro2fract = a.spec.loc[tsps,ro2].compute()
+    ro2val = a.spec.loc[tsps,'RO2'].compute()
+
+
 
     ################################
 
@@ -126,8 +146,13 @@ rcParams['axes.titlesize'] = 18
 rcParams['axes.labelsize'] = 12
 
 #for t in xrange(len(tsps)):
+<<<<<<< HEAD
 def mapinfomap(t):
 
+=======
+def mapinfomap(t):    
+    
+>>>>>>> master
     print 'Infomap'
     #i=0 # location in time array
 
@@ -183,7 +208,11 @@ def mapinfomap(t):
         f.write(lumpedlim)
         '''
     with open('centrality/%04d.gps'%t,'w') as f:
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> master
             for i in groups:#filter(lambda x : len(x) in range(2,11),groups)
                 f.write('-'.join(set(i))+'\n')
     return ['-'.join(set(i)) for i in groups]
@@ -197,11 +226,19 @@ for i in words:
     l.extend(i)
 
 from collections import Counter
+<<<<<<< HEAD
 
 with open('centrality/collected.txt','w') as f:
         items = Counter(l).items()
         items = sorted(items,key=lambda x:x[1],reverse=True)
 
+=======
+
+with open('centrality/collected.txt','w') as f:
+        items = Counter(l).items()
+        items = sorted(items,key=lambda x:x[1],reverse=True)
+        
+>>>>>>> master
         for i in items:
             f.write('%d,%s\n'%(i[1],i[0]))
 
@@ -240,7 +277,11 @@ def merge_nodes(G,nodes, new_node, attr_dict=None, **attr):
                 G.remove_node(n)
             except:
                 print 'cant remove' + n , nodes,add
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> master
         for i in pd.DataFrame(add).groupby([0,1],as_index=False).sum().values:
             G.add_edge(i[0],i[1],weight = float(i[2])/ln)
             print i
@@ -269,4 +310,8 @@ with open('data.json', 'w') as outfile:
 
 print lumpedlim.replace(']',']\n')
 
+<<<<<<< HEAD
 '''
+=======
+'''
+>>>>>>> master

@@ -62,6 +62,7 @@ try:
         extend = True
         rewind = False
         print "\033]0; running dsmacc...  \007"
+<<<<<<< HEAD
 
         #### jacheader ###
         
@@ -77,6 +78,8 @@ try:
 
         print len(edges)
         ### end jacheader ###
+=======
+>>>>>>> master
 
         if not debug:
             os.system(' touch temp.txt && rm temp.txt')

@@ -56,10 +56,15 @@ time=tstart
 !dt is the output timestep and the timestep between times
 !rate constants and notably photolysis rates are calcualted " 600 = ten minutes
 dt = 600.
+<<<<<<< HEAD
 !spinup default 
 spinup = 9999.
 
 
+=======
+
+
+>>>>>>> master
 
 call getarg(3,ln)!name
 if (trim(ln) .eq. '--version') then
@@ -99,7 +104,10 @@ WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 !WRITE (VDOT_UNIT) newtime, VDOT
 !WRITE (JACSP_UNIT) newtime, JVS
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !print*,  achar(27)//'[2J'
@@ -110,7 +118,12 @@ run_counter = run_counter+1
 
 CALL Update_RCONST()! Update the rate constants
 
+<<<<<<< HEAD
 !If we wish to spinup or constrain to observations
+=======
+! DFRACT - day fraction
+DFRACT = Time/(60.*60.*24.)
+>>>>>>> master
 if (obs>0) then
     ! DFRACT - day fraction
     DFRACT = Time/(60.*60.*24.)
@@ -184,6 +197,10 @@ WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 !WRITE (JACSP_UNIT) newtime, JVS
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     !if (mod(run_counter/nc_set,20)==0) then
     !    print*, achar(27)//'['//trim(ln)//';10 H ', achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
     !end if
@@ -254,8 +271,13 @@ ENDIF
 ENDDO time_loop
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 print *, 'Finished Simulation Sucessfully!'
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> master
 1000  print *, ' '//achar(27)//'[91m exit condition 1000 '//achar(27)//'[97m'
 !if (CONSTRAIN_RUN .EQ. .true.) .AND. (OUTPUT_LAST .EQ. .false.)  print*, 'why not SaveOut(run_counter) work dammit'
 
@@ -263,8 +285,11 @@ print *, 'Finished Simulation Sucessfully!'
     CLOSE(rate_unit)
     CLOSE(spec_unit)
     CLOSE(flux_unit)
+<<<<<<< HEAD
     CLOSE(vdot_unit)
     CLOSE(jacsp_unit)
+=======
+>>>>>>> master
     close(output_unit)
 
 

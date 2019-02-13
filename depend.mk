@@ -37,7 +37,7 @@ vpo3.o: params
 vptmp.o: params
 wshift.o: params
 model_Function.o: model_Parameters.o
-model_Global.o: src/mydepos.inc params
+model_Global.o: params src/mydepos.inc
 model_Global.o: model_Parameters.o
 model_Initialize.o: model_Global.o model_Parameters.o
 model_Integrator.o: model_Function.o model_Global.o model_Jacobian.o
@@ -54,8 +54,14 @@ model_Model.o: model_Parameters.o model_Precision.o model_Rates.o model_Util.o
 model_Parameters.o: model_Precision.o
 model_Rates.o: model_Global.o model_Parameters.o model_constants.o
 model_Util.o: model_Global.o model_Monitor.o model_Parameters.o
+<<<<<<< HEAD
 model_constants.o: TUV_5.2.1/MCM331.inc TUV_5.2.1/GC11.inc params
 model_constants.o: TUV_5.2.1/MCM4.inc src/rate_coeff/new_rate.inc.def
 model_constants.o: src/rate_coeff/new_rate.inc.var
+=======
+model_constants.o: src/rate_coeff/new_rate.inc.var TUV_5.2.1/MCM331.inc
+model_constants.o: TUV_5.2.1/GC11.inc TUV_5.2.1/MCM4.inc
+model_constants.o: src/rate_coeff/new_rate.inc.def params tuv_old/MCM3.inc
+>>>>>>> master
 model_constants.o: model_Global.o model_Precision.o
 constants.mod: model_constants.o

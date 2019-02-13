@@ -149,7 +149,10 @@ ratestring+='''
 !! Constrain from observations
 !USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
 !DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+<<<<<<< HEAD
 dfract = mod(dfract,1.)!uncomment if creating a constraint over multiple days.
+=======
+>>>>>>> master
 '''
 
 #generator to increase nubmers
