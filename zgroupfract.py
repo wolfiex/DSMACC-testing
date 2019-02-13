@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
 import time,re
 import h5py,re,dask,os,sys
 import numpy as np
@@ -105,18 +104,11 @@ fdsafdsaf=k
 
 
 groups = eval(tuple(open('centrality/lhscollection.txt'))[2])
-=======
-from zhdf import *
-import time
-
-groups = eval(tuple(open('groupslimited.txt'))[1])
->>>>>>> master
 
 
 
 print groups[1]
 
-<<<<<<< HEAD
 a = new('cri22.h5')
 maxtsps = len(ts)-144
 desired = 24
@@ -126,36 +118,18 @@ percentstd = .05
 
 
 print 'Percentage Tolerance %d%%'%(percentstd*100)
-=======
-
-a = new('cri22.h5')
-maxtsps = len(a.ts)-144
-desired = 24
-tslst = range(144,len(a.ts),maxtsps/desired)
-newts = a.ts[tslst]
-
-
->>>>>>> master
 html = '''
 <style>
 
 @font-face {
-<<<<<<< HEAD
     font-family: 'Datalegreya-Gradient';
     src: url('./Downloads/Datalegreya-Gradient.otf');
     font-weight: normal;
     font-style: normal;
-=======
-	font-family: 'Datalegreya-Gradient';
-	src: url('./Downloads/Datalegreya-Gradient.otf');
-	font-weight: normal;
-	font-style: normal;
->>>>>>> master
 
 }
 
 body {
-<<<<<<< HEAD
     background-color: #222;
     -webkit-font-feature-settings: "kern" on, "liga" on, "calt" on;
     -moz-font-feature-settings: "kern" on, "liga" on, "calt" on;
@@ -173,38 +147,14 @@ body {
 
 }
 body,h3,h4,h5,p{color:#ff9900;font-family: 'Datalegreya-Gradient', sans-serif;
-=======
-	-webkit-font-feature-settings: "kern" on, "liga" on, "calt" on;
-	-moz-font-feature-settings: "kern" on, "liga" on, "calt" on;
-	-webkit-font-feature-settings: "kern" on, "liga" on, "calt" on;
-	-ms-font-feature-settings: "kern" on, "liga" on, "calt" on;
-	font-feature-settings: "kern" on, "liga" on, "calt" on;
-	font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
-}
-
-body {
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-
-}
-body,h3,h4,h5{font-family: 'Datalegreya-Gradient', sans-serif;
->>>>>>> master
 
 text-align: center;}
 
 p{
-<<<<<<< HEAD
     font-family: 'Datalegreya-Gradient', sans-serif;
     /*color:#00ffdc;*/
     height:24;
     text-align: center;
-=======
-	font-family: 'Datalegreya-Gradient', sans-serif;
-
-	height:24;
-	text-align: center;
->>>>>>> master
 
 
 }
@@ -223,7 +173,6 @@ p{
 
 
 '''
-<<<<<<< HEAD
 lumpfull =[]
 
 
@@ -279,26 +228,3 @@ with open('test.html','w') as f:
 with open('lump.mech','w') as f:
     f.write('lumplist = '+ str(grouplist).replace("'",'"'))
     f.write('\nlumpcoeff = '+ str(groupcoeff).replace("'",'"'))
-=======
-
-
-for gn,g in enumerate(groups):
-    print g
-    sm = a.spec.loc[newts,g].sum(axis=1)
-    html+='<h4> lmp %02d </h4>\n'%(gn+1)
-    for s in g:
-        frac = a.spec.loc[newts,s].compute()/sm.compute()
-        line = list(' |'.join([str(int(i*4)) for i in list(frac)]))
-        count = 4
-        for c in s.lower():
-            line[count] = c
-            count+=3
-
-        html += '<!--%s-->\n<p>{mean:%02d percent} §%s {%02.1f °[-]  }{%02.1f °[+]}</p>\n'%(s,100.*frac.mean(),''.join(line),100.*frac.min(),100.*frac.max())
-    html+='\n'
-
-
-
-html+='</body>'
-print html
->>>>>>> master

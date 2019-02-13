@@ -232,7 +232,6 @@ class new():
             except:
                 return 0
 '''
-<<<<<<< HEAD
 
 
     def ropa(self, spec, save = False, top=False, time = False, plot=True,net= False):
@@ -266,8 +265,6 @@ class new():
         if plot:
             from matplotlib import colors
             from matplotlib import cm
-=======
->>>>>>> master
 
             x = np.linspace( .9,.3, 256)
             red = colors.LinearSegmentedColormap.from_list('',cm.Reds(x))
@@ -423,7 +420,6 @@ def mechcomp(mechs,what='spec',n_subplot = 4):
 
 
 
-<<<<<<< HEAD
 def pdiff(base,lump,what='spec',n_subplot = 4):
 
 
@@ -496,8 +492,6 @@ def pdiff(base,lump,what='spec',n_subplot = 4):
         pp.close()
         print 'PDF out'
         close('all')
-=======
->>>>>>> master
 
 
 
@@ -556,14 +550,10 @@ def plotall(self,spec):
 
 #
 if __name__ == "__main__":
-<<<<<<< HEAD
     #4a=new('lhs.h5')
     q =3
     #a = new('BaseRun_init_0406.h5')
     #a.ropa('HONO')
-=======
-    a=new('clfo.h5')
->>>>>>> master
 '''
 a = new()
 a.calcFlux(specs=['CH4'],timesteps=[i for i in range(18)])

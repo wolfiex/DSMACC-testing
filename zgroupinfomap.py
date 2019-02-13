@@ -2,11 +2,7 @@ import pandas as pd
 df = pd.read_csv('centrality/collected.txt',header = None)
 
 npts =144*3
-<<<<<<< HEAD
 maxlen   = 8
-=======
-maxlen   = 4
->>>>>>> master
 df=df[df[0]>npts*.7]
 minlen=1
 
