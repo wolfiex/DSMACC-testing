@@ -24,5 +24,6 @@ save/
 *.rate
 *.vdot
 *.jacsp
+del*
 temp.txt
 percent.csv
