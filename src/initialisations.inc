@@ -9,67 +9,65 @@ if (obs>0) then
 end if
 
 
+    
+    !open the init cons file.
+    open(UNIT=21,FILE='Init_cons.dat')
+    READ(21,'(i10)') IntTime
+    ! check if a special run has been selected.
+    if (INTTIME .LE. 0) then
+    
+        CONSTRAIN_RUN=.TRUE.
+        print*, 'reverting to legacy output.'
+        SAVE_LEGACY= .TRUE.
 
+        WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
 
-!open the init cons file.
-open(UNIT=21,FILE='Init_cons.dat')
-READ(21,'(i10)') IntTime
-! check if a special run has been selected.
-if (INTTIME .LE. 0)  then
-    CONSTRAIN_RUN=.TRUE.
-    print*, 'reverting to legacy output.'
-    SAVE_LEGACY= .TRUE.
+        if (INTTIME .EQ. -1) then
+            INTTIME=int(4380*24.*60.*60.)
+            OUTPUT_LAST=.FALSE.
 
-    WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
+        else if (INTTIME .EQ. -2) then
+            INTTIME=int(50*24.*60.*60.)
+            OUTPUT_LAST=.TRUE.
 
-    if (INTTIME .EQ. -1) then
-        INTTIME=int(4380*24.*60.*60.)
-        OUTPUT_LAST=.FALSE.
+        else
+            WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
+            &But not a special case'
+            STOP
+        endif
 
-
-    else if (INTTIME .EQ. -2) then
-        INTTIME=int(50*24.*60.*60.)
-        OUTPUT_LAST=.TRUE.
-
-
-    else
-        WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-        &But not a special case'
-        STOP
     endif
 
+    READ(21,'(*(a15,x))') spec_name
+    READ(21,'(*(i15,x))') const_method
+    
+    !print*, 'if -checks all this is an incorrect conversion'
 
-endif
+    if (line.gt.1) then !skip lines
+        do 133 i = 1,(line-1)
+        133 read(21,*)
+    end if
 
-
-READ(21,'(*(a15,x))') spec_name
-READ(21,'(*(i15,x))') const_method
-
-print*, 'if -checks all this is an incorrect conversion'
-
-if (line.gt.1) then !skip lines
-    do 133 i = 1,(line-1)
-    133 read(21,*)
-end if
-
-!get required concentrations
-READ (21,'(*(e15.4,x))') concs
- close(21)
-
-
+    !get required concentrations
+    READ (21,'(*(e15.4,x))') concs
+     close(21)
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!Variable Initialisation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-call initVal(concs)!initialise values
+call initVal(concs,.TRUE.)!initialise values
+
 M   = CFACTOR
 O2 = 0.21 * CFACTOR
 N2 = 0.78 * CFACTOR
-tstart = (mod(jday,1.))*24.*60.*60. ! time start
-tstart = tstart+LON/360.*24.*60.*60.!conv 2 localtime
-tend = tstart + IntTime  !end time
+
 floorjday = int(jday)*24*60*60
+
+tstart = (mod(jday,1.))*24.*60.*60. ! time start
+tstart = tstart+LON/360.*24.*60.*60. + floorjday   !conv 2 localtime
+tend = tstart + IntTime !end time
+
 
 
 

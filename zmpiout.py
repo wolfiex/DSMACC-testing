@@ -1,5 +1,4 @@
 from mpi4py import MPI
-
 import os,sys,time,re
 import numpy as np
 
@@ -47,6 +46,9 @@ for i in sys.argv[1:]:
         if rank==0:
             obs = int(tuple(open('include.obs'))[0].strip().replace('!obs:',''))
             print 'observations being used, number of obs: ',int(obs)
+    elif i == '--spinup':
+            obs = -1
+            print 'Spinup period active'  
     if '.h5' in i :
         filename = i.strip()
     if '--debug' in i:
@@ -154,7 +156,7 @@ try:
 
                 #run cmd
                 version = os.popen('./%s 0 0 --version'%(model)).read()
-                run ='./%s %s %d %s'%(model,int(g[0]),obs,debug)
+                run ='./%s %d %d %s'%(model,int(g[0]),obs,debug)
                 print '\n'+ run, ' of version ' , version ;
 
                 ##the actual run
@@ -184,13 +186,16 @@ try:
 
                 g.attrs['version'] = req['vers']
                 g.attrs['wall']= req['wall']
+                
+                
+             
                 for dataset in savelist:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
                     
                     
                     
                     if dataset == 'jacsp':
-                        dataarr = ['Time']
+                        dataarr = ['TIME']
                         dataarr.extend(edges)
                     elif dataset == 'vdot':
                         dataarr = [ids[str(i+1)] for i in range(len(data[1][1]))]
@@ -221,6 +226,11 @@ try:
                     g.attrs[dataset + u'head']  = ','.join(fltr)
                     data[1]  = np.squeeze(data[1][...,mask],axis = 1)
                     print data[1].shape,dataset
+                    
+                    
+                    
+                    
+                    
 
                     try: g[dataset]
                     except:extend=False
