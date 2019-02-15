@@ -1,10 +1,11 @@
 #INLINE F90_UTIL
 
-SUBROUTINE InitVal (concs)
+SUBROUTINE InitVal (concs,first)
 
 USE model_Global
 use model_Monitor
 INTEGER :: i,q,found
+LOGICAL:: first
 REAL(kind=dp) :: x
 CHARACTER(LEN=10000) :: line
 CHARACTER(LEN=15) :: test
@@ -22,6 +23,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     SAREA=0.
     ALBEDO=0.
     RP1=0.
+
     !petes add
     BVOCFAC=1.
     ANTHFAC=1.
@@ -36,6 +38,13 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     !end pete
 
 
+    ! undo conversion to mcm-3
+    if (.not. first) then 
+        ! undo convert to mol cm-3s-1
+        VAR(:)=VAR(:)/CFACTOR
+        CONSTRAIN(:)=CONSTRAIN(:)/CFACTOR
+        FIX(:)=FIX(:)/CFACTOR
+    end if 
 
 
     do I=1,NSPEC+1
@@ -127,7 +136,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     TEMP=CONCS(I)
 
     CASE('JDAY')
-    JDAY=CONCS(I)
+    if (first) JDAY=CONCS(I)
 
     CASE('TIME(GMTs)')
     continue
@@ -169,8 +178,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         end if
 
     CASE('SPINUP')
-        spinup = concs(I)
-        print *, 'Spinupvar: ',spinup
+        if (first) then
+            spinup = concs(I)
+            print *, 'Spinupvar: ',spinup
+        end if
         
 
 
@@ -263,17 +274,21 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
     !convert to mol cm-3s-1
+ if (first) then 
     CFACTOR=PRESS*1e2*1e-6/(8.314*TEMP)*6.022E23
     H2O=H2O*CFACTOR
-    VAR(:)=VAR(:)*CFACTOR
-    CONSTRAIN(:)=CONSTRAIN(:)*CFACTOR
-
-
-
-    FIX(:)=FIX(:)*CFACTOR
+    
     if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR
     !correct emissions ^^
     FIX(indf_R) = 1.
+ end if
+ 
+    VAR(:)=VAR(:)*CFACTOR
+    CONSTRAIN(:)=CONSTRAIN(:)*CFACTOR
+    FIX(:)=FIX(:)*CFACTOR
+
+
+
 
     if (CONSTRAIN_NOX) then
         COUNT_NOX_CONSTRAINTS=0
@@ -340,6 +355,10 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
         END SUBROUTINE Initval
         ! End of InitVal function
         ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
 
 
         SUBROUTINE ICNVRT(WAY,NUM,STRING,LENGTH,IERR)

@@ -4,9 +4,10 @@ import argparse,os,sys
 parser = argparse.ArgumentParser(description='create an ics')
 parser.add_argument('-d','--dev', dest='dev', action='store_true', default=False, help='add a watch reload for dev')
 parser.add_argument('-o','--obs', dest='obs', action='store_true', default=False, help='run with obs')
+parser.add_argument('-s','--spinup', dest='spinup', action='store_true', default=False, help='run with spinup')
 parser.add_argument('-k','--kill', dest='kill', action='store_true', default=False, help='kill session at end of run')
 parser.add_argument('--createobs', dest='createobs', action='store_true', default=False, help='create obs')
-parser.add_argument('-s','--start', dest='start',nargs='?', action='store', default=False, help='run code')
+parser.add_argument('-r','--run', dest='run',nargs='?', action='store', default=False, help='run code')
 #parser.add_argument('-c','--ics', dest='ics', action='store_true', default=False, help='create new ics h5')
 parser.add_argument('-c','--ics', dest='ics',nargs='?', action='store', default=False, help='create new ics h5')
 #parser.add_argument('--version', dest='vers', action='store_true', default=False, help='add a watch relaod for dev')
@@ -49,15 +50,22 @@ print 'cpus' ,ncores
 if args.ics != False:
     import zics
     filename = zics.create_ics(fileic=args.ics)
-    if args.start==None:args.start = filename
+    if args.run==None:args.start = filename
 
-if args.start==None:
-    sys.exit('You have not specified a runfile, or created one with --ics')
+#if args.run==None:
+#    sys.exit('You have not specified a runfile, or created one with --ics')
 
 
-if args.start!=False:
+if args.run!=False:
+    
+    print 'Clearing Output dir'
+    os.system('rm Outputs/*')
+    
+    
     obs =''
     if args.obs: obs = '--obs'
+    if args.spinup: obs = '--spinup'
+    
     if ncores>1:
         cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
         print cmd

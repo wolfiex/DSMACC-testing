@@ -4,7 +4,7 @@ USE model_Parameters
 USE model_Rates,       ONLY: Update_SUN, Update_RCONST
 USE model_integrator,  ONLY: integrate
 USE model_monitor,     ONLY: spc_names,Eqn_names
-USE model_Function, ONLY: A,fun
+!USE model_Function, ONLY: A,fun
 USE model_Util
 USE constants
 
@@ -92,8 +92,8 @@ INCLUDE './src/initialisations.inc'
 !so T=0 of the output file gives the initial condition
 !i'cs copied from python initiation program
 
-WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:NSPEC)
-WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
+!WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:NSPEC)
+!WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 !call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
 !WRITE (FLUX_UNIT) newtime, A(:NREACT)
 !WRITE (VDOT_UNIT) newtime, VDOT
@@ -111,15 +111,27 @@ run_counter = run_counter+1
 CALL Update_RCONST()! Update the rate constants
 
 !If we wish to spinup or constrain to observations
-if (obs>0) then
+if (obs == 0) then 
+    continue
+    
+else if (obs > 0) then
     ! DFRACT - day fraction
     DFRACT = Time/(60.*60.*24.)
-    
     if (DFRACT< spinup) then
         DFRACT = mod(dfract,1.)
-        include 'include.obs'
+        include 'include.obs'        
+    end if  
+    
+else if (obs < 0) then 
+    if (time > tstart+spinup) then 
+    
+        call initVal(concs,.FALSE.)!re-initialise values
+        print*, 'resetting concentrations @ ', spinup, 'seconds.'  
+        !spinup = 1E99   !inf
+        obs = 0 !stop spinup
+    end if
         
-    end if    
+      
 end if
 
 

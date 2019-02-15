@@ -28,16 +28,23 @@ def create_ics(fileic=False,    last=False,    keepx=True ):
 
     data = np.array([i.strip().split(',') for i in ic_open]).T
 
-    for lon,j in enumerate(data[1]):
-        if (j in ['LON','lon','Lon']): break
-    for jday,j in enumerate(data[1]):
-        if (j in ['JDAY','jday','Jday','JDay']):break
+
+    lon = None
+    jday = None
+    
+    for i,j in enumerate(data[1]):
+        if (j in ['LON','lon','Lon']): lon = i
+        elif (j in ['JDAY','jday','Jday','JDay']): jday = i           
+        elif (j in ['SPINUP','spinup']): spinup = i
+        
+    try:spinup = (data[3:,spinup].astype(float) + data[3:,jday].astype(float)*60*60*24)  #.astype('M8[s]')
+    except:spinup = [0]*data.shape[1]   
 
     for run in xrange(3,data.shape[0]):
         localtime = float(data[run,lon])/360.
         print 'Adjusting jday to localtime by %.2f hours for model: %s'%(localtime*24,run_names[run-3][1])
         data[run,jday]= '%.4f'%(float(data[run,jday])-localtime)
-
+      
     time = data[3,3]
     data = data[1:,4:]
 
@@ -71,7 +78,7 @@ def create_ics(fileic=False,    last=False,    keepx=True ):
 
 
 
-    for group in run_names:
+    for i,group in enumerate(run_names):
 
             g = hf.create_group(group[1])
             g.attrs[u'description']  = ''
@@ -79,6 +86,11 @@ def create_ics(fileic=False,    last=False,    keepx=True ):
             g.attrs[u'model']  = 'model for now'
             g.attrs[u'observations']  = 'check for obs flag'
             g.attrs[u'walltime']  = False
+            g.attrs[u'spinup']  = spinup[i]
+           
+            
+            
+            
             '''
             g.attrs[u'spec_head']=''
             g.attrs[u'rate_head']=''
