@@ -28,10 +28,7 @@ INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter,run_counter
  character(200) :: dummychar
  
-! for fun functiuon globals no other use
-REAL(kind=dp) :: JVS(LU_NONZERO)
-real(dp) :: vdot(nreact)
-!end fn globals
+
 
 
 STEPMIN = 0.0_dp
@@ -124,7 +121,7 @@ else if (obs > 0) then
     
 else if (obs < 0) then 
     if (time > tstart+spinup) then 
-    
+        print *, concs
         call initVal(concs,.FALSE.)!re-initialise values
         print*, 'resetting concentrations @ ', spinup, 'seconds.'  
         !spinup = 1E99   !inf
@@ -159,7 +156,6 @@ time = RSTATE(1)
 Daycounter=Daycounter+1
 
 !print*, 'list of nox locations, no need to loop over all species again'
-
 IF (CONSTRAIN_NOX) THEN
     write (OUTPUT_UNIT,*) 'Constraining NOx'
     TNOX=0.! Calcualte the total NOx in the box
@@ -171,10 +167,7 @@ IF (CONSTRAIN_NOX) THEN
 ENDIF
 
 
-
-
 !!If constrain species concentrations if necessary
-
 DO I=1,NVAR
     IF (CONSTRAIN(I) .GT. 0) C(I)=CONSTRAIN(I)
 END DO
@@ -184,9 +177,9 @@ END DO
 
 
 
-  newtime = time
+newtime = time
 
-WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:NSPEC)
+WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, J(1),C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 
 !call FUN( C(:NSPEC),FIX,RCONST,VDOT)!recalc flux
