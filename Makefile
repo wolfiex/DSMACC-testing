@@ -149,7 +149,7 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	@rm model model.kpp include.obs
 	touch include.obs
 	#cd $(KPP_PATH)/src && make > kpp.log
-	python src/background/makemodeldotkpp.py $(MODELKPP)
+	python -m dsmacc.parsekpp -d
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
 	sed -i '/END\sDO\sTimeLoop/a \\nWRITE (JACSP_UNIT) TIME, Jac0\nWRITE (FLUX_UNIT) time, A(:NREACT)\nWRITE (VDOT_UNIT) time, FCN !VDOT' model_Integrator.f90

@@ -48,7 +48,7 @@ for i in sys.argv[1:]:
             print 'observations being used, number of obs: ',int(obs)
     elif i == '--spinup':
             obs = -1
-            print 'Spinup period active'  
+            print 'Spinup period active'
     if '.h5' in i :
         filename = i.strip()
     if '--debug' in i:
@@ -66,15 +66,15 @@ try:
         print "\033]0; running dsmacc...  \007"
 
         #### jacheader ###
-        
-        
+
+
         ids = ''.join( reversed(list(open('model_Parameters.f90').readlines() ) )).replace(' ','')
         ids = re.findall('ind_([\w\d]+)=(\d+)',ids)
         ids = dict(([key,value] for value,key in ids))
-        
+
         jacfile = ''.join( open('model_Jacobian.f90').readlines()  ).replace(' ','')
         edges = re.findall('JVS\(\d+\)=Jac_FULL\((\d+),(\d+)\)\\n*JVS\(\d+\)',jacfile)
-        edges = ['->'.join([ids[i[0]],ids[i[1]]]) for i in edges]
+        edges = ['->'.join([ids[i[1]],ids[i[0]]]) for i in edges]
 
 
         print len(edges)
@@ -186,27 +186,27 @@ try:
 
                 g.attrs['version'] = req['vers']
                 g.attrs['wall']= req['wall']
-                
-                
-             
+
+
+
                 for dataset in savelist:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
-                    
-                    
-                    
+
+
+
                     if dataset == 'jacsp':
                         dataarr = ['TIME']
                         dataarr.extend(edges)
                     elif dataset == 'vdot':
                         dataarr = [ids[str(i+1)] for i in range(len(data[1][1]))]
-                    
+
                     else:
                         dataarr = data[0].split(',')
-                        
-                        
+
+
                     print data[1].shape,len(dataarr),dataset#remove non/zero results through mask
 
-                    
+
                     mask = data[1].sum(axis=0)
                     if dataset == 'rate':
                         #only save reaction which contain species
@@ -216,8 +216,8 @@ try:
 
                         try: mask *= np.array(keep)
                         except:None
-                        
-                    
+
+
                     mask = np.where(mask)
 
                     fltr = np.array(dataarr)[mask]
@@ -226,11 +226,11 @@ try:
                     g.attrs[dataset + u'head']  = ','.join(fltr)
                     data[1]  = np.squeeze(data[1][...,mask],axis = 1)
                     print data[1].shape,dataset
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
 
                     try: g[dataset]
                     except:extend=False

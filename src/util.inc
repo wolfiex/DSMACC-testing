@@ -16,8 +16,12 @@ CHARACTER(len=6), dimension(8) :: NOXARRAY
 NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     &'HO2NO2','HNO4  ','PNA   '/)
     OLDVAR(1:NVAR)=C(1:NVAR)
+ 
+ if (first) then
     VAR(1:NVAR)=0.
     C(1:NVAR)=0.
+ end if
+ 
     i_EMISS=0
     DEPOS = 0.
     SAREA=0.
@@ -39,43 +43,37 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
     ! undo conversion to mcm-3
-    if (.not. first) then 
+    if (.not. first) then
         ! undo convert to mol cm-3s-1
         VAR(:)=VAR(:)/CFACTOR
         CONSTRAIN(:)=CONSTRAIN(:)/CFACTOR
         FIX(:)=FIX(:)/CFACTOR
-    end if 
+    end if
 
 
     do I=1,NSPEC+1
     FOUND=0
-    if (SPEC_NAME(I) .NE. '') then
+    if ((SPEC_NAME(I) .NE. '') .AND. ( concs(I) > 0 )) then
     SPEC_NAME(I)=ADJUSTL(SPEC_NAME(I))
     do Q=1,NVAR
 
         if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then
             FOUND=1
+            
             VAR(Q)=CONCS(I)
-
-
             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             print*,  achar(27)//'[95m' , spec_name(i),&
                & concs(i),achar(27)//'[97m'
-
-
 
             if (const_method(i) > 0) then
                  CONSTRAIN(Q)=CONCS(I)
                  print*, 'soft-constrained ', spec_name(i), 'at', constrain(Q)
             end if
 
-
-
             if (trim(SPEC_NAME(I)) .EQ. 'CH4') then
                 SPEC_CH4=.TRUE.
 
-
-                else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
+            else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
                 SPEC_H2=.TRUE.
 
             end if
@@ -94,10 +92,8 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             print*, 'mechanism-constrained ', spec_name(i),&
                             &' at ', concs(I)
 
-
             if (trim(SPEC_NAME(I)) .EQ. 'CH4') then
                 SPEC_CH4=.TRUE.
-
 
             else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
                 SPEC_H2=.TRUE.
@@ -182,7 +178,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
             spinup = concs(I)
             print *, 'Spinupvar: ',spinup
         end if
-        
+
 
 
 !petes additional
@@ -274,15 +270,51 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
     !convert to mol cm-3s-1
- if (first) then 
+ if (first) then
+ 
     CFACTOR=PRESS*1e2*1e-6/(8.314*TEMP)*6.022E23
     H2O=H2O*CFACTOR
-    
+
     if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR
     !correct emissions ^^
     FIX(indf_R) = 1.
- end if
- 
+
+
+!NOx constrain (only run once)
+        if (CONSTRAIN_NOX) then
+            COUNT_NOX_CONSTRAINTS=0
+
+            do I=1,NVAR
+            do Q= 1,8
+
+            if (TRIM(SPC_NAMES(I)) .EQ. TRIM(NOXARRAY(Q))) then
+            NOX(I)=1
+            CONSTRAIN(I)=-1.*CONSTRAIN(I)
+            if (CONSTRAIN(I) .NE. 0 .and.&
+                TRIM(SPC_NAMES(I)).ne. 'PNA')&
+                COUNT_NOX_CONSTRAINTS=COUNT_NOX_CONSTRAINTS+1
+                WRITE (OUTPUT_UNIT,*) SPC_NAMES(I),' IN NOX FAMILY'
+                exit
+                end if
+                end do
+
+                if (TRIM(SPC_NAMES(I)) .EQ. 'N2O5') then
+                NOX(I)=2
+                CONSTRAIN(I)=-1.*CONSTRAIN(I)
+                if (CONSTRAIN(I) .NE. 0)  COUNT_NOX_CONSTRAINTS=&
+                COUNT_NOX_CONSTRAINTS+1
+                endif
+
+                end do
+
+                if (COUNT_NOX_CONSTRAINTS .GT. 1) then
+              WRITE (OUTPUT_UNIT,*) 'You can not contrain multiple NOX species'
+                STOP
+                endif
+
+        end if
+ end if  !end first
+
     VAR(:)=VAR(:)*CFACTOR
     CONSTRAIN(:)=CONSTRAIN(:)*CFACTOR
     FIX(:)=FIX(:)*CFACTOR
@@ -290,67 +322,31 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
 
 
-    if (CONSTRAIN_NOX) then
-        COUNT_NOX_CONSTRAINTS=0
-
-
-        do I=1,NVAR
-        do Q= 1,8
-
-        if (TRIM(SPC_NAMES(I)) .EQ. TRIM(NOXARRAY(Q))) then
-        NOX(I)=1
-        CONSTRAIN(I)=-1.*CONSTRAIN(I)
-        if (CONSTRAIN(I) .NE. 0 .and.&
-            TRIM(SPC_NAMES(I)).ne. 'PNA')&
-            COUNT_NOX_CONSTRAINTS=COUNT_NOX_CONSTRAINTS+1
-            WRITE (OUTPUT_UNIT,*) SPC_NAMES(I),' IN NOX FAMILY'
-            exit
-            end if
-            end do
-
-            if (TRIM(SPC_NAMES(I)) .EQ. 'N2O5') then
-            NOX(I)=2
-            CONSTRAIN(I)=-1.*CONSTRAIN(I)
-            if (CONSTRAIN(I) .NE. 0)  COUNT_NOX_CONSTRAINTS=&
-            COUNT_NOX_CONSTRAINTS+1
-            endif
-
-            end do
-
-            if (COUNT_NOX_CONSTRAINTS .GT. 1) then
-            WRITE (OUTPUT_UNIT,*) 'You can not contrain multiple NOX species'
-            STOP
-            endif
-
-    end if
-
-
         ! FIND CH4 and H2 species
         if (SPEC_CH4 .EQv. .FALSE.) then
-        WRITE (OUTPUT_UNIT,*) 'No CH4 specified assuming 1770 ppbv'
+             WRITE (OUTPUT_UNIT,*) 'No CH4 specified assuming 1770 ppbv'
 
-     print*, 'fix no ch4 default, add in model subset?,&
-     &add generic reaction of inorganics?'
-        !if (ind_CH4 .gt. NVAR) then
-        !    FIX((ind_CH4-NVAR)) = 1770e-9*CFACTOR
-        !else
-        !    VAR(ind_CH4)=1770e-9*CFACTOR
-        !    CONSTRAIN(ind_CH4)=VAR(ind_CH4)
-        !end if
-        !end if
+             print*, 'fix no ch4 default, add in model subset?,&
+             &add generic reaction of inorganics?'
+                if (ind_CH4 .gt. NVAR) then
+                    FIX((ind_CH4-NVAR)) = 1770e-9*CFACTOR
+                else
+                    VAR(ind_CH4)=1770e-9*CFACTOR
+                    CONSTRAIN(ind_CH4)=VAR(ind_CH4)
+                end if
+                end if
 
-        !if (SPEC_H2 .EQv. .FALSE.) then
-        WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
-          if (ind_H2 .gt. NVAR) then
-            !FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
-        else
-            VAR(ind_H2)= 550e-9*CFACTOR
-            CONSTRAIN(ind_H2)=VAR(ind_H2)
+        if (SPEC_H2 .EQv. .FALSE.) then
+              WRITE (OUTPUT_UNIT,*) 'No H2 specified assuming 550 ppbv'
+              if (ind_H2 .gt. NVAR) then
+                  FIX((ind_H2-NVAR)) = 550e-9*CFACTOR
+              else
+                  VAR(ind_H2)= 550e-9*CFACTOR
+                  CONSTRAIN(ind_H2)=VAR(ind_H2)
+              end if
         end if
-        end if
 
-        !set R value to 0
-        FIX(indf_R)= 1
+
 
         END SUBROUTINE Initval
         ! End of InitVal function

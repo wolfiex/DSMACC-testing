@@ -14,6 +14,15 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 
 
 TUV repository updated with thanks to @pb866
+
+
+Notes : 
+- Cannot constrain to 0 due to spinup conditions, either use giant sink 
+or FIX species [util.inc] 
+
+
+
+
   
 If mpirun failes with [] then run has failed.
 

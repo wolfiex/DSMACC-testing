@@ -57,15 +57,15 @@ if args.ics != False:
 
 
 if args.run!=False:
-    
+
     print 'Clearing Output dir'
-    os.system('rm Outputs/*')
-    
-    
+    os.system('rm Outputs/* && mkdir Outputs')
+
+
     obs =''
     if args.obs: obs = '--obs'
     if args.spinup: obs = '--spinup'
-    
+
     if ncores>1:
         cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
         print cmd
@@ -77,7 +77,7 @@ if args.run!=False:
     if args.kill:
         os.system('/opt/pbs/bin/qdel $PBS_JOBID')
         os.system('pkill screen')
-        
+
 if args.verbose:
      a = tuple(open('temp.txt'))
      for i in a:
