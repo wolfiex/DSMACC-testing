@@ -14,7 +14,7 @@ REAL(dp) :: ENDSTATE(NVAR), total, RATIO, TNOX, TNOX_OLD
 REAL(dp) :: STARTSTATE(NVAR), TIMESCALE, RH, RSTATE(20)
 REAL(dp) :: DIURNAL_OLD(NVAR,3000), DIURNAL_NEW(NVAR,3000)
 REAL(dp) :: DIURNAL_RATES(NREACT, 3000)
-REAL(dp) :: FULL_CONCS(NSPEC,999999), concs(NSPEC)
+REAL(dp) ::  concs(NSPEC)  !FULL_CONCS(NSPEC,999999),
 ! Photolysis calculation variables
  character(len=50), allocatable ::  s_names(:), r_names(:)
 
@@ -27,7 +27,7 @@ REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime,flo
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter,run_counter
  character(200) :: dummychar
- 
+
 
 
 
@@ -35,10 +35,8 @@ STEPMIN = 0.0_dp
 STEPMAX = 0.0_dp
 RTOL(:) = 1.0E-5_dp !-5
 ATOL(:) = 1.0_dp    !-16?
-
 !desired |true-computed| < RTOL*|TRUE| + ATOL
 !want ATOL/calc_value < RTOL
-
 !rtol - #sig fig
 
 LAST_POINT=.False.
@@ -53,17 +51,14 @@ time=tstart
 !dt is the output timestep and the timestep between times
 !rate constants and notably photolysis rates are calcualted " 600 = ten minutes
 dt = 600.
-!spinup default 
+!spinup default
 spinup = 9999.
-
-
 
 call getarg(3,ln)!name
 if (trim(ln) .eq. '--version') then
     write(06,*) trim(version)
     STOP
 end if
-
 
 call getarg(2,ln)
 read(ln, *) obs
@@ -108,27 +103,27 @@ run_counter = run_counter+1
 CALL Update_RCONST()! Update the rate constants
 
 !If we wish to spinup or constrain to observations
-if (obs == 0) then 
+if (obs == 0) then
     continue
-    
+
 else if (obs > 0) then
     ! DFRACT - day fraction
     DFRACT = Time/(60.*60.*24.)
     if (DFRACT< spinup) then
         DFRACT = mod(dfract,1.)
-        include 'include.obs'        
-    end if  
-    
-else if (obs < 0) then 
-    if (time > tstart+spinup) then 
+        include 'include.obs'
+    end if
+
+else if (obs < 0) then
+    if (time > tstart+spinup) then
         print *, concs
         call initVal(concs,.FALSE.)!re-initialise values
-        print*, 'resetting concentrations @ ', spinup, 'seconds.'  
+        print*, 'resetting concentrations @ ', spinup, 'seconds.'
         !spinup = 1E99   !inf
         obs = 0 !stop spinup
     end if
-        
-      
+
+
 end if
 
 
@@ -195,13 +190,19 @@ WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 
 
 
-
+!!!!!!! SOLID STATE
 ! If we are doing a constrained run we need to store the diurnal profile of all the species
-IF (CONSTRAIN_RUN .EQv. .TRUE.) THEN
+
+IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
+
     DIURNAL_NEW(1:NVAR,DAYCOUNTER)=C(1:NVAR)
     DIURNAL_RATES(1:NREACT,DAYCOUNTER)=RCONST(1:NREACT)
-    FULL_CONCS(1:NVAR,full_counter+daycounter)=C(1:NVAR)
-    full_counter=full_counter+daycounter+1.
+
+
+    !delete?
+    !FULL_CONCS(1:NVAR,full_counter+daycounter)=C(1:NVAR)
+    !full_counter=full_counter+daycounter+1.
+
     ! Are we at the end of a day?
     ! If so we need to 1) fiddle with the NOX to ensure it has the right concentrations see if we have reached a steady state
     IF (DAYCOUNTER*DT .GE. 24.*60.*60.) THEN
@@ -210,8 +211,8 @@ IF (CONSTRAIN_RUN .EQv. .TRUE.) THEN
         ! Calculate the ratio between the value we the constrained NOx species and what we have
         ! Remember the constrained NOx species is given by the negative constrained value
         DO I=1,NVAR
-        IF (CONSTRAIN(I) .LT. 0)     CONSTNOXSPEC=I
-        IF (NOX(I) .NE. 0)        C(I)=C(I)*NOXRATIO
+            IF (CONSTRAIN(I) .LT. 0)     CONSTNOXSPEC=I
+            IF (NOX(I) .NE. 0)        C(I)=C(I)*NOXRATIO
         ENDDO
         NOXRATIO=-CONSTRAIN(CONSTNOXSPEC)/C(CONSTNOXSPEC)
         ! Multiply all the NOx species by the ratio so
@@ -223,32 +224,35 @@ IF (CONSTRAIN_RUN .EQv. .TRUE.) THEN
         FRACCOUNT=0.
         ! Add up for all species and for each time point in the day
         DO I=1,NVAR
-        DO JK=1,DAYCOUNTER
-        !If there is a concentration calculated
-        IF (DIURNAL_NEW(I,JK) .GT. 1.e2 .AND. &
-        TRIM(SPC_NAMES(I)) .NE. 'DUMMY') THEN
-            !Calculate the absolute value of the fractional difference and add it on
-            ! Increment the counter to calculate the average
-            FRACDIFF=FRACDIFF+&
-            ABS(DIURNAL_OLD(I,JK)-DIURNAL_NEW(I,JK))/&
-            DIURNAL_NEW(I,JK)
-            FRACCOUNT=FRACCOUNT+1
-        ENDIF
-        ENDDO
+            DO JK=1,DAYCOUNTER
+            !If there is a concentration calculated
+            IF (DIURNAL_NEW(I,JK) .GT. 1.e2 .AND. &
+            TRIM(SPC_NAMES(I)) .NE. 'DUMMY') THEN
+                !Calculate the absolute value of the fractional difference and add it on
+                ! Increment the counter to calculate the average
+                FRACDIFF=FRACDIFF+&
+                ABS(DIURNAL_OLD(I,JK)-DIURNAL_NEW(I,JK))/&
+                DIURNAL_NEW(I,JK)
+                FRACCOUNT=FRACCOUNT+1
+            ENDIF
+            ENDDO
         ENDDO
 
     FRACDIFF=FRACDIFF/FRACCOUNT !average fractional difference
-
     write (OUTPUT_UNIT,*) 'Fraction difference in the diurnal profile:', FRACDIFF! Output diagnostic
-
 
     ! Store the new diurnal profile as the old one so we can compare with the next day
     DIURNAL_OLD(1:NVAR,1:Daycounter)=DIURNAL_NEW(1:NVAR,1:DAYCOUNTER)
 
-    print *, 'fractional difference aim 0 :', (fracdiff - 1e-3)
-    IF (FRACDIFF .LE. 1e-3)  GOTO 1000    ! if system has converged end simulation
+    print *, line, ' fractional difference aim 0 :', (fracdiff - 1e-3)
+    IF (FRACDIFF .LE. 1e-3) THEN
 
+            CONSTRAIN_RUN = .FALSE.
+            !GOTO 1000    ! stop if system has converged end simulation
 
+    END IF
+    !Reset params and add a day to TEND
+    TEND = TEND + 24*60*60
     DAYCOUNTER=0! reset the day counter to 0
     OLDFRACDIFF=FRACDIFF
     ENDIF

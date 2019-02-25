@@ -4,6 +4,7 @@ import h5py,re,dask,os,sys
 import dask.array as da
 import dask.dataframe as dd
 import pandas as pd
+from zgraph import *
 #from multiprocessing import Pool
 #from memory_profiler import profile as mprof
 
@@ -19,7 +20,7 @@ except:
     ncores=1
 
 print 'multiprocessing on ' , ncores
-pool = Pool(ncores)
+#pool = Pool(ncores)
 ###############################################
 
 import time
@@ -46,11 +47,9 @@ def mp (x,fn,pool):
     rt = []
     for i in res:
         rt.extend(i)
-    return rt
+    return
 
-
-
-
+inorganics = ['O', 'O1D', 'N2O5', 'HONO', 'HO2NO2', 'HSO3', 'H', 'O2', 'A', 'NA', 'SA','CO','OH','HO2','NO','NO2']
 ###############################################
 
 
@@ -185,23 +184,36 @@ class new():
             setattr(self,d, getattr (self,d).loc[self.ts,:])
 
 
-    def jratio(self,row,column,log = True):
+    def jratio(self,row,column,log = True,signs = True):
         '''
         Find the ratio contribution of a species using the jacobian.
         source = column
         target = row (produced)
         '''
+        if row == column:
+            print 'same spec, skipping'
+            return False
+
         def inc(x):
              x = x.split('->')
-             return x[0] == row and x[1] != row
+             return x[1] == row and x[0] != row
 
         jh = filter(inc, self.jacsp.columns )
-        data = np.abs(self.jacsp[jh]).astype(float)
-        if log: data = np.log(data)
+        data = self.jacsp[jh].astype(float)
+        data = np.abs(data[:])
+        if log:
+            data += 1
+            data = np.log(data)
 
-        by = '%s->%s'%(row,column)
-        signs = np.sign(self.jacsp[by])
-        return (data[by]/data.sum(axis=1)).replace([np.inf, -np.inf], 0)*signs
+
+        by = '%s->%s'%(column,row)
+        try:
+            dummy = self.jacsp[by]
+            if signs: signs = np.sign(dummy)
+            else: signs = 1
+        except: return False
+
+        return data[by].divide(data.sum(axis=1)).replace([np.inf, -np.inf], 0)
 
 
     def plot (self, what, dataframe = 'spec',vbar=True ):
@@ -350,6 +362,65 @@ def loaddump(filename):
     '''unpickle the dill file of a previous simulation'''
     import dill
     return dill.load(open(filename))
+
+
+def group_hour(df,fn = np.mean,diurnal = False):
+        try: df = df.compute()
+        except:None
+
+
+        df['group']= [str(i).split(':')[0] for i in df.index]
+        df = df.groupby(by='group').agg(fn)
+        if diurnal:
+            day = range(24)
+            hour = lambda x: x in range(24)
+            df['hour'] = [int(i.split(' ')[-1]) for i in df.index]
+            df = df[df['hour'].apply(hour)]
+            df = df.groupby(['hour']).agg(fn)
+        return df
+
+def connectivity(self,groups,ignore = inorganics,plot = False):
+    '''
+    custom implementation of the connectivity method
+    self = dsmacc.new class object
+    groups - list of important species
+
+    todict = dict(connectivity(...))
+    '''
+
+    assert isinstance(groups,list), 'groups should be a list, eg ["O3",...]'
+
+    def contribution(i,self,groups):
+        counter = 1
+        for j in groups:
+                try:
+                    total += self.jratio(j,i,signs=False)
+                    counter +=1
+
+                except: total = self.jratio(j,i,signs=False)
+
+        try: return [i,total.divide(counter)]
+        except:return [i,False]
+
+
+    rt = [contribution(k,self,groups) for k in set(self.vdot.columns)^set(ignore)]
+
+    print rt
+    rt = filter(lambda x: type(x[1])!=bool, rt)
+
+
+
+
+    df = pd.concat((i[1] for i in rt), axis=1)
+    df.columns =  (i[0] for i in rt)
+
+    if plot:
+        np.abs(df).plot(kind='area')
+
+
+    return df
+
+
 
 
 
