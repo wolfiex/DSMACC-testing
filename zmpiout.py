@@ -14,7 +14,7 @@ soft=int(MPI.INFO_ENV.get("soft"))
 try:
         ncores = int(os.popen('echo $NCPUS').read())
 except:
-        sys.exit('Use a Queue')
+    sys.exit('MPI_DSMACC:Use a Queue')
 
 
 
@@ -23,7 +23,7 @@ ncpus = soft# int(comm.Get_attr(MPI.UNIVERSE_SIZE)) #int(os.popen('echo $NCPUS')
 print 'ncpu rank', ncpus , rank , soft
 
 if ncpus <2 :
-        sys.exit('Use a Queue')
+    sys.exit('MPI_DSMACC needs more cores: Use a Queue')
 
 if ncpus > 80:
         sys.exit('I dont believe you are running DSMACC on %s cores, use a queue'%ncpus)

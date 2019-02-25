@@ -9,19 +9,20 @@ if (obs>0) then
 end if
 
 
-    
+
     !open the init cons file.
     open(UNIT=21,FILE='Init_cons.dat')
     READ(21,'(i10)') IntTime
     ! check if a special run has been selected.
     if (INTTIME .LE. 0) then
-    
+
         CONSTRAIN_RUN=.TRUE.
-        print*, 'reverting to legacy output.'
-        SAVE_LEGACY= .TRUE.
+        !print*, 'reverting to legacy output.'
+        !SAVE_LEGACY= .TRUE.
 
         WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
 
+        !flag
         if (INTTIME .EQ. -1) then
             INTTIME=int(4380*24.*60.*60.)
             OUTPUT_LAST=.FALSE.
@@ -30,17 +31,20 @@ end if
             INTTIME=int(50*24.*60.*60.)
             OUTPUT_LAST=.TRUE.
 
+
         else
-            WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-            &But not a special case'
-            STOP
+            print *, 'solid state - woohoo!'
+            INTTIME= abs(INTTIME)
+            !WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
+            !&But not a special case'
+            !STOP
         endif
 
     endif
 
     READ(21,'(*(a15,x))') spec_name
     READ(21,'(*(i15,x))') const_method
-    
+
     !print*, 'if -checks all this is an incorrect conversion'
 
     if (line.gt.1) then !skip lines
@@ -165,7 +169,7 @@ full_counter=0
         write(RATE_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT) !       (I)),I=1,NREACT)
         write(FLUX_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT )!,I=1,NREACT))
         write(vdot_UNIT)'TIME',(','//trim(SPC_NAMES(I)),I=1,NSPEC)
-        
+
         write(jacsp_UNIT) ''
 
 

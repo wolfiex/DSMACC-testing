@@ -154,7 +154,8 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	-$(KPP_PATH)/bin/kpp model.kpp
 	sed -i '/END\sDO\sTimeLoop/a \\nWRITE (JACSP_UNIT) TIME, Jac0\nWRITE (FLUX_UNIT) time, A(:NREACT)\nWRITE (VDOT_UNIT) time, FCN !VDOT' model_Integrator.f90
 	sed -i '/END/b;/MODULE\smodel_Integrator/a \\nUSE model_Function, ONLY: Fun,A' model_Integrator.f90
-
+reformat:
+	python -m dsmacc.parsekpp.reformat
 editkpp:
 	echo $(DSMACC_HOME)/ && mech:=$(shell egrep -o 'mechanisms/.*\.kpp' $(DSMACC_HOME)/model.kpp) && mech:=$(shell egrep -o 'ver[^\n]' $(mech)) && echo $(mech) && sed -e s/Unknown/$(mech)/g model_Global.f90
 
