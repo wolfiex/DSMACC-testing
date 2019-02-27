@@ -175,7 +175,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
     CASE('SPINUP')
         if (first) then
-            spinup = concs(I)
+            if (.not. constrain_run) spinup = concs(I)
             print *, 'Spinupvar: ',spinup
         end if
 

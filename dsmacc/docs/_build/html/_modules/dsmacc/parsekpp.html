@@ -1,0 +1,187 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>dsmacc.parsekpp &#8212; dsmacc-python 1.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for dsmacc.parsekpp</h1><div class="highlight"><pre>
+<span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;parsekpp&quot;</span>
+<span class="kn">from</span> <span class="nn">..helperscripts</span> <span class="k">import</span> <span class="n">picker</span>
+<span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">os</span><span class="o">,</span><span class="nn">re</span>
+
+<div class="viewcode-block" id="make_model_dot"><a class="viewcode-back" href="../../source/dsmacc.parsekpp.html#dsmacc.parsekpp.make_model_dot">[docs]</a><span class="k">def</span> <span class="nf">make_model_dot</span><span class="p">(</span><span class="n">last</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    if last takes latest changed files</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">vers</span> <span class="o">=</span> <span class="s1">&#39;Unknown&#39;</span>
+    <span class="n">tuv</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>
+
+    <span class="n">verre</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\/\/\s*(?i)ver[s]*\s*[:=]\s*</span><span class="se">\&#39;</span><span class="s1">(.*)</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tuvre</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\/\/\s*(?i)tuv\s*[:=]\s*</span><span class="se">\&#39;</span><span class="s1">(.*)</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">last</span><span class="p">:</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;mechanisms/*.kpp&#39;</span><span class="p">)</span>
+        <span class="n">file_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">)</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;mechanisms/&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.kpp&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">Picker</span><span class="p">(</span><span class="s1">&#39;mechanisms/*.kpp&#39;</span><span class="p">,</span><span class="n">remove</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mechanisms/&#39;</span><span class="p">,</span><span class="s1">&#39;.kpp&#39;</span><span class="p">],</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Select Mechanisms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getSelected</span><span class="p">()</span>
+
+    <span class="nb">print</span> <span class="n">file_list</span>
+
+    <span class="n">myinclude</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">thisfile</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+                <span class="n">myinclude</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;#INCLUDE mechanisms/&#39;</span><span class="o">+</span><span class="n">thisfile</span><span class="o">+</span><span class="s1">&#39;.kpp</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mechanisms/&#39;</span><span class="o">+</span><span class="n">thisfile</span><span class="o">+</span><span class="s1">&#39;.kpp&#39;</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">verre</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                        <span class="n">vers</span> <span class="o">=</span> <span class="n">verre</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">tuvre</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                        <span class="n">tuv</span> <span class="o">=</span> <span class="n">tuvre</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+    <span class="nb">print</span> <span class="s1">&#39;tuv&#39;</span><span class="p">,</span><span class="n">tuv</span><span class="p">,</span><span class="s1">&#39;. ver&#39;</span><span class="p">,</span><span class="n">vers</span>
+
+    <span class="n">addstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">myinclude</span><span class="p">))</span>
+
+    <span class="n">modelstring</span> <span class="o">=</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    // include file with definition of the chemical species</span>
+<span class="s1">    // and chemical equations</span>
+<span class="s1">    #INCLUDE ./src/background/mechswitches.kpp //KEEP!</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="o">+</span><span class="n">addstr</span><span class="o">+</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    #INCLUDE ./src/util.inc</span>
+<span class="s1">    #INCLUDE ./src/global.inc</span>
+<span class="s1">    #INLINE F90_GLOBAL</span>
+<span class="s1">    !model  variable parameters</span>
+<span class="s1">    character(len=30) :: version=&quot;&#39;&#39;&#39;</span><span class="o">+</span><span class="n">vers</span><span class="o">+</span><span class="s1">&#39;&#39;&#39;&quot;</span>
+<span class="s1">    INTEGER :: TUVvers=&#39;&#39;&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tuv</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    #ENDINLINE</span>
+<span class="s1">    #DOUBLE ON</span>
+<span class="s1">    // computer language for code produced by kpp</span>
+<span class="s1">    #LANGUAGE FORTRAN90</span>
+<span class="s1">    //#LANGUAGE FORTRAN77</span>
+<span class="s1">    // #LANGUAGE C</span>
+<span class="s1">    // initial concentrations</span>
+<span class="s1">    #INITVALUES</span>
+<span class="s1">    // conversion from mixing ratio to concentration</span>
+<span class="s1">    CFACTOR = 2.5E19;</span>
+<span class="s1">    // initial mixing ratios</span>
+<span class="s1">    ALL_SPEC = 0.;</span>
+<span class="s1">    // integrator should usually be rosenbrock</span>
+<span class="s1">    #INTEGRATOR rosenbrock</span>
+<span class="s1">    //#INTEGRATOR kpp_lsode</span>
+<span class="s1">    //#INTEGRATOR ros2_manual</span>
+<span class="s1">    //#INTEGRATOR radau5</span>
+<span class="s1">    // driver file that calls kpp subroutines</span>
+<span class="s1">    #DRIVER ./src/driver</span>
+<span class="s1">    // set indices of unused species to ind_*=0</span>
+<span class="s1">    #DUMMYINDEX ON</span>
+<span class="s1">    // do not create Stoichiom files</span>
+<span class="s1">    #STOICMAT OFF</span>
+<span class="s1">    // do not create Hessian files</span>
+<span class="s1">    #HESSIAN OFF</span>
+<span class="s1">    // do not create Mex files</span>
+<span class="s1">    #MEX OFF</span>
+<span class="s1">    // equation IDs</span>
+<span class="s1">    #EQNTAGS ON</span>
+<span class="s1">    &#39;&#39;&#39;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./model.kpp&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">modelstring</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s1">&#39;written file&#39;</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">dsmacc-python</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Daniel Ellis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

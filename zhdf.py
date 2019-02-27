@@ -56,7 +56,7 @@ inorganics = ['O', 'O1D', 'N2O5', 'HONO', 'HO2NO2', 'HSO3', 'H', 'O2', 'A', 'NA'
 class new():
     #reads in a selected file
     def __init__(self, h5file, groupid=False,selection = 'spec,rate,flux,vdot,jacsp'.split(','),
-        prodloss = True):
+        prodloss = True,ts = 600):
 
         '''
         h5file     - filename
@@ -85,7 +85,7 @@ class new():
 
             self.groupname = groups[0][0]
             self.wall= g.attrs['wall']
-            self.spinup= g.attrs['spinup'].astype('M8[s]')
+            
 
 
             if True: # spec MUST always be included...
@@ -99,6 +99,7 @@ class new():
                 self.ts= np.array(self.timesteps)
                 spec['TIME'] = self.timesteps
                 spec = spec.set_index('TIME', sorted=True)
+                self.spinup= self.ts[int( (spec.SPINUP.max()/ts).compute() ) ]
                 self.M =  spec.M.mean()
                 self.spec = spec/self.M
 
@@ -224,8 +225,8 @@ class new():
         vbar - spinup bar
         '''
         df = pd.DataFrame((getattr (self,dataframe)[what]).compute()).plot()
-        if type(self.spinup) == np.datetime64 and vbar:
-            plt.axvline(x=pd.to_datetime(self.spinup),color='grey', ls='--')
+        if vbar:
+            plt.axvline(x=self.spinup,color='grey', ls='--')
         plt.show()
         return df
 
@@ -549,8 +550,12 @@ def lumpdiagnostics(original,lumped,filename= 'lump.mech'):
          if breakme=='break':break
          plt.clf()
 
-
-
+def days_spinup(self):
+    ''' print the number of days taken to spinup the model'''
+    d = self.spinup - self.ts[0]
+    d /= np.timedelta64(1, 'D')
+    print 'We spunup for %d days.'%d
+    return d
 
 #All groups
 def plotall(self,spec):
