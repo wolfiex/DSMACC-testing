@@ -26,6 +26,7 @@ REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime,flo
  character (10) :: ln
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter,run_counter
+INTEGER :: DAY = 24*60*60
  character(200) :: dummychar
 
 
@@ -78,19 +79,8 @@ open(UNIT=output_unit,FILE='Outputs/'//trim(ln)//'.sdout')
 !all initialisation calculations:
 INCLUDE './src/initialisations.inc'
 
-
-!i'cs copied from python initiation program
-
 !so T=0 of the output file gives the initial condition
 !i'cs copied from python initiation program
-
-!WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, C(:NSPEC)
-!WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
-!call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
-!WRITE (FLUX_UNIT) newtime, A(:NREACT)
-!WRITE (VDOT_UNIT) newtime, VDOT
-!WRITE (JACSP_UNIT) newtime, JVS
-
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -108,21 +98,11 @@ if (obs == 0) then
 
 else if (obs > 0) then
     ! DFRACT - day fraction
-    DFRACT = Time/(60.*60.*24.)
-    if (DFRACT< spinup) then
-        DFRACT = mod(dfract,1.)
+    DFRACT = (Time-tstart)
+    if (DFRACT < spinup) then
+        DFRACT = mod(dfract,float(day))
         include 'include.obs'
     end if
-
-else if (obs < 0) then
-    if (time > tstart+spinup) then
-        print *, concs
-        call initVal(concs,.FALSE.)!re-initialise values
-        print*, 'resetting concentrations @ ', spinup, 'seconds.'
-        !spinup = 1E99   !inf
-        obs = 0 !stop spinup
-    end if
-
 
 end if
 
@@ -174,15 +154,8 @@ END DO
 
 newtime = time
 
-WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, J(1),C(:NSPEC)
+WRITE (SPEC_UNIT) newtime,LAT, LON, PRESS, TEMP,H2O,JO1D,JNO2, CFACTOR, RO2, J(1),SPINUP,C(:NSPEC)
 WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
-
-!call FUN( C(:NSPEC),FIX,RCONST,VDOT)!recalc flux
-!call FUN( C(:NVAR),FIX,RCONST,VDOT)!recalc flux
-!WRITE (FLUX_UNIT) newtime, A(:NREACT)
-!WRITE (VDOT_UNIT) newtime, VDOT
-!WRITE (JACSP_UNIT) newtime, JVS
-
 
     !if (mod(run_counter/nc_set,20)==0) then
     !    print*, achar(27)//'['//trim(ln)//';10 H ', achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
@@ -190,7 +163,7 @@ WRITE (RATE_UNIT) newtime, RCONST(:NREACT)
 
 
 
-!!!!!!! SOLID STATE
+!!!!!!! STEADY STATE
 ! If we are doing a constrained run we need to store the diurnal profile of all the species
 
 IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
@@ -198,14 +171,9 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
     DIURNAL_NEW(1:NVAR,DAYCOUNTER)=C(1:NVAR)
     DIURNAL_RATES(1:NREACT,DAYCOUNTER)=RCONST(1:NREACT)
 
-
-    !delete?
-    !FULL_CONCS(1:NVAR,full_counter+daycounter)=C(1:NVAR)
-    !full_counter=full_counter+daycounter+1.
-
     ! Are we at the end of a day?
     ! If so we need to 1) fiddle with the NOX to ensure it has the right concentrations see if we have reached a steady state
-    IF (DAYCOUNTER*DT .GE. 24.*60.*60.) THEN
+    IF (DAYCOUNTER*DT .GE. DAY) THEN
         ! Sort out the NOx. Need to increase the NOx concentration so that the constrained species is right
         ! What is  the constrained NOx species? Put result into CONSTNOXSPEC
         ! Calculate the ratio between the value we the constrained NOx species and what we have
@@ -244,15 +212,25 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
     ! Store the new diurnal profile as the old one so we can compare with the next day
     DIURNAL_OLD(1:NVAR,1:Daycounter)=DIURNAL_NEW(1:NVAR,1:DAYCOUNTER)
 
-    print *, line, ' fractional difference aim 0 :', (fracdiff - 1e-3)
+    print *, line, ' fractional difference aim 0 :', abs(fracdiff - 1e-3)
     IF (FRACDIFF .LE. 1e-3) THEN
-
+            
             CONSTRAIN_RUN = .FALSE.
-            !GOTO 1000    ! stop if system has converged end simulation
+            obs = 0
+            print *, 'Converged at ',spinup,'timesteps'
+            continue
+            !If (FRACDIFF .le. 0) GOTO 1000    ! stop if system has converged end simulation
 
     END IF
     !Reset params and add a day to TEND
-    TEND = TEND + 24*60*60
+    TEND = TEND + DAY
+    SPINUP = SPINUP + DAY
+    
+    if (obs < 0) then
+        call initVal(concs,.FALSE.)!re-initialise values
+        print*, 'resetting concentrations @ ', spinup, 'seconds.'
+    end if
+    
     DAYCOUNTER=0! reset the day counter to 0
     OLDFRACDIFF=FRACDIFF
     ENDIF

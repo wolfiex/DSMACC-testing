@@ -9,7 +9,7 @@ parser.add_argument('-l','--last', dest='last', action='store_true', default=Fal
 
 #reformat data
 parser.add_argument('-d','--depos', dest='depos', action='store_true', default=False, help='add deposition terms')
-parser.add_argument('-i','--inorganics', dest='inorganics', action='store_true', default=False, help='include inorganics)
+parser.add_argument('-i','--inorganics', dest='inorganics', action='store_true', default=False, help='include inorganics')
 parser.add_argument('-r','--reformat', dest='reformat', action='store_true', default=False, help='run reformatting')
 
 

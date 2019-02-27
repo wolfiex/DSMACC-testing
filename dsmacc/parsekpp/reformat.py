@@ -58,18 +58,20 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
         file_list.append('inorganics')
         file_text.append(open('src/background/inorganic_mcm.kpp','r').read())
 
+
+    if file_list == ['inorganics']: sys.exit('You forgot to enter a file to reformat')
+
     fullstr='~'.join(file_text)
     
     
     
     inline = re.findall(r'[\n\b\s]#inline.+?#endinline',fullstr,re.IGNORECASE|re.M|re.S)
-    print inline
-    
+
     minfull = re.sub(r' |\n|\t|\s|\r','', fullstr).upper()
     
 
     
-    eqn = [i.split(':') for i in re.findall(r'[^/]{2}\s*\{.*?\}([^;]+)' ,minfull,re.S|re.M)]
+    eqn = [i.split(':') for i in re.findall(r'[^/]{2}\s*\{[\.\W\s\d]*?\}([^;]+)' ,'   '+minfull,re.S|re.M)]
     
     
     nocoeff = re.compile(r'\b\d*\.*\d*([\W\d\w]+)\b')
@@ -88,7 +90,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
             eqn.append([i + ' = DUMMY',decayrate])
             
     #replace RO2str
-    ro2str ='RO2 = C(ind_'+ ') + C(ind_'.join(re.findall(r'ind_([\W\d\w]+?\b)',minfull,re.I))+')'
+    ro2str ='\nRO2 = C(ind_'+ ') + C(ind_'.join(re.findall(r'ind_([\W\d\w]+?\b)',minfull,re.I))+')'
     
     for i in range(len(inline)):
         if 'RO2 =' in inline[i]:#re.match(r'\bRO2 *=',inline[i]):
@@ -121,14 +123,11 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
         
     tofile.extend([' ','// inlineFNs'])
     
-    for i in inline:
-        tofile.extend(i.split('\n'))
+
         
     
     ic_file = re.sub('\.\./InitCons/|\.csv|\.\./src/background','', '_'.join(file_list))
-    
-    print ro2str
-    
+
     line = re.compile(r"(.{1,75}[\s\n ])",re.M|re.S)# 75 char per line
     with open("mechanisms/formatted_"+ic_file+'_%s.kpp'%depos, 'w') as f:
         for l in tofile:
@@ -138,13 +137,21 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
             split = line.findall(l)
             
             if len(split)>1 :
+                
+                
                 if re.match('\s*//.*', l):
                     f.write('\n//'.join(split)  )
                 else : 
                     f.write('\n'.join(split) )
             else:
                 f.write('\n'+l)  
-                    
+                
+        for i in inline:
+            for l in i.split('\n'):
+                split = line.findall(l)
+                if len(split)>1 :f.write('&\n'.join(split) )
+                else:f.write('\n'+l)                  
+                        
         
 
 

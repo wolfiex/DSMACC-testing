@@ -14,7 +14,7 @@
 # returns a simple list
 # cancel returns False
 
-import curses,glob,os
+import curses,glob,os,sys
 
 class Picker:
     """Allows you to select from a list with curses"""
@@ -79,7 +79,10 @@ class Picker:
 
         ret_s = filter(lambda x: x["selected"], self.all_options)
         ret = map(lambda x: x["label"], ret_s)
-        return( list(ret) )
+        ret = list(ret) 
+        
+        if len(ret)<1: sys.exit('You must make a choice. ')
+        return( ret )
 
     def text(self, y, x, label):
         try:

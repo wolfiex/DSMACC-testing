@@ -24,7 +24,7 @@ TUV repository updated with thanks to @pb866
 
 ## Running a model
 1. Set up the initial conditions csv file
-
+2. To quickrun the model type `make run` or `python -m dsmacc.run -c -r`
 
 
 
