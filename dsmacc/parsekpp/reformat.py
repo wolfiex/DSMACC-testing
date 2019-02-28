@@ -165,4 +165,4 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
 if __name__ == '__main__':
     print 'lets go - quickstart with inorganics and depos'
-    reformat_kpp(True, True)
+    reformat_kpp(True, False)

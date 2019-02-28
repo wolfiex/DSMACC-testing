@@ -208,6 +208,7 @@ try:
 
 
                     mask = data[1].sum(axis=0)
+                    
                     if dataset == 'rate':
                         #only save reaction which contain species
                         match = re.compile(r'\b[\d\.]*(\w+)\b')
@@ -218,10 +219,10 @@ try:
                         except:None
 
 
-                    mask = np.where(mask)
+                    mask = np.where(mask**0)
 
                     fltr = np.array(dataarr)[mask]
-
+                    
 
                     g.attrs[dataset + u'head']  = ','.join(fltr)
                     data[1]  = np.squeeze(data[1][...,mask],axis = 1)

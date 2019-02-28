@@ -17,7 +17,7 @@ end if
     if (INTTIME .LE. 0) then
 
         CONSTRAIN_RUN=.TRUE.
-        SPINUP = 24*60*60*2 
+        SPINUP = 0!24*60*60*2 
         !SAVE_LEGACY= .TRUE.
 
         WRITE (OUTPUT_UNIT,*) 'Integration to convergence'

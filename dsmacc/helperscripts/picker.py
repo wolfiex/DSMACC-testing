@@ -73,7 +73,7 @@ class Picker:
         curses.echo()
         curses.endwin()
 
-    def getSelected(self):
+    def InterGetSelected(self):
         if self.aborted == True:
             return( False )
 
@@ -81,8 +81,15 @@ class Picker:
         ret = map(lambda x: x["label"], ret_s)
         ret = list(ret) 
         
-        if len(ret)<1: sys.exit('You must make a choice. ')
+        #if len(ret)<1:print('You must make a choice. ')
         return( ret )
+        
+        
+    def getSelected(self):
+                
+                ret = self.InterGetSelected();
+                if len(ret)<1:sys.exit('You must make a choice. ')
+                return( ret )
 
     def text(self, y, x, label):
         try:
@@ -195,6 +202,7 @@ class Picker:
 
             self.redraw()
             c = stdscr.getch()
+            print c 
 
             if c == ord('q') or c == ord('Q'):
                 self.aborted = True
@@ -224,7 +232,7 @@ class Picker:
             # compute selected position only after dealing with limits
             self.selected = self.cursor + self.offset
 
-            temp = self.getSelected()
+            temp = self.InterGetSelected()
             self.selcount = len(list(temp))
 
     def __init__(

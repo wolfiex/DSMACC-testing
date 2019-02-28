@@ -380,7 +380,7 @@ def group_hour(df,fn = np.mean,diurnal = False):
             df = df.groupby(['hour']).agg(fn)
         return df
 
-def connectivity(self,groups,ignore = inorganics,plot = False):
+def connectivity(self,groups,ignore = [''],plot = False):
     '''
     custom implementation of the connectivity method
     self = dsmacc.new class object
@@ -553,8 +553,7 @@ def lumpdiagnostics(original,lumped,filename= 'lump.mech'):
 def days_spinup(self):
     ''' print the number of days taken to spinup the model'''
     d = self.spinup - self.ts[0]
-    d /= np.timedelta64(1, 'D')
-    print 'We spunup for %d days.'%d
+    print d
     return d
 
 #All groups
@@ -573,6 +572,8 @@ def plotall(self,spec):
 ''' ondefault run, not import - testing mostly'''
 if __name__ == "__main__":
     a=new('ethane.h5')
+    a.rm_spinup()
+    #connectivity(a,['O3'])
     q =3
-    #a = new('BaseRun_init_0406.h5')
-    #a.ropa('HONO')
+    #  python -c "from zhdf import *;a=new('ethane.h5');a.plot('O3')"
+    # k && python -m dsmacc.run -s -c -r && python -c "from zhdf import *;a=new('ethane.h5');a.plot('O3')"
