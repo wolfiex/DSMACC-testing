@@ -47,8 +47,8 @@ end if
 
     !print*, 'if -checks all this is an incorrect conversion'
 
-    if (line.gt.1) then !skip lines
-        do 133 i = 1,(line-1)
+    if (line .gt. 0 ) then !skip lines
+        do 133 i = 0,(line-1)
         133 read(21,*)
     end if
 

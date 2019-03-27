@@ -66,7 +66,7 @@ read(ln, *) obs
 
 call getarg(1,ln)!location in Init Cons
 read(ln, *) line
-
+print *, 'Reading line', ln
 
 
 CALL system("echo $(date '+%A %W %Y %X') >> temp.txt")

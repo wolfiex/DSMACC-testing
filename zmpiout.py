@@ -219,7 +219,7 @@ try:
                         except:None
 
 
-                    mask = np.where(mask**0)
+                    mask = np.where(mask)
 
                     fltr = np.array(dataarr)[mask]
                     
