@@ -208,8 +208,9 @@ try:
 
 
                     mask = data[1].sum(axis=0)
-                    
-                    if dataset == 'rate':
+                    if dataset == 'spec': 
+                        mask[:12] = 1
+                    elif dataset == 'rate':
                         #only save reaction which contain species
                         match = re.compile(r'\b[\d\.]*(\w+)\b')
                         fltr=set(fltr)
@@ -220,7 +221,7 @@ try:
 
 
                     mask = np.where(mask)
-
+           
                     fltr = np.array(dataarr)[mask]
                     
 

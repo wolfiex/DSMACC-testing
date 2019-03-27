@@ -120,7 +120,8 @@ IF (ISNAN(C(I)) .or. (ERROR .NE. 1)) then
     !    c(i)= 0.
     !    cycle
     !end if
-
+ 
+    print*, 'Failed on ' ,SPC_NAMES(I), ' with concentration ',C(I)
     C(1:NVAR)=0.
     GOTO 1000
 ENDIF

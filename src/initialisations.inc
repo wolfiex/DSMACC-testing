@@ -15,7 +15,8 @@ end if
     READ(21,'(i10)') IntTime
     ! check if a special run has been selected.
     if (INTTIME .LE. 0) then
-
+        print *, 'You spin me right round, like a spinup baby, woohoo!'
+        INTTIME =abs(INTTIME)+DAY 
         CONSTRAIN_RUN=.TRUE.
         SPINUP = 0!24*60*60*2 
         !SAVE_LEGACY= .TRUE.
@@ -33,8 +34,8 @@ end if
 
 
         else
-            print *, 'solid state - woohoo!'
-            INTTIME= abs(INTTIME)
+          
+           
             !WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
             !&But not a special case'
             !STOP
