@@ -207,9 +207,9 @@ try:
                     print data[1].shape,len(dataarr),dataset#remove non/zero results through mask
 
 
-                    mask = data[1].sum(axis=0)
+                    mask = np.array(data[1].sum(axis=0))
                     if dataset == 'spec': 
-                        mask[:12] = 1
+                        mask[:12] = 1.
                     elif dataset == 'rate':
                         #only save reaction which contain species
                         match = re.compile(r'\b[\d\.]*(\w+)\b')

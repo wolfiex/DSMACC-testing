@@ -190,10 +190,13 @@ class new():
                         try:self.prodloss[i]['prod'].append(idx)
                         except:None
 
-    def create_posjac(self):
+    def create_posjac(self,ignore=['there_are_no_species_here']):
         '''
         Replace our sparse jacobian with a positive variation (negative links are reversed)
         Self reactions are removed and non existant species are removed.
+        
+        Args:
+            ignore - list of species to be ignored in posjac array (most commonly inorganics)
         '''
         print ('computing the posjac array')
 
@@ -208,16 +211,21 @@ class new():
         #self reactions and negatives
         contains = set(self.jacsp.columns[(self.jacsp<0).sum().astype(bool)])
         selfself = set(('%s->%s'%(i,i) for i in self.spec.columns))
-        self.posjac = dd.compute(self.jacsp[list(set(self.jacsp.columns) - selfself)])[0]
+
+        rme = re.compile(r'\b('+'|'.join(ignore)+r')\b')
+        rm = set( [i for i in self.jacsp.columns if rme.search(i)])
+        
+        rxns = list((set(self.jacsp.columns)-rm) - selfself)
+        self.posjac = dd.compute(self.jacsp[rxns])[0]
 
         rev = re.compile(r'(.+)->(.+)')
-        #for each nevative reaction
-        for h in contains - selfself:
+        #for each negative reaction
+        for h in rxns:
             dummy = self.posjac[h]
             lt = dummy<0
             mx = np.array(dummy*(-lt))
             self.posjac[h] = dummy*(dummy>0)
-
+            #reverse link
             hp = rev.sub(r'\2->\1',h)
             try:self.posjac[hp] = self.posjac[hp] + mx
             except:self.posjac[hp] = mx
@@ -448,9 +456,9 @@ def connectivity(self,groups,ignore = [''],plot = False):
 
     #print (numerator, denominator,names)
 
-    denom_sum = a.posjac[list(denominator)].sum(axis=1)
+    denom_sum = self.posjac[list(denominator)].sum(axis=1)
 
-    pdiff = a.posjac[list(numerator)].divide(denom_sum,axis = 0)
+    pdiff = self.posjac[list(numerator)].divide(denom_sum,axis = 0)
     pdiff.columns = [i.split('->')[0] for i in pdiff.columns]
 
     return pdiff.groupby(pdiff.columns, axis=1).sum()

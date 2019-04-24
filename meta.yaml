@@ -19,5 +19,7 @@ dependencies:
     - pathos
     - mpi4py
     - h5py
+    - julia
 channels:
   - wolfiex
+#julia -e 'Pkg.add("Blink")'

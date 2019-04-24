@@ -16,7 +16,8 @@ end if
     ! check if a special run has been selected.
     if (INTTIME .LE. 0) then
         print *, 'You spin me right round, like a spinup baby, woohoo!'
-        INTTIME =abs(INTTIME)+DAY 
+        print*, 'Do not constrain NOX when at ss'
+        INTTIME = abs(INTTIME)+DAY 
         CONSTRAIN_RUN=.TRUE.
         SPINUP = 0!24*60*60*2 
         !SAVE_LEGACY= .TRUE.
@@ -25,12 +26,12 @@ end if
 
         !flag
         if (INTTIME .EQ. -1) then
-            INTTIME=int(4380*24.*60.*60.)
-            OUTPUT_LAST=.FALSE.
+        !    INTTIME=int(4380*24.*60.*60.)
+        !    OUTPUT_LAST=.FALSE.
 
-        else if (INTTIME .EQ. -2) then
-            INTTIME=int(50*24.*60.*60.)
-            OUTPUT_LAST=.TRUE.
+        !else if (INTTIME .EQ. -2) then
+        !    INTTIME=int(50*24.*60.*60.)
+        !   OUTPUT_LAST=.TRUE.
 
 
         else

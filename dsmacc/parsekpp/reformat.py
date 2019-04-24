@@ -157,8 +157,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
         
         
   
-  
- print '- fix mcm constants ro2list  and copying of subroutines in CRI file.... CHECK THESE'
+print '- fix mcm constants ro2list  and copying of subroutines in CRI file.... CHECK THESE'
     
     
 
