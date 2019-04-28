@@ -6,11 +6,10 @@ import numpy as np
 import pandas as pd
 import zhdf
 
-self = zhdf.new('ethane.h5')
+self = zhdf.new('clfoch2.h5')
 self.rm_spinup()
 
 
-print 'dd'
 def group_hour(df,fn = np.mean,diurnal = False):
         try: df = df.compute()
         except:None
@@ -36,7 +35,7 @@ Inputs:
 import dsmacc 
         
 spec = 'CH3CO3'
-
+print spec
 retdict = {"name":spec}
 
 

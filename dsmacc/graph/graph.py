@@ -34,8 +34,14 @@ def jgraph(posjac):
     return G
 
 
+    
+def rm_nodes (G,ignore):
+    for i in ignore:
+        try:G.remove_node(i)
+        except:None
+    return G    
 
-def getnx(self, ts ,save=False):
+def getnx(self, ts ,save=False,ignore=[] ):
     '''
     Create a networkx graph from a DSMACC new class
     
@@ -50,9 +56,22 @@ def getnx(self, ts ,save=False):
     posjac = self.posjac.loc[ts,:]
     split = [i.split('->') for i in posjac.index]
     
+    p = [i for i in posjac if i != 0 ]
+    mn = np.min(p)
+    mx = np.log10(np.max(p) - mn )
+    mn = np.log10(mn)
     for e in range(len(split)):
-        G.add_edge(split[e][0],split[e][1],weight=posjac[e])
+        if posjac[e] > 0 :
+            G.add_edge(split[e][0],split[e][1],weight=1e-4+(np.log10(posjac[e])-mn)/mx )
     G.remove_edges_from(G.selfloop_edges())
+    
+    #no more zero concentration edges
+    G = rm_nodes (G, set(G.nodes()) - set(self.spec.columns))
+    G = rm_nodes (G, ignore)
+    #rm isolates
+    G = rm_nodes(G,list(nx.isolates(G)))
+
+    
     
     if save:
         nx.write_weighted_edgelist(G, save+'.wedgelist')
@@ -61,16 +80,8 @@ def getnx(self, ts ,save=False):
     return G 
 
     
-def rm_nodes (G,ignore):
-    for i in ignore:
-        try:G.remove_node(i)
-        except:None
-    return G    
     
     
-    
-
-
 
 
 

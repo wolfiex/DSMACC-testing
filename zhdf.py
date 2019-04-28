@@ -1,3 +1,16 @@
+#reset modules loaded
+import sys
+if globals(  ).has_key('init_modules'):
+    # second or subsequent run: remove all but initially loaded modules
+    for m in sys.modules.keys(  ):
+        if m not in init_modules:
+            del(sys.modules[m])
+else:
+    # first run: find out which modules were initially loaded
+    init_modules = sys.modules.keys(  )
+
+
+
 import numpy as np
 np.warnings.filterwarnings('ignore')
 import h5py,re,dask,os,sys
@@ -6,7 +19,8 @@ import dask.dataframe as dd
 import pandas as pd
 from zgraph import *
 from zmechdiagnostics import *
-
+try: import matplotlib.pyplot as plt
+except: print('unable to import matplotlib')
 #from multiprocessing import Pool
 #from memory_profiler import profile as mprof
 '''
@@ -190,7 +204,12 @@ class new():
                         try:self.prodloss[i]['prod'].append(idx)
                         except:None
 
-    def create_posjac(self,ignore=['there_are_no_species_here']):
+
+    def inposjac(self,y):
+        return self.posjac[filter(lambda x: y in x, self.posjac.columns)]
+
+
+    def create_posjac(self):
         '''
         Replace our sparse jacobian with a positive variation (negative links are reversed)
         Self reactions are removed and non existant species are removed.
@@ -201,7 +220,9 @@ class new():
         print ('computing the posjac array')
 
         try:
-            return self.posjac
+            self.posjac
+            print ('Posjac already exists, use "del <name>.posjac" to remove it')
+             
         except:None
 
         #remove no existant species
@@ -209,29 +230,34 @@ class new():
         #self.posjac = self.jacsp[filter(lambda x: not rm.search(x), self.jacsp.columns)]
 
         #self reactions and negatives
-        contains = set(self.jacsp.columns[(self.jacsp<0).sum().astype(bool)])
+        
+        
+        contains = set(self.jacsp.columns)
         selfself = set(('%s->%s'%(i,i) for i in self.spec.columns))
 
-        rme = re.compile(r'\b('+'|'.join(ignore)+r')\b')
-        rm = set( [i for i in self.jacsp.columns if rme.search(i)])
+        rxns = list(set(self.jacsp.columns) - selfself)
         
-        rxns = list((set(self.jacsp.columns)-rm) - selfself)
         self.posjac = dd.compute(self.jacsp[rxns])[0]
 
         rev = re.compile(r'(.+)->(.+)')
         #for each negative reaction
         for h in rxns:
+            #our column 
             dummy = self.posjac[h]
+            #save static positive values - unchanged
+            self.posjac[h] = dummy*(dummy>0).astype(float)
+            
+            #negative (reverse ) values only
             lt = dummy<0
-            mx = np.array(dummy*(-lt))
-            self.posjac[h] = dummy*(dummy>0)
+            mx = np.array(dummy*(-lt.astype(float)))
+            
             #reverse link
             hp = rev.sub(r'\2->\1',h)
             try:self.posjac[hp] = self.posjac[hp] + mx
             except:self.posjac[hp] = mx
 
         #remove emptys
-        self.posjac = self.posjac[self.posjac.columns[(self.posjac>0).any()]]
+        self.posjac = self.posjac[self.posjac.columns[(self.posjac!=0).sum().astype(bool)]]
 
 
 
@@ -240,7 +266,7 @@ class new():
         '''
         Remove spinup calculations from arrays
         '''
-        self.timesteps = self.timesteps[self.timesteps.gt(self.spinup)][2:]
+        self.timesteps = self.timesteps[self.timesteps.gt(self.spinup)][2:].reset_index()
         self.ts = np.array(self.timesteps)
         for d in self.selection:
             setattr(self,d, getattr (self,d).loc[self.ts,:])
