@@ -1,6 +1,10 @@
 '''
 Take a selected timestep from a model run and use it to create the initial conditions for a new run.
 
+Usage: 
+    python -m dsmacc.observations.run2ics <filename>.h5 <timestep number> -r 
+
+
 file created args : contiune_h5name_groupname_timestep_datenow
 
 
@@ -52,7 +56,7 @@ df = pd.DataFrame(
            ['ii', 'H2O', '0', '0.02'],
            ['ii', 'ALBEDO', '0', '0'],
            ['ii', 'PRESS', '0', '1013'],
-           ['ii', 'NOx', '1', '0'],
+           ['ii', 'NOx', '0', '0'],
            ['ii', 'DEPOS', '1', '0'],
            ['ii', 'FEMISS', '1', '0'],
            ['s', 'SPINUP', '0', '1e99']

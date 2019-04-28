@@ -266,11 +266,11 @@ class new():
         '''
         Remove spinup calculations from arrays
         '''
-        self.timesteps = self.timesteps[self.timesteps.gt(self.spinup)][2:].reset_index()
+        self.timesteps = self.timesteps[self.timesteps.gt(self.spinup)][2:]
         self.ts = np.array(self.timesteps)
         for d in self.selection:
             setattr(self,d, getattr (self,d).loc[self.ts,:])
-
+        self.timesteps = self.timesteps.reset_index()['TIME']
 
     def jratio(self,row,column,log = True,all = False):
         '''
