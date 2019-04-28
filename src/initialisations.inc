@@ -15,26 +15,28 @@ end if
     READ(21,'(i10)') IntTime
     ! check if a special run has been selected.
     if (INTTIME .LE. 0) then
-
+        print *, 'You spin me right round, like a spinup baby, woohoo!'
+        print*, 'Do not constrain NOX when at ss'
+        INTTIME = abs(INTTIME)+DAY 
         CONSTRAIN_RUN=.TRUE.
-        SPINUP = 24*60*60*2 
+        SPINUP = 0!24*60*60*2 
         !SAVE_LEGACY= .TRUE.
 
         WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
 
         !flag
         if (INTTIME .EQ. -1) then
-            INTTIME=int(4380*24.*60.*60.)
-            OUTPUT_LAST=.FALSE.
+        !    INTTIME=int(4380*24.*60.*60.)
+        !    OUTPUT_LAST=.FALSE.
 
-        else if (INTTIME .EQ. -2) then
-            INTTIME=int(50*24.*60.*60.)
-            OUTPUT_LAST=.TRUE.
+        !else if (INTTIME .EQ. -2) then
+        !    INTTIME=int(50*24.*60.*60.)
+        !   OUTPUT_LAST=.TRUE.
 
 
         else
-            print *, 'solid state - woohoo!'
-            INTTIME= abs(INTTIME)
+          
+           
             !WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
             !&But not a special case'
             !STOP
@@ -47,8 +49,8 @@ end if
 
     !print*, 'if -checks all this is an incorrect conversion'
 
-    if (line.gt.1) then !skip lines
-        do 133 i = 1,(line-1)
+    if (line .gt. 0 ) then !skip lines
+        do 133 i = 0,(line-1)
         133 read(21,*)
     end if
 

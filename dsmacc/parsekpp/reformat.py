@@ -37,7 +37,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
     '''
     
     
-    file_list = picker.Picker('mechanisms/*.kpp',remove=['mechanisms/','.kpp'],title = 'Select Mechanisms').getSelected()
+    file_list = picker.Picker('mechanisms/[!(formatted)]*.kpp',remove=['mechanisms/','.kpp'],title = 'Select Mechanisms').getSelected()
     
     
     if co2:
@@ -64,15 +64,13 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
     fullstr='~'.join(file_text)
     
     
-    
     inline = re.findall(r'[\n\b\s]#inline.+?#endinline',fullstr,re.IGNORECASE|re.M|re.S)
 
     minfull = re.sub(r' |\n|\t|\s|\r','', fullstr).upper()
     
 
     
-    eqn = [i.split(':') for i in re.findall(r'[^/]{2}\s*\{[\.\W\s\d]*?\}([^;]+)' ,'   '+minfull,re.S|re.M)]
-    
+    eqn = [i.split(':') for i in re.findall(r'[^/]{1,2}\s*\{[\.\W\s\d]*?\}([^;]+)' ,'   '+minfull,re.S|re.M)]
     
     nocoeff = re.compile(r'\b\d*\.*\d*([\W\d\w]+)\b')
     specs = []
@@ -158,7 +156,8 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
     print "\n formatted_"+ic_file+' written'
         
         
-        
+  
+print '- fix mcm constants ro2list  and copying of subroutines in CRI file.... CHECK THESE'
     
     
 

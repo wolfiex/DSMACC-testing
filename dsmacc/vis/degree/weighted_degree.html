@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  fill: none;
+  stroke: #bbb;
+}
+
+</style>
+
+<body onload='run()'>
+<svg width="800" height="800"></svg>
+<script type="text/javascript" src="../../../degree.json"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="functions.js"></script>
+<script>
+var grayscale = false;
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().distance(1).strength(0.7))
+    .force("charge", d3.forceManyBody().strength(-180))
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+var linkclr = d3.interpolate("#F6089E", "#3864EB")//d3.interpolateCubehelixLong.gamma(4.1)("#F6089E", "#3864EB");
+
+simulation.alpha(1)
+//////////
+// legend 
+
+colors= [
+      "#F4F3EF", "#DED9B9", "#F1B300", //right bottom to top
+      "#B6D8DE", "#B5B4B2", "#B76302", //middle bottom - top
+      "#509DBF", "#356388", "#314F4D" //left ...tograph
+    ]
+
+    colors: [
+          "#e8e8e8", "#e4d9ac", "#c8b35a",
+          "#cbb8d7", "#c8ada0", "#af8e53",
+          "#9972af", "#976b82", "#804d36"
+        ]
+    
+    
+
+labels = ["low", "", "high"]
+n = Math.floor(Math.sqrt(colors.length))
+nd = graph.nodes.filter(d=>d.index)
+
+
+x = d3.scaleQuantile().domain(Array.from(nd, d => parseFloat(d.indegree)*100)).range(d3.range(n))
+
+y = d3.scaleQuantile().domain(Array.from(nd, d => parseFloat(d.outdegree)*100)).range(d3.range(n))
+
+x = d3.scaleThreshold().domain([.33,.66]).range(d3.range(n))
+
+y = d3.scaleThreshold().domain([.33,.66]).range(d3.range(n))
+data = {title:['In-Degree','Out-Degree']}
+
+
+
+color = function (value) {
+    if (!value) return "#ccc";
+    let [a, b] = value;
+    
+    //console.log(y(b),x(a),a,b)
+    return colors[y(b) + x(a) * n];
+
+}
+
+
+ 
+msvg = document.querySelector('svg')
+
+gcode = '<g font-family=sans-serif font-size=10 id="grid">'
+k=24
+//rotation g
+gcode += `<g transform="translate(-${k * n / 2},-${k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})">`
+
+//arrowhead marker
+gcode+=`<marker id="arrow" markerHeight=10 markerWidth=10 refX=6 refY=3 orient=auto>
+    <path d="M0,0L9,3L0,6Z" />
+  </marker>`
+
+//squares
+d3.cross(d3.range(n), d3.range(n)).forEach(([i, j]) => gcode+=`<rect width=${k} height=${k} x=${i * k} y=${(n - 1 - j) * k} fill=${colors[j * n + i]}>
+  <title>${data.title[0]}${labels[i] && ` (${labels[i]})`}
+${data.title[1]}${labels[j] && ` (${labels[j]})`}</title>
+</rect>`) 
+
+//arrows
+gcode += `<line marker-end="url(#arrow)" x1=0 x2=${n * k} y1=${n * k} y2=${n * k} stroke=black stroke-width=1.5 />
+<line marker-end="url(#arrow)" y2=0 y1=${n * k} stroke=black stroke-width=1.5 />`
+
+//textarea
+xlab = data.title[0]
+ylab = data.title[1]
+gcode += `<text font-weight="bold" dy="0.71em" transform="rotate(90) translate(${n / 2 * k},6)" text-anchor="middle">${xlab}</text>
+<text font-weight="bold" dy="0.71em" transform="translate(${n / 2 * k},${n * k + 6})" text-anchor="middle">${ylab}</text>`
+
+
+//close rotation g 
+gcode+='<\g>'
+
+//close main g
+gcode+='<\g>'
+
+//msvg.innerHTML+= gcode
+//document.getElementById('grid').setAttribute('transform','translate(90,90)')
+
+
+
+function run(){
+
+  var nodes = graph.nodes,
+      nodeById = d3.map(nodes, function(d,i) { d.index=i;return d.index; }),
+      links = merge_linkdir(graph.links),
+      bilinks = [],
+      linkcol = [];
+
+  links.forEach(function(link) {
+    var s = link.source = nodeById.get(link.source),
+        t = link.target = nodeById.get(link.target),
+        i = {}; // intermediate node
+    nodes.push(i);
+    links.push({source: s, target: i,weighted:link.weighted}, {source: i, target: t,weighted:link.weighted});
+    bilinks.push([s, i, t])
+    //console.log(link)
+    linkcol.push(link.weighted)
+  });
+
+
+dscale = d3.scaleLinear().domain(d3.extent(graph.nodes.map(d=>d.degree)))
+lscale = d3.scaleLinear().domain(d3.extent(graph.links.map(d=>d.weighted)))
+
+//console.log(graph,bilinks,bilinks.length,graph.links.length)
+  var link = svg.selectAll(".link")
+    .data(bilinks)
+    .enter().append("path")
+      .attr("class", "link")
+      .style('stroke',(d,i)=> grayscale?null:linkclr(linkcol[i]))
+      .style('stroke-width',(d,i)=> grayscale?1.5:4);
+
+  var node = svg.selectAll(".node")
+    .data(nodes.filter(d=>d.index))
+    .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", d=> .5 + (grayscale?2:20) * Math.pow(d.netdegree,3))
+      .attr("fill", function(d) { return grayscale? d3.color(color([d.indegree,d.outdegree])).brighter(.03)
+      : 'whitesmoke'})
+      .style("stroke", function(d) { return grayscale? 'whitesmoke':'#777'})
+      .style("stroke-width", function(d) { return grayscale? 1.5:4})
+      
+      .on('mouseover',d=>{console.log(d)})
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  node.append("title")
+      .text(function(d) { return d.name; });
+
+  simulation
+      .nodes(nodes)
+      .on("tick", ticked);
+
+  simulation.force("link")
+      .links(links);
+
+  function ticked() {
+    link.attr("d", positionLink);
+    node.attr("transform", positionNode);
+  }
+
+
+
+}
+
+
+
+function positionLink(d) {
+  return "M" + d[0].x + "," + d[0].y
+       + "S" + d[1].x + "," + d[1].y
+       + " " + d[2].x + "," + d[2].y;
+}
+
+function positionNode(d){
+  return "translate(" + d.x + "," + d.y + ")";
+}
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x, d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x, d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null, d.fy = null;
+}
+setTimeout(function(){
+    window.location.reload()
+}, 120*1000);
+
+setTimeout(function(){
+    simulation.stop()
+    rescale(graph,30,700)
+    
+    /*
+    msvg.innerHTML+= gcode
+    document.getElementById('grid').setAttribute('transform','translate(90,90)')
+    document.getElementById('grid').setAttribute('transform','translate(-90,-90)scale(1.25)')
+    
+    */
+}, 14*1000);
+    
+    
+</script>
+</body>

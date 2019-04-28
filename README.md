@@ -151,3 +151,4 @@ Type `make man` to see a description of available functions.
 + Anacondas Python (continuum.io)
 + icc & bison for kpp
 + perl
+# IterativeTemporalPageRank

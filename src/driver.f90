@@ -66,7 +66,7 @@ read(ln, *) obs
 
 call getarg(1,ln)!location in Init Cons
 read(ln, *) line
-
+print *, 'Reading line', ln
 
 
 CALL system("echo $(date '+%A %W %Y %X') >> temp.txt")
@@ -120,7 +120,8 @@ IF (ISNAN(C(I)) .or. (ERROR .NE. 1)) then
     !    c(i)= 0.
     !    cycle
     !end if
-
+ 
+    print*, 'Failed on ' ,SPC_NAMES(I), ' with concentration ',C(I)
     C(1:NVAR)=0.
     GOTO 1000
 ENDIF
@@ -211,19 +212,20 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
 
     ! Store the new diurnal profile as the old one so we can compare with the next day
     DIURNAL_OLD(1:NVAR,1:Daycounter)=DIURNAL_NEW(1:NVAR,1:DAYCOUNTER)
-
+    TEND = TEND + DAY
     print *, line, ' fractional difference aim 0 :', abs(fracdiff - 1e-3)
     IF (FRACDIFF .LE. 1e-3) THEN
             
             CONSTRAIN_RUN = .FALSE.
             obs = 0
             print *, 'Converged at ',spinup,'timesteps'
+            call initVal(concs,.FALSE.)
             continue
             !If (FRACDIFF .le. 0) GOTO 1000    ! stop if system has converged end simulation
 
     END IF
     !Reset params and add a day to TEND
-    TEND = TEND + DAY
+    
     SPINUP = SPINUP + DAY
     
     if (obs < 0) then

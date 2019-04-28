@@ -2,6 +2,74 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 
+def normalise(x):
+    x = x[:]#deepcopy error
+    x -= min(x)
+    x /= max(x)
+    return x
+    
+def jgraph(posjac):
+    '''
+    networkx graph object from posjac at timestep
+    '''
+
+    posjac = 1 - normalise(np.log10(posjac).replace([np.inf,-np.inf],np.nan).dropna())
+
+    split = [i.split('->') for i in posjac.index]
+    #graph
+    G = nx.DiGraph()
+
+    for e in range(len(split)):
+
+            G.add_edge(split[e][0],split[e][1],weight=posjac[e])
+
+    G.remove_edges_from(G.selfloop_edges())
+
+
+    return G
+
+
+
+def getnx(self, ts ,save=False):
+    '''
+    Create a networkx graph from a DSMACC new class
+    
+    Usage: 
+        getnx(a,a.ts[-1], 'propane')
+    '''
+    
+    self.create_posjac()
+    G = nx.DiGraph()
+    
+    posjac = self.posjac.loc[ts,:]
+    split = [i.split('->') for i in posjac.index]
+    
+    for e in range(len(split)):
+        G.add_edge(split[e][0],split[e][1],weight=posjac[e])
+    G.remove_edges_from(G.selfloop_edges())
+    
+    if save:
+        nx.write_weighted_edgelist(G, save+'.wedgelist')
+    #G=nx.read_weighted_edgelist('propane.wedgelist',create_using=nx.DiGraph)
+
+    return G 
+
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
 
 def pagerank(a):
     return geobj2df(metric(tograph(group_hour(a.jacsp))))
@@ -51,7 +119,7 @@ def metric(GS,met = 'nx.pagerank'):
 
     for gt in range(len(GS)):
         res = metfn(GS[gt]['graph'])
-        res = [[key, res[key]] for key, value in sorted(res.iteritems(), key=lambda (k,v): (v,k))]
+        res = [[key, res[key]] for key, value in sorted(res.iteritems(), key=lambda k,v: (v,k))]
 
         GS[gt][met] = res
     return GS
@@ -73,7 +141,7 @@ def geobj2df(GS,what = 'nx.pagerank'):
     ))
     df=df.divide(df.max(axis=1),axis=0)
     import zcreate_centrality as p
-    
+
     #p.createhtml(df)
-    
+
     return df

@@ -1,3 +1,16 @@
+#reset modules loaded
+import sys
+if globals(  ).has_key('init_modules'):
+    # second or subsequent run: remove all but initially loaded modules
+    for m in sys.modules.keys(  ):
+        if m not in init_modules:
+            del(sys.modules[m])
+else:
+    # first run: find out which modules were initially loaded
+    init_modules = sys.modules.keys(  )
+
+
+
 import numpy as np
 np.warnings.filterwarnings('ignore')
 import h5py,re,dask,os,sys
@@ -5,9 +18,12 @@ import dask.array as da
 import dask.dataframe as dd
 import pandas as pd
 from zgraph import *
+from zmechdiagnostics import *
+try: import matplotlib.pyplot as plt
+except: print('unable to import matplotlib')
 #from multiprocessing import Pool
 #from memory_profiler import profile as mprof
-
+'''
 from pathos.multiprocessing import Pool
 try:
     import matplotlib.pyplot as plt
@@ -19,14 +35,11 @@ try:
 except:
     ncores=1
 
-print 'multiprocessing on ' , ncores
+print ('multiprocessing on ' , ncores)
 #pool = Pool(ncores)
+'''
 ###############################################
-
-import time
-import progressbar
-
-bar = progressbar.ProgressBar()
+'''
 
 def timing(f):
     import time
@@ -34,11 +47,9 @@ def timing(f):
         time1 = time.time()
         ret = f(*args)
         time2 = time.time()
-        print '%s function took %0.3f ms' % (f.func_name, (time2-time1)*1000.0)
+        print ('%s function took %0.3f ms' % (f.func_name, (time2-time1)*1000.0))
         return ret
     return wrap
-
-
 
 def mp (x,fn,pool):
     global ncores
@@ -48,6 +59,17 @@ def mp (x,fn,pool):
     for i in res:
         rt.extend(i)
     return
+'''
+
+def normalise(x):
+    '''
+    sets the smalles to 0 and the largest to 1
+    '''
+    x = x[:]#deepcopy error
+    x -= min(x)
+    x /= max(x)
+    return x
+
 
 inorganics = ['O', 'O1D', 'N2O5', 'HONO', 'HO2NO2', 'HSO3', 'H', 'O2', 'A', 'NA', 'SA','CO','OH','HO2','NO','NO2']
 ###############################################
@@ -55,6 +77,9 @@ inorganics = ['O', 'O1D', 'N2O5', 'HONO', 'HO2NO2', 'HSO3', 'H', 'O2', 'A', 'NA'
 
 class new():
     #reads in a selected file
+    '''
+    The DSMACC results group class.
+    '''
     def __init__(self, h5file, groupid=False,selection = 'spec,rate,flux,vdot,jacsp'.split(','),
         prodloss = True,ts = 600):
 
@@ -77,20 +102,25 @@ class new():
             self.groups = dict([[i[0],j] for j,i in enumerate(groups)])
             self.groupkeys = groups[0][1].attrs.keys()
             self.flux=False
-
-            if groupid:
-                g = groups[int(groupid)][1]
-            else:
-                g = groups[0][1]
-
-            self.groupname = groups[0][0]
-            self.wall= g.attrs['wall']
             
+            if type(groupid) == int: 
+                g = groups[groupid]
+            elif type(groupid) == str: 
+                g = groups[self.groups[groupid]]
+            else:
+                g = groups[0]
+
+
+            self.groupname = g[0]
+            g = g[1]
+            self.wall= g.attrs['wall']
+
+
 
 
             if True: # spec MUST always be included...
                 #'spec' in selection:
-                shead = g.attrs['spechead'].split(',')
+                shead = g.attrs['spechead'].decode("utf-8").split(',')
                 spec = dd.from_array(g.get('spec')[:,:],chunksize=50000, columns = shead)
                 self.timesteps = spec['TIME'].compute().astype('M8[s]')
 
@@ -103,15 +133,15 @@ class new():
                 self.M =  spec.M.mean()
                 self.spec = spec/self.M
 
-                fhead = g.attrs['fluxhead'].split(',')
+                fhead = g.attrs['fluxhead'].decode("utf-8").split(',')
 
 
 
 
             if 'rate' in selection:
-                rhead = g.attrs['ratehead'].split(',')
+                rhead = g.attrs['ratehead'].decode("utf-8").split(',')
                 if len(rhead) != len(set(rhead)):
-                    print 'Duplicates detected, please parse mecnahisms in future to prevent this'
+                    print ('Duplicates detected, please parse mecnahisms in future to prevent this')
                     rate = pd.DataFrame(g.get('rate')[:,:],columns=rhead)
                     rate = rate.groupby(rate.columns, axis=1).sum()
 
@@ -142,7 +172,7 @@ class new():
 
 
             if 'vdot' in selection:
-                vhead = g.attrs['vdothead'].split(',')
+                vhead = g.attrs['vdothead'].decode("utf-8").split(',')
                 vdot = dd.from_array(g.get('vdot')[:,:],chunksize=50000, columns = vhead)
                 #vdot*=-1 # convert such that -ve values suggest flux leaving the species.
                 vdot['TIME'] = self.timesteps
@@ -150,7 +180,7 @@ class new():
 
 
             if 'jacsp' in selection:
-                jhead = g.attrs['jacsphead'].split(',')
+                jhead = g.attrs['jacsphead'].decode("utf-8").split(',')
                 jacsp = dd.from_array(g.get('jacsp')[:,:],chunksize=50000, columns = jhead)
                 jacsp['TIME'] = self.timesteps
                 self.jacsp=jacsp.set_index('TIME', sorted=True)
@@ -166,13 +196,70 @@ class new():
 
                 self.prodloss = {k: {'loss':[],'prod':[]} for k in shead}
                 ### reaction prodloss arrays
-                for idx in xrange(len(self.reactants)):
+                for idx in range(len(self.reactants)):
                     for i in self.reactants[idx]:
                         try:self.prodloss[i]['loss'].append(idx)
                         except:None
                     for i in self.products[idx]:
                         try:self.prodloss[i]['prod'].append(idx)
                         except:None
+
+
+    def inposjac(self,y):
+        return self.posjac[filter(lambda x: y in x, self.posjac.columns)]
+
+
+    def create_posjac(self):
+        '''
+        Replace our sparse jacobian with a positive variation (negative links are reversed)
+        Self reactions are removed and non existant species are removed.
+        
+        Args:
+            ignore - list of species to be ignored in posjac array (most commonly inorganics)
+        '''
+        print ('computing the posjac array')
+
+        try:
+            self.posjac
+            print ('Posjac already exists, use "del <name>.posjac" to remove it')
+             
+        except:None
+
+        #remove no existant species
+        #rm = re.compile(r'\b%s\b'%'|'.join(set('->'.join(self.jacsp.columns).split('->'))-set(self.spec.columns)))
+        #self.posjac = self.jacsp[filter(lambda x: not rm.search(x), self.jacsp.columns)]
+
+        #self reactions and negatives
+        
+        
+        contains = set(self.jacsp.columns)
+        selfself = set(('%s->%s'%(i,i) for i in self.spec.columns))
+
+        rxns = list(set(self.jacsp.columns) - selfself)
+        
+        self.posjac = dd.compute(self.jacsp[rxns])[0]
+
+        rev = re.compile(r'(.+)->(.+)')
+        #for each negative reaction
+        for h in rxns:
+            #our column 
+            dummy = self.posjac[h]
+            #save static positive values - unchanged
+            self.posjac[h] = dummy*(dummy>0).astype(float)
+            
+            #negative (reverse ) values only
+            lt = dummy<0
+            mx = np.array(dummy*(-lt.astype(float)))
+            
+            #reverse link
+            hp = rev.sub(r'\2->\1',h)
+            try:self.posjac[hp] = self.posjac[hp] + mx
+            except:self.posjac[hp] = mx
+
+        #remove emptys
+        self.posjac = self.posjac[self.posjac.columns[(self.posjac!=0).sum().astype(bool)]]
+
+
 
 
     def rm_spinup(self):
@@ -183,38 +270,33 @@ class new():
         self.ts = np.array(self.timesteps)
         for d in self.selection:
             setattr(self,d, getattr (self,d).loc[self.ts,:])
+        self.timesteps = self.timesteps.reset_index()['TIME']
 
-
-    def jratio(self,row,column,log = True,signs = True):
+    def jratio(self,row,column,log = True,all = False):
         '''
         Find the ratio contribution of a species using the jacobian.
         source = column
         target = row (produced)
+
+        log - takes the natural log
+        all - returns the complete dataframe for production of target(row)
         '''
-        if row == column:
-            print 'same spec, skipping'
-            return False
+        if row == column:return False
+        if not hasattr(self, 'posjac'):self.create_posjac()
 
         def inc(x):
              x = x.split('->')
              return x[1] == row and x[0] != row
 
-        jh = filter(inc, self.jacsp.columns )
-        data = self.jacsp[jh].astype(float)
-        data = np.abs(data[:])
-        if log:
-            data += 1
-            data = np.log(data)
-
-
+        jh = filter(inc, self.posjac.columns )
+        data = self.posjac[jh].astype(float)
+        if log:data = np.log(data)
+        if all:return data
         by = '%s->%s'%(column,row)
-        try:
-            dummy = self.jacsp[by]
-            if signs: signs = np.sign(dummy)
-            else: signs = 1
-        except: return False
 
-        return data[by].divide(data.sum(axis=1)).replace([np.inf, -np.inf], 0)
+        try:return data[by].divide(data.sum(axis=1)).replace([np.inf, -np.inf], 0)
+        except Exception as e:return False
+
 
 
     def plot (self, what, dataframe = 'spec',vbar=True ):
@@ -224,6 +306,7 @@ class new():
         dataframe - spec, rate, vdot, jacsp, flux (str)
         vbar - spinup bar
         '''
+        import matplotlib.pyplot as plt
         df = pd.DataFrame((getattr (self,dataframe)[what]).compute()).plot()
         if vbar:
             plt.axvline(x=self.spinup,color='grey', ls='--')
@@ -245,7 +328,7 @@ class new():
         '''
         Create a ropa timeseries
         '''
-
+        import matplotlib.pyplot as plt
         pr = self.prod(spec)
         ls = self.loss(spec)
 
@@ -303,7 +386,7 @@ class new():
             ax.ticklabel_format(style='sci', axis='y', scilimits=(-2,2))
 
             plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.001)
-
+            plt.show()
             if save:
                 fig.savefig(save)
         return {'prod':prod,'loss':loss}
@@ -353,7 +436,7 @@ class new():
         try:self.closehf()
         except: None
         dill.dump(self,open(location+name,'wb'))
-        print 'saved'
+        print ('saved')
 
 
 #############################################################
@@ -380,181 +463,140 @@ def group_hour(df,fn = np.mean,diurnal = False):
             df = df.groupby(['hour']).agg(fn)
         return df
 
-def connectivity(self,groups,ignore = inorganics,plot = False):
+def connectivity(self,groups,ignore = [''],plot = False):
     '''
     custom implementation of the connectivity method
     self = dsmacc.new class object
-    groups - list of important species
+    groups - a python list of important species
 
     todict = dict(connectivity(...))
     '''
 
     assert isinstance(groups,list), 'groups should be a list, eg ["O3",...]'
+    if not hasattr(self, 'posjac'):self.create_posjac()
 
-    def contribution(i,self,groups):
-        counter = 1
-        for j in groups:
-                try:
-                    total += self.jratio(j,i,signs=False)
-                    counter +=1
+    match = re.compile(r'->(%s)\b'%('|'.join(groups)))
+    denominator = set(filter(lambda x: match.search(x),self.posjac.columns))
+    names = set(re.findall(r'\b([\w\d]+)->',' '.join(denominator)))
+    numerator = set(['%s->%s'%(i,j) for i in names for j in groups]) & denominator
 
-                except: total = self.jratio(j,i,signs=False)
+    #print (numerator, denominator,names)
 
-        try: return [i,total.divide(counter)]
-        except:return [i,False]
+    denom_sum = self.posjac[list(denominator)].sum(axis=1)
 
+    pdiff = self.posjac[list(numerator)].divide(denom_sum,axis = 0)
+    pdiff.columns = [i.split('->')[0] for i in pdiff.columns]
 
-    rt = [contribution(k,self,groups) for k in set(self.vdot.columns)^set(ignore)]
-
-    print rt
-    rt = filter(lambda x: type(x[1])!=bool, rt)
+    return pdiff.groupby(pdiff.columns, axis=1).sum()
 
 
 
-
-    df = pd.concat((i[1] for i in rt), axis=1)
-    df.columns =  (i[0] for i in rt)
-
-    if plot:
-        np.abs(df).plot(kind='area')
+def jac_it(self,ts,begin = inorganics):
 
 
-    return df
+    self.create_posjac()
+    begin = set(begin)
+    addspecs = []
 
 
+    for it in range(6):
 
 
-
-def mechcomp(mechs,what='spec',n_subplot = 4):
-        '''Compare PDF diagnostic for two differnt runs/mechanisms'''
-        if type(mechs) != type([]):mechs = [mechs]
-
-        print 'creating a comparison pdf of '+what
-        from matplotlib.backends.backend_pdf import PdfPages
-        from matplotlib.pyplot import tick_params,setp,tight_layout,ylabel,xlabel,savefig,close
-        import progressbar
-
-        bar = progressbar.ProgressBar()
-
-        linestyles = ['-', ':', '--', '-.']
-        data = []
-        for i in mechs:
-            exec('data.append(i.%s.compute())'%what)
-
-        #data.sort_index(axis=1,inplace=True)# arrange alphabetically
-        crossover = set(data[0])
-        for i in data[1:]:
-            crossover = crossover & set(list(i.columns))
-        crossover = sorted(list(set(crossover)))
-        print crossover,data
-
-        pp = PdfPages('compare_%s.pdf'%('_'.join([i.groupname for i in mechs])))
-
-        for i in bar(xrange(0, len(crossover), n_subplot+1)):
-            spselect = crossover[i:i+n_subplot]
-
-            Axes = data[0][spselect].plot(subplots=True)
-            for l,d in enumerate(data[1:]):
-                d[spselect].plot(ax = Axes,linestyle = linestyles[-1*(l+1)],alpha =.8 , subplots=True)
-
-            tick_params(labelsize=6)
-
-            #y ticklabels
-            [setp(item.yaxis.get_majorticklabels(), 'size', 7) for item in Axes.ravel()]
-            #x ticklabels
-            [setp(item.xaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
-            #y labels
-            [setp(item.yaxis.get_label(), 'size', 10) for item in Axes.ravel()]
-            #x labels
-            [setp(item.xaxis.get_label(), 'size', 10) for item in Axes.ravel()]
-
-            tight_layout()
-            ylabel('mix ratio')
-
-            #plt.locator_params(axis='y',nbins=2)
-
-            savefig(pp, format='pdf')
-            close('all')
-
-        pp.close()
-        print 'PDF out'
-        close('all')
-
-
-
-def pdiff(base,lump,what='spec',n_subplot = 4):
+        g = np.log10(connectivity(a,list(begin)).loc[ts,:]).replace([np.inf,-np.inf],np.nan).dropna().sort_values(ascending=False)
         '''
-        Calculate the percentage difference between two returns
+        detector = pydetect.MeanDetector()
+        cpt = detector.detect(g)
+
+        for j,i in enumerate(cpt):
+            if i:break
+
+        addspecs = cpt.index[:j]
+
+        print addspecs
         '''
-        print 'creating a comparison pdf of '+what
-        from matplotlib.backends.backend_pdf import PdfPages
-        from matplotlib.pyplot import tick_params,setp,tight_layout,ylabel,xlabel,savefig,close
-        import progressbar
 
-        bar = progressbar.ProgressBar()
 
-        linestyles = ['-', ':', '--', '-.']
-        data = []
-        for i in [base,lump]:
-            exec('data.append(i.%s.compute())'%what)
+        lim = g[[i not in begin for i in g.index]].quantile(q=0.95, interpolation='nearest')
+        new = set(g.index[g>lim].values)
+        print (it, new-begin)
+        begin = begin | new
 
-        crossover = set(data[0])
-        crossover = crossover & set(list(data[1].columns))
-        crossover = sorted(list(set(crossover)))
-        print crossover,data
+        addspecs.append(normalise(g[list(begin)]).to_json())
 
-        pp = PdfPages('pdiff_%s.pdf'%('_'.join([i.groupname for i in [base,lump]])))
 
-        for i in bar(xrange(0, len(crossover), n_subplot+1)):
-            spselect = crossover[i:i+n_subplot]
 
-            df = 100*(data[1][spselect]/data[0][spselect])
-            Axes = df.plot(subplots=True)
+    with open('connectivity.json','w') as f:
+        for i,j in enumerate(addspecs):
+            f.write('conn_%d = %s;\n'%(i,j))
 
-            tick_params(labelsize=6)
+    G = jgraph(self.posjac.loc[ts])
 
-            #y ticklabels
-            [setp(item.yaxis.get_majorticklabels(), 'size', 7) for item in Axes.ravel()]
-            #x ticklabels
-            [setp(item.xaxis.get_majorticklabels(), 'size', 5) for item in Axes.ravel()]
-            #y labels
-            [setp(item.yaxis.get_label(), 'size', 10) for item in Axes.ravel()]
-            #x labels
-            [setp(item.xaxis.get_label(), 'size', 10) for item in Axes.ravel()]
+    with open('ch2.js','w') as f:
+        vd = normalise(np.log10(a.vdot.compute().loc[ts,:]))
+        print vd
+        f.write('vdot = %s;\n'%(vd.to_json()))
 
-            tight_layout()
-            ylabel('mix ratio')
-            #plt.locator_params(axis='y',nbins=2)
-            savefig(pp, format='pdf')
-            close('all')
+        pr = normalise(pd.Series(nx.pagerank(G, alpha=0.85, personalization=None, max_iter=100, tol=1e-06, nstart=None, weight='weight', dangling=None)))
+        f.write('pagerank = %s;\n'%(pr.to_json()))
+        print pr
 
-        pp.close()
-        print 'PDF out'
-        close('all')
+        cl = normalise(pd.Series(nx.closeness_centrality(G, u=None, distance='weight')))
+        f.write('closeness = %s;\n'%(cl.to_json()))
+        print cl
+
+        bt = pd.Series(nx.betweenness_centrality(G, k=None, normalized=True, weight='weight', endpoints=False, seed=1))
+        f.write('between = %s;\n'%(bt.to_json()))
+        print bt
+
+    return addspecs,g
 
 
 
 
 
-def lumpdiagnostics(original,lumped,filename= 'lump.mech'):
-    exec(''.join(tuple(open(filename))).replace('\n',';\n'))
-    ts=original.ts
-    #lumplist, lumpcoeff
-    print len(lumplist)
-    for i,lump in enumerate(lumplist):
-         ax = original.spec.loc[ts,lump].compute().plot.area(alpha=0.2)
-         lumped.spec.loc[ts,'LMP%d'%(i+1)].compute().plot(ax = ax,c= 'blue',style='^-')
-         print i+1,lumped.spec.loc[ts,'LMP%d'%(i+1)].compute().mean(), original.spec.loc[ts,lump].compute().mean().sum()
 
-         breakme = raw_input('enter for next')
-         if breakme=='break':break
-         plt.clf()
+
+
+
+
+
+
+
+
+def change_point(connect_df,pen = None,epsilon=None,nbkp=1):
+    '''
+    Change point analysis for either the connectivity method or graph metrics
+
+least sq - l1 l2
+rbf radial basis functions
+
+    a.create_posjac()
+    t = connectivity(a,inorganics,plot=2)
+    r= np.log10(t[t.sum().sort_values(ascending = False).index])
+
+
+ change_point(np.array(r).T[:,::50])
+
+    '''
+    import ruptures as rpt
+    import matplotlib.pyplot as plt
+    print('calculating change points')
+    # detection
+    signal = np.array(connect_df)
+    algo = rpt.Binseg(model='rbf').fit(signal)#rpt.Binseg(model='l2', custom_cost=None, min_size=1, jump=1, params=None).fit(signal)
+    result = algo.fit_predict(signal, n_bkps=nbkp)
+    print (result)
+    #algo.predict(pen=pen)
+
+    # display
+    rpt.display(signal, result, np.array(result)/2)
+    plt.show()
+
+
 
 def days_spinup(self):
     ''' print the number of days taken to spinup the model'''
     d = self.spinup - self.ts[0]
-    d /= np.timedelta64(1, 'D')
-    print 'We spunup for %d days.'%d
     return d
 
 #All groups
@@ -569,10 +611,65 @@ def plotall(self,spec):
     return pd.DataFrame(data).T.plot()
 
 
+def error_graph (base, reduced, lumped = 'mechanisms/lumped_formatted_CRI_FULL_2.2_inorganics_True.kpp'):
+    import re
+    base = base.jacsp.compute()
+    reduced = reduced.jacsp.compute()
+    
+    header = base.columns
+    lumped = open(lumped).readlines()
+    lumped = re.findall(r'(LMP\d+): ([\w,]+)',''.join(lumped))
+    
+    for n,l in lumped:
+        
+        sub = re.compile(r'\b(%s)\b'%(l.replace(',','|')))
+        header = [sub.sub(n, x) for x in header] 
+        print l , header,l
+
+
+    base.columns=header
+    base = base.groupby(by=base.columns,axis=1).agg(np.sum)
+    
+    keep = set(base.columns) & set(reduced.columns)
+    discard = set(base.columns) ^ set(reduced.columns)
+    
+    print( 'Ignoring:' ,discard)
+    
+    res = np.log10(reduced[keep]).divide(np.log10(base[keep]),axis=1)
+    
+
+    return res
+
+
+def undirect(jsp):
+    '''
+    Remove directional links between species by finding the net weight of the jacobian
+    '''
+    
+    dct={}
+    specs = jsp.spec.columns
+    for i in specs:
+        for j in specs:
+            total = []
+            n = list(set([i,j]))
+            
+            try: total.append(jsp['%s->%s'%(n[0],n[1])])
+            except:None
+            try: total.append(-1*jsp['%s->%s'%(n[0],n[1])])
+            except:None
+            
+            if len(total) >0 and i != j:
+                dct['->'.join(n)] = sum(total).compute()
+    
+    return dct
+
+
 
 ''' ondefault run, not import - testing mostly'''
 if __name__ == "__main__":
-    a=new('ethane.h5')
+    #a=new('ethane.h5')
+    #a.rm_spinup()
+    #connectivity(a,['O3'])
     q =3
-    #a = new('BaseRun_init_0406.h5')
-    #a.ropa('HONO')
+    #  python -c "from zhdf import *;a=new('ethane.h5');a.plot('O3')"
+    # k && python -m dsmacc.run -s -c -r && python -c "from zhdf import *;a=new('ethane.h5');a.plot('O3')"
