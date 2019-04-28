@@ -1,0 +1,271 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>dsmacc.parsekpp.reformat &#8212; dsmacc-python 1.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for dsmacc.parsekpp.reformat</h1><div class="highlight"><pre>
+<span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;reformat&quot;</span>
+<span class="kn">from</span> <span class="nn">..helperscripts</span> <span class="k">import</span> <span class="n">picker</span>
+<span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">os</span><span class="o">,</span><span class="nn">re</span><span class="o">,</span><span class="nn">pathos</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">N</span>
+
+<div class="viewcode-block" id="iseqn"><a class="viewcode-back" href="../../../source/dsmacc.parsekpp.html#dsmacc.parsekpp.reformat.iseqn">[docs]</a><span class="k">def</span> <span class="nf">iseqn</span> <span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#find equations</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\{[\. \s\d]*\}&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)):</span> 
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="pool_eqn"><a class="viewcode-back" href="../../../source/dsmacc.parsekpp.html#dsmacc.parsekpp.reformat.pool_eqn">[docs]</a><span class="k">def</span> <span class="nf">pool_eqn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#sort the reactions</span>
+    <span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">co2</span><span class="p">:</span>
+        <span class="n">cdiff</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">smiles</span><span class="p">[</span><span class="n">nocoeff</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">p</span><span class="p">])</span><span class="o">-</span><span class="nb">sum</span><span class="p">([</span><span class="n">smiles</span><span class="p">[</span><span class="n">nocoeff</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">cdiff</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;CO2&#39;</span><span class="p">]</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">cdiff</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="n">p</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;CO2&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cdiff</span><span class="p">)</span>
+        
+    
+    <span class="n">p</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">+</span><span class="s1">&#39;=&#39;</span><span class="o">+</span><span class="n">p</span>
+    <span class="c1">#replace D and exp for sympy  re.sub(r&#39;(\d)[dD]([+-\.\d])&#39;,r&#39;\1e\2&#39;,  x[1].split(&#39;//&#39;)[0].replace(&#39;EXP&#39;,&#39;exp&#39;)</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;//&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="reformat_kpp"><a class="viewcode-back" href="../../../source/dsmacc.parsekpp.html#dsmacc.parsekpp.reformat.reformat_kpp">[docs]</a><span class="k">def</span> <span class="nf">reformat_kpp</span><span class="p">(</span><span class="n">inorganics</span><span class="p">,</span><span class="n">depos</span><span class="p">,</span><span class="n">available_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">co2</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">decayrate</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mf">24.</span><span class="o">*</span><span class="mf">60.</span><span class="o">*</span><span class="mf">60.</span><span class="p">))):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    co2 - adds co2 to MCM</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    
+    <span class="n">file_list</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">Picker</span><span class="p">(</span><span class="s1">&#39;mechanisms/*.kpp&#39;</span><span class="p">,</span><span class="n">remove</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mechanisms/&#39;</span><span class="p">,</span><span class="s1">&#39;.kpp&#39;</span><span class="p">],</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Select Mechanisms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getSelected</span><span class="p">()</span>
+    
+    
+    <span class="k">if</span> <span class="n">co2</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="s1">&#39;edit co2 path&#39;</span>
+        <span class="n">smilesdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../src/background/smiles_mined.csv&#39;</span><span class="p">)</span>
+        <span class="n">smiles</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">smilesdf</span><span class="o">.</span><span class="n">smiles</span><span class="p">)</span>
+        <span class="n">smiles</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">smilesdf</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">smiles</span><span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;C&#39;</span>
+        <span class="n">smiles</span><span class="p">[</span><span class="s1">&#39;CO2&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;C&#39;</span>
+        <span class="n">smiles</span><span class="p">[</span><span class="s1">&#39;DUMMY&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+        <span class="n">smiles</span><span class="p">[</span><span class="s1">&#39;NA&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+        <span class="n">smiles</span> <span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">smiles</span><span class="o">.</span><span class="n">index</span><span class="p">,[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">smiles</span><span class="p">]))</span>
+        
+    
+    <span class="n">file_text</span> <span class="o">=</span> <span class="p">[</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mechanisms/</span><span class="si">%s</span><span class="s1">.kpp&#39;</span><span class="o">%</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">inorganics</span><span class="p">:</span> 
+        <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;inorganics&#39;</span><span class="p">)</span>
+        <span class="n">file_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;src/background/inorganic_mcm.kpp&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+
+    <span class="k">if</span> <span class="n">file_list</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;inorganics&#39;</span><span class="p">]:</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;You forgot to enter a file to reformat&#39;</span><span class="p">)</span>
+
+    <span class="n">fullstr</span><span class="o">=</span><span class="s1">&#39;~&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_text</span><span class="p">)</span>
+    
+    
+    
+    <span class="n">inline</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\n\b\s]#inline.+?#endinline&#39;</span><span class="p">,</span><span class="n">fullstr</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span>
+
+    <span class="n">minfull</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39; |\n|\t|\s|\r&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">fullstr</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    
+
+    
+    <span class="n">eqn</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^/]</span><span class="si">{2}</span><span class="s1">\s*\{[\.\W\s\d]*?\}([^;]+)&#39;</span> <span class="p">,</span><span class="s1">&#39;   &#39;</span><span class="o">+</span><span class="n">minfull</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="p">)]</span>
+    
+    
+    <span class="n">nocoeff</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\d*\.*\d*([\W\d\w]+)\b&#39;</span><span class="p">)</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">co2</span><span class="p">:</span><span class="n">specs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CO2&#39;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eqn</span><span class="p">:</span><span class="n">specs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\w&#39;]+&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        
+    <span class="n">specs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">((</span><span class="n">nocoeff</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">)))</span>
+    <span class="n">specs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    
+    
+    <span class="k">if</span> <span class="n">depos</span><span class="p">:</span> 
+        <span class="n">decayrate</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%.4e</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">decayrate</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+            <span class="n">eqn</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39; = DUMMY&#39;</span><span class="p">,</span><span class="n">decayrate</span><span class="p">])</span>
+            
+    <span class="c1">#replace RO2str</span>
+    <span class="n">ro2str</span> <span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">RO2 = C(ind_&#39;</span><span class="o">+</span> <span class="s1">&#39;) + C(ind_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;ind_([\W\d\w]+?\b)&#39;</span><span class="p">,</span><span class="n">minfull</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;)&#39;</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inline</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="s1">&#39;RO2 =&#39;</span> <span class="ow">in</span> <span class="n">inline</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="c1">#re.match(r&#39;\bRO2 *=&#39;,inline[i]):</span>
+            <span class="n">inline</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;RO2\s*=[\s&amp;.\w\W]+C\(\s*ind_.+\)&#39;</span><span class="p">,</span><span class="n">ro2str</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">inline</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+            
+    
+    
+
+    <span class="n">tofile</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;// reformatted by reformat.py&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;// contact: daniel.ellis.research@googlemail.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;// filedata: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="s1">&#39; + &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_list</span><span class="p">)),</span>
+    <span class="s1">&#39;// </span><span class="si">%s</span><span class="s1"> species  </span><span class="si">%s</span><span class="s1"> reactions&#39;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">specs</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">eqn</span><span class="p">)),</span>
+    <span class="s1">&#39;// Constant DEPOS = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">depos</span><span class="p">,</span>
+    <span class="s1">&#39; &#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#INCLUDE atoms&#39;</span><span class="p">,</span>
+    <span class="s1">&#39; &#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#DEFVAR&#39;</span>
+    <span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;DUMMY&#39;</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">tofile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39; = IGNORE;&#39;</span><span class="p">)</span>
+        
+    <span class="n">tofile</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;#EQUATIONS&#39;</span><span class="p">])</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">eqn</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;=&#39;</span><span class="p">:</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="s1">&#39;DUMMY&#39;</span>
+        <span class="n">tofile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s1">&#39;{</span><span class="si">%04d</span><span class="s1">} </span><span class="si">%s</span><span class="s1"> : </span><span class="si">%s</span><span class="s1">;&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
+        
+    <span class="n">tofile</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;// inlineFNs&#39;</span><span class="p">])</span>
+    
+
+        
+    
+    <span class="n">ic_file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\.\./InitCons/|\.csv|\.\./src/background&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_list</span><span class="p">))</span>
+
+    <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(.{1,75}[\s\n ])&quot;</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span><span class="c1"># 75 char per line</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;mechanisms/formatted_&quot;</span><span class="o">+</span><span class="n">ic_file</span><span class="o">+</span><span class="s1">&#39;_</span><span class="si">%s</span><span class="s1">.kpp&#39;</span><span class="o">%</span><span class="n">depos</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">tofile</span><span class="p">:</span>
+            
+            
+            <span class="c1">#split into kpp happy lengths</span>
+            <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="p">:</span>
+                
+                
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;\s*//.*&#39;</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">//&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">split</span><span class="p">)</span>  <span class="p">)</span>
+                <span class="k">else</span> <span class="p">:</span> 
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">split</span><span class="p">)</span> <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">l</span><span class="p">)</span>  
+                
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inline</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+                <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="p">:</span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&amp;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">split</span><span class="p">)</span> <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">l</span><span class="p">)</span>                  
+                        
+        
+
+
+    <span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> formatted_&quot;</span><span class="o">+</span><span class="n">ic_file</span><span class="o">+</span><span class="s1">&#39; written&#39;</span></div>
+        
+        
+        
+    
+    
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="s1">&#39;lets go - quickstart with inorganics and depos&#39;</span>
+    <span class="n">reformat_kpp</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">dsmacc-python</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../parsekpp.html">dsmacc.parsekpp</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Daniel Ellis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,52 @@
+# Wavelength- and temperature-dependent absorption cross sections for OCS
+# reccommended by JPL No. 18.
+# J. B. Burkholder, S. P. Sander, J. Abbatt, J. R. Barker, R. E. Huie, C. E. Kolb,
+# M. J. Kurylo, V. L. Orkin, D. M. Wilmouth, and P. H. Wine
+# "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies,
+# Evaluation No. 18," JPL Publication 15-10, Jet Propulsion Laboratory, Pasadena, 2015
+# http://jpldataeval.jpl.nasa.gov.
+#
+# QY = 1 (JPL recommended for λ 220 ... 250nm)
+#
+# λ/nm    σ(295) / cm-2   σ(225) / cm-2
+  186.1  18.9            13.0
+  187.8   8.33            5.63
+  189.6   3.75            2.50
+  191.4   2.21            1.61
+  193.2   1.79            1.53
+  195.1   1.94            1.84
+  197.0   2.48            2.44
+  199.0   3.30            3.30
+  201.0   4.48            4.50
+  203.1   6.12            6.17
+  205.1   8.19            8.27
+  207.3  10.8            10.9
+  209.4  14.1            14.2
+  211.6  17.6            17.6
+  213.9  21.8            21.8
+  216.2  25.5            25.3
+  218.6  28.2            27.7
+  221.5  30.5            29.4
+  223.5  31.9            29.5
+  226.0  30.2            27.4
+  228.6  26.8            23.7
+  231.2  22.1            18.8
+  233.9  17.1            14.0
+  236.7  12.5             9.72
+  239.5   8.54            6.24
+  242.5   5.61            3.89
+  245.4   3.51            2.29
+  248.5   2.11            1.29
+  251.6   1.21            0.679
+  254.6   0.674           0.353
+  258.1   0.361           0.178
+  261.4   0.193           0.090
+  264.9   0.0941          0.0419
+  268.5   0.0486          0.0199
+  272.1   0.0248          0.0101
+  275.9   0.0119          0.0048
+  279.7   0.0584          0.0021
+  283.7   0.0264          0.0009
+  287.8   0.0012          0.0005
+  292.0   0.0005          0.0002
+  296.3   0.0002          0.0000

@@ -8,83 +8,74 @@ if (obs>0) then
     print*,achar(27)//'[91m Using observations! '//achar(27)//'[97m'
 end if
 
-!print*, spcf(:,1)!dayslice
 
 
+    !open the init cons file.
+    open(UNIT=21,FILE='Init_cons.dat')
+    READ(21,'(i10)') IntTime
+    ! check if a special run has been selected.
+    if (INTTIME .LE. 0) then
+        print *, 'You spin me right round, like a spinup baby, woohoo!'
+        print*, 'Do not constrain NOX when at ss'
+        INTTIME = abs(INTTIME)+DAY 
+        CONSTRAIN_RUN=.TRUE.
+        SPINUP = 0!24*60*60*2 
+        !SAVE_LEGACY= .TRUE.
+
+        WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
+
+        !flag
+        if (INTTIME .EQ. -1) then
+        !    INTTIME=int(4380*24.*60.*60.)
+        !    OUTPUT_LAST=.FALSE.
+
+        !else if (INTTIME .EQ. -2) then
+        !    INTTIME=int(50*24.*60.*60.)
+        !   OUTPUT_LAST=.TRUE.
 
 
-!open the init cons file.
-open(UNIT=21,FILE='Init_cons.dat')
-READ(21,'(i10)') IntTime
-! check if a special run has been selected.
-if (INTTIME .LE. 0)  then
-    CONSTRAIN_RUN=.TRUE.
-    print*, 'reverting to legacy output.'
-    SAVE_LEGACY= .TRUE.
+        else
+          
+           
+            !WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
+            !&But not a special case'
+            !STOP
+        endif
 
-    WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
-
-    if (INTTIME .EQ. -1) then
-        INTTIME=int(4380*24.*60.*60.)
-        OUTPUT_LAST=.FALSE.
-
-
-    else if (INTTIME .EQ. -2) then
-        INTTIME=int(50*24.*60.*60.)
-        OUTPUT_LAST=.TRUE.
-
-
-    else
-        WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-        &But not a special case'
-        STOP
     endif
 
+    READ(21,'(*(a15,x))') spec_name
+    READ(21,'(*(i15,x))') const_method
 
-endif
+    !print*, 'if -checks all this is an incorrect conversion'
 
-runtimestep=int(Inttime / dt) !used for netcdf
+    if (line .gt. 0 ) then !skip lines
+        do 133 i = 0,(line-1)
+        133 read(21,*)
+    end if
 
+    !get required concentrations
+    READ (21,'(*(e15.4,x))') concs
+     close(21)
 
-!read species and concentrations
-!number of read == 10000
-
-
-READ(21,'(*(a15,x))') spec_name
-READ(21,'(*(i15,x))') const_method
-
-print*, 'if -checks all this is an incorrect conversion'
-
-if (line.gt.1) then !skip lines
-    do 133 i = 1,(line-1)
-    133 read(21,*)
-end if
-
-!get required concentrations
-READ (21,'(*(e15.4,x))') concs
- close(21)
-
-
-if (save_legacy) nc_set = 144 ! 1day
-if (nc_set .eq. 0)  nc_set = runtimestep
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!Variable Initialisation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-allocate(output_s(1:nc_set, Nspec+10))
-allocate(output_r(1:nc_set, Nreact+6))
-print*, 'rename ncset'
-allocate(s_names(Nspec+10))
-allocate(r_names(Nreact+6))
-output_s(:,:) = 0.
-output_r(:,:) = 0.
-call initVal(concs)!initialise values
+
+call initVal(concs,.TRUE.)!initialise values
+
 M   = CFACTOR
 O2 = 0.21 * CFACTOR
 N2 = 0.78 * CFACTOR
+
+floorjday = int(jday)*24*60*60
+
 tstart = (mod(jday,1.))*24.*60.*60. ! time start
-tstart = tstart+LON/360.*24.*60.*60.!conv 2 localtime
-tend = tstart + IntTime  !end time
-nc_counter=0
+tstart = tstart+LON/360.*24.*60.*60. + floorjday   !conv 2 localtime
+tend = tstart + IntTime !end time
+
+
+
 
 
 write (OUTPUT_UNIT,*) 'Initializing model ', line
@@ -171,11 +162,18 @@ full_counter=0
         open(RATE_UNIT, file=filename,action="write",form='unformatted')
         filename='./Outputs/'//trim(ln)//'.flux'
         open(FLUX_UNIT, file=filename,action="write",form='unformatted')
+        filename='./Outputs/'//trim(ln)//'.vdot'
+        open(VDOT_UNIT, file=filename,action="write",form='unformatted')
+        filename='./Outputs/'//trim(ln)//'.jacsp'
+        open(JACSP_UNIT, file=filename,action="write",form='unformatted')
 
-        write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
-        !write(RATE_UNIT)'TIME,LAT,LON,PRESS,TEMP,M', (','//trim(EQN_NAMES(I)),I=1,NREACT)
+        write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,JO1D,JNO2,M,RO2,J1,SPINUP', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         write(RATE_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT) !       (I)),I=1,NREACT)
         write(FLUX_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT )!,I=1,NREACT))
+        write(vdot_UNIT)'TIME',(','//trim(SPC_NAMES(I)),I=1,NSPEC)
+
+        write(jacsp_UNIT) ''
+
 
 
          !999 FORMAT(*(E24.16,"!"))

@@ -17,4 +17,15 @@ save/
 *.pkl
 *.mat
 *.h5
-
+*.npy
+*.gexf
+*.flux
+*.spec
+*.rate
+*.vdot
+*.jacsp
+del*
+*.pyc
+temp.txt
+percent.csv
+*.npy

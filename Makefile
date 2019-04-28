@@ -7,15 +7,15 @@
   # FSTD  ?= 1                  # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
-  
-	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
-	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -pg -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict -openmp #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
 
- export OMP_NUM_THREADS=4
+	#FC         = ifort  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff # mpifort #ifort
+	F90FLAGS   = -assume bscc -cpp -mcmodel large -O0 -fpp -pg -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict -openmp -qsmp #-fp-stack-check -check bounds -check arg_temp_created -check all #-warn all # -openmp
+
+export OMP_NUM_THREADS=4
 
 ##############################################################################
 
-#do not use -heap arrays in omp or parallel 
+#do not use -heap arrays in omp or parallel
 
 #colour
 black="\033[90m"
@@ -30,10 +30,11 @@ nocol="\033[0m"
 #################
 
 
-#yarcc: 
+#yarcc:
 #	echo 'running on YARCC'
 YARCC := $(module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174)
-
+KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01
+KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01
 
 
 PROG = model
@@ -47,7 +48,7 @@ OBJS1 := $(SRCS1:.f90=.o)
 OBJS2 := $(SRCS2:.f=.o)
 
 MAKEFILE_INC = depend.mk
-
+DSMACC_HOME := $(shell pwd)
 # If you don't have the perl script sfmakedepend, get it from:
 # http://www.arsc.edu/~kate/Perl
 F_makedepend = ./src/sfmakedepend --file=$(MAKEFILE_INC)
@@ -57,17 +58,17 @@ intel := $(shell command -v ifort 2> /dev/null)
  #-L/usr/local/netcdf-ifort/lib -I/usr/local/netcdf-ifort/include/ -lnetcdff #mpifort #ifort
  #-fp-stack-check -check bou    nds -check arg_temp_created -check all #-warn all # -openmp
 all: compiler $(PROG) # default make cmd !
-	
+
 	#ulimit -s unlimited #unlimit stack size
 
-compiler:	
+compiler:
 ifndef intel
 	@echo 'using gfortran'
 	$(eval export FC=gfortran)
 	$(eval export F90=gfortran)
 	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none )
 else
-	@echo 'using ifort'  
+	@echo 'using ifort'
 	$(eval export FC=ifort)
 	$(eval export F90=ifort)
 	$(eval export F90FLAGS   = -cpp -mcmodel large -O0 -fpp -traceback   -heap-arrays  -ftz -implicitnone -fp-model strict )
@@ -80,6 +81,7 @@ test:compiler
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
 $(PROG): depend $(OBJS1) $(OBJS2)
+	#@perl -p -i -e "s/SUBROUTINE Update_PHOTO.*END SUBROUTINE Update_PHOTO//g" model_Rates.f90;
 	@perl -p -i -e "s/\!\s*EQUIVALENCE/EQUIVALENCE/g" model_Global.f90;
 	@$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
 	@echo 'DSMACC is loaded and ready to go!'
@@ -136,44 +138,31 @@ new: distclean depend update_submodule tuv
 	@python -O -m py_compile AnalysisTools/explore_dsmacc.py
 	@mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
 	@echo 'All set up to begin.'
+run:
+	python -m dsmacc.run -c -r
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
-	touch model
+	touch model model.kpp
 	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
 	@echo $(KPP_PATH)
-	@rm model
-	cd $(KPP_PATH)/src && make > kpp.log
-	python src/background/makemodeldotkpp.py $(MODELKPP)
+	touch include.obs
+	@rm model model.kpp include.obs
+	touch include.obs
+	#cd $(KPP_PATH)/src && make > kpp.log
+	python -m dsmacc.parsekpp -m
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
+	sed -i '/END\sDO\sTimeLoop/a \\nWRITE (JACSP_UNIT) TIME, Jac0\nWRITE (FLUX_UNIT) time, A(:NREACT)\nWRITE (VDOT_UNIT) time, FCN !VDOT' model_Integrator.f90
+	sed -i '/END/b;/MODULE\smodel_Integrator/a \\nUSE model_Function, ONLY: Fun,A' model_Integrator.f90
+reformat:
+	python -m dsmacc.parsekpp.reformat
+editkpp:
+	echo $(DSMACC_HOME)/ && mech:=$(shell egrep -o 'mechanisms/.*\.kpp' $(DSMACC_HOME)/model.kpp) && mech:=$(shell egrep -o 'ver[^\n]' $(mech)) && echo $(mech) && sed -e s/Unknown/$(mech)/g model_Global.f90
 
 
-kppl: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
-	touch model
-	$(eval export KPP_PATH=$(shell pwd)/src/kpp/kpp-2.2.3_01)
-	$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
-	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
-	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
-	@echo $(KPP_PATH)
-	@rm model
-	cd $(KPP_PATH)/src && make
-	python src/background/makemodeldotkpp.py $(MODELKPP) -l
-	cp src/constants.f90 ./model_constants.f90
-	-$(KPP_PATH)/bin/kpp model.kpp
-
-
-kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
-	touch model
-	@rm model
-	cd src/kpp/kpp*/src && make
-	python src/background/makemodeldotkpp.py --custom
-	cp src/constants.f90 ./model_constants.f90
-	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
-	-echo 'now run make to compile'
-	
 ini: # generate kpp files with emission and deposition data
 	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
 	perl makeemiss.pl $(FKPP) $(FEMI) && cd ..
@@ -208,7 +197,7 @@ update_submodule: # print each make function in list!
 	git submodule update
 	#git submodule update --recursive --remote
 	#git submodule foreach git pull origin master
-
+	find . -exec chmod 0755 {} \;
 
 #save model for multi use -  make save name=<you@rmodelname>
 savemodel:
@@ -224,7 +213,7 @@ lsmodels:
 @rmmodel:
 	@rm -rf ./save/exec/$(name)
 
-#Does a git pull	
+#Does a git pull
 update:
 	git pull origin master
 

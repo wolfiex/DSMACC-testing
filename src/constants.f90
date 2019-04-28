@@ -6,7 +6,7 @@ MODULE constants
 
   INTEGER, PARAMETER :: mnsp=250, mre=2000
   INTEGER  :: i
-  real(dp):: DFRACT
+
   ! variables for zenith routine which calculates zenith angle
   REAL(dp) :: theta, secx, cosx
 ! generic reaction rate variables
@@ -25,12 +25,12 @@ MODULE constants
 ! - 7000 - 7999: Criegee intermediates
 ! - 8000 - 8100: Polyfunctional chromophores
 ! Old MCM labelling from the MCM website still available
-  REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)
+  REAL(dp) :: l(jmax), mm(jmax), nn(jmax), j(jmax)=0.
   REAL(dp) :: kalkpxy,kalkoxy
   INTEGER  :: k
 
 !remove these just for testing lumping
-real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff 
+real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff
 
 
 
@@ -50,16 +50,20 @@ CONTAINS
     INTEGER :: LK
     include './params'
 
+
+
 ! Time2 is local time in hours
+
     Time2=mod(Time/(60.*60.), 24.)
-   
-  
+
+
+
 
     IF (TIME2 .LT. 0) TIME2=TIME2+24.
     LAT2=LAT
 
     THETA=ZENANG(int(jday)+int((time-time2)/(60.*60.*24.)),Time2,LAT2)*180./PI
-    WRITE (OUTPUT_UNIT,*) jday, time, time2, theta
+    !WRITE (OUTPUT_UNIT,*) jday, time, time2, theta
 ! ************************************************************************
 ! define generic reaction rates.
 ! ************************************************************************
@@ -96,14 +100,16 @@ CONTAINS
         ENDDO
 
         SELECT CASE (TUVvers)
-         CASE(0)
-          INCLUDE './tuv_old/MCM3.inc'
+        ! CASE(0)
+         ! INCLUDE './tuv_old/MCM3.inc'
          CASE(1)
           INCLUDE './TUV_5.2.1/MCM331.inc'
          CASE(2)
           INCLUDE './TUV_5.2.1/MCM4.inc'
          CASE(3)
           INCLUDE './TUV_5.2.1/GC11.inc'
+         CASE(-1)
+            print *, 'I want to use Flexchem'
          CASE DEFAULT
           STOP "Select TUV case between 0 and 3."
         END SELECT
@@ -239,8 +245,7 @@ CONTAINS
 !  if  u .lt. x(1) then  i = 1  is used.
 !  if  u .ge. x(n) then  i = n  is used.
 !  input..
-!    n = the number of data points
-!    u = the abscissa at which the spline is to be evaluated
+!    n = the number of data points cissa at which the spline is to be evaluated
 !    x,y = the arrays of data abscissas and ordinates
 !    b,c,d = arrays of spline coefficients computed by spline
 !  if  u  is not in the same interval as the previous call, then a

@@ -1,0 +1,36 @@
+# Absorption cross sections for nitromethane measured by
+# V. McMillan, 1966, personal communication to J.G. Calvert, J.N. Pitts, Jr.,
+# Photochemistry, John Wiley & Sons, New York, 1966, p. 454
+# taken from the MPI-Mainz UV/VIS Spectral Atlas: http://satellite.mpic.de/spectral_atlas/
+# last checked: 14.09.2017
+#
+# λ / nm	σ / cm2
+205.0    1.72e-17
+210.0    1.34e-17
+215.0    7.65e-18
+220.0    3.44e-18
+225.0    1.53e-18
+230.0    3.82e-19
+235.0    3.82e-20
+240.0    1.34e-20
+242.5    1.22e-20
+245.0    1.28e-20
+250.0    1.76e-20
+255.0    2.26e-20
+260.0    2.68e-20
+265.0    3.06e-20
+270.0    3.33e-20
+275.0    3.40e-20
+280.0    3.25e-20
+282.5    2.98e-20
+285.0    2.87e-20
+290.0    2.37e-20
+295.0    1.91e-20
+300.0    1.49e-20
+305.0    1.22e-20
+310.0    9.56e-21
+315.0    7.65e-21
+320.0    6.12e-21
+325.0    4.78e-21
+330.0    3.82e-21
+335.0    3.06e-21

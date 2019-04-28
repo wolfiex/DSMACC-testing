@@ -1,0 +1,29 @@
+Description: Optional,Do not write time more than once.,,
+TUV version,0,0,TUV5.2.1
+Index,Species,Constrain,BaseRun
+ii,TIME,NA,518400
+ii,TEMP,0,298.0
+ii,LAT,0,39.904
+ii,LON,0,116.407
+ii,JDAY,0,160.5
+ii,H2O,0,0.01
+ii,ALBEDO,0,0.1
+ii,PRESS,0,1013.0
+ii,NOx,0,0
+ii,DEPOS,0,1
+ii,FEMISS,0,0
+1,O3,0,3.2e-08
+2,H2,1,5.31e-07
+3,NO2,0,2.5e-08
+4,XO3FT,1,3.0e-08
+5,BVOCFAC,1,1.0
+6,ANTHFAC,1,1.0
+7,NOXFAC,1,1.0
+8,COFAC,1,1.0
+9,LAROMF,1,1.0
+10,SAROMF,1,1.0
+11,ALKEFAC,1,1.0
+12,SAFAC,1,1.0
+14,CH4,0,0.0
+13,CH4FAC,1,1.0
+14,SPINUP,0,3.5

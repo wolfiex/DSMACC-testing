@@ -1,0 +1,25 @@
+name: dsmacc-env
+dependencies:
+  - python=2.7   # or 2.7
+  - pandas
+  - numpy
+  - dask
+  - networkx
+  - sympy
+  - hdf5
+  - time
+  - ipython
+  - dill
+  - progressbar
+  - ncurses
+  - scipy
+  - ipyreload
+  - matplotlib
+  - pip:
+    - pathos
+    - mpi4py
+    - h5py
+    - julia
+channels:
+  - wolfiex
+#julia -e 'Pkg.add("Blink")'

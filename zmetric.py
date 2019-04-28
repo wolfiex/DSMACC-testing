@@ -10,7 +10,7 @@ np.warnings.filterwarnings('ignore')
 
 
 
-a = new('BaseRun_init.h5')
+a = new('methane.h5')
 
 print 'read the file'
 
@@ -19,7 +19,7 @@ print 'read the file'
 what_specs  = np.array(list(set(a.spec.columns) & set([i.split(',')[1].strip() for i in tuple(open('carbons.csv'))])))
 
 #timestep index
-tsid = [45,117]
+tsid = range(1,145,6)#[45,117]
 
 tsps = a.ts[tsid]
 

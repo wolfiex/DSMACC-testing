@@ -12,7 +12,7 @@ import click
 
 inchis = re.compile(r'<span class="inchi">(.*)<') 
 smiles =  re.compile(r'<span class="smiles">(.*)<') 
-synonyms =  re.compile(r'<span>\n\t\s*([\w;\-\s]*);\n')
+synonyms =  re.compile(r'<span>\n\t\s*([\w;,\-\s]*);\n')
 
 global species
 species = re.findall(r'\b(\w*)\b = IGNORE',str(tuple(open('../../src/background/mcm331complete.kpp'))))
@@ -23,13 +23,20 @@ def mine (spec): #gets text from link source.
         st= urllib2.urlopen('http://mcm.leeds.ac.uk/MCM/browse.htt?species=%s'%spec).read()
         print 100*species.index(spec)/len(species),'% ' + spec
         #print spec
-        return [spec,smiles.findall(st)[0],inchis.findall(st)[0],';'.join(synonyms.findall(st))]    
+        return [spec,smiles.findall(st)[0],inchis.findall(st)[0],';'.join(synonyms.findall(st))]   
+         
     except Exception as e: 
-        print 'Failed on: ' + spec   , e  
-        return []
- 
+            try: 
+                st= urllib2.urlopen('http://mcm.leeds.ac.uk/MCM/browse.htt?species=%s'%spec).read()
+                print 100*species.index(spec)/len(species),'% ' + spec
+                #print spec
+                return [spec,smiles.findall(st)[0],inchis.findall(st)[0],';'.join(synonyms.findall(st))]   
+                 
+            except Exception as e: 
+                print 'Failed on: ' + spec   , e  
+                return []
 
-data = mp.Pool(30).map(mine, species)
+data = mp.Pool(6).map(mine, species)
 
 df = DataFrame(data,columns= ['name','smiles','inchi','synonyms'])
 

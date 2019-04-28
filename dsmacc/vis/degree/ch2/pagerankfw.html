@@ -1,0 +1,168 @@
+ <!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links path {
+  stroke: #222;
+  stroke-opacity: 1;
+  fill: none;
+  mix-blend-mode: multiply;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+</style>
+<svg width="800" height="600"></svg>
+<script type="text/javascript" src="../../../../degree.json"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="../functions.js"></script>
+<script src="https://cdn.rawgit.com/upphiminn/d3.ForceBundle/2b406b8567fcad0a6c2922c84cd4bceb0c374bc5/d3-ForceEdgeBundling.js"></script>
+<script>
+graph.nodes = graph.nodes.map((d,i)=>{d.index = d.id;d.name = ''+d.id; d.id = i; return d })
+
+
+var spec = 'C2H6';
+
+var dist = graph.nodes.filter(d=>d.index===spec)[0].ppr
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var cols = {'C3H8':d3.color('#D74E09').brighter(.5),'C2H6':d3.color('#F2BB05').brighter(.15),
+'CH4':d3.color('#F0F0C9').darker(.3),'HCHO':d3.color('#003459').darker(.3)}
+
+
+
+
+    
+dscale = d3.scaleLinear().domain(d3.extent(graph.nodes.map(d=>d.netdegree)))
+    
+    var linkclr = d3.interpolate( "#3864EB","#F6089E",)
+    
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(.30))
+    .force("charge", d3.forceManyBody().strength(-300))
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+  var links = svg.append("g")
+      .attr("class", "links")
+      //.attr('opacity',.3);
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("circle")
+    .data(graph.nodes)
+    .enter().append("circle")
+      .attr("r", d=> .8 + 20 * (dist[d.index])**.23)//dscale(d.netdegree))
+      .style("stroke-width", 2)
+      .attr("fill", '#2C3539')
+      .on('mouseover',d=> {console.log(d.name,d)})
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  node.append("title")
+      .text(function(d) { return d.id; });
+
+  var d3line = d3.line()
+      .x(function(d){return d.x;})
+      .y(function(d){return d.y;});
+
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  function ticked() {
+    node
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+
+    //Run FDEB on all the links
+    var fbundling = d3.ForceEdgeBundling()
+        .nodes(simulation.nodes())
+        .edges(simulation.force('link').links().map(function(edge) {
+            return {
+                source: simulation.nodes().indexOf(edge.source),
+                target: simulation.nodes().indexOf(edge.target)
+            }
+        }));
+
+    var link = links.selectAll('path')
+        .data(fbundling())
+        
+
+    link.exit().remove();
+    link.merge(link.enter().append('path'))
+        .attr('d', d3line)
+        
+        
+        //.style('stroke',(d,i)=>d3.color(linkclr(simulation.force('link').links()[i].weighted**2)).darker(3))
+        .style('stroke',cols[spec])
+        .style('stroke-width',(d,i)=>{
+
+        var r = 1.+
+        18*(
+            (Math.min(
+            parseFloat(dist[simulation.force('link').links()[i].source.name]),
+            parseFloat(dist[simulation.force('link').links()[i].target.name])
+        ))**.23   )
+    return r 
+})
+       
+.style('opacity',(d,i)=>{
+
+var r = 
+    0.5+.5*( (Math.abs(
+    parseFloat(dist[simulation.force('link').links()[i].source.name])+parseFloat(dist[simulation.force('link').links()[i].target.name])
+))
+)
+return r 
+});
+
+
+
+//𝓫
+  }
+
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+
+
+setTimeout(function(){
+    window.location.reload()
+}, 333 *1000);
+
+setTimeout(function(){
+    simulation.stop()
+    rescale(graph,30,700)
+//    msvg.innerHTML+= gcode
+//    document.getElementById('grid').setAttribute('transform','translate(90,90)')
+//    document.getElementById('grid').setAttribute('transform','translate(-90,-90)scale(1.25)')
+},18*1000);
+    
+
+</script>

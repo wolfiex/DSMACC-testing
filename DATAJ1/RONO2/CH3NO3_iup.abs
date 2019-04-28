@@ -1,0 +1,26 @@
+Absorption cross sections for CH3NO3 photolysis
+IUPAC preferred values taken from http://iupac.pole-ether.fr
+last checked: 03.12.2015; last update of data sheet: 16.5.2002
+
+λ/nm   σ(298) / cm2
+240    5.88e-20
+245    4.19e-20
+250    3.59e-20
+255    3.30e-20
+260    3.06e-20
+265    2.77e-20
+270    2.39e-20
+275    2.00e-20
+280    1.58e-20
+285    1.19e-20
+290    8.50e-21
+295    5.68e-21
+300    3.60e-21
+305    2.14e-21
+310    1.34e-21
+315    6.33e-22
+320    3.16e-22
+325    1.44e-22
+330    6.61e-23
+335    2.74e-23
+340    1.22e-23
