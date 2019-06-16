@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+.link {
+    stroke: #222;
+    stroke-opacity: 1;
+    fill: none;
+    mix-blend-mode: multiply;
+}
+
+svg{
+    /*filter:hue-rotate(200deg);*/
+}
+</style>
+
+<body onload='run()'>
+<svg width="800" height="800"></svg>
+<script type="text/javascript" src="../../../../difference.json"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="../functions.js"></script>
+
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+
+var linkcol; 
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+/*
+graph.nodes = graph.nodes.map(d=>{if (locs.get(d.id)){d.x = locs.get(d.id).x ; d.y = locs.get(d.id).y }; return d }).filter(d=> d.id)
+*/
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink())
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+simulation.alpha(1)
+//////////
+var n,nd,labels,x,y
+var grayscale=false
+
+var colorsy = d3.interpolateViridis//  d3.interpolate( "#3864EB","#F6089E")
+
+function run(){
+
+  var nodes = graph.nodes,
+      nodeById = d3.map(nodes, function(d,i) { d.index=i;return d.index; }),
+      links = merge_linkdir(graph.links),
+      bilinks = [],
+      linkcol = [];
+
+  links.forEach(function(link) {
+    var s = link.source = nodeById.get(link.source),
+        t = link.target = nodeById.get(link.target),
+        i = {}; // intermediate node
+    nodes.push(i);
+    links.push({source: s, target: i}, {source: i, target: t});
+    bilinks.push([s, i, t])
+    //console.log(link)
+    linkcol.push(link.weight)
+  });
+
+
+dscale = d3.scaleLinear().domain(d3.extent(graph.nodes.map(d=>Math.abs(d.concs))))
+bscale = d3.scaleLinear().domain(d3.extent(graph.nodes.map(d=>Math.abs(d.pr))))
+cscale = d3.scaleLinear().domain(d3.extent(linkcol)).range([1,0])
+//console.log(graph,bilinks,bilinks.length,graph.links.length)
+  var link = svg.selectAll(".link")
+    .data(bilinks)
+    .enter().append("path")
+      .attr("class", "link")
+     // .style('stroke',(d,i)=> grayscale?null: colorsy(1-cscale(linkcol[i])**8))
+      .style('stroke-width',(d,i)=> 1+ 2*cscale(linkcol[i]))
+.style('opacity',(d,i)=> 0.8*cscale(linkcol[i]) );
+
+  var node = svg.selectAll(".node")
+    .data(nodes.filter(d=>d.id))
+    .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", d=> 5 + 24 * (bscale(Math.abs(d.pr))**2))
+      
+      
+      .attr("fill", function(d) {
+           //return color([cscale(d.pr)**1,bscale(d.pr)**1])
+       return d3.interpolateSpectral(1-0.5+  Math.sign(d.concs) * 0.5*bscale(Math.abs(d.pr))**.2)
+       })
+       
+       
+       .attr("fill", function(d) {
+        return d3.interpolateViridis(1-bscale(Math.abs(d.pr))**.2)
+        })
+        
+        //.attr("fill", 'whitesmoke')
+         
+        
+      // .style('stroke',d=> d.concs<0? 'red':'#3487d5')
+       
+      .on('mouseover',d=>{console.log(d.id,d)})
+
+  node.append("title")
+      .text(function(d) { return d.name; });
+
+  simulation
+      .nodes(nodes)
+      .force("collide", d3.forceCollide().radius(function(d) { return 3 + 24 * dscale(d.netdegree); }).iterations(2))
+      .on("tick", ticked);
+
+  simulation.force("link")
+      .links(links);
+
+  function ticked() {
+    link.attr("d", positionLink);
+    node.attr("transform", positionNode);
+  }
+
+
+
+}
+
+
+
+function positionLink(d) {
+  return "M" + d[0].x + "," + d[0].y
+       + "S" + d[1].x + "," + d[1].y
+       + " " + d[2].x + "," + d[2].y;
+}
+
+function positionNode(d){
+  return "translate(" + d.x + "," + d.y + ")";
+}
+
+setTimeout(function(){
+    window.location.reload()
+}, 130 *1000);
+
+setTimeout(function(){
+    simulation.stop()
+    
+    rescale(graph,30,700)
+    
+    //msvg.innerHTML+= gcode
+    //document.getElementById('grid').setAttribute('transform','translate(90,90)')
+//    document.getElementById('grid').setAttribute('transform',`translate(-50,${height-60})scale(1.25)`)
+    
+}, 12*1000);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+// legend 
+
+colors= [
+      "#e7e7e7", "#ace4e4", "#5ac8c8",
+      "#dfb0d6", "#a5add3", "#5698b9", 
+      "#be64ac", "#8c62aa", "#3b4994"
+    ]
+
+
+    colors= [
+      "#e8e8e8", "#e4d9ac", "#c8b35a",
+      "#cbb8d7", "#c8ada0", "#af8e53",
+      "#9972af", "#976b82", "#804d36"
+  ].map(d=> d3.color(d).darker(.2).toString())
+    
+
+    labels = ["low", "", "high"]
+    n = Math.floor(Math.sqrt(colors.length))
+    nd = graph.nodes.filter(d=>d.index)
+
+    x = d3.scaleThreshold().domain([.33,.66]).range(d3.range(n))
+    y = d3.scaleThreshold().domain([.33,.66]).range(d3.range(n))
+
+
+
+
+color = function (value) {
+    if (!value) return "#ccc";
+    let [a, b] = value;
+    
+    //console.log(y(b),x(a),a,b)
+    return colors[y(b) + x(a) * n];
+
+}
+title=['Betweenness','Closeness']
+
+msvg = document.querySelector('svg')
+
+gcode = '<g font-family=sans-serif font-size=10 id="grid">'
+k=24
+//rotation g
+gcode += `<g transform="translate(-${k * n / 2},-${k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})">`
+
+//arrowhead marker
+gcode+=`<marker id="arrow" markerHeight=10 markerWidth=10 refX=6 refY=3 orient=auto>
+    <path d="M0,0L9,3L0,6Z" />
+  </marker>`
+
+//squares
+d3.cross(d3.range(n), d3.range(n)).forEach(([i, j]) => gcode+=`<rect width=${k} height=${k} x=${i * k} y=${(n - 1 - j) * k} fill='${colors[j * n + i]}'>
+  <title>${title[0]}${labels[i] && ` (${labels[i]})`}
+${title[1]}${labels[j] && ` (${labels[j]})`}</title>
+</rect>`) 
+
+//arrows
+gcode += `<line marker-end="url(#arrow)" x1=0 x2=${n * k} y1=${n * k} y2=${n * k} stroke=black stroke-width=1.5 />
+<line marker-end="url(#arrow)" y2=0 y1=${n * k} stroke=black stroke-width=1.5 />`
+
+//textarea
+xlab = title[0]
+ylab = title[1]
+gcode += `<text font-weight="bold" dy="0.71em" transform="rotate(90) translate(${n / 2 * k},6)" text-anchor="middle">${xlab}</text>
+<text font-weight="bold" dy="0.71em" transform="translate(${n / 2 * k},${n * k + 6})" text-anchor="middle">${ylab}</text>`
+
+
+//close rotation g 
+gcode+='<\g>'
+
+//close main g
+gcode+='<\g>'
+
+//msvg.innerHTML+= gcode
+//document.getElementById('grid').setAttribute('transform','translate(90,90)')
+
+</script>
+</body>

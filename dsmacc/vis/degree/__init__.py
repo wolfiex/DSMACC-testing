@@ -8,7 +8,7 @@ import zhdf
 import networkx as nx
 import dsmacc.graph as graph
 
-damping = 1.
+damping = .95
 
 self = zhdf.new('clfoch2.h5')
 date = u'1970-12-29 12'
@@ -41,13 +41,19 @@ G = graph.getnx(self,date)
 def n(v):
     mx = np.max(v.values())
     mn = np.min(filter(lambda x: x>0, v.values()))
-    print mx,mn
     for i in v:
-        v[i] = 0.0001+((v[i])-mn)/(mx-mn)
+        v[i] = 1e-10+((v[i])-mn)/(mx-mn)
         if v[i]<0: v[i]=0
     return v
     
-    
+def cn(v):
+    mx = np.max(v.values())
+    mn = np.min(v.values())
+
+    for i in v:
+        v[i] = 1e-10+((v[i])-mn)/(mx-mn)
+        if v[i]<0: v[i]=0
+    return v
 
 def netdegree(G):
     inn = G.in_degree(weight='weighted')
@@ -63,6 +69,7 @@ ew = n(nx.get_edge_attributes(G,'weight'))
 for (i,j),v in ew.items():
     G[i][j]['weighted']= v
     G[i][j]['distance']= 0.0002+ 1-v
+
 
 
 
@@ -137,10 +144,15 @@ for nd in R.nodes():
 nx.set_node_attributes(G, 'rppr', rppr)
 
 
-
-
 #remove inorganic nodes for graph visualisation
 G = graph.rm_nodes(G,inorganics)
+
+
+
+cdf = np.log10(self.spec.loc[self.timesteps[0],G.nodes()].compute())
+concs = dict(zip(cdf.columns,cdf.values[0]))
+nx.set_node_attributes(G, 'concs', cn(concs))
+
 
 
 uwdeg = G.degree()
@@ -150,16 +162,6 @@ a=n(a)
 nx.set_node_attributes(G, 'degree', uwdeg)
 nx.set_node_attributes(G, 'hubs', h)
 nx.set_node_attributes(G, 'authorities', a)
-
-
-
-
-
-
-
-
-
-
 
 
 ### write to file
@@ -176,11 +178,86 @@ print ('Output degree.json')
 
 
 
+########################
+##COMPAREE
+########################
+
+import dsmacc.graph.STPR.dsmacc_tools as dsmacc_tools
+
+self2 = zhdf.new('contiunue_clfoch2_0_0_280419.h5')
+
+
+
+su = dsmacc_tools.undirect(self)
+s2u = dsmacc_tools.undirect(self2)
+
+ts = 144
+
+difference = {}
+
+
+
+C = nx.DiGraph()
+r = []
+for i in su:
+    
+    val = s2u[i][ts] / su[i][ts]
+    val-=1
+    if val != 0 :
+        r.append( np.log10(abs(val) ) )
+        
+
+
+mnn = np.min(r)
+maxx = np.max(r) - mnn        
+for i in su:
+    
+    val = s2u[i][ts] / su[i][ts]
+    val-=1
+    if val != 0 :
+        #difference[i] = np.log10(abs(val))
+        v = i.split('->')[::-1*int(np.sign(val))] #give reversed links
+        
+        
+        C.add_edge(v[0], v[1], weight=1e-10+(np.log10(abs(val)) - mnn)/maxx)
+        
+        
+        
+        
+q = self2.spec.loc[self2.timesteps[ts],G.nodes()].compute()
+w = self.spec.loc[self.timesteps[ts],G.nodes()].compute()
+q.index = w.index
+
+cdf = q.divide(w,axis=1)-1
+sign = np.sign(cdf)
+cdfn = np.log10(np.abs(cdf.values))
+cdfn = 1e-10+(cdfn - np.min(cdfn))/(np.max(cdfn)-np.min(cdfn))
+
+concs = dict(zip(cdf.columns,(cdfn*sign).values[0]))
 
 
 
 
+nx.set_node_attributes(C, 'concs', concs)
 
+C = graph.rm_nodes(C,inorganics)
+
+
+cpr = nx.pagerank_numpy(C, alpha=damping, personalization=None, weight='weight', dangling=None)
+nx.set_node_attributes(C, 'pr', n(cpr))
+
+
+
+
+from networkx.readwrite import json_graph
+j3 = json_graph.node_link_data(C)
+
+import json
+j24 = json.dumps(j3)
+with open('difference.json','w') as f:
+    f.write('graph = %s'%j24)
+
+print ('Output difference.json')
 
 
 

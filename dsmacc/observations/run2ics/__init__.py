@@ -45,7 +45,7 @@ group = 0,
 rmspinup = False,
 timestep=144,
 constrain = ['NOX'],
-ignore = ['R','RO2','M','NO','NO2','HO2','CH3O2','OH','TRICLETH','HONO','BUT2CHO', 'C3ME3CHO', 'C5H11CHO', 'CH2CL2', 'LIMONENE', 'MACR', 'MVK','J1','JO1D','JNO2'],
+ignore = ['R','RO2','M','J1','JO1D','JNO2'],
 df = pd.DataFrame(
     [
            ['ii', 'TIME', '0',str(24*60*60*5)],
@@ -64,7 +64,8 @@ df = pd.DataFrame(
            ]
     ),
     ):
-
+    
+#'NO','NO2',
 
     ''' 
     make new InitCons
