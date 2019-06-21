@@ -24,7 +24,7 @@ def pool_eqn(x):
     x[1] =  x[1].split('//')[0].replace(';','')
     return x
 
-def categorise(x):
+def categorise(x,join):
     cat2 = 'Radicals/Other'
     if 'RO2' in x[1]:
         cat = re.search(r'RO2[\w]*\b',x[1]).group()
@@ -47,12 +47,14 @@ def categorise(x):
             except: cat = 'Uni-molecular'
             cat2 = 'Decomposition'
 
+    if join:
+        return ['->'.join(['+'.join(i) for i in x[0] ]) , x[1] , cat,cat2]
+    else:
+        return [x[0][0],x[0][1], x[1] , cat,cat2]
 
-    return ['->'.join(['+'.join(i) for i in x[0] ]) , x[1] , cat,cat2]
 
 
-
-def reformat_kpp(file_list = False ,inorganics=False,available_cores = 1):
+def reformat_kpp(file_list = False,findcat = True,join=True ,inorganics=False,available_cores = 1):
 
     if not file_list:
         #read files from picker
@@ -83,12 +85,15 @@ def reformat_kpp(file_list = False ,inorganics=False,available_cores = 1):
 
     eqn = map(pool_eqn,eqn)
 
-    eqn = map(categorise,eqn)
+    if findcat:
+        eqn = map(categorise,eqn)
 
 
-    #print eqn
+        #print eqn
+        return  pd.DataFrame(eqn,columns='eqn,rate,category,group'.split(','))
 
-    return  pd.DataFrame(eqn,columns='eqn,rate,category,group'.split(','))
+    else:
+        return eqn
 
 
 if __name__ == '__main__':
