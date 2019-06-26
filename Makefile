@@ -138,6 +138,8 @@ new: distclean depend update_submodule tuv
 	@python -O -m py_compile AnalysisTools/explore_dsmacc.py
 	@mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
 	@echo 'All set up to begin.'
+run:
+	python -m dsmacc.run -c -r
 
 kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch model model.kpp
@@ -146,15 +148,17 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	#$(eval export KPP_HOME=$(shell pwd)/src/kpp/kpp-2.2.3_01)
 	$(eval export PATH=$(KPP_PATH)/bin:$(PATH))
 	@echo $(KPP_PATH)
+	touch include.obs
 	@rm model model.kpp include.obs
 	touch include.obs
 	#cd $(KPP_PATH)/src && make > kpp.log
-	python src/background/makemodeldotkpp.py $(MODELKPP)
+	python -m dsmacc.parsekpp -m
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
 	sed -i '/END\sDO\sTimeLoop/a \\nWRITE (JACSP_UNIT) TIME, Jac0\nWRITE (FLUX_UNIT) time, A(:NREACT)\nWRITE (VDOT_UNIT) time, FCN !VDOT' model_Integrator.f90
 	sed -i '/END/b;/MODULE\smodel_Integrator/a \\nUSE model_Function, ONLY: Fun,A' model_Integrator.f90
-
+reformat:
+	python -m dsmacc.parsekpp.reformat
 editkpp:
 	echo $(DSMACC_HOME)/ && mech:=$(shell egrep -o 'mechanisms/.*\.kpp' $(DSMACC_HOME)/model.kpp) && mech:=$(shell egrep -o 'ver[^\n]' $(mech)) && echo $(mech) && sed -e s/Unknown/$(mech)/g model_Global.f90
 

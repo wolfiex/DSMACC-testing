@@ -10,66 +10,70 @@ end if
 
 
 
+    !open the init cons file.
+    open(UNIT=21,FILE='Init_cons.dat')
+    READ(21,'(i10)') IntTime
+    ! check if a special run has been selected.
+    if (INTTIME .LE. 0) then
+        print *, 'You spin me right round, like a spinup baby, woohoo!'
+        print*, 'Do not constrain NOX when at ss'
+        INTTIME = abs(INTTIME)+DAY 
+        CONSTRAIN_RUN=.TRUE.
+        SPINUP = 0!24*60*60*2 
+        !SAVE_LEGACY= .TRUE.
 
-!open the init cons file.
-open(UNIT=21,FILE='Init_cons.dat')
-READ(21,'(i10)') IntTime
-! check if a special run has been selected.
-if (INTTIME .LE. 0)  then
-    CONSTRAIN_RUN=.TRUE.
-    print*, 'reverting to legacy output.'
-    SAVE_LEGACY= .TRUE.
+        WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
 
-    WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
+        !flag
+        if (INTTIME .EQ. -1) then
+        !    INTTIME=int(4380*24.*60.*60.)
+        !    OUTPUT_LAST=.FALSE.
 
-    if (INTTIME .EQ. -1) then
-        INTTIME=int(4380*24.*60.*60.)
-        OUTPUT_LAST=.FALSE.
+        !else if (INTTIME .EQ. -2) then
+        !    INTTIME=int(50*24.*60.*60.)
+        !   OUTPUT_LAST=.TRUE.
 
 
-    else if (INTTIME .EQ. -2) then
-        INTTIME=int(50*24.*60.*60.)
-        OUTPUT_LAST=.TRUE.
+        else
+          
+           
+            !WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
+            !&But not a special case'
+            !STOP
+        endif
 
-
-    else
-        WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
-        &But not a special case'
-        STOP
     endif
 
+    READ(21,'(*(a15,x))') spec_name
+    READ(21,'(*(i15,x))') const_method
 
-endif
+    !print*, 'if -checks all this is an incorrect conversion'
 
+    if (line .gt. 0 ) then !skip lines
+        do 133 i = 0,(line-1)
+        133 read(21,*)
+    end if
 
-READ(21,'(*(a15,x))') spec_name
-READ(21,'(*(i15,x))') const_method
-
-print*, 'if -checks all this is an incorrect conversion'
-
-if (line.gt.1) then !skip lines
-    do 133 i = 1,(line-1)
-    133 read(21,*)
-end if
-
-!get required concentrations
-READ (21,'(*(e15.4,x))') concs
- close(21)
-
-
+    !get required concentrations
+    READ (21,'(*(e15.4,x))') concs
+     close(21)
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!Variable Initialisation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-call initVal(concs)!initialise values
+call initVal(concs,.TRUE.)!initialise values
+
 M   = CFACTOR
 O2 = 0.21 * CFACTOR
 N2 = 0.78 * CFACTOR
-tstart = (mod(jday,1.))*24.*60.*60. ! time start
-tstart = tstart+LON/360.*24.*60.*60.!conv 2 localtime
-tend = tstart + IntTime  !end time
+
 floorjday = int(jday)*24*60*60
+
+tstart = (mod(jday,1.))*24.*60.*60. ! time start
+tstart = tstart+LON/360.*24.*60.*60. + floorjday   !conv 2 localtime
+tend = tstart + IntTime !end time
+
 
 
 
@@ -163,11 +167,11 @@ full_counter=0
         filename='./Outputs/'//trim(ln)//'.jacsp'
         open(JACSP_UNIT, file=filename,action="write",form='unformatted')
 
-        write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,JO1D,JNO2,M,RO2', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
+        write(SPEC_UNIT)'TIME,LAT,LON,PRESS,TEMP,H2O,JO1D,JNO2,M,RO2,J1,SPINUP', (','//trim(SPC_NAMES(I)),I=1,NSPEC)
         write(RATE_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT) !       (I)),I=1,NREACT)
         write(FLUX_UNIT) 'TIME',(','//trim(EQN_NAMES(I)),I=1,NREACT )!,I=1,NREACT))
         write(vdot_UNIT)'TIME',(','//trim(SPC_NAMES(I)),I=1,NSPEC)
-        
+
         write(jacsp_UNIT) ''
 
 

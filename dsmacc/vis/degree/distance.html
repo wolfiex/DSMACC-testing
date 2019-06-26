@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<style>
+  .node {
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+
+  .link {
+    fill: none;
+    stroke: #bbb;
+    mix-blend-mode: multiply;
+  }
+  
+  text{font-family: 'PT Sans', sans-serif;}
+</style>
+
+<body onload='run()'>
+  <svg width="800" height="800"></svg>
+  <script type="text/javascript" src="../../../degree.json"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://cdn.rawgit.com/upphiminn/d3.ForceBundle/2b406b8567fcad0a6c2922c84cd4bceb0c374bc5/d3-ForceEdgeBundling.js"></script>
+  
+      <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+  <script src="functions.js"></script>
+  <script>
+    var grayscale = true;
+    var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+
+    var linkclr = d3.interpolate("#F6089E", "#3864EB") //d3.interpolateCubehelixLong.gamma(4.1)("#F6089E", "#3864EB");
+
+    
+    //////////
+    // legend
+    var form = 'HCHO'
+    closest = graph.nodes.filter(d => d.id === form)[0].distance
+    Object.keys(closest).forEach(d=>{var val =Math.log10(closest[d]+1e-50); closest[d] = isNaN(val)?26:val+26})
+    largest = d3.max(Object.values(closest))
+/*
+    var simulation = d3.forceSimulation()
+      .force("link", d3.forceLink().id(function(d) {
+        return d.index;
+      }))
+      .force("charge", d3.forceManyBody().strength(d=>-100*closest[d.id]))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+*/
+
+var simulation = d3.forceSimulation()
+  .force("link", d3.forceLink().id(function(d) {
+    return d.index;
+  }))
+
+  .force("charge", d3.forceManyBody().strength(d=>-14 + -120*closest[d.id]/largest))
+  .force("center", d3.forceCenter(width / 2, height / 2))
+.force("collide", d3.forceCollide().radius( d=>{var ds = 1-closest[d.id]/largest;if (d.id===form){ds=1.2}; ds = isNaN(ds)?.1:2+8*Math.pow(ds,4); return ds}).iterations(2))
+
+simulation.alpha(1)
+
+
+    function run() {
+
+      var nodes = graph.nodes,
+        nodeById = d3.map(nodes, function(d, i) {
+          d.index = i;
+          return d.index;
+        })
+
+
+      var links = svg.append("g")
+        .attr("class", "link");
+
+      var node = svg.append("g")
+        .attr("class", "nodes")
+        .selectAll("circle")
+        .data(graph.nodes)
+        .enter().append("circle")
+        .attr("r", d=>{var ds = 1-closest[d.id]/largest;if (d.id===form){ds=1.2}; ds = isNaN(ds)?.1:2+8*Math.pow(ds,4); return ds})
+        .style("fill", function(d) {
+          return d.id === form? '#FA7921':'whitesmoke';
+        })
+        .style("stroke", function(d) {
+          return '#222';
+        })
+        .on('mouseover',d=>{console.log(d.id,d ,closest[d.id])})
+        .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+      node.append("title")
+        .text(function(d) {
+          return d.index;
+        });
+
+      var d3line = d3.line()
+        .x(function(d) {
+          return d.x;
+        })
+        .y(function(d) {
+          return d.y;
+        });
+
+      simulation
+        .nodes(graph.nodes)
+        .on("tick", ticked);
+
+      simulation.force("link")
+        .links(graph.links);
+
+      function ticked() {
+        node
+          .attr("cx", function(d) {
+            return d.x;
+          })
+          .attr("cy", function(d) {
+            return d.y;
+          });
+
+        //Run FDEB on all the links
+        var fbundling = d3.ForceEdgeBundling()
+          .nodes(simulation.nodes())
+          .edges(simulation.force('link').links().map(function(edge) {
+            return {
+              source: simulation.nodes().indexOf(edge.source),
+              target: simulation.nodes().indexOf(edge.target),
+            }
+          }));
+
+        var link = links.selectAll('path')
+          .data(fbundling())
+          .attr("class", "link")
+          .attr('stroke-width', 1);
+
+        link.exit().remove();
+        link.merge(link.enter().append('path'))
+          .attr('d', d3line)
+          .style('stroke-width', (d, i) => {
+            var edge = graph.links[i];
+            return 5 * (0.1 +0.9*Math.pow((1-d3.mean([closest[edge.source.id] , closest[edge.target.id]]) / largest),2))
+          })
+          .style('opacity', (d, i) => {
+            var edge = graph.links[i];
+            return 0.5 + .75*(d3.max([closest[edge.source.id] , closest[edge.target.id]]) / largest)
+          });
+      }
+
+
+
+    }
+
+
+var annotate = []
+
+
+
+    function dragstarted(d) {
+      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x, d.fy = d.y;
+    }
+
+    function dragged(d) {
+      d.fx = d3.event.x, d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+      if (!d3.event.active) simulation.alphaTarget(0);
+      d.fx = null, d.fy = null;
+    }
+    setTimeout(function() {
+      window.location.reload()
+    }, 990 * 1000);
+
+    setTimeout(function() {
+      simulation.stop()
+      rescale(graph, 30, 700)
+
+
+
+      
+      graph.nodes.filter(d=> 'HCHO,CH4,C2H6,CH3CO2H,PAN, CH3CO3,HOCH2CO3H,CH3NO3,CH3CO3,CH3CHO'.split(',').includes(d.id)).forEach(e=>
+          
+          {annotate.push( 
+              {
+                    note: {
+                      label: e.id,
+                      title: '',
+                      wrap: 150,
+                      align: "right"
+                    },
+                    connector: {
+                      end: "arrow" // 'dot' also available
+                    },
+                    x: e.x,
+                    y: e.y,
+                    dy: 13,
+                    dx: 16,
+                    color : "#E8336D",
+                    
+                  }
+          )}
+      )
+
+var makeAnnotations = d3.annotation()
+  .type(d3.annotationCalloutElbow)
+  .annotations(annotate)
+
+d3.select("svg")
+  .append("g")
+  .attr("class", "annotation-group")
+  .call(makeAnnotations)
+  
+  .on('dblclick', function() {
+          makeAnnotations.editMode(!makeAnnotations.editMode()).update();
+        })
+
+
+      /*
+      msvg.innerHTML+= gcode
+      document.getElementById('grid').setAttribute('transform','translate(90,90)')
+      document.getElementById('grid').setAttribute('transform','translate(-90,-90)scale(1.25)')
+
+      */
+  }, 18 * 1000);
+  </script>
+</body>

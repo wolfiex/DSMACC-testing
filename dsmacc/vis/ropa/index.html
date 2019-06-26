@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+--blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    
+-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../datalegreya-master/tools/css/mainStyle.css">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        div .progress {
+            background-color: #2F3238;
+        }
+
+        .progress-bar {
+            margin: 26px 0 0;
+        }
+
+        .progress {
+            position: relative;
+            background-image: none;
+            height: 46px;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+            margin: 0;
+        }
+
+        .progress .rbar {
+            background-color: #DE5E60;
+            background-image: none;
+            height: 100%;
+
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        }
+
+        .progress .rbar.left {
+            float: right;
+        }
+
+        .progress .rbar.right {
+            float: left;
+            background-color: #5ea0de/*#3487d5*/
+        }
+
+        .progress .field {
+            position: absolute;
+            color: #FFFFFF;
+            line-height: 44px;
+        }
+
+        .progress .field.right {
+            right: 20px;
+        }
+
+        .progress .field.left {
+            left: 20px;
+        }
+
+
+        .progress .field-value {
+            position: absolute;
+            color: #FFFFFF;
+            line-height: 44px;
+            top: -30px;
+        }
+
+        .progress .field-value.right {
+            left: 5px;
+        }
+
+        .progress .field-value.left {
+            right: 5px;
+        }
+
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 2px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 5px;
+            height: 14px;
+            background: #3487d5;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 5px;
+            height: 14px;
+            background: #3487d5;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body onload='start()'>
+    <script src='../smiles-drawer.min.js'></script>
+    <script type="text/javascript" src="../../../ropa.json"></script>
+    <script type="text/javascript" src="../datalegreya-master/tools/js/Smooth.js"></script>
+    <script type="text/javascript" src="../datalegreya-master/tools/js/convert.js"></script>
+    <script type="text/javascript" src="../datalegreya-master/tools/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="../datalegreya-master/tools/js/form.js"></script>
+
+    <form id="convertionParams">
+        <div style="display:none;" class="row">
+            <h2>Input</h2>
+            <div class="col-2" visible=>
+                <h3>Text</h3>
+                <p class="inputFieldLabel">Any string in lowercase.</p>
+                <textarea class="inputField" id="inputText" autocorrect="off" rows="1" onchange="input_changed_on('inputText')" onkeyup="input_changed_on('inputText')" onfocus="focus_on('inputText')" onblur="blur_on('inputText')" placeholder="type your text here"></textarea>
+            </div>
+
+            <div style="display:none" class="col-2">
+                <h3>Data</h3>
+                <p class="inputFieldLabel">Numbers, separated with commas, spaces, or semicolons. Decimal notation must be 1234.567, no spacers for thousands.</p>
+                <textarea class="inputField" id="inputValues" autocorrect="off" rows="1" onchange="input_changed_on('inputValues')" onkeyup="input_changed_on('inputValues')" onfocus="focus_on('inputValues')" onblur="blur_on('inputValues')" placeholder="insert your data here"></textarea>
+                <p class="warning" id="warning_expand"><i class="material-icons">error_outline</i>your Data will be expanded to fit the length of your Text</p>
+                <p class="warning" id="warning_shrink"><i class="material-icons">error_outline</i>your Data will be shrinked to fit the length of your Text</p>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="">
+
+
+                <div id="outputs">
+                    <output class="legendNeutral" id="outputText"></output>
+
+
+                    <div class="col-2-M" style='float:left;'>
+                        <output class="legendNeutral" id="outputCode"></output></div <div class="col-2-M" style='float:right;'>
+                    <canvas id="example-canvas" </canvas>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="">
+
+            <h2>Rate of Production (and Loss) Analysis</h2>
+
+            <input type="range" id="tsrange" class='slider' onchange='update()' value="0">
+            <br>Δt→<br>
+<br>
+
+<div>
+
+            <div class="col-2-M" style='margin-left:0;float:left;'>
+                <h3 style='right:5px;'>Loss</h3>
+
+                <div id='loss' class="span4 ">
+
+                </div>
+
+
+            </div>
+
+            <div style='margin-right:0;float:right;' class="col-2-M">
+                <h3>Production</h3>
+
+                <div id='production' class="span4 ">
+
+
+
+                </div>
+
+            </div>
+
+</div>
+            <div style="display:none" class="col-2-M">
+                <h3>Data boundaries</h3>
+                <p>Optional. Allows you to specify a range wider than your data's.</p>
+
+                <label class="labelPlaceholder">Lower boundary value</label>
+                <input type="text" class="valueParameter" id="minValue" pattern="[0-9]*" onchange="input_changed_on('minValue')" onkeyup="input_changed_on('minValue')">
+
+
+                <label class="labelPlaceholder">Upper boundary value</label>
+                <input type="text" class="valueParameter" id="maxValue" pattern="[0-9]*" onchange="input_changed_on('maxValue')" onkeyup="input_changed_on('maxValue')">
+
+                <h3><br><br><br>Min&thinsp;/&thinsp;Max indicators</h3>
+                <p>Optional. Display arrows pointing extreme values in your data.</p>
+
+                <p class="label">Minimal indicator</p>
+                <div class="radio-inputs">
+                    <input type="radio" name="minMarker" value="0" checked onchange="markers_type_changed_on(minMarker)"><label>none</label>
+                    <input type="radio" name="minMarker" value="1" onchange="markers_type_changed_on(minMarker)"><label>simple</label>
+                    <input type="radio" name="minMarker" value="2" onchange="markers_type_changed_on(minMarker)"><label>full</label>
+                </div>
+
+                <p class="label">Maximal indicator</p>
+                <div class="radio-inputs">
+                    <input type="radio" name="maxMarker" value="0" checked onchange="markers_type_changed_on(maxMarker)"><label>none</label>
+                    <input type="radio" name="maxMarker" value="1" onchange="markers_type_changed_on(maxMarker)"><label>simple</label>
+                    <input type="radio" name="maxMarker" value="2" onchange="markers_type_changed_on(maxMarker)"><label>full</label>
+                </div>
+            </div>
+
+            <div style="display:none" class="col-2-M">
+                <h3>Axis legends</h3>
+                <p>5 characters including: digits, letters in lowercase, spaces, slash or colon.</p>
+
+                <label class="labelPlaceholder">X-axis first value</label>
+                <input type="text" class="valueParameter" id="xlegend1" maxlength="5" value="" onchange="legend_changed_on('xlegend1')" onkeyup="legend_changed_on('xlegend1')">
+                <label class="labelPlaceholder">Y-axis first value</label>
+                <input type="text" class="valueParameter" id="ylegend2" maxlength="5" value="" onchange="legend_changed_on('ylegend2')" onkeyup="legend_changed_on('ylegend2')">
+
+                <label class="labelPlaceholder">X-axis last value</label>
+                <input type="text" class="valueParameter" id="xlegend2" maxlength="5" value="" onchange="legend_changed_on('xlegend2')" onkeyup="legend_changed_on('xlegend2')">
+
+                <label class="labelPlaceholder">Y-axis last value</label>
+                <input type="text" class="valueParameter" id="ylegend1" maxlength="5" value="" onchange="legend_changed_on('ylegend1')" onkeyup="legend_changed_on('ylegend1')">
+            </div>
+
+
+
+        </div>
+    </form>
+
+    <script>
+        timestep = 0
+
+        function start() {
+            console.log(data)
+            document.getElementById("inputValues").value = data.concentration.join(',')
+            document.getElementById("inputText").value = data.name + ' : ' + data.smiles.replace(' ', '')
+            input_changed_on('inputText')
+            document.getElementById("tsrange").max = data.timesteps.length
+
+            var canvas = document.getElementById('example-canvas')
+            let smilesDrawer = new SmilesDrawer.Drawer({
+                width: canvas.width,
+                height: canvas.height,
+                dark: {
+                    C: 'whitesmoke',
+                    O: '#e74c3c',
+                    N: '#3498db',
+                    F: '#27ae60',
+                    CL: '#16a085',
+                    BR: '#d35400',
+                    I: '#8e44ad',
+                    P: '#d35400',
+                    S: '#f1c40f',
+                    B: '#e67e22',
+                    SI: '#e67e22',
+                    H: '#fff',
+                    BACKGROUND: '#141414'
+                }
+            });
+            SmilesDrawer.parse(data.smiles, function(tree) {
+                smilesDrawer.draw(tree, 'example-canvas', 'dark', false);
+            });
+
+
+
+
+
+
+            update()
+
+            //setTimeout(() => window.location.reload(), 10000)
+
+        }
+
+
+
+/////////////
+// functions
+        function update() {
+            var timestep = document.getElementById("tsrange").value;
+            var dot = getlim(timestep)
+            newtime(dot, 'loss')
+            newtime(dot, 'production')
+        }
+        
+        
+
+                    function newtime(dout, what = 'loss') {
+                        console.log(dout)
+                        var keys = dout[what]
+                        var max = dout.max
+                        var min = dout.min
+                        var dummy = document.getElementById(what);
+                        dummy.innerHTML = ''
+
+                        keys.forEach(function(d) {
+                            var width = (99.0 * (d[1] - min) / (max - min) + 1)
+                            
+                            console.log(width,d[1],min,max)
+                            dummy.innerHTML +=
+                                `<div class="progress-bar">
+                                <div class="progress">
+                                	<span class="field ${what=='production'?' right': ' left' }">` +
+                                d[0] +
+                                `</span>
+                                    <span class="field-value${what=='production'?' right': ' left' }">1e` +
+                                Math.round(d[1]) +
+                                `</span>
+                                    <div class="rbar${what=='production'?' right': ' left' }" style="width:` +
+                                width +
+                                `%; "></div>
+                                </div>
+                            </div>`;
+                        });
+
+
+                    }
+
+                    function getlim(timestep) {
+                        var net = data.vdot[timestep]
+                        document.getElementById('outputCode').innerHTML = ` Date: <label>${data.timesteps[timestep].replace('1970','2019').replace('1971','2019')}:00</label> <br> NetFlux: <label style="color: ${(net<0?'#5ea0de"> production':'#DE5E60"> loss')}</label>`
+
+
+                        what = 'loss'
+                        keys = [...Object.keys(data[what])]
+                        values = keys.map(d => parseFloat(data[what][d][timestep]))
+                        
+                        keys = keys.map((d, i) => [d, values[i]]).filter(d=>isFinite(d[1]))
+
+                        keys.sort(function(a, b) {
+                            return b[1] - a[1];
+                        });
+                        min = keys[keys.length-1][1]
+                        max = keys[0][1]
+                        var dout = {
+                            min,
+                            max
+                        }
+                        dout[what] = keys
+                        console.log(dout)
+                        what = 'production'
+                        keys = [...Object.keys(data[what])]
+                        values = keys.map(d => parseFloat(data[what][d][timestep]))
+
+                        keys = keys.map((d, i) => [d, values[i]]).filter(d=>isFinite(d[1]))
+
+                        keys.sort(function(a, b) {
+                            return b[1] - a[1];
+                        });
+                        min = keys[keys.length-1][1]
+                        max = keys[0][1]
+                        dout[what] = keys
+                        dout.max = Math.max(max, dout.max)
+                        dout.min = Math.min(min, dout.min)
+                        console.log(dout)
+                        return dout
+                    }
+    </script>
+</body>
+
+</html>

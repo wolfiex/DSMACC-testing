@@ -3,7 +3,7 @@
 Dan's version of the Dynamically Simple Model for Atmospheric Chemical
 Complexity --- still in development/testing
 
-Try the wiki - also in progress but contains some debug tips. 
+Try the wiki - also in progress but contains some debug tips.
 
 
 ## Cite
@@ -14,7 +14,72 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 
 
 TUV repository updated with thanks to @pb866
-  
+
+## Setting up files
+1. Download organic mechanism from mcm.york.ac.uk. 
+2. Place file in mechanisms folder (and optionally add a version name: `VERS='TroposphericChemistry'`
+3. Reformat this to keep KPP happy. Use `make reformat` or `python -m dsmacc.parsekpp.reformat` for a quick format with additional deposition rates of 1/day.
+4. run `make kpp`
+5. run `make` to compile.
+
+## Running a model
+1. Set up the initial conditions csv file
+2. To quickrun the model type `make run` or `python -m dsmacc.run -c -r`
+
+
+
+## Install
+
+#### General
+To install we may use the (Yet Another Markup Language) file.
+
+```
+export MPICC=\`which mpicc\` &&
+export CC=mpicc &&
+conda-env create -f meta.yaml
+```
+
+And to use this, we run (or add within our .bashrc):
+
+`source activate dsmacc-env`
+
+
+### Parallel Libraries
+
+If parallel installs fail, remove the conda installs, then follow the instructions below.
+
+#### mpi4py
+First we make sure the correct modules are loaded:
+`module load intel-mpi/intel/....`
+
+Set the loaded version of MPI to be used with mpi4py
+`export MPICC=\`which mpicc\``
+
+Then run `pip install mpi4py`
+
+### Parallel h5py
+1 Build hdf5 library with the following flags (note many clusters dont seem to do this for some reason)
+`$./configure --enable-parallel --enable-shared`
+Note that --enable-shared is required.
+
+```
+$ h5cc -showconfig
+```
+
+```
+$ export CC=mpicc
+$ python setup.py configure --mpi [--hdf5=/path/to/parallel/hdf5]
+$ python setup.py build
+```
+
+Notes :
+- Cannot constrain to 0 due to spinup conditions, either use giant sink
+or FIX species [util.inc]
+
+
+
+
+
 If mpirun failes with [] then run has failed.
 
 
@@ -25,18 +90,18 @@ Filenames may have to be manually changed for the time being, .... sorry.
 
 To create ics: `python run.py -c`
 
-This makes a hdf5 file containing all your information. 
+This makes a hdf5 file containing all your information.
 
 
 To run: `python run.py -s`
 
-If the env variable NCPUS is set, it uses this for an mpi run of the model, else a serial run is set. On earth, each queue automatically  sets the NCPUS environment variable. 
+If the env variable NCPUS is set, it uses this for an mpi run of the model, else a serial run is set. On earth, each queue automatically  sets the NCPUS environment variable.
 
 To read: in ipython `run zhdf;  a = new('yourfilename.hdf'); a.specs / rates / flux`
 
 
 
-Custom mydepos definition file in src - change depos without having to run kpp, just make 
+Custom mydepos definition file in src - change depos without having to run kpp, just make
 
 # Install and run kpp as before! Run / read model using above
 
@@ -86,3 +151,4 @@ Type `make man` to see a description of available functions.
 + Anacondas Python (continuum.io)
 + icc & bison for kpp
 + perl
+# IterativeTemporalPageRank
