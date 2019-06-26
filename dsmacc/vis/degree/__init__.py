@@ -8,7 +8,11 @@ import zhdf
 import networkx as nx
 import dsmacc.graph as graph
 
+<<<<<<< HEAD
 damping = .95
+=======
+damping = 1.
+>>>>>>> 627465599f3470471195f52354ed1306354027f3
 
 self = zhdf.new('clfoch2.h5')
 date = u'1970-12-29 12'
@@ -41,6 +45,7 @@ G = graph.getnx(self,date)
 def n(v):
     mx = np.max(v.values())
     mn = np.min(filter(lambda x: x>0, v.values()))
+<<<<<<< HEAD
     for i in v:
         v[i] = 1e-10+((v[i])-mn)/(mx-mn)
         if v[i]<0: v[i]=0
@@ -54,6 +59,15 @@ def cn(v):
         v[i] = 1e-10+((v[i])-mn)/(mx-mn)
         if v[i]<0: v[i]=0
     return v
+=======
+    print mx,mn
+    for i in v:
+        v[i] = 0.0001+((v[i])-mn)/(mx-mn)
+        if v[i]<0: v[i]=0
+    return v
+    
+    
+>>>>>>> 627465599f3470471195f52354ed1306354027f3
 
 def netdegree(G):
     inn = G.in_degree(weight='weighted')
@@ -72,7 +86,10 @@ for (i,j),v in ew.items():
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 627465599f3470471195f52354ed1306354027f3
 #G.out_edges('CH4')
 
 nx.set_node_attributes(G, 'indegree',  n(G.in_degree(weight='weighted')))
@@ -144,6 +161,7 @@ for nd in R.nodes():
 nx.set_node_attributes(G, 'rppr', rppr)
 
 
+<<<<<<< HEAD
 #remove inorganic nodes for graph visualisation
 G = graph.rm_nodes(G,inorganics)
 
@@ -153,6 +171,12 @@ cdf = np.log10(self.spec.loc[self.timesteps[0],G.nodes()].compute())
 concs = dict(zip(cdf.columns,cdf.values[0]))
 nx.set_node_attributes(G, 'concs', cn(concs))
 
+=======
+
+
+#remove inorganic nodes for graph visualisation
+G = graph.rm_nodes(G,inorganics)
+>>>>>>> 627465599f3470471195f52354ed1306354027f3
 
 
 uwdeg = G.degree()
@@ -164,6 +188,7 @@ nx.set_node_attributes(G, 'hubs', h)
 nx.set_node_attributes(G, 'authorities', a)
 
 
+<<<<<<< HEAD
 ### write to file
 
 from networkx.readwrite import json_graph
@@ -245,10 +270,36 @@ C = graph.rm_nodes(C,inorganics)
 
 cpr = nx.pagerank_numpy(C, alpha=damping, personalization=None, weight='weight', dangling=None)
 nx.set_node_attributes(C, 'pr', n(cpr))
+=======
 
 
 
 
+
+
+
+
+
+
+### write to file
+
+from networkx.readwrite import json_graph
+j = json_graph.node_link_data(G)
+
+import json
+j2 = json.dumps(j)
+with open('degree.json','w') as f:
+    f.write('graph = %s'%j2)
+
+print ('Output degree.json')
+
+
+>>>>>>> 627465599f3470471195f52354ed1306354027f3
+
+
+
+
+<<<<<<< HEAD
 from networkx.readwrite import json_graph
 j3 = json_graph.node_link_data(C)
 
@@ -258,6 +309,10 @@ with open('difference.json','w') as f:
     f.write('graph = %s'%j24)
 
 print ('Output difference.json')
+=======
+
+
+>>>>>>> 627465599f3470471195f52354ed1306354027f3
 
 
 
