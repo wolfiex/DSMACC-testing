@@ -24,7 +24,7 @@ def pool_eqn(x):
     x[1] =  x[1].split('//')[0].replace(';','')
     return x
 
-def categorise(x,join):
+def categorise(x,join=True):
     cat2 = 'Radicals/Other'
     if 'RO2' in x[1]:
         cat = re.search(r'RO2[\w]*\b',x[1]).group()
@@ -86,11 +86,16 @@ def reformat_kpp(file_list = False,findcat = True,join=True ,inorganics=False,av
     eqn = map(pool_eqn,eqn)
 
     if findcat:
-        eqn = map(categorise,eqn)
+        cat2 = lambda p: categorise(p, join)
+        eqn = map(cat2, eqn)
 
 
+        if join:
+            jn = 'eqn,rate,category,group'
+        else:
+            jn = 'from,to,rate,category,group'
         #print eqn
-        return  pd.DataFrame(eqn,columns='eqn,rate,category,group'.split(','))
+        return  pd.DataFrame(eqn,columns=jn.split(','))
 
     else:
         return eqn

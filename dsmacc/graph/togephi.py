@@ -11,9 +11,9 @@ fngroups = pd.read_csv('./'+__tableloc__.replace('__init__.pyc','functionalgroup
 fngroups.index = fngroups['name']
 
 fngroups = fngroups[[u'PAN', u'Carb. Acid', u'Ester', u'Ether',
-       u'Per. Acid', u'Hydro peroxide', u'Nitrate', u'Aldehyde', u'Ketone',
+       u'Per. Acid', u'Nitrate', u'Aldehyde', u'Ketone',
        u'Alcohol', u'Criegee', u'Alkoxy rad', u'Peroxalkyl rad',
-       u'Peroxyacyl rad']]
+       u'Peroxyacyl rad','Aromatic rings','Carbons','Atoms']]
 
 
 for c in fngroups.columns:
