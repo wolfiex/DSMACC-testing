@@ -24,11 +24,8 @@ def pool_eqn(x):
     x[1] =  x[1].split('//')[0].replace(';','')
     return x
 
-<<<<<<< HEAD
 def categorise(x,join=True):
-=======
-def categorise(x):
->>>>>>> 627465599f3470471195f52354ed1306354027f3
+
     cat2 = 'Radicals/Other'
     if 'RO2' in x[1]:
         cat = re.search(r'RO2[\w]*\b',x[1]).group()
@@ -51,7 +48,7 @@ def categorise(x):
             except: cat = 'Uni-molecular'
             cat2 = 'Decomposition'
 
-<<<<<<< HEAD
+
     if join:
         return ['->'.join(['+'.join(i) for i in x[0] ]) , x[1] , cat,cat2]
     else:
@@ -60,14 +57,6 @@ def categorise(x):
 
 
 def reformat_kpp(file_list = False,findcat = True,join=True ,inorganics=False,available_cores = 1):
-=======
-
-    return ['->'.join(['+'.join(i) for i in x[0] ]) , x[1] , cat,cat2]
-
-
-
-def reformat_kpp(file_list = False ,inorganics=False,available_cores = 1):
->>>>>>> 627465599f3470471195f52354ed1306354027f3
 
     if not file_list:
         #read files from picker
@@ -98,7 +87,6 @@ def reformat_kpp(file_list = False ,inorganics=False,available_cores = 1):
 
     eqn = map(pool_eqn,eqn)
 
-<<<<<<< HEAD
     if findcat:
         cat2 = lambda p: categorise(p, join)
         eqn = map(cat2, eqn)
@@ -113,14 +101,6 @@ def reformat_kpp(file_list = False ,inorganics=False,available_cores = 1):
 
     else:
         return eqn
-=======
-    eqn = map(categorise,eqn)
-
-
-    #print eqn
-
-    return  pd.DataFrame(eqn,columns='eqn,rate,category,group'.split(','))
->>>>>>> 627465599f3470471195f52354ed1306354027f3
 
 
 if __name__ == '__main__':
