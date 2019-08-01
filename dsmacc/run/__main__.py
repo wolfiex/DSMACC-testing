@@ -1,6 +1,8 @@
 #
 import argparse,os,sys
 
+print __file__
+
 parser = argparse.ArgumentParser(description='create an ics')
 parser.add_argument('-d','--dev', dest='dev', action='store_true', default=False, help='add a watch reload for dev')
 parser.add_argument('-o','--obs', dest='obs', action='store_true', default=False, help='run with obs')
@@ -41,7 +43,7 @@ if args.dev:
 try:
     ncores = int(os.popen('echo $NCPUS').read())
 except:
-    ncores=1
+    ncores=2
 
 print 'cpus' ,ncores
 
@@ -49,8 +51,8 @@ print 'cpus' ,ncores
 
 
 if args.ics != False:
-    import zics
-    filename = zics.create_ics(fileic=args.ics)
+    import ics
+    filename = ics.create_ics(fileic=args.ics, postime = args.obs)
     if args.run==None:args.start = filename
 
 #if args.run==None:
@@ -72,9 +74,14 @@ if args.run!=False:
         print cmd
         os.system(cmd)
     else:
+        cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
+        print cmd
+        os.system(cmd)
+        '''
         cmd = 'python zserialout.py %s %s'%(args.start,obs)
         print cmd
         os.system(cmd)
+        '''
     if args.kill:
         os.system('/opt/pbs/bin/qdel $PBS_JOBID')
         os.system('pkill screen')
