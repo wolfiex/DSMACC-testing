@@ -1,8 +1,8 @@
 '''
 Take a selected timestep from a model run and use it to create the initial conditions for a new run.
 
-Usage: 
-    python -m dsmacc.observations.run2ics <filename>.h5 <timestep number> -r 
+Usage:
+    python -m dsmacc.observations.run2ics <filename>.h5 <timestep number> -r
 
 
 file created args : contiune_h5name_groupname_timestep_datenow
@@ -45,11 +45,9 @@ group = 0,
 rmspinup = False,
 timestep=144,
 constrain = ['NOX'],
-<<<<<<< HEAD
+
 ignore = ['R','RO2','M','J1','JO1D','JNO2'],
-=======
-ignore = ['R','RO2','M','NO','NO2','HO2','CH3O2','OH','TRICLETH','HONO','BUT2CHO', 'C3ME3CHO', 'C5H11CHO', 'CH2CL2', 'LIMONENE', 'MACR', 'MVK'],
->>>>>>> 627465599f3470471195f52354ed1306354027f3
+
 df = pd.DataFrame(
     [
            ['ii', 'TIME', '0',str(24*60*60*5)],
@@ -68,29 +66,24 @@ df = pd.DataFrame(
            ]
     ),
     ):
-<<<<<<< HEAD
-    
-#'NO','NO2',
-=======
 
->>>>>>> 627465599f3470471195f52354ed1306354027f3
 
-    ''' 
+    '''
     make new InitCons
 
     Args required:
      - h5file
-     
+
      Many optional arguments
-     
+
      '''
-        
+
 
     df.columns =  ['Index', 'Species', 'Constrain', 'base']
 
     a = zhdf.new(h5file,group)
     if rmspinup: a.rm_spinup()
-    
+
     cols = filter(lambda x: x not in ignore,a.spec.columns)
     try:
         specs = a.spec.loc[a.timesteps[timestep],cols].compute()

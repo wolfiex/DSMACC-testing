@@ -19,3 +19,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 )
+
+print 'go into obs and compile f90'

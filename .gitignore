@@ -29,3 +29,5 @@ del*
 temp.txt
 percent.csv
 *.npy
+observations/*/*.csv
+

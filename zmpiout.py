@@ -10,22 +10,23 @@ soft=int(MPI.INFO_ENV.get("soft"))
 #maxprocs= int(MPI.INFO_ENV.get("maxprocs"))
 
 #if sys.argv[1] != 'ignore':
-
+'''
 try:
         ncores = int(os.popen('echo $NCPUS').read())
 except:
     sys.exit('MPI_DSMACC:Use a Queue')
 
-
+'''
 
 ncpus = soft# int(comm.Get_attr(MPI.UNIVERSE_SIZE)) #int(os.popen('echo $NCPUS').read())
 
 print 'ncpu rank', ncpus , rank , soft
 
 if ncpus <2 :
-    sys.exit('MPI_DSMACC needs more cores: Use a Queue')
+    ncpus = 2
+    #sys.exit('MPI_DSMACC needs more cores: Use a Queue')
 
-if ncpus > 80:
+if ncpus > 130:
         sys.exit('I dont believe you are running DSMACC on %s cores, use a queue'%ncpus)
 
 
@@ -135,9 +136,6 @@ try:
 
     n=rank-1
 
-
-
-
     if rank>0:
 
 
@@ -145,10 +143,9 @@ try:
 
                 g = groups[n]
 
-
-
                 #set the model
                 model='model'
+
                 if '-' in g[1]:
                     if runsaved: model='save/exec/%s/model'%(g[1].split('-')[-1])
                     else:  description = g[1].split('-')[0]
@@ -208,7 +205,7 @@ try:
 
 
                     mask = np.array(data[1].sum(axis=0))
-                    if dataset == 'spec': 
+                    if dataset == 'spec':
                         mask[:12] = 1.
                     elif dataset == 'rate':
                         #only save reaction which contain species
@@ -221,9 +218,9 @@ try:
 
 
                     mask = np.where(mask)
-           
+
                     fltr = np.array(dataarr)[mask]
-                    
+
 
                     g.attrs[dataset + u'head']  = ','.join(fltr)
                     data[1]  = np.squeeze(data[1][...,mask],axis = 1)

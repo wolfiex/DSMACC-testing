@@ -79,14 +79,14 @@ class Picker:
 
         ret_s = filter(lambda x: x["selected"], self.all_options)
         ret = map(lambda x: x["label"], ret_s)
-        ret = list(ret) 
-        
+        ret = list(ret)
+
         #if len(ret)<1:print('You must make a choice. ')
         return( ret )
-        
-        
+
+
     def getSelected(self):
-                
+
                 ret = self.InterGetSelected();
                 if len(ret)<1:sys.exit('You must make a choice. ')
                 return( ret )
@@ -202,7 +202,7 @@ class Picker:
 
             self.redraw()
             c = stdscr.getch()
-            print c 
+            print c
 
             if c == ord('q') or c == ord('Q'):
                 self.aborted = True

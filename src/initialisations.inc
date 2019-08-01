@@ -17,15 +17,15 @@ end if
     if (INTTIME .LE. 0) then
         print *, 'You spin me right round, like a spinup baby, woohoo!'
         print*, 'Do not constrain NOX when at ss'
-        INTTIME = abs(INTTIME)+DAY 
+        INTTIME = abs(INTTIME)+DAY
         CONSTRAIN_RUN=.TRUE.
-        SPINUP = 0!24*60*60*2 
+        SPINUP = 0!24*60*60*2
         !SAVE_LEGACY= .TRUE.
 
         WRITE (OUTPUT_UNIT,*) 'Integration to convergence'
 
         !flag
-        if (INTTIME .EQ. -1) then
+        !if (INTTIME .EQ. -1) then
         !    INTTIME=int(4380*24.*60.*60.)
         !    OUTPUT_LAST=.FALSE.
 
@@ -35,8 +35,8 @@ end if
 
 
         else
-          
-           
+
+
             !WRITE (OUTPUT_UNIT,*) 'Negative Integration Time \n &
             !&But not a special case'
             !STOP

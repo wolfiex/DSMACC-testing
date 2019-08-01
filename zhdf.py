@@ -102,10 +102,10 @@ class new():
             self.groups = dict([[i[0],j] for j,i in enumerate(groups)])
             self.groupkeys = groups[0][1].attrs.keys()
             self.flux=False
-            
-            if type(groupid) == int: 
+
+            if type(groupid) == int:
                 g = groups[groupid]
-            elif type(groupid) == str: 
+            elif type(groupid) == str:
                 g = groups[self.groups[groupid]]
             else:
                 g = groups[0]
@@ -122,14 +122,24 @@ class new():
                 #'spec' in selection:
                 shead = g.attrs['spechead'].decode("utf-8").split(',')
                 spec = dd.from_array(g.get('spec')[:,:],chunksize=50000, columns = shead)
+
+                '''
+
+                '''
+
                 self.timesteps = spec['TIME'].compute().astype('M8[s]')
+
+                self.s = spec
+                #return None
 
 
 
                 self.ts= np.array(self.timesteps)
+
                 spec['TIME'] = self.timesteps
                 spec = spec.set_index('TIME', sorted=True)
-                self.spinup= self.ts[int( (spec.SPINUP.max()/ts).compute() ) ]
+
+                self.spinup = self.ts[int( (spec.SPINUP.max()/ts).compute() ) ]
                 self.M =  spec.M.mean()
                 self.spec = spec/self.M
 
@@ -213,7 +223,7 @@ class new():
         '''
         Replace our sparse jacobian with a positive variation (negative links are reversed)
         Self reactions are removed and non existant species are removed.
-        
+
         Args:
             ignore - list of species to be ignored in posjac array (most commonly inorganics)
         '''
@@ -222,7 +232,7 @@ class new():
         try:
             self.posjac
             print ('Posjac already exists, use "del <name>.posjac" to remove it')
-             
+
         except:None
 
         #remove no existant species
@@ -230,27 +240,27 @@ class new():
         #self.posjac = self.jacsp[filter(lambda x: not rm.search(x), self.jacsp.columns)]
 
         #self reactions and negatives
-        
-        
+
+
         contains = set(self.jacsp.columns)
         selfself = set(('%s->%s'%(i,i) for i in self.spec.columns))
 
         rxns = list(set(self.jacsp.columns) - selfself)
-        
+
         self.posjac = dd.compute(self.jacsp[rxns])[0]
 
         rev = re.compile(r'(.+)->(.+)')
         #for each negative reaction
         for h in rxns:
-            #our column 
+            #our column
             dummy = self.posjac[h]
             #save static positive values - unchanged
             self.posjac[h] = dummy*(dummy>0).astype(float)
-            
+
             #negative (reverse ) values only
             lt = dummy<0
             mx = np.array(dummy*(-lt.astype(float)))
-            
+
             #reverse link
             hp = rev.sub(r'\2->\1',h)
             try:self.posjac[hp] = self.posjac[hp] + mx
@@ -615,28 +625,28 @@ def error_graph (base, reduced, lumped = 'mechanisms/lumped_formatted_CRI_FULL_2
     import re
     base = base.jacsp.compute()
     reduced = reduced.jacsp.compute()
-    
+
     header = base.columns
     lumped = open(lumped).readlines()
     lumped = re.findall(r'(LMP\d+): ([\w,]+)',''.join(lumped))
-    
+
     for n,l in lumped:
-        
+
         sub = re.compile(r'\b(%s)\b'%(l.replace(',','|')))
-        header = [sub.sub(n, x) for x in header] 
+        header = [sub.sub(n, x) for x in header]
         print l , header,l
 
 
     base.columns=header
     base = base.groupby(by=base.columns,axis=1).agg(np.sum)
-    
+
     keep = set(base.columns) & set(reduced.columns)
     discard = set(base.columns) ^ set(reduced.columns)
-    
+
     print( 'Ignoring:' ,discard)
-    
+
     res = np.log10(reduced[keep]).divide(np.log10(base[keep]),axis=1)
-    
+
 
     return res
 
@@ -645,22 +655,22 @@ def undirect(jsp):
     '''
     Remove directional links between species by finding the net weight of the jacobian
     '''
-    
+
     dct={}
     specs = jsp.spec.columns
     for i in specs:
         for j in specs:
             total = []
             n = list(set([i,j]))
-            
+
             try: total.append(jsp['%s->%s'%(n[0],n[1])])
             except:None
             try: total.append(-1*jsp['%s->%s'%(n[0],n[1])])
             except:None
-            
+
             if len(total) >0 and i != j:
                 dct['->'.join(n)] = sum(total).compute()
-    
+
     return dct
 
 

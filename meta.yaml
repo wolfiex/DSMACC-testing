@@ -15,6 +15,7 @@ dependencies:
   - scipy
   - ipyreload
   - matplotlib
+  - xlrd
   - pip:
     - pathos
     - mpi4py
