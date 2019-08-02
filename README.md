@@ -16,9 +16,13 @@ Complexity --- still in development/testing
 -`python -m dsmacc.parsekpp.reformat.py`
 (then use the ncurses interface)
 
-## create a new run - and execute
+## Create a new run - and execute
 -`python -m dsmacc.run -r -c`
 (run, create)
+
+## Run last modified intial conditions file (useful for testing)
+-`python -m dsmacc.run -r -c -l`
+(run, create, last)
 
 ## Spinup until steady state
 - set spinup time in ics
@@ -107,7 +111,7 @@ Set the loaded version of MPI to be used with mpi4py
 
 Then run `pip install mpi4py`
 
-### Parallel h5py
+### Parallel h5py - not enabled as none of the york hpc clusters have been configured to do this 
 1 Build hdf5 library with the following flags (note many clusters dont seem to do this for some reason)
 `$./configure --enable-parallel --enable-shared`
 Note that --enable-shared is required.
@@ -165,40 +169,7 @@ Can be accomplished through `git submodule init;
 git submodule update` or typing `make update_submodule`
 
 
-## Documentation Contents
-
-1. [**How to compile**](src/docs/compile.md)
-2. [**How to run**](src/docs/run.md)
-3. [ErrorCodes](src/docs/errors.md)
-4. [**How to plot**](src/docs/view_results.md)
-5. [Advanced features](src/docs/advancedrunning.md)
-6. [Constrain to obs.](http://htmlpreview.github.io/?https://github.com/wolfiex/DSMACC-testing/blob/master/src/docs/constrain_obs.html)
-7. [Updating TUV](src/docs/newtuv.md)
-8. [GeosCHEM](src/docs/geoschem.md)
-9. [Changes](src/docs/changes.md)
-
-
 
 ## Makefile
 Type `make man` to see a description of available functions.
 
-
-## Optional extras
-- [x] MCM subset selector in mechanisms - this uses an init cons file to
-  generate the smallest mechanism required by the model.
-- [x] read DSMACC output routine in analysis tools.
-- [x] plot all concentrations / reaction rates as a PDF for diagnostics
-  in analysis tools and ropa tool
-- [x] animated ropa plotter (alternatively you can use the online version -
-  link to be added soon)
-
-
-## Notes:
-
-### Dependancies:
-+ Ifort (Intel)
-+ Netcdf4 (python)
-+ Anacondas Python (continuum.io)
-+ icc & bison for kpp
-+ perl
-# IterativeTemporalPageRank
