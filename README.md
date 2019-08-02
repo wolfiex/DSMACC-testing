@@ -37,7 +37,7 @@ Complexity --- still in development/testing
 
 ## Convert a run to initial conditions 
 - useful in taking the last observation spun up concentration and using it to initiate a run until steady state
-- `python -m dsmacc.observations.run2ics <file.h5> <timestep index (int)> -r
+- `python -m dsmacc.observations.run2ics <file.h5> <timestep index (int)> -r`
 (-r removes spun up data)
 
 
