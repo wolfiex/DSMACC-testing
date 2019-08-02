@@ -3,6 +3,56 @@
 Dan's version of the Dynamically Simple Model for Atmospheric Chemical
 Complexity --- still in development/testing
 
+
+
+# dsmacc python library 
+- used to run parallel instances
+- create constraints to observations
+- preparse kpp mechanisms
+- diagnostics and read tools
+
+
+## reformat kppfiles
+-`python -m dsmacc.parsekpp.reformat.py`
+(then use the ncurses interface)
+
+## create a new run - and execute
+-`python -m dsmacc.run -r -c`
+(run, create)
+
+## Spinup until steady state
+- set spinup time in ics
+- `python -m dsmacc.run -r -c -s`
+
+
+## Observation constrains
+- create the required files in format.... 
+- `python -m dsmacc.observations.constrain <csvfilenamewithdata>`
+- `python -m dsmacc.run -r -c -o`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Try the wiki - also in progress but contains some debug tips.
 
 
