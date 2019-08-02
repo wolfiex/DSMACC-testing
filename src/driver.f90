@@ -93,16 +93,30 @@ run_counter = run_counter+1
 CALL Update_RCONST()! Update the rate constants
 
 !If we wish to spinup or constrain to observations
-if (obs == 0) then
-    continue
 
-else if (obs > 0) then
-    ! DFRACT - day fraction
-    DFRACT = (Time-tstart)
-    if (DFRACT < spinup) then
-        DFRACT = mod(dfract,float(day))
-        include 'include.obs'
-    end if
+if (obs > 0) then
+        ! DFRACT - day fraction
+        DFRACT = (Time-tstart)
+
+
+        if (DFRACT < spinup) then
+
+            ! multi day daycounter
+            ! DFRACT = ((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.)
+
+            !diurnal daycounter
+            DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
+
+            include 'include.obs'
+
+        else if (DFRACT .eq. spinup) then
+
+            ! print *, 'Stop constrain at ',DFRACT
+            DFRACT = -1
+            include 'include.obs'
+            obs = 0
+
+        end if
 
 end if
 
@@ -120,7 +134,7 @@ IF (ISNAN(C(I)) .or. (ERROR .NE. 1)) then
     !    c(i)= 0.
     !    cycle
     !end if
- 
+
     print*, 'Failed on ' ,SPC_NAMES(I), ' with concentration ',C(I)
     C(1:NVAR)=0.
     GOTO 1000
@@ -215,7 +229,7 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
     TEND = TEND + DAY
     print *, line, ' fractional difference aim 0 :', abs(fracdiff - 1e-3)
     IF (FRACDIFF .LE. 1e-3) THEN
-            
+
             CONSTRAIN_RUN = .FALSE.
             obs = 0
             print *, 'Converged at ',spinup,'timesteps'
@@ -225,14 +239,14 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
 
     END IF
     !Reset params and add a day to TEND
-    
+
     SPINUP = SPINUP + DAY
-    
+
     if (obs < 0) then
         call initVal(concs,.FALSE.)!re-initialise values
         print*, 'resetting concentrations @ ', spinup, 'seconds.'
     end if
-    
+
     DAYCOUNTER=0! reset the day counter to 0
     OLDFRACDIFF=FRACDIFF
     ENDIF

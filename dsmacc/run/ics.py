@@ -40,6 +40,9 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = False):
     try:spinup = (data[3:,spinup].astype(float) + data[3:,jday].astype(float)*60*60*24)  #.astype('M8[s]')
     except:spinup = [0]*data.shape[1]
 
+
+
+
     for run in xrange(3,data.shape[0]):
         localtime = float(data[run,lon])/360.
         print 'Adjusting jday to localtime by %.2f hours for model: %s'%(localtime*24,run_names[run-3][1])

@@ -81,7 +81,7 @@ def s ():
 
 
 
-drop = [ u'NOX_PPBV',u'NOY_PPBV', u'NOZ_PPBV', u'SO2_PPBV',u'CYCLOPENTANE_PPBV']
+drop = [u'NOY_PPBV', u'NOZ_PPBV', u'SO2_PPBV',u'CYCLOPENTANE_PPBV' , 'NO2_PPBV']# u'NOX_PPBV'
 
 rename = [
 ['ISO.PENTANE','IC5H12'],
@@ -105,17 +105,20 @@ rename = [
 ['N.HEXANE','NC6H14'],
 ['N.HEPTANE','NC7H16'],
 ['ACETALDEHYDE','CH3CHO'],
-['ETHANOL','C2H5OH']
+['ETHANOL','C2H5OH'],
+['METHANOL','CH3OH']
 ]
 
 
-for id in  ['2017-06-16']:
+for id in  ['2017-06-17','2017-06-11']:
     select = keep[id]
     select.drop(drop,axis=1,inplace=True)
     names = ';'.join(select.columns)
     # rename
     for i in rename:
-        names = names.replace(i[0],i[1])
+
+        names = re.sub(r'([^\.\w\d_-])('+i[0]+')_',r'\1'+i[1]+'_',names)
+
 
     select.columns = names.split(';')
     for i in select.columns:
@@ -127,6 +130,11 @@ for id in  ['2017-06-16']:
             select.drop([i],axis=1,inplace=True)
 
 
+    ## hack to get no2 (as missing on some )
+    #select['NO2_PPBV'] = select['NOX_PPBV']-select['NO_PPBV']
+    #select.drop(['NOX_PPBV'],axis=1,inplace=True)
+    ## hack to have the same emissions in all for comparison
+    select = select[[i+'_PPBV' for i in 'O3,CO,NO,C2H6,C2H4,C3H8,IC4H10,NC4H10,C2H2,TBUT2ENE,BUT1ENE,MEPROPENE,CBUT2ENE,IC5H12,NC5H12,C4H6,NC6H14,NC7H16,BENZENE,TOLUENE,EBENZ,OXYL,CH3CHO,CH3OH,C2H5OH,M3PE,NOX'.split(',')]]
 
     print ','.join([i.replace('_PPBV','') for i in select.columns])
 
