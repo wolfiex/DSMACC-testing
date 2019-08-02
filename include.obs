@@ -1,0 +1,117 @@
+!obs:109
+
+!! Constrain from observations
+!USE model_Global,       ONLY: CONSTRAIN,CFACTOR,spcf,obs
+
+
+if (DFRACT  .ge. 0) then
+
+ C(ind_O3)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(1,:),spcf(2,:),spcf(3,:),spcf(4,:))
+ CONSTRAIN(ind_O3) = C(ind_O3)
+
+ C(ind_CO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(5,:),spcf(6,:),spcf(7,:),spcf(8,:))
+ CONSTRAIN(ind_CO) = C(ind_CO)
+
+ C(ind_NO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(9,:),spcf(10,:),spcf(11,:),spcf(12,:))
+ CONSTRAIN(ind_NO) = C(ind_NO)
+
+ C(ind_C2H6)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(13,:),spcf(14,:),spcf(15,:),spcf(16,:))
+ CONSTRAIN(ind_C2H6) = C(ind_C2H6)
+
+ C(ind_C2H4)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(17,:),spcf(18,:),spcf(19,:),spcf(20,:))
+ CONSTRAIN(ind_C2H4) = C(ind_C2H4)
+
+ C(ind_C3H8)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(21,:),spcf(22,:),spcf(23,:),spcf(24,:))
+ CONSTRAIN(ind_C3H8) = C(ind_C3H8)
+
+ C(ind_IC4H10)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(25,:),spcf(26,:),spcf(27,:),spcf(28,:))
+ CONSTRAIN(ind_IC4H10) = C(ind_IC4H10)
+
+ C(ind_NC4H10)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(29,:),spcf(30,:),spcf(31,:),spcf(32,:))
+ CONSTRAIN(ind_NC4H10) = C(ind_NC4H10)
+
+ C(ind_C2H2)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(33,:),spcf(34,:),spcf(35,:),spcf(36,:))
+ CONSTRAIN(ind_C2H2) = C(ind_C2H2)
+
+ C(ind_TBUT2ENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(37,:),spcf(38,:),spcf(39,:),spcf(40,:))
+ CONSTRAIN(ind_TBUT2ENE) = C(ind_TBUT2ENE)
+
+ C(ind_BUT1ENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(41,:),spcf(42,:),spcf(43,:),spcf(44,:))
+ CONSTRAIN(ind_BUT1ENE) = C(ind_BUT1ENE)
+
+ C(ind_MEPROPENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(45,:),spcf(46,:),spcf(47,:),spcf(48,:))
+ CONSTRAIN(ind_MEPROPENE) = C(ind_MEPROPENE)
+
+ C(ind_CBUT2ENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(49,:),spcf(50,:),spcf(51,:),spcf(52,:))
+ CONSTRAIN(ind_CBUT2ENE) = C(ind_CBUT2ENE)
+
+ C(ind_IC5H12)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(53,:),spcf(54,:),spcf(55,:),spcf(56,:))
+ CONSTRAIN(ind_IC5H12) = C(ind_IC5H12)
+
+ C(ind_NC5H12)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(57,:),spcf(58,:),spcf(59,:),spcf(60,:))
+ CONSTRAIN(ind_NC5H12) = C(ind_NC5H12)
+
+ C(ind_C4H6)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(61,:),spcf(62,:),spcf(63,:),spcf(64,:))
+ CONSTRAIN(ind_C4H6) = C(ind_C4H6)
+
+ C(ind_NC6H14)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(65,:),spcf(66,:),spcf(67,:),spcf(68,:))
+ CONSTRAIN(ind_NC6H14) = C(ind_NC6H14)
+
+ C(ind_NC7H16)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(69,:),spcf(70,:),spcf(71,:),spcf(72,:))
+ CONSTRAIN(ind_NC7H16) = C(ind_NC7H16)
+
+ C(ind_BENZENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(73,:),spcf(74,:),spcf(75,:),spcf(76,:))
+ CONSTRAIN(ind_BENZENE) = C(ind_BENZENE)
+
+ C(ind_TOLUENE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(77,:),spcf(78,:),spcf(79,:),spcf(80,:))
+ CONSTRAIN(ind_TOLUENE) = C(ind_TOLUENE)
+
+ C(ind_EBENZ)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(81,:),spcf(82,:),spcf(83,:),spcf(84,:))
+ CONSTRAIN(ind_EBENZ) = C(ind_EBENZ)
+
+ C(ind_OXYL)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(85,:),spcf(86,:),spcf(87,:),spcf(88,:))
+ CONSTRAIN(ind_OXYL) = C(ind_OXYL)
+
+ C(ind_CH3CHO)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(89,:),spcf(90,:),spcf(91,:),spcf(92,:))
+ CONSTRAIN(ind_CH3CHO) = C(ind_CH3CHO)
+
+ C(ind_CH3OH)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(93,:),spcf(94,:),spcf(95,:),spcf(96,:))
+ CONSTRAIN(ind_CH3OH) = C(ind_CH3OH)
+
+ C(ind_C2H5OH)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(97,:),spcf(98,:),spcf(99,:),spcf(100,:))
+ CONSTRAIN(ind_C2H5OH) = C(ind_C2H5OH)
+
+ C(ind_M3PE)= CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(101,:),spcf(102,:),spcf(103,:),spcf(104,:))
+ CONSTRAIN(ind_M3PE) = C(ind_M3PE)
+
+ TNOX_OLD = CFACTOR*10**seval(27,dfract,spcf(obs,:),spcf(105,:),spcf(106,:),spcf(107,:),spcf(108,:))
+ELSE
+! Unconstrain species
+
+        CONSTRAIN(ind_O3) =0
+        CONSTRAIN(ind_CO) =0
+        CONSTRAIN(ind_NO) =0
+        CONSTRAIN(ind_C2H6) =0
+        CONSTRAIN(ind_C2H4) =0
+        CONSTRAIN(ind_C3H8) =0
+        CONSTRAIN(ind_IC4H10) =0
+        CONSTRAIN(ind_NC4H10) =0
+        CONSTRAIN(ind_C2H2) =0
+        CONSTRAIN(ind_TBUT2ENE) =0
+        CONSTRAIN(ind_BUT1ENE) =0
+        CONSTRAIN(ind_MEPROPENE) =0
+        CONSTRAIN(ind_CBUT2ENE) =0
+        CONSTRAIN(ind_IC5H12) =0
+        CONSTRAIN(ind_NC5H12) =0
+        CONSTRAIN(ind_C4H6) =0
+        CONSTRAIN(ind_NC6H14) =0
+        CONSTRAIN(ind_NC7H16) =0
+        CONSTRAIN(ind_BENZENE) =0
+        CONSTRAIN(ind_TOLUENE) =0
+        CONSTRAIN(ind_EBENZ) =0
+        CONSTRAIN(ind_OXYL) =0
+        CONSTRAIN(ind_CH3CHO) =0
+        CONSTRAIN(ind_CH3OH) =0
+        CONSTRAIN(ind_C2H5OH) =0
+        CONSTRAIN(ind_M3PE) =0
+END IF
