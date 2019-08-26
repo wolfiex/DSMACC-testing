@@ -139,7 +139,8 @@ class new():
                 spec['TIME'] = self.timesteps
                 spec = spec.set_index('TIME', sorted=True)
 
-                self.spinup = self.ts[int( (spec.SPINUP.max()/ts).compute() ) ]
+                try:self.spinup = self.ts[int( (spec.SPINUP.max()/ts).compute() ) ]
+                except IndexError: self.spinup = self.ts[-1]
                 self.M =  spec.M.mean()
                 self.spec = spec/self.M
 

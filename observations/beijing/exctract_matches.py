@@ -131,10 +131,10 @@ for id in  ['2017-06-17','2017-06-11']:
 
 
     ## hack to get no2 (as missing on some )
-    #select['NO2_PPBV'] = select['NOX_PPBV']-select['NO_PPBV']
-    #select.drop(['NOX_PPBV'],axis=1,inplace=True)
+    select['NO2_PPBV'] = select['NOX_PPBV']-select['NO_PPBV']
+    select.drop(['NOX_PPBV'],axis=1,inplace=True)
     ## hack to have the same emissions in all for comparison
-    select = select[[i+'_PPBV' for i in 'O3,CO,NO,C2H6,C2H4,C3H8,IC4H10,NC4H10,C2H2,TBUT2ENE,BUT1ENE,MEPROPENE,CBUT2ENE,IC5H12,NC5H12,C4H6,NC6H14,NC7H16,BENZENE,TOLUENE,EBENZ,OXYL,CH3CHO,CH3OH,C2H5OH,M3PE,NOX'.split(',')]]
+    select = select[[i+'_PPBV' for i in 'O3,CO,NO,C2H6,C2H4,C3H8,IC4H10,NC4H10,C2H2,TBUT2ENE,BUT1ENE,MEPROPENE,CBUT2ENE,IC5H12,NC5H12,C4H6,NC6H14,NC7H16,BENZENE,TOLUENE,EBENZ,OXYL,CH3CHO,CH3OH,C2H5OH,M3PE,NO2'.split(',')]]
 
     print ','.join([i.replace('_PPBV','') for i in select.columns])
 

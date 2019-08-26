@@ -189,6 +189,9 @@ try:
                 for dataset in savelist:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
 
+                    if data[1].shape[0] == 0:
+                        print( 'no values found, skipping: ',  dataset)
+                        continue
 
 
                     if dataset == 'jacsp':
@@ -201,8 +204,8 @@ try:
                         dataarr = data[0].split(',')
 
 
-                    print data[1].shape,len(dataarr),dataset#remove non/zero results through mask
-
+                    print data[1].shape,len(dataarr),dataset#remove non/
+                    #zero results through mask
 
                     mask = np.array(data[1].sum(axis=0))
                     if dataset == 'spec':
