@@ -12,6 +12,7 @@ parser.add_argument('--createobs', dest='createobs', action='store_true', defaul
 parser.add_argument('-r','--run', dest='run',nargs='?', action='store', default=False, help='run code')
 #parser.add_argument('-c','--ics', dest='ics', action='store_true', default=False, help='create new ics h5')
 parser.add_argument('-c','--ics', dest='ics',nargs='?', action='store', default=False, help='create new ics h5')
+parser.add_argument('-l','--last', dest='last', action='store_true', default=False, help='run last ics')
 #parser.add_argument('--version', dest='vers', action='store_true', default=False, help='add a watch relaod for dev')
 parser.add_argument('--version', dest='vers', action='store_true', default=False, help='add a watch relaod for dev')
 parser.add_argument('-v','--verbose', dest='verbose',nargs='?', action='store',     default=False, help='print temp')
@@ -52,7 +53,7 @@ print 'cpus' ,ncores
 
 if args.ics != False:
     import ics
-    filename = ics.create_ics(fileic=args.ics, postime = args.obs)
+    filename = ics.create_ics(fileic=args.ics, postime = args.obs,last = args.last)
     if args.run==None:args.start = filename
 
 #if args.run==None:

@@ -1,10 +1,10 @@
 Description: Optional,Do not write time more than once. ,,
 ,,,
 Index,Species,Constrain,methane
-ii,TIME,-0,864000
+ii,TIME,-0,518400
 ii,TEMP,0,298
-ii,LAT,0,52.1
-ii,LON,0,0
+ii,LAT,0,39.9
+ii,LON,0,116.4
 ii,JDAY,0,173.5
 ii,H2O,0,0.02
 ii,ALBEDO,0,0
@@ -18,4 +18,4 @@ ii,H2,0,0.0000005
 3,O3,0,0.00000004
 4,CH4,0,0.00000002
 5,OH,0,1e-6
-6,SPINUP,0,864000
+6,SPINUP,0,345600

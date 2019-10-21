@@ -1,7 +1,7 @@
 Description: Optional,Do not write time more than once.,,
 TUV version,0,0,TUV5.2.1
 Index,Species,Constrain,BaseRun
-ii,TIME,NA,1728000
+ii,TIME,NA,3024000
 ii,TEMP,0,298
 ii,LAT,0,53.958
 ii,LON,0,0
@@ -19,4 +19,4 @@ ii,H2,0,0.0000005
 4,XCH4,0,0
 5,C2H6,0,2E-8
 6,C3H8,0,2.00E-008
-ii,SPINUP,0,1641600
+ii,SPINUP,0,1728000

@@ -2,7 +2,7 @@ from ..parsekpp.reactiontypes import reformat_kpp
 from .. import datatables
 __tableloc__ = datatables.__file__
 
-def getG(mechlist=['inorganics']):
+def getG(mechlist=['inorganics'], ignore = ['inorganics']):
     print 'note this does not handle coefficients - it is just a sample plotting script'
     reactions  = reformat_kpp(mechlist).values
     print reactions
@@ -17,7 +17,8 @@ def getG(mechlist=['inorganics']):
     save = []
     nodes = []
     rtype=[]
-    ignore = 'OH,HO2,NO,NO2,NO3,Cl,CL,O,O3'.split(',')
+    if ignore == ['inorganics']:
+        ignore = 'OH,HO2,NO,NO2,NO3,Cl,CL,O,O3'.split(',')
     for rxn in reactions:
         e = rxn[0].split('->')
 
@@ -48,7 +49,7 @@ def getG(mechlist=['inorganics']):
 
 if __name__ == '__main__':
 
-    G = getG(['ISOP_CH4'])
+    G = getG(['full_mcm_2019'])
     nodes = [{'name': n} for n in G]
     l = G.edges()
 
@@ -59,3 +60,5 @@ if __name__ == '__main__':
     edges = [{'source': s, 'target': t, 'value': 1,'group':G[s][t][0]['group']} for s,t in l]#G[s][t]['weight'] 'group':G[s][t]['group']
 
     json.dump({'nodes': nodes, 'links': edges}, open('./mcm_tograph.json', 'w'))
+
+    adj = np.adjacency_matrix(G)

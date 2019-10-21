@@ -1,0 +1,14 @@
+
+#INCLUDE atoms 
+#DEFVAR
+A = IGNORE ;
+B = IGNORE ;
+C = IGNORE ;
+D = IGNORE ;
+E = IGNORE ;
+F = IGNORE ;
+#EQUATIONS
+{} A + B = D : 1e-2;
+{} C + E = D : 1e-3;
+{} D = F : 1e-8 ;
+{} D = E + A : 1e-4; 

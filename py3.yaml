@@ -1,5 +1,6 @@
 name: py3
 dependencies:
+  - pip
   - python=3   # or 2.7
   - pandas
   - numpy

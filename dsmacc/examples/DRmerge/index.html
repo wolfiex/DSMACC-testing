@@ -1,0 +1,402 @@
+<!DOCTYPE html> <meta charset="utf-8" />
+<style>
+  svg {
+    font: 20px sans-serif;
+  }
+
+  p {
+    margin: 6px 2px;
+  }
+</style>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <pattern
+        id="diagonalHatch"
+        patternUnits="userSpaceOnUse"
+        width="4"
+        height="4"
+      >
+        <path
+          d="M-1,1 l2,-2
+           M0,4 l4,-4
+           M3,5 l2,-2"
+          style="stroke:black; stroke-width:1"
+        />
+      </pattern>
+
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3.1" result="blur" />
+        <feColorMatrix
+          in="blur"
+          mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 44 -7"
+          result="gooey"
+        />
+        <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.0.4/chroma.min.js"
+    integrity="sha256-r2i+bPjselDztQN4Z4P9MvibdQaw/AVKp37mJx9BeZo="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+  <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+  <script>
+    var nolump = [];
+    width = height = 1000;
+
+    (padding = 0.08), (maxRadius = 3.504), (minRadius = 1);
+
+    var x = (y = d3
+      .scaleLinear()
+      .range([0.05 * width, 0.95 * width])
+      .domain([0, 1]));
+
+    d3.select("body").style("background-color", "whitesmoke");
+
+    var svg = d3
+      .select("svg")
+      //.append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("id", "svg")
+
+      .style("filter", "url(#gooey)")
+      .attr("shape-rendering", "geometric-precision");
+
+    mysvg = document.getElementById("svg");
+    rough = require("roughjs");
+    rc = rough.svg(mysvg);
+
+    names = "vec_spec,vec_smiles,embed_fn ,finger_mqn,finger_maccs,embed_graph".split(
+      ","
+    );
+
+
+
+
+    args = window.location.hash.split('#')
+
+
+    index = args[1] //0
+    kind = args[2]// "spca";
+    var specific = args[3]//'ocratio'
+
+    var what = names[index] + "_" + kind;
+
+    colr = args[4]===''?what + "_c":args[4];
+
+    othercol = d3.scaleOrdinal(
+      "842f31-d05456-fcd74b-507276-3a5a5e".split("-").map(d => "#" + d)
+    );
+
+    othercol = d3.interpolateInferno;
+    //YlGnBu
+    //Plasma
+
+    //mycolour =
+
+    function mycolour(x){
+     return '#' + 'steelblue-00c3ff-03e500-f0f400-f4a700-ff5400'.split('-')[parseInt(x)] || 'steelblue'
+    }
+
+
+
+    if (args[4] == '' ){
+    mycolour = d3.scaleOrdinal(
+      //'c6c5b9-62929e-4a6d7c-393a10-475657'
+
+      "002c75-004caa-0a6ecc-338ccc-5b9fcc"
+
+        //'842f31-d05456-fcd74b-507276-3a5a5e'
+        .split("-")
+        .map(d => "#" + d)
+    )}
+
+    //:d3.interpolateViridis; //Viridis
+    //mycolour = d3.scaleOrdinal().range(d3.interpolateSpectral)//.range([0,22])
+    //mycolour =  function(x){return ''+chroma('slategray').saturate(parseFloat(x)/10)}
+    //colr ="ocratio"//'Aromatic rings'//'ocratio'
+    div = 1;
+    ncol = 6;
+
+    // mycolour = d3.scaleOrdinal(d3.range(ncol).map(d=>d3.interpolateViridis(d/(ncol-1))))
+
+    keys = [
+      "name",
+      "vec_spec_pca_x",
+      "vec_spec_pca_y",
+      "vec_spec_tsne_x",
+      "vec_spec_tsne_y",
+      "Fngroups",
+      "vec_smiles_pca_x",
+      "vec_smiles_pca_y",
+      "vec_smiles_tsne_x",
+      "vec_smiles_tsne_y",
+      "embed_fn_pca_x",
+      "embed_fn_pca_y",
+      "embed_fn_tsne_x",
+      "embed_fn_tsne_y",
+      "finger_mqn_pca_x",
+      "finger_mqn_pca_y",
+      "finger_mqn_tsne_x",
+      "finger_mqn_tsne_y",
+      "finger_maccs_pca_x",
+      "finger_maccs_pca_y",
+      "finger_maccs_tsne_x",
+      "finger_maccs_tsne_y",
+      "Carb. Acid",
+      "Ester",
+      "Ether",
+      "Per. Acid",
+      "Hydroperoxide",
+      "Nitrate",
+      "Aldehyde",
+      "Ketone",
+      "Alcohol",
+      "Criegee",
+      "Alkoxy rad",
+      ,
+      "Peroxyacyl rad",
+      "Aromatic rings",
+      "Carbons",
+      "HydroCarbon",
+      "smiles",
+      "oxygen",
+      "hydrogen",
+      "ocratio",
+      "hcratio",
+      "size",
+      "x",
+      "zx",
+      "y",
+      "zy",
+      "index",
+      "vy",
+      "vx"
+    ];
+
+    /////
+
+      d3.csv("../GraphFingerprint/compare_results.csv", function(error, data) {
+        if (error) throw error
+
+
+         svg.selectAll('circle').remove();
+        //console.log(data);
+        window.d = data;
+
+        window.ignore = [];
+
+
+        var scale = function(x){return x}
+
+        if (specific==='Carbons'){
+         //div = 9
+         data = data.map(d=>{d[specific]= d['smiles'].match(/[cC]/gi).length;return d })
+
+         //console.log(data.map(d=>d[specific]).slice(1,10))
+         var scale = d3.scaleLinear().domain(d3.extent(data.map(e=>parseFloat(e[specific]))))
+
+         div = scale.domain()[1]+1
+         console.log(div)
+
+console.log(data.map(d=>scale(d[specific])).slice(1,10))
+        } else if (specific==='0'){
+         specific = false
+        }
+
+
+        //var scale = d3.scaleLinear().domain(d3.extent(data.map(e=>parseFloat(e[specific]))))
+
+
+        var scatter = data.map(n => {
+          return {
+            x: x(n[what + "_x"]),
+            y: y(n[what + "_y"]),
+            c: n[what + "_c"],
+            specific : scale(parseFloat(n[specific]))
+          };
+        });
+
+        function d3fourcolour(scatter) {
+          var center = d3
+            .nest()
+            .key(function(d) {
+              return d.c;
+            })
+            .rollup(function(leaves) {
+              return {
+                x: d3.mean(leaves, d => d.x),
+                y: d3.mean(leaves, d => d.y)
+              };
+            })
+            .entries(scatter);
+
+          console.log(center);
+
+          var pairs = Object.values(center).map(d => [
+            d.value.x || 0,
+            d.value.y || 0
+          ]);
+          //console.log(d3.mean(pairs));
+          const dmodule = require("./d3-delaunay.js");
+          //console.log(dmodule.Delaunay);
+          var delaunay = dmodule.Delaunay.from(pairs);
+          var mapping = {};
+
+          async function greedy(id) {
+            if (!mapping[id] === undefined) {
+              return null;
+            }
+
+            var nodes = [...delaunay.neighbors(id)];
+
+            if (nodes.length == 0) {
+              return null;
+            }
+            var colrs = new Set(nodes.map(d => mapping[d]));
+            var counter = 0;
+            var match = false;
+            while (!match) {
+              if (colrs.has(counter)) {
+                counter += 1;
+              } else {
+                mapping[id] = counter;
+                match = true;
+              }
+            }
+            nodes
+              .filter(d => !mapping[d])
+              .map(d => {
+                greedy(d);
+              });
+
+            return true;
+          }
+
+          greedy(Object.keys(center)[0]);
+
+          //console.log(mapping)
+          return mapping;
+        }
+
+        window.c = d3fourcolour(scatter);
+
+        var nodes = Object.keys(data)
+          .map(function(n, index) {
+            n = data[n];
+
+            /*if (node.labels < 0) {
+                    ignore.push(n);
+                    return false;
+                  }
+        */
+            n.size = 1;
+            n.x = x(n[what + "_x"]);
+            n.zx = x(n[what + "_x"]);
+            n.y = y(n[what + "_y"]);
+            n.zy = y(n[what + "_y"]);
+
+            return n;
+          })
+          .filter(d => d);
+
+        var sizeScale = d3
+          .scaleLinear()
+          .domain([0, 1])
+          .range([minRadius, maxRadius]);
+
+        var colorScale = d3.scaleLinear();
+        //.scaleSequential(d3.interpolateSpectral) //Sinebow)
+        //.domain(d3.extent(nodes.map(d => parseFloat(d[colr])||0)));
+
+        var simulation = d3
+          .forceSimulation(nodes)
+          .force("x", d3.forceX(d => d.zx).strength(1))
+          .force("y", d3.forceY(d => d.zy).strength(1))
+
+          .force(
+            "collide",
+            d3.forceCollide().radius(function(d) {
+              return sizeScale(d.size) + padding;
+            })
+          )
+          .force("manyBody", d3.forceManyBody().strength(-1))
+          .stop();
+        ////////////////////////////////////
+
+        othercol = d3.interpolateViridis;
+        //YlGnBu
+        //Plasma
+
+        //console.log(colorScale.domain());
+        for (var i = 0; i < 150; ++i) simulation.tick();
+
+        var circle = svg
+          .selectAll("circle")
+          .data(nodes)
+          .enter()
+
+          .append("circle")
+          .style("fill", function(d) {
+            return specific
+              ? othercol(d[specific]/div ** 0.95)
+              : mycolour(d[colr]);  // c[d[colr]]
+          })
+
+          // .style("stroke", 'none')
+          .style("stroke-width", 0.2)
+          .style("stroke-opacity", 0.9)
+          .attr("cx", function(d) {
+            return d.x;
+          })
+          .attr("cy", function(d) {
+            return d.y;
+          })
+          .attr("r", function(d) {
+            return sizeScale(d.size);
+          })
+          .style("opacity", 0.6)
+          .on("mouseover", d => {
+            console.log(d["name"], d["smiles"]);
+          })
+          .on("click", d =>
+            nodes
+              .filter(q => q[what + "_c"] === d[what + "_c"])
+              .forEach(e => {
+                console.log(e["name"], e["smiles"]);
+              })
+          );
+        //.on('mouseout', tip.hide)
+      });
+
+
+setTimeout(()=>{
+
+          var screenshot = require('electron-screenshot');
+           screenshot({filename:'./plots/'+what+'_'+specific+colr+'.png',delay:3000});
+
+           setTimeout(()=>{
+
+           var window = require('electron').remote.getCurrentWindow();
+           window.close();
+
+          },25000)
+
+
+           }, 15000)
+      //   save(document.querySelector('svg'))
+
+
+
+
+  </script>
+</body>

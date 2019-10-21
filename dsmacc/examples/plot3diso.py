@@ -92,6 +92,12 @@ def surf(points,darg = 'Qbb'):
 
     ax.plot_trisurf(triang, z, alpha=.4, color=None, cmap= colormap, shade=True ,  linewidths=.3,edgecolors=ec)
     ax.scatter(x,y,z,s=2, c=colormap(norm(1.01*z)))
+    plt.tick_params(
+    axis='all',          # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom=False,      # ticks along the bottom edge are off
+    top=False,         # ticks along the top edge are off
+    labelbottom=False) # labels along the bottom edge are off
 
 
     '''
@@ -203,6 +209,16 @@ class isoae:
 
 
 ae = isoae(len(nlp[0]))
+ae.train(nlp)
+ae.predict(nlp)
+X_train_ae = ae.predict
+plt.scatter(x = X_train_ae[:,0],y = X_train_ae[:,1],c=z)
+plt.show()
+
+surf(ae.reconstruct)
+
+
+ae = isoae(len(nlp[0]),activation ='linear',activation1='linear')
 ae.train(nlp)
 ae.predict(nlp)
 X_train_ae = ae.predict

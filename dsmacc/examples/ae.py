@@ -16,7 +16,7 @@ from keras.datasets import cifar10,mnist
 
 #https://stats.stackexchange.com/questions/190148/building-an-autoencoder-in-tensorflow-to-surpass-pca
 
-class isoae:
+class ae:
     def __init__(
         self,
         indim,
@@ -33,28 +33,30 @@ class isoae:
         m.add(Dense(l_lat,    activation='linear', name="bottleneck"))
         m.add(Dense(l_mid,  activation=activation))
         m.add(Dense(l_big,  activation=activation))
-        m.add(Dense(indim,  activation='sigmoid'))
+        m.add(Dense(indim,  activation='linear'))
         m.compile(loss='mean_squared_error', optimizer = Adam())
         self.m = m
         self.indim = indim
+        self.epochs = epochs
 
 
     def train(self,x_train):
         assert x_train.shape[1] == self.indim
-        self.hist = m.fit(x_train, x_train, batch_size=indim, epochs=epochs, verbose=1,
+        x_test = x_train
+        self.hist = self.m.fit(x_train, x_train, batch_size=self.indim, epochs=self.epochs, verbose=1,
                 validation_data=(x_test, x_test))
-        self.encoder = Model(m.input, m.get_layer('bottleneck').output)
+        self.encoder = Model(self.m.input, self.m.get_layer('bottleneck').output)
 
     def predict(self,x_train):
-        self.predict = encoder.predict(x_train)  # bottleneck representation
-        self.reconstruct = m.predict(x_train)        # reconstruction
-
+        self.prediction = self.encoder.predict(x_train)  # bottleneck representation
+        self.reconstruct = self.m.predict(x_train)
+        # reconstruction
 
     def plot(self,x_train):
         self.predict(x_train)
 
         plt.title('Autoencoder')
-        plt.scatter(self.predict[:,0], self.predict[:,1], c='blue', s=8, cmap='tab20')
+        plt.scatter(self.prediction[:,0], self.prediction[:,1], c='blue', s=8, cmap='tab20')
         plt.gca().get_xaxis().set_ticklabels([])
         plt.gca().get_yaxis().set_ticklabels([])
         plt.tight_layout()
