@@ -2,7 +2,7 @@
     // include file with definition of the chemical species
     // and chemical equations
     #INCLUDE ./src/background/mechswitches.kpp //KEEP!
-    #INCLUDE mechanisms/formatted_CRI_FULL_2.2_inorganics_True.kpp
+    #INCLUDE mechanisms/mybox.kpp
 
     #INCLUDE ./src/util.inc
     #INCLUDE ./src/global.inc

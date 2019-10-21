@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model.map
-! Time                 : Thu Aug 22 20:35:07 2019
+! Time                 : Fri Oct 11 00:09:35 2019
 ! Working directory    : /work/home/dp626/DSMACC-testing
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -32,174 +32,29 @@ REORDER  - ON
 ### Parameters ----------------------------------------
 
 ! NSPEC - Number of chemical species
-  INTEGER, PARAMETER :: NSPEC = 443 
+  INTEGER, PARAMETER :: NSPEC = 8 
 ! NVAR - Number of Variable species
-  INTEGER, PARAMETER :: NVAR = 440 
+  INTEGER, PARAMETER :: NVAR = 6 
 ! NVARACT - Number of Active species
-  INTEGER, PARAMETER :: NVARACT = 440 
+  INTEGER, PARAMETER :: NVARACT = 5 
 ! NFIX - Number of Fixed species
-  INTEGER, PARAMETER :: NFIX = 3 
+  INTEGER, PARAMETER :: NFIX = 2 
 ! NREACT - Number of reactions
-  INTEGER, PARAMETER :: NREACT = 1698 
+  INTEGER, PARAMETER :: NREACT = 6 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
-  INTEGER, PARAMETER :: NFIXST = 441 
+  INTEGER, PARAMETER :: NFIXST = 7 
 
 ### Species -------------------------------------------
 
 Variable species
-  1 = SO3 (r)   148 = CARB20 (r)295 = CARB22 (r)
-  2 = C2H6 (r)  149 = RA16OOH (r)296 = CARB19 (r)
-  3 = CH4 (r)   150 = RA25OOH (r)297 = O (r)     
-  4 = CHEX (r)  151 = RA28OOH (r)298 = RTN24O2 (r)
-  5 = DIET35TOL (r)152 = CH3OOH (r)299 = CARB34 (r)
-  6 = DIME35EB (r)153 = RC18NO3 (r)300 = NRN12O2 (r)
-  7 = DMC (r)   154 = HOC2H4OOH (r)301 = HEX1ENE (r)
-  8 = HSO3 (r)  155 = RE15NO3 (r)302 = NRN18O2 (r)
-  9 = IC4H10 (r)156 = RI12NO3 (r)303 = RI11O2 (r)
- 10 = IC5H12 (r)157 = RI12OOH (r)304 = RU10NO3 (r)
- 11 = IPEAOH (r)158 = RI13OOH (r)305 = RU10OOH (r)
- 12 = IPECOH (r)159 = RI14OOH (r)306 = CARB25 (r)
- 13 = IPROACET (r)160 = RI15NO3 (r)307 = CARB31 (r)
- 14 = M22C4 (r) 161 = RI15OOH (r)308 = STYRENE (r)
- 15 = M2HEX (r) 162 = RI17OOH (r)309 = BPINENE (r)
- 16 = M2PE (r)  163 = RN10NO3 (r)310 = TNCARB10 (r)
- 17 = M3PE (r)  164 = HOCH2CO3H (r)311 = RE12O2 (r)
- 18 = ME3BUOL (r)165 = RN12OOH (r)312 = RE18O2 (r)
- 19 = METHACET (r)166 = RN15NO3 (r)313 = RN19BO2 (r)
- 20 = METHTOL (r)167 = RN17OOH (r)314 = MEPROPENE (r)
- 21 = NBUTACET (r)168 = RN18NO3 (r)315 = APINENE (r)
- 22 = NBUTOL (r)169 = RN21NO3 (r)316 = TNCARB26 (r)
- 23 = NC10H22 (r)170 = RN23OOH (r)317 = NUCARB12 (r)
- 24 = NC11H24 (r)171 = RN24NO3 (r)318 = CARB13 (r)
- 25 = NC12H26 (r)172 = RN27NO3 (r)319 = RTN10O2 (r)
- 26 = NC4H10 (r)173 = RN29OOH (r)320 = RTN23O2 (r)
- 27 = NC5H12 (r)174 = RN30NO3 (r)321 = NRI15O2 (r)
- 28 = NC6H14 (r)175 = RN33NO3 (r)322 = RI12O2 (r)
- 29 = NC7H16 (r)176 = RN35OOH (r)323 = RI15O2 (r)
- 30 = NC8H18 (r)177 = RN36NO3 (r)324 = RU11O2 (r)
- 31 = NC9H20 (r)178 = RN37NO3 (r)325 = RUA20O2 (r)
- 32 = NEOP (r)  179 = RTN10OOH (r)326 = NRTX28O2 (r)
- 33 = O1D (r)   180 = RTN23OOH (r)327 = HPUCARB12 (r)
- 34 = OETHTOL (r)181 = RTN25NO3 (r)328 = RA19AO2 (r)
- 35 = PETHTOL (r)182 = IC3H7NO3 (r)329 = UDCARB14 (r)
- 36 = SBUTACET (r)183 = RTX22NO3 (r)330 = RA28O2 (r)
- 37 = TBUTOL (r)184 = RTX22OOH (r)331 = RA25O2 (r)
- 38 = TM135B (r)185 = RTX24NO3 (r)332 = RC16O2 (r)
- 39 = DMM (r)   186 = RTX28NO3 (r)333 = RC14O2 (r)
- 40 = EBENZ (r) 187 = RU11NO3 (r)334 = RN16AO2 (r)
- 41 = ETHGLY (r)188 = RU11OOH (r)335 = RN35O2 (r)
- 42 = IPBENZ (r)189 = RU14OOH (r)336 = BENZAL (r)
- 43 = M23C4 (r) 190 = RUA20OOH (r)337 = RN36AO2 (r)
- 44 = M3HEX (r) 191 = ANHY (r)  338 = RN36O2 (r)
- 45 = MXYL (r)  192 = CH3NO3 (r)339 = RA16O2 (r)
- 46 = C3H8 (r)  193 = ECARB13 (r)340 = UDCARB11 (r)
- 47 = NPROACET (r)194 = C3H7CHO (r)341 = DHPR12O2 (r)
- 48 = OXYL (r)  195 = C4H9CHO (r)342 = RI16AO2 (r)
- 49 = PBENZ (r) 196 = H2O2 (r)  343 = CARB16 (r)
- 50 = PXYL (r)  197 = TXCARB22 (r)344 = CARB17 (r)
- 51 = TM123B (r)198 = PAN (r)   345 = C3H6 (r)  
- 52 = TM124B (r)199 = PHAN (r)  346 = NRN9O2 (r)
- 53 = CYHEXOL (r)200 = PPN (r)   347 = NRN15O2 (r)
- 54 = HEX2ONE (r)201 = RA13NO3 (r)348 = RI16O2 (r)
- 55 = HEX3ONE (r)202 = RA16NO3 (r)349 = RI14O2 (r)
- 56 = BENZENE (r)203 = RA25NO3 (r)350 = IC3H7O2 (r)
- 57 = IBUTOL (r)204 = RA28NO3 (r)351 = CARB3 (r) 
- 58 = IEPOX (r) 205 = RE12NO3 (r)352 = RI13O2 (r)
- 59 = IPEBOH (r)206 = RE18NO3 (r)353 = RTN28O2 (r)
- 60 = BUT2OL (r)207 = RI13NO3 (r)354 = HNO3 (r)  
- 61 = MEK (r)   208 = RN16OOH (r)355 = ARNOH14 (r)
- 62 = MIBK (r)  209 = NRTX28OOH (r)356 = RTN14O2 (r)
- 63 = MPRK (r)  210 = RN20OOH (r)357 = NRU12O2 (r)
- 64 = MTBK (r)  211 = RN26OOH (r)358 = C5H8 (r)  
- 65 = N2O5 (r)  212 = RN32OOH (r)359 = RTX28O2 (r)
- 66 = PECOH (r) 213 = ARNOH17 (r)360 = CH3COCH3 (r)
- 67 = DIEK (r)  214 = RN9OOH (r)361 = RU10AO2 (r)
- 68 = PROPGLY (r)215 = RTN14OOH (r)362 = C2H4 (r)  
- 69 = TNCARB15 (r)216 = RTN26PAN (r)363 = RN37O2 (r)
- 70 = TOLUENE (r)217 = RTX28OOH (r)364 = RN34AO2 (r)
- 71 = C2H2 (r)  218 = RA22OOH (r)365 = RN34O2 (r)
- 72 = MIBKAOH (r)219 = MIPK (r)  366 = RN32O2 (r)
- 73 = CH3OH (r) 220 = CH3CO2H (r)367 = RN31O2 (r)
- 74 = H2 (r)    221 = RI16OOH (r)368 = RN29O2 (r)
- 75 = CARB33 (r)222 = RN16NO3 (r)369 = RN33AO2 (r)
- 76 = HONO (r)  223 = RN18OOH (r)370 = RN33O2 (r)
- 77 = CARB21 (r)224 = RN24OOH (r)371 = RN30AO2 (r)
- 78 = CARB27 (r)225 = RN30OOH (r)372 = RN30O2 (r)
- 79 = RCOOH25 (r)226 = RN36OOH (r)373 = CARB14 (r)
- 80 = CARB15 (r)227 = HUCARB9 (r)374 = RN23O2 (r)
- 81 = SO2 (r)   228 = CARB35 (r)375 = CO (r)    
- 82 = AROH14 (r)229 = TXCARB24 (r)376 = HOCH2CO3 (r)
- 83 = DIETETHER (r)230 = RAROH14 (r)377 = CARB11 (r)
- 84 = DIIPRETHER (r)231 = RN13NO3 (r)378 = RN31AO2 (r)
- 85 = AROH17 (r)232 = RN19OOH (r)379 = RN28AO2 (r)
- 86 = RAROH17 (r)233 = RN22NO3 (r)380 = RN28O2 (r)
- 87 = CARB18 (r)234 = RN25NO3 (r)381 = RN26O2 (r)
- 88 = ETHACET (r)235 = RN28NO3 (r)382 = RN27O2 (r)
- 89 = HMML (r)  236 = RN31NO3 (r)383 = RN27AO2 (r)
- 90 = IPROPOL (r)237 = RN34NO3 (r)384 = RN25AO2 (r)
- 91 = CH3OCH3 (r)238 = RU12OOH (r)385 = RN25O2 (r)
- 92 = CCARB14 (r)239 = DHPR12OOH (r)386 = RN24AO2 (r)
- 93 = CARB24 (r)240 = DHPCARB9 (r)387 = RN24O2 (r)
- 94 = C2H5OH (r)241 = RI16NO3 (r)388 = RN22O2 (r)
- 95 = NPROPOL (r)242 = RN13OOH (r)389 = RN22AO2 (r)
- 96 = CARB12 (r)243 = RN14OOH (r)390 = RN20O2 (r)
- 97 = TBUACET (r)244 = RN15OOH (r)391 = RN21AO2 (r)
- 98 = CARB30 (r)245 = RN19NO3 (r)392 = RN21O2 (r)
- 99 = HO2NO2 (r)246 = RA19OOH (r)393 = RN19AO2 (r)
-100 = HOC2H4NO3 (r)247 = CARB10 (r)394 = RA19BO2 (r)
-101 = IC3H7OOH (r)248 = RN21OOH (r)395 = CARB6 (r) 
-102 = C2H5CO3H (r)249 = RN22OOH (r)396 = RU10O2 (r)
-103 = C2H5OOH (r)250 = RN25OOH (r)397 = CARB7 (r) 
-104 = NRN12OOH (r)251 = RN27OOH (r)398 = RU12O2 (r)
-105 = NRN18OOH (r)252 = RA22NO3 (r)399 = RA22BO2 (r)
-106 = NRN6OOH (r)253 = RN28OOH (r)400 = HOCH2CH2O2 (r)
-107 = NRTN28OOH (r)254 = RN31OOH (r)401 = C2H5CO3 (r)
-108 = NRU14OOH (r)255 = RN33OOH (r)402 = RN13AO2 (r)
-109 = NRUA20OOH (r)256 = RN34OOH (r)403 = RN19O2 (r)
-110 = RA16BOOH (r)257 = RE6O2 (r) 404 = RN18AO2 (r)
-111 = CH3CO3H (r)258 = HCOOH (r) 405 = RN18O2 (r)
-112 = RC18OOH (r)259 = C4H6 (r)  406 = UCARB10 (r)
-113 = RI11OOH (r)260 = CBUT2ENE (r)407 = RI19O2 (r)
-114 = RN10OOH (r)261 = NRU14O2 (r)408 = RA19CO2 (r)
-115 = RN11OOH (r)262 = RC18O2 (r)409 = HOCH2CHO (r)
-116 = RN12NO3 (r)263 = CPENT2ENE (r)410 = UCARB12 (r)
-117 = RN37OOH (r)264 = CHEX2ENE (r)411 = RU14O2 (r)
-118 = RN9NO3 (r)265 = RE15O2 (r)412 = MACO3 (r) 
-119 = RTN24OOH (r)266 = RN8OOH (r)413 = HCHO (r)  
-120 = RTN25OOH (r)267 = NRUA20O2 (r)414 = RTN25O2 (r)
-121 = RTN26OOH (r)268 = BUT1ENE (r)415 = CH3O2 (r) 
-122 = RTN28NO3 (r)269 = ME2BUT1ENE (r)416 = RTX22O2 (r)
-123 = RTN28OOH (r)270 = CARB9 (r) 417 = RN9O2 (r) 
-124 = RTX24OOH (r)271 = ME2BUT2ENE (r)418 = RN12O2 (r)
-125 = BOX2PROL (r)272 = NRN6O2 (r)419 = RTX24O2 (r)
-126 = BUOX2ETOH (r)273 = RU14NO3 (r)420 = RN11O2 (r)
-127 = MO2EOL (r)274 = CYHEXONE (r)421 = RN17O2 (r)
-128 = DHCARB9 (r)275 = TBUT2ENE (r)422 = RN14O2 (r)
-129 = EOX2EOL (r)276 = THEX2ENE (r)423 = RTN26O2 (r)
-130 = ECARB7 (r)277 = NRTN28O2 (r)424 = RN8O2 (r) 
-131 = PR2OHMOX (r)278 = TPENT2ENE (r)425 = PENT1ENE (r)
-132 = CH3OCHO (r)279 = ME3BUT1ENE (r)426 = RN15O2 (r)
-133 = PROPACID (r)280 = RA19NO3 (r)427 = C2H5O2 (r)
-134 = ETBE (r)  281 = NOA (r)   428 = C2H5CHO (r)
-135 = CARB23 (r)282 = UDCARB17 (r)429 = RN10O2 (r)
-136 = C2H5NO3 (r)283 = UDCARB20 (r)430 = CH3CO3 (r)
-137 = CCARB12 (r)284 = MPAN (r)  431 = CH3CHO (r)
-138 = MTBE (r)  285 = IPRCHO (r)432 = RN13O2 (r)
-139 = CARB26 (r)286 = RA22AO2 (r)433 = RN15AO2 (r)
-140 = NRI12OOH (r)287 = CARB11A (r)434 = RN16O2 (r)
-141 = NRI15OOH (r)288 = NRI12O2 (r)435 = NO2 (r)   
-142 = NRN15OOH (r)289 = RU12NO3 (r)436 = NO3 (r)   
-143 = CARB32 (r)290 = RA13O2 (r)437 = HO2 (r)   
-144 = NRN9OOH (r)291 = UDCARB8 (r)438 = O3 (r)    
-145 = NRU12OOH (r)292 = RI17O2 (r)439 = OH (r)    
-146 = CARB29 (r)293 = RA16BO2 (r)440 = NO (r)    
-147 = RA13OOH (r)294 = CARB28 (r)
+  1 = F (n)       4 = D (r)     
+  2 = B (r)       5 = E (r)     
+  3 = A (r)       6 = C (r)     
 
 Fixed species
-  1 = EMISS (r)   3 = DUMMY (r) 
-  2 = R (r)     
+  1 = EMISS (r)   2 = R (r)     
 
 ### Subroutines ---------------------------------------
 

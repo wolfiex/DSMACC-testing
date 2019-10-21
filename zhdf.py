@@ -1,8 +1,9 @@
 #reset modules loaded
 import sys
-if globals(  ).has_key('init_modules'):
+#if (sys.version_info[0] == 2 and globals(  ).has_key('init_modules')) or 
+if 'init_modules' in globals():
     # second or subsequent run: remove all but initially loaded modules
-    for m in sys.modules.keys(  ):
+    for m in sys.modules.keys():
         if m not in init_modules:
             del(sys.modules[m])
 else:
@@ -544,20 +545,16 @@ def jac_it(self,ts,begin = inorganics):
 
     with open('ch2.js','w') as f:
         vd = normalise(np.log10(a.vdot.compute().loc[ts,:]))
-        print vd
         f.write('vdot = %s;\n'%(vd.to_json()))
 
         pr = normalise(pd.Series(nx.pagerank(G, alpha=0.85, personalization=None, max_iter=100, tol=1e-06, nstart=None, weight='weight', dangling=None)))
         f.write('pagerank = %s;\n'%(pr.to_json()))
-        print pr
 
         cl = normalise(pd.Series(nx.closeness_centrality(G, u=None, distance='weight')))
         f.write('closeness = %s;\n'%(cl.to_json()))
-        print cl
 
         bt = pd.Series(nx.betweenness_centrality(G, k=None, normalized=True, weight='weight', endpoints=False, seed=1))
         f.write('between = %s;\n'%(bt.to_json()))
-        print bt
 
     return addspecs,g
 
@@ -635,7 +632,7 @@ def error_graph (base, reduced, lumped = 'mechanisms/lumped_formatted_CRI_FULL_2
 
         sub = re.compile(r'\b(%s)\b'%(l.replace(',','|')))
         header = [sub.sub(n, x) for x in header]
-        print l , header,l
+        print (l , header)
 
 
     base.columns=header
