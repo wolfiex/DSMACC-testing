@@ -1,6 +1,7 @@
 from ..parsekpp.reactiontypes import reformat_kpp
 from .. import datatables
 __tableloc__ = datatables.__file__
+import csv
 
 def getG(mechlist=['inorganics'], ignore = ['inorganics']):
     print ('note this does not handle coefficients - it is just a sample plotting script')
@@ -8,7 +9,7 @@ def getG(mechlist=['inorganics'], ignore = ['inorganics']):
     print (reactions)
     import pandas as pd
 
-    s = pd.read_csv('.'+__tableloc__.replace('__init__.pyc','smiles_mined.csv'))
+    s = pd.read_csv(''+__tableloc__.replace('__init__.py','smiles_mined.csv'))
     s = set(s.loc[map(lambda x: 'c' in str(x).lower(),s.smiles.values),:].name.values)&set(['CH4'])
 
     conly = True
