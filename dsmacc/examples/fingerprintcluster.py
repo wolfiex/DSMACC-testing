@@ -16,18 +16,11 @@ loc = '/work/home/dp626/DSMACC-testing/dsmacc/examples/outputs/'
 #pandas.read_csv('mcm_emb.txt',skiprows=1,header=None,delimiter = ' ').c
 
 
-'''
-# Reformat position nodes
-fix_formatted_positions = lambda x: x.split('_')[0] if x in formatted_positions else x
-reformatted_walks = [list(map(fix_formatted_positions, walk)) for walk in node2vec.walks]
-node2vec.walks = reformatted_walks
-# Learn embeddings
-model = node2vec.fit(window=10, min_count=1)
-'''
-fdsa =kjl
+d2 = pd.read_csv('mcm_emb2.txt',delimiter=' ')
+d2.columns = 'x y'.split()
 
-
-
+d100 = pd.read_csv('mcm_emb100.txt',delimiter=' ',skiprows=1,header=None,index_col=0)
+d100.columns = range(100)
 
 
 
@@ -52,13 +45,23 @@ data['fingerprints'] = fp[data['names']].T.values
 
 fn = pd.DataFrame(data['embed_fn '],index=data['names'],columns=data['fnnames'])
 
-carb = pd.DataFrame([i.upper().count('C') for i in data['smiles'][:-1]],index=data['names'],columns=['Carbons'])
+carb = pd.DataFrame([i.upper().count('C') for i in data['smiles']],index=data['names'],columns=['Carbons'])
 
-ox = pd.DataFrame([i.upper().count('O') for i in data['smiles'][:-1]],index=data['names'],columns=['Oxygens'])
+ox = pd.DataFrame([i.upper().count('O') for i in data['smiles']],index=data['names'],columns=['Oxygens'])
 
 check = pd.concat([fn[['Aromatic rings']]>0,gen,carb,ox],axis=1)
 
-print data.keys()
+d100 = d100.loc[data['names']]
+d2 = d2.loc[data['names']]
+
+data['node2vec'] = d100.values
+print(data.keys())
+
+#### END LOAD #################
+
+
+
+
 
 np.random.seed(seed=43110)
 
@@ -66,21 +69,26 @@ np.random.seed(seed=43110)
 ['vec_smiles',
  'smiles',
  'finger_mqn',
- 'embed_fn ',
+ #'embed_fn ',
  'finger_maccs',
  'names',
  'vec_spec',
  'fnnames',
- fingerprints
+ 'fingerprints'
  'fngroups']
  '''
-
+ 
+  
+##### FN ##############
+ 
+import sklearn
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 df_scaled = pd.DataFrame(scaler.fit_transform(check))
 df_scaled.columns = check.columns
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.cluster import DBSCAN
+from spectral_embedding import SpectralClustering
 
 from ae import *
 import matplotlib.pyplot as plt
@@ -88,6 +96,8 @@ from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
 from optics import OPTICS
+
+
 
 def plot(x,y,title='',err =None,clust = 'blue',sserr=None):
     global item
@@ -110,8 +120,10 @@ def clust(out):
         ms = int(2**samples)  #int(len(out[0])*2**samples)
 
 
-        db = DBSCAN(eps=0.025, min_samples=ms)
-        op = OPTICS(min_samples=ms, max_eps=np.inf, metric='minkowski', p=2, metric_params=None, cluster_method='xi', eps=None, xi=0.009, predecessor_correction=False, min_cluster_size=None, algorithm='auto', leaf_size=30, n_jobs=None)
+        db = DBSCAN(eps=0.025, min_samples=ms,n_jobs=-1)
+        op = OPTICS(min_samples=ms, max_eps=np.inf, metric='minkowski', p=2, metric_params=None, cluster_method='xi', eps=None, xi=0.009, predecessor_correction=False, min_cluster_size=None, algorithm='auto', leaf_size=30, n_jobs=-1)
+        
+        sp = SpectralClustering(n_clusters=2*samples,assign_labels="discretize",eigen_solver=None, random_state=None, n_init=10, gamma=1.0, affinity='rbf', n_neighbors=100, eigen_tol=0.0, degree=3, coef0=1, kernel_params=None, n_jobs=-1)
 
 
 
@@ -119,9 +131,9 @@ def clust(out):
 
         try:ss = silhouette_score(x,pred)
         except:
-            print 'not enough samples, continue'
+            print ('not enough samples, continue')
             continue
-        print ms,ss,max(pred) , 'optics'
+        print (ms,ss,max(pred) , 'optics')
         if ss > ssold:
             pkeep = pred
             ssold = ss
@@ -130,15 +142,26 @@ def clust(out):
 
         try:ss = silhouette_score(x,pred)
         except:
-            print 'not enough samples, continue'
+            print ('not enough samples, continue')
             continue
-        print ms,ss,max(pred) , 'dbscan'
+        print (ms,ss,max(pred) , 'dbscan')
+        if ss > ssold:
+            pkeep = pred
+            ssold = ss
+            
+            
+        pred = sp.fit(X).labels_    
+        try:ss = silhouette_score(x,pred)
+        except:
+            print ('not enough samples, continue')
+            continue
+        print (2*samples,ss,max(pred) , 'spectral')
         if ss > ssold:
             pkeep = pred
             ssold = ss
 
 
-    print 'best', max(pkeep), ssold
+    print ('best', max(pkeep), ssold)
     out = list(out)
     out.extend([pkeep,ssold])
 
@@ -171,7 +194,7 @@ def do_ae(dt):
             )
     myae.train(dt)
     myae.predict(dt)
-    print myae.hist.history
+    print (myae.hist.history)
     '''
     loss = MSE mean_squared_error.
      the average squared difference between the estimated values and the actual value.
@@ -197,16 +220,16 @@ plot(*clust(do_ae(dt)))
 import sys
 #    name = 'vec_smiles'
 
-'cat_protocol,vec_smiles,finger_mqn,fingerprints,finger_maccs,vec_spec,fngroups'
+'node2vec,cat_protocol,vec_smiles,finger_mqn,fingerprints,finger_maccs,vec_spec,fngroups'
 
-for name in sys.argv[1].split(','):#['cat_protocol','vec_smiles',  'finger_mqn', 'embed_fn ', 'finger_maccs', 'vec_spec', 'fngroups']:
+for name in sys.argv[1].split(','):#['cat_protocol','node2vec','vec_smiles',  'finger_mqn', 'embed_fn ', 'finger_maccs', 'vec_spec', 'fngroups']:
 
 
     item = name.split('_')[-1]
 
     dt = data[name]
     dt = np.array(dt).astype(float)
-
+    dt[np.isnan(dt)]=0.
 
 
     for fn in [do_tsne,do_ae,do_pca]:
@@ -218,9 +241,9 @@ for name in sys.argv[1].split(','):#['cat_protocol','vec_smiles',  'finger_mqn',
 
         method = out[2]
 
-        print method,name,max(out[-2])
+        print (method,name,max(out[-2]))
 
-        print method
+        print (method)
         os.system('mkdir %s%s'%(loc,method))
         os.system('mkdir %s%s/%s'%(loc,method,item))
         os.system('rm %s%s/%s/*.p*'%(loc,method,item))
@@ -231,7 +254,7 @@ for name in sys.argv[1].split(','):#['cat_protocol','vec_smiles',  'finger_mqn',
 
         #clf = RandomForestClassifier(n_estimators=100).fit(X, y)
         imp = []
-        for i in [1,42,116,2019,43110]+range(100000,100000+4):
+        for i in [1,42,116,2019,43110]+list(range(100000,100000+4)):
             np.random.seed(seed=i)
             imp.append(RandomForestClassifier(n_estimators=100).fit(X, y).feature_importances_)
 
@@ -267,7 +290,7 @@ for name in sys.argv[1].split(','):#['cat_protocol','vec_smiles',  'finger_mqn',
         if len(topc)>11:
             topc = filter(lambda x: x!= -1,topc)
 
-        print topc
+        print (topc)
 
         for cn in topc:
 
@@ -283,7 +306,7 @@ for name in sys.argv[1].split(','):#['cat_protocol','vec_smiles',  'finger_mqn',
             plt.tight_layout()
             plt.savefig('outputs/%s/%s/%02d.png'%(method,item,cn),transparent=True)
             plt.clf()
-            print cn
+            print (cn)
 
 
 
@@ -296,7 +319,7 @@ for name in sys.argv[1].split(','):#['cat_protocol','vec_smiles',  'finger_mqn',
                 dm = str(i)
             flab.append(dm)
 
-        print 'totalplot'
+        print ('totalplot')
         try:
             g = sns.scatterplot(x=out[0], y=out[1],
                                 alpha=0.5,

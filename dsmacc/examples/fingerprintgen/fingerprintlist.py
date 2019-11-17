@@ -84,7 +84,7 @@ for i in  [vec_spec,vec_smiles,finger_mqn,finger_maccs,embed_fn]:
 
     counter += 1
 
-
+df['fnnames'] = fngroups.columns
 df['fngroups'] = (fngroups>0).astype(int).values
 
 import pickle

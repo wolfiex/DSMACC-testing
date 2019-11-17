@@ -22,7 +22,7 @@ def make_model_dot(last = False):
     else:
         file_list = picker.Picker('mechanisms/*.kpp',remove=['mechanisms/','.kpp'],title = 'Select Mechanisms').getSelected()
 
-    print file_list
+    print (file_list)
 
     myinclude = []
 
@@ -36,7 +36,7 @@ def make_model_dot(last = False):
                         tuv = tuvre.match(line).group(1)
 
 
-    print 'tuv',tuv,'. ver',vers
+    print ('tuv',tuv,'. ver',vers)
 
     addstr = "".join(reversed(myinclude))
 
@@ -84,4 +84,4 @@ def make_model_dot(last = False):
 
     with open("./model.kpp", 'w') as f:
         f.write(modelstring)
-    print 'written file'
+    print ('written file')

@@ -26,9 +26,9 @@ if not exists:
     G.add_weighted_edges_from([(i[0],i[1],1.) for i in Gf.edges()])
 
     # Generate walks
-    graph = n2v.Graph(G,True,p=0.15, q=.85)
+    graph = n2v.Graph(G,True,p=2.0, q=1.1)
     graph.preprocess_transition_probs()
-    walks = graph.simulate_walks(50000,5) #args.num_walks, args.walk_length)
+    walks = graph.simulate_walks(50000,9) #args.num_walks, args.walk_length)
 
     walks = [map(str, walk) for walk in walks]
     np.save('walks.npy',walks)
@@ -44,19 +44,22 @@ else:
 def w2v (s):
     print ('running ',s ,'walks')
 
-    model = Word2Vec(walks, size=s, window=1, min_count=0, sg=1, workers=50, iter=100)
-
+    model = Word2Vec(walks, size=s, window=4, min_count=0, sg=1, workers=300, iter=100)
+    #model = Word2VecKeras(Word2Vec(walks), size=s, iter=60)
     model.wv.save_word2vec_format('mcm_emb%s.txt'%s)
     #pandas.read_csv('mcm_emb.txt',skiprows=1,header=None,delimiter = ' ').c
     print ('done ',s ,'walks')
-    return 1
+    return model
 
 
 
+#from word2veckeras.word2veckeras import Word2VecKeras
 
-#mp.Pool(2).map(w2v,[2,100])
+#models = mp.Pool(2).map(w2v,[2,100])
+model = w2v(100)
+model.save("word2vec100.model")
 
-from word2veckeras.word2veckeras import Word2VecKeras
+#from word2veckeras.word2veckeras import Word2VecKeras
 
 print ('go')
-model = Word2VecKeras(Word2Vec(walks[:100]), size=s, iter=100)
+#model = Word2VecKeras(Word2Vec(walks[:100]), size=s, iter=100)

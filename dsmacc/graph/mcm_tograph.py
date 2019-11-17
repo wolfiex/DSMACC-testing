@@ -3,12 +3,12 @@ from .. import datatables
 __tableloc__ = datatables.__file__
 
 def getG(mechlist=['inorganics'], ignore = ['inorganics']):
-    print 'note this does not handle coefficients - it is just a sample plotting script'
+    print ('note this does not handle coefficients - it is just a sample plotting script')
     reactions  = reformat_kpp(mechlist).values
-    print reactions
+    print (reactions)
     import pandas as pd
 
-    s = pd.read_csv('./'+__tableloc__.replace('__init__.pyc','smiles_mined.csv'))
+    s = pd.read_csv('.'+__tableloc__.replace('__init__.pyc','smiles_mined.csv'))
     s = set(s.loc[map(lambda x: 'c' in str(x).lower(),s.smiles.values),:].name.values)&set(['CH4'])
 
     conly = True
@@ -54,9 +54,9 @@ if __name__ == '__main__':
     l = G.edges()
 
     for s,t in l:
-        print G[s][t]
+        print (G[s][t])
 
-    print l
+    print (l)
     edges = [{'source': s, 'target': t, 'value': 1,'group':G[s][t][0]['group']} for s,t in l]#G[s][t]['weight'] 'group':G[s][t]['group']
 
     json.dump({'nodes': nodes, 'links': edges}, open('./mcm_tograph.json', 'w'))
