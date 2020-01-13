@@ -20,7 +20,7 @@ except:
 
 ncpus = soft# int(comm.Get_attr(MPI.UNIVERSE_SIZE)) #int(os.popen('echo $NCPUS').read())
 
-print 'ncpu rank', ncpus , rank , soft
+print ('ncpu rank', ncpus , rank , soft)
 
 if ncpus <2 :
     ncpus = 2

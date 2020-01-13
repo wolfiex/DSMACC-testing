@@ -1,26 +1,26 @@
 
 
 def create_ics(fileic=False,    last=False,    keepx=True , postime = True,spin = False):
-    print "\033]0;creating ics\007"
+    print ("\033]0;creating ics\007")
     import h5py,glob,os,sys,re
     import numpy as np
 
     file_list = glob.glob('InitCons/*.csv')
     file_list.sort(key=os.path.getmtime)#getmtime - modified getctime-created
 
-    print file_list
+    print (file_list)
     if fileic:
-        print fileic
+        print (fileic)
         ic_file = fileic
     elif (last) :
         ic_file = file_list[-1]
     else:
-        print 'Select file to open: \n\n'
-        for i,f in enumerate(file_list): print i , ' - ', f.replace('InitCons/','').replace('.csv','')
-        ic_file = file_list[int(raw_input('Enter Number \n'))]
+        print ('Select file to open: \n\n')
+        for i,f in enumerate(file_list): print (i , ' - ', f.replace('InitCons/','').replace('.csv',''))
+        ic_file = file_list[int(input('Enter Number \n'))]
 
     if ('.csv' not in ic_file):  ic_file += '.csv'
-    print 'selected',ic_file
+    print ('selected',ic_file)
 
     ic_open= tuple(open(ic_file))
     run_names = np.array([i for i in enumerate(ic_open[2].strip().split(',')[3:])])
@@ -43,9 +43,9 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = True,spin 
 
 
 
-    for run in xrange(3,data.shape[0]):
+    for run in range(3,data.shape[0]):
         localtime = float(data[run,lon])/360.
-        print 'Adjusting jday to localtime by %.2f hours for model: %s'%(localtime*24,run_names[run-3][1])
+        print ('Adjusting jday to localtime by %.2f hours for model: %s'%(localtime*24,run_names[run-3][1]))
         data[run,jday]= '%.4f'%(float(data[run,jday])-localtime)
 
     time = data[3,3]
@@ -57,7 +57,7 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = True,spin 
 
     data = data[1:,4:]
 
-    print data
+    print (data)
 
     ##make ics
     #np.savetxt('Init_cons.dat', data, fmt='%15s', delimiter='!', newline='\n', header='%s'%time,comments='')
@@ -76,11 +76,10 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = True,spin 
 
     hf.attrs[u'startTime'] = ''#time.strftime("%A %d %B %Y   %H:%M")
 
-    print data
-
+    print([u''+i for i in data[0]])
 
     hf.attrs[u'ictime'] = time
-    hf.create_dataset(  name = 'icspecs',data = data[0],dtype='S15',shuffle=True, chunks=True, compression="gzip", compression_opts=9)
+    hf.create_dataset(  name = 'icspecs',data = data[0].astype('S15'),dtype='S15',shuffle=True, chunks=True, compression="gzip", compression_opts=9)
     hf.create_dataset(  name = 'icconst',data = data[1].astype(np.float).astype(np.int) ,dtype='I',shuffle=True, chunks=True, compression="gzip", compression_opts=9)
     hf.create_dataset(  name = 'icruns',data = np.array(data[2:]).astype(np.float) ,dtype=np.float,shuffle=True, chunks=True, compression="gzip", compression_opts=9)
 
@@ -91,7 +90,7 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = True,spin 
 
             g = hf.create_group(group[1])
             g.attrs[u'description']  = ''
-            g.attrs[u'id']  = group[0]
+            g.attrs[u'id']  = group[0].astype('S')
             g.attrs[u'model']  = 'model for now'
             g.attrs[u'observations']  = 'check for obs flag'
             g.attrs[u'walltime']  = False
@@ -118,5 +117,5 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = True,spin 
     #try: os.environ['NCPUS']
     #except:  print 'serial'
     #h5dump file.h5
-    print "\033]0;   \007"
+    print ("\033]0;   \007")
     return h5file

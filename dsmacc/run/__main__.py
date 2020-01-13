@@ -1,7 +1,7 @@
 #
 import argparse,os,sys
 
-print __file__
+print (__file__)
 
 parser = argparse.ArgumentParser(description='create an ics')
 parser.add_argument('-d','--dev', dest='dev', action='store_true', default=False, help='add a watch reload for dev')
@@ -18,8 +18,8 @@ parser.add_argument('--version', dest='vers', action='store_true', default=False
 parser.add_argument('-v','--verbose', dest='verbose',nargs='?', action='store',     default=False, help='print temp')
 args = parser.parse_args()
 
-print 'initialisation arguments:'
-print args
+print ('initialisation arguments:')
+print (args)
 
 
 #for debugging#
@@ -31,14 +31,14 @@ if args.dev:
 
 
         import os
-        print 'alternative command',
-        print os.system('mpirun -np 3 python zmpiout.py')
+        print ('alternative command')
+        print (os.system('mpirun -np 3 python zmpiout.py'))
         import time
         #time.sleep(10)
 
     ipr.watch('zmpiout.py',fn)
 
-    print 'watching'
+    print ('watching')
 
 
 try:
@@ -46,13 +46,13 @@ try:
 except:
     ncores=2
 
-print 'cpus' ,ncores
+print ('cpus' ,ncores )
 
 
 
 
 if args.ics != False:
-    import ics
+    from . import ics
     filename = ics.create_ics(fileic=args.ics, postime = args.obs,last = args.last)
     if args.run==None:args.start = filename
 
@@ -62,7 +62,7 @@ if args.ics != False:
 
 if args.run!=False:
 
-    print 'Clearing Output dir'
+    print ('Clearing Output dir')
     os.system('rm Outputs/* && mkdir Outputs')
 
 
@@ -72,11 +72,11 @@ if args.run!=False:
 
     if ncores>1:
         cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
-        print cmd
+        print (cmd)
         os.system(cmd)
     else:
         cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
-        print cmd
+        print (cmd)
         os.system(cmd)
         '''
         cmd = 'python zserialout.py %s %s'%(args.start,obs)
@@ -90,10 +90,10 @@ if args.run!=False:
 if args.verbose:
      a = tuple(open('temp.txt'))
      for i in a:
-         print i
+         print (i)
 
 
-print 'End of dsmacc.run'
+print ('End of dsmacc.run')
 
 #path to module os.path.dirname(amodule.__file__)
 #if name is main run main

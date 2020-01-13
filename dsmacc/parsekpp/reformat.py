@@ -41,7 +41,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
 
     if co2:
-        print 'edit co2 path'
+        print ('edit co2 path')
         smilesdf = pd.read_csv('../src/background/smiles_mined.csv')
         smiles=pd.Series(smilesdf.smiles)
         smiles.index=smilesdf.name
@@ -153,15 +153,14 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
 
 
-    print "\n formatted_"+ic_file+' written'
+    print( "\n formatted_"+ic_file+' written')
 
 
 
-print '- fix mcm constants ro2list  and copying of subroutines in CRI file.... CHECK THESE'
-
+print ('- fix mcm constants ro2list  and copying of subroutines in CRI file.... CHECK THESE')
 
 
 
 if __name__ == '__main__':
-    print 'lets go - quickstart with inorganics and depos'
+    print ('lets go - quickstart with inorganics and depos')
     reformat_kpp(True, True)

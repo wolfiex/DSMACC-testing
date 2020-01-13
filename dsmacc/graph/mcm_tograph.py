@@ -20,6 +20,7 @@ def getG(mechlist=['inorganics'], ignore = ['inorganics']):
     rtype=[]
     if ignore == ['inorganics']:
         ignore = 'OH,HO2,NO,NO2,NO3,Cl,CL,O,O3'.split(',')
+        ignore .extend(["O", "CL", "H2", "NO", "O3", "OH", "ACR", "HO2", 'HSO3','HNO3', 'SA','NA','N2O5',"NO2", "NO3", "NOA", "O1D", "SO2", "SO3",'HNO3'])
     for rxn in reactions:
         e = rxn[0].split('->')
 
@@ -49,8 +50,11 @@ def getG(mechlist=['inorganics'], ignore = ['inorganics']):
     #'size': G.node[n]['count']
 
 if __name__ == '__main__':
+    import sys
+    nm = sys.argv[1]
 
-    G = getG(['full_mcm_2019'])
+
+    G = getG([nm])
     nodes = [{'name': n} for n in G]
     l = G.edges()
 
@@ -59,7 +63,12 @@ if __name__ == '__main__':
 
     print (l)
     edges = [{'source': s, 'target': t, 'value': 1,'group':G[s][t][0]['group']} for s,t in l]#G[s][t]['weight'] 'group':G[s][t]['group']
+    import json
+    import networkx as nx
+    json.dump({'nodes': nodes, 'links': edges}, open('./%s.json'%nm, 'w'))
+    nx.write_gexf(G, "%s.gexf"%nm)
 
-    json.dump({'nodes': nodes, 'links': edges}, open('./mcm_tograph.json', 'w'))
 
-    adj = np.adjacency_matrix(G)
+
+
+    #adj = np.adjacency_matrix(G)
