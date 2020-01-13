@@ -9,10 +9,10 @@ by Daniel Ellis.
 
 
 ## Cite
-### If any of the code from this repository, please cite the codebase as follows:
+#### If using any of the code from this repository, please cite the codebase as follows:
 <pending final changes to be made>
 
-### Additionally the original work for the DSMACC model was accomplished by Emmerson and Evans, which should also be cited:
+#### Additionally the original work for the DSMACC model was accomplished by Emmerson and Evans, which should also be cited:
 
 Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
 chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
@@ -23,7 +23,17 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 
 
 ## Install
+To install we may use conda coupled with the (Yet Another Markup Language) file.
 
+*-- This will soon be changed into a setup.py file --*
+
+```
+export MPICC=\`which mpicc\` &&
+export CC=mpicc &&
+conda-env create -f py3.yaml
+```
+And to use this, we run (or add within our .bashrc):
+`source activate dsmacc-env`
 
 
 
