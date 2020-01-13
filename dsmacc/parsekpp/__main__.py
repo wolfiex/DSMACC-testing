@@ -1,5 +1,5 @@
 import argparse,sys
-from __init__ import *
+from .__init__ import *
 
 parser = argparse.ArgumentParser(description='Kpp preformatting')
 
@@ -14,11 +14,11 @@ parser.add_argument('-r','--reformat', dest='reformat', action='store_true', def
 
 
 args = parser.parse_args()
-print args,sys.argv
+print(args,sys.argv)
 
 
 if args.reformat:
-    from reformat import * 
+    from .reformat import * 
     reformat_kpp(args.inorganics, args.depos)
 
 if args.dot:

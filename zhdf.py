@@ -120,8 +120,8 @@ class new():
 
 
             if True: # spec MUST always be included...
-                #'spec' in selection:
-                shead = g.attrs['spechead'].decode("utf-8").split(',')
+                #'spec' in selection:.decode("utf-8")
+                shead = g.attrs['spechead'].split(',')
                 spec = dd.from_array(g.get('spec')[:,:],chunksize=50000, columns = shead)
 
                 '''
@@ -145,13 +145,13 @@ class new():
                 self.M =  spec.M.mean()
                 self.spec = spec/self.M
 
-                fhead = g.attrs['fluxhead'].decode("utf-8").split(',')
+                fhead = g.attrs['fluxhead'].split(',')
 
 
 
 
             if 'rate' in selection:
-                rhead = g.attrs['ratehead'].decode("utf-8").split(',')
+                rhead = g.attrs['ratehead'].split(',')
                 if len(rhead) != len(set(rhead)):
                     print ('Duplicates detected, please parse mecnahisms in future to prevent this')
                     rate = pd.DataFrame(g.get('rate')[:,:],columns=rhead)
@@ -184,7 +184,7 @@ class new():
 
 
             if 'vdot' in selection:
-                vhead = g.attrs['vdothead'].decode("utf-8").split(',')
+                vhead = g.attrs['vdothead'].split(',')
                 vdot = dd.from_array(g.get('vdot')[:,:],chunksize=50000, columns = vhead)
                 #vdot*=-1 # convert such that -ve values suggest flux leaving the species.
                 vdot['TIME'] = self.timesteps
@@ -192,7 +192,7 @@ class new():
 
 
             if 'jacsp' in selection:
-                jhead = g.attrs['jacsphead'].decode("utf-8").split(',')
+                jhead = g.attrs['jacsphead'].split(',')
                 jacsp = dd.from_array(g.get('jacsp')[:,:],chunksize=50000, columns = jhead)
                 jacsp['TIME'] = self.timesteps
                 self.jacsp=jacsp.set_index('TIME', sorted=True)

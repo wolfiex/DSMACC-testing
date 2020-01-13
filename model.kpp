@@ -2,7 +2,7 @@
     // include file with definition of the chemical species
     // and chemical equations
     #INCLUDE ./src/background/mechswitches.kpp //KEEP!
-    #INCLUDE mechanisms/mybox.kpp
+    #INCLUDE mechanisms/formatted_methane_complete.kpp
 
     #INCLUDE ./src/util.inc
     #INCLUDE ./src/global.inc

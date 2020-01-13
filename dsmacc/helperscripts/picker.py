@@ -202,7 +202,7 @@ class Picker:
 
             self.redraw()
             c = stdscr.getch()
-            print c
+            print (c)
 
             if c == ord('q') or c == ord('Q'):
                 self.aborted = True

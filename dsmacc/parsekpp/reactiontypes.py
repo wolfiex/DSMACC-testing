@@ -85,11 +85,11 @@ def reformat_kpp(file_list = False,findcat = True,join=True ,inorganics=False,av
     specs = list(set((nocoeff.sub(r'\1',i) for i in specs)))
     specs.sort()
 
-    eqn = map(pool_eqn,eqn)
+    eqn = list(map(pool_eqn,eqn))
 
     if findcat:
         cat2 = lambda p: categorise(p, join)
-        eqn = map(cat2, eqn)
+        eqn = list(map(cat2, eqn))
 
 
         if join:
@@ -104,13 +104,13 @@ def reformat_kpp(file_list = False,findcat = True,join=True ,inorganics=False,av
 
 
 if __name__ == '__main__':
-    print 'lets go - quickstart test of propane.kpp'
+    print ('lets go - quickstart test of propane.kpp')
     ret = reformat_kpp(['formatted_butane_inorganics_True.kpp'])
     tally = ret.groupby(['category','group']).count()
     #filter lone reactions
     tally = tally[tally.eqn>1]
     tally.index = ['_'.join([j,i]).strip() for i,j in tally.index.values]
     tally.sort_index(inplace=True)
-    print tally['eqn'].to_json()
-    print set(ret.group)
+    print((tally['eqn'].to_json()))
+    print((set(ret.group)))
     #tally /= tally.sum()

@@ -13,6 +13,7 @@ dependencies:
   - progressbar
   - ncurses
   - scipy
+  - scikit-learn
   - ipyreload
   - matplotlib
   - xlrd

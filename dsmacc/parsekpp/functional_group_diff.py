@@ -3,7 +3,7 @@ Crude indicator of fn group reaction styles
 Does not take coeff into account
 '''
 
-from reactiontypes import reformat_kpp
+from .reactiontypes import reformat_kpp
 from .. import datatables
 __tableloc__ = datatables.__file__
 
@@ -12,7 +12,7 @@ mechlist = ['formatted_China_GCGC']
 if 1==1:
 
     reactions  = reformat_kpp(mechlist,findcat=True,join=False).values
-    print reactions
+    print(reactions)
     import pandas as pd
 
     df = pd.read_csv('./'+__tableloc__.replace('__init__.pyc','functionalgroups_regexmatched.csv'))
@@ -33,7 +33,7 @@ if 1==1:
     prodloss = {}
     for i,j in enumerate(eqn):
 
-        print j
+        print(j)
         for r in j[0]:
             try:
                 prodloss[r].append(i)
@@ -51,21 +51,21 @@ if 1==1:
                 prodloss[r]=[i]
                 pl[r]=[[],[]]
 
-    nodes =  prodloss.keys()
+    nodes =  list(prodloss.keys())
 
     fngroups = df
 
     fngroups.index = fngroups['name']
 
     matches = list(set(nodes) & set(fngroups.index))
-    fng = [u'PAN', u'Carb. Acid', u'Ester', u'Ether',
-       u'Per. Acid', u'Hydro peroxide', u'Nitrate', u'Aldehyde', u'Ketone',
-       u'Alcohol', u'Criegee', u'Alkoxy rad', u'Peroxalkyl rad','Aromatic rings','Carbons','Atoms']
-    print fngroups
+    fng = ['PAN', 'Carb. Acid', 'Ester', 'Ether',
+       'Per. Acid', 'Hydro peroxide', 'Nitrate', 'Aldehyde', 'Ketone',
+       'Alcohol', 'Criegee', 'Alkoxy rad', 'Peroxalkyl rad','Aromatic rings','Carbons','Atoms']
+    print(fngroups)
     fngroups = fngroups.loc[matches,fng].astype(float)
 
-    print 'pall',fngroups
-    print 100*fngroups.astype(bool).sum()/len(fngroups)
+    print('pall',fngroups)
+    print(100*fngroups.astype(bool).sum()/len(fngroups))
 
 
     percent = (fngroups.sum()/len(df)*100).apply(lambda x:'%.2f'%x+'%').to_latex()
@@ -77,7 +77,7 @@ if 1==1:
         fngroups.loc[r,r]=1
 
 
-    print 'eqn'
+    print('eqn')
 
     line =[]
     fail=0
@@ -87,7 +87,7 @@ if 1==1:
             line.append(fngroups.loc['CO'].values)
             fail+=1
 
-    print fail
+    print(fail)
     import matplotlib.pyplot as plt
 
     import numpy as np
@@ -106,7 +106,7 @@ if 1==1:
 
         for p in [0,1]:
             d = []
-            [d.extend(map(lambda x: x[z],line[list(set(pl[i][p]))])) for i in fngroups.index[fngroups[fn]>0]]
+            [d.extend([x[z] for x in line[list(set(pl[i][p]))]]) for i in fngroups.index[fngroups[fn]>0]]
             reactivity[p].append(d)
 
         vals = [np.mean(line[list(set(prodloss[i]))],axis=0) for i in fngroups.index[fngroups[fn]>0]]
@@ -125,13 +125,13 @@ if 1==1:
         for spe in fngroups.index[fngroups[fn]>0]:
             gp = gp | set(prodloss[spe])
 
-        print gp
+        print(gp)
 
         from collections import Counter
         cnt = Counter([reactions[i][-2] for i in gp])
 
 
-        print clrs
+        print(clrs)
 
         dfl.plot(kind='bar', color = clrs)
         plt.ylim([-1,1])
