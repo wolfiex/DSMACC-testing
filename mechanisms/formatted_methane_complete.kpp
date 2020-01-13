@@ -3,7 +3,6 @@
 // filedata: methane_complete.kpp+../src/background/inorganic_mcm.kpp
 // 30 species  66 reactions
 
-
 #INLINE F90_GLOBAL
 REAL(dp)::M, N2, O2, RO2, H2O
 #ENDINLINE

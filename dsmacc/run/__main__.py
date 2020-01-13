@@ -3,6 +3,8 @@ import argparse,os,sys
 
 print (__file__)
 
+mpiout = __file__.replace('__main__','mpiout')
+
 parser = argparse.ArgumentParser(description='create an ics')
 parser.add_argument('-d','--dev', dest='dev', action='store_true', default=False, help='add a watch reload for dev')
 parser.add_argument('-o','--obs', dest='obs', action='store_true', default=False, help='run with obs')
@@ -32,11 +34,11 @@ if args.dev:
 
         import os
         print ('alternative command')
-        print (os.system('mpirun -np 3 python zmpiout.py'))
+        print (os.system('mpirun -np 3 python %s'%mpiout))
         import time
         #time.sleep(10)
 
-    ipr.watch('zmpiout.py',fn)
+    ipr.watch(mpiout,fn)
 
     print ('watching')
 
@@ -71,11 +73,11 @@ if args.run!=False:
     if args.spinup: obs = '--spinup'
 
     if ncores>1:
-        cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
+        cmd = 'mpiexec -n %d python %s %s %s'%(ncores,mpiout,args.start,obs)
         print (cmd)
         os.system(cmd)
     else:
-        cmd = 'mpiexec -n %d python zmpiout.py %s %s'%(ncores,args.start,obs)
+        cmd = 'mpiexec -n %d python %s %s %s'%(ncores,mpiout,args.start,obs)
         print (cmd)
         os.system(cmd)
         '''

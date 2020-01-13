@@ -49,7 +49,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
         smiles['CO2']='C'
         smiles['DUMMY']=''
         smiles['NA']=''
-        smiles =dict(zip(smiles.index,[str(i).upper().count('C') for i in smiles]))
+        smiles =dict(list(zip(smiles.index,[str(i).upper().count('C') for i in smiles])))
 
 
     file_text = [open('mechanisms/%s.kpp'%i,'r').read() for i in file_list]
@@ -153,7 +153,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
 
 
-    print( "\n formatted_"+ic_file+' written')
+    print(( "\n formatted_"+ic_file+' written'))
 
 
 

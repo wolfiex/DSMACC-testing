@@ -1,20 +1,71 @@
 # DSMACC-testing
 
-Dan's version of the Dynamically Simple Model for Atmospheric Chemical
-Complexity --- still in development/testing
+The heavily edited and improved version of the Dynamically Simple Model for Atmospheric Chemical
+Complexity (DSMACC), as used in the Thesis:
+
+Understanding the Atmosphere using graph theory, visualisation and machine learning 
+
+by Daniel Ellis. 
+
+
+## Cite
+### If any of the code from this repository, please cite the codebase as follows:
+<pending final changes to be made>
+
+### Additionally the original work for the DSMACC model was accomplished by Emmerson and Evans, which should also be cited:
+
+Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
+chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
+**9(5)**, pp1831-1845 [doi:
+10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
+
+
+
+
+## Install
+
+
+
+
+## testing
+To test run `make test` or `pytest dsmacc/test/`. 
+
+
+
+## Model debugging
+f90 model output is presented in the temp.txt file. This should be your first point of call for problems with no visible output. 
+
+It is then important to check that an initial conditions file `Init_cons.dat` has been created, and that the model has been compiled. Try `./model 0 0 --version` and `./model 0 0` to run the first set of initial conditions. 
+
+
+
+### Compiler Notes
+The intel compiler is preferable, although the makefile has been rewritten to fall back to gfortran should this not be available. In the rare case where ifort is installed, but not functional, you may have to either comment `#intel := $(shell command -v ifort 2> /dev/null)` within the Makefile (which disables the switch) or uninstall it for gfortran to be used. 
+
+
+
+
+
+
+#---------------------------------------------
 
 
 
 # dsmacc python library 
+- python 3 hassle
+- test scripts
 - used to run parallel instances
 - create constraints to observations
 - preparse kpp mechanisms
 - diagnostics and read tools
 
 
+
 ## reformat kppfiles
+- `make kpp`
+or 
 -`python -m dsmacc.parsekpp.reformat.py`
-(then use the ncurses interface)
+(then use the ncurses interface - arrow keys, space and enter)
 
 ## Create a new run - and execute
 -`python -m dsmacc.run -r -c`
@@ -60,11 +111,7 @@ Complexity --- still in development/testing
 Try the wiki - also in progress but contains some debug tips.
 
 
-## Cite
-Emmerson, KM; Evans, MJ (2009) Comparison of tropospheric gas-phase
-chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
-**9(5)**, pp1831-1845 [doi:
-10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
+
 
 
 TUV repository updated with thanks to @pb866

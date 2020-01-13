@@ -36,7 +36,7 @@ def make_model_dot(last = False):
                         tuv = tuvre.match(line).group(1)
 
 
-    print ('tuv',tuv,'. ver',vers)
+    print(('tuv',tuv,'. ver',vers))
 
     addstr = "".join(reversed(myinclude))
 

@@ -485,7 +485,7 @@ sm['HydroPeroxide(-OOH)'] = np.array([len(r.findall(i)) for i in sm.smiles],dtyp
 r = re.compile(r'C\(=O\)OON\(=O\)=O$|^\[O-{0,1}\]\[N\+{0,1}\]\(=O\)OOC|!\&\verb! O=N\(=O\)OOC\(=O\)|C\(=O\)OO\[N\+{0,1}\]\(=O\)\[O-{0,1}\]', re.IGNORECASE)
 sm['PAN(-C(O)OONO2)'] = np.array([len(r.findall(i)) for i in sm.smiles],dtype=int)
 
-print sm[sm[sm.columns[-1]]>0]
+print(sm[sm[sm.columns[-1]]>0])
 
 
-print 'fi'
+print('fi')

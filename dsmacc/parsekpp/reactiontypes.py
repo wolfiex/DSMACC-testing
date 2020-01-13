@@ -85,11 +85,11 @@ def reformat_kpp(file_list = False,findcat = True,join=True ,inorganics=False,av
     specs = list(set((nocoeff.sub(r'\1',i) for i in specs)))
     specs.sort()
 
-    eqn = map(pool_eqn,eqn)
+    eqn = list(map(pool_eqn,eqn))
 
     if findcat:
         cat2 = lambda p: categorise(p, join)
-        eqn = map(cat2, eqn)
+        eqn = list(map(cat2, eqn))
 
 
         if join:
@@ -111,6 +111,6 @@ if __name__ == '__main__':
     tally = tally[tally.eqn>1]
     tally.index = ['_'.join([j,i]).strip() for i,j in tally.index.values]
     tally.sort_index(inplace=True)
-    print (tally['eqn'].to_json())
-    print (set(ret.group))
+    print((tally['eqn'].to_json()))
+    print((set(ret.group)))
     #tally /= tally.sum()
