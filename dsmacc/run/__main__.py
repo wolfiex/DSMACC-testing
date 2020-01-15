@@ -72,15 +72,16 @@ if args.run!=False:
     if args.obs: obs = '--obs'
     if args.spinup: obs = '--spinup'
 
-    if ncores>1:
+    if True:#ncores>1:
         cmd = 'mpiexec -n %d python %s %s %s'%(ncores,mpiout,args.start,obs)
         print (cmd)
         os.system(cmd)
+    '''
     else:
         cmd = 'mpiexec -n %d python %s %s %s'%(ncores,mpiout,args.start,obs)
         print (cmd)
         os.system(cmd)
-        '''
+    
         cmd = 'python zserialout.py %s %s'%(args.start,obs)
         print cmd
         os.system(cmd)

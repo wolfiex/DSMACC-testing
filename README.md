@@ -42,6 +42,40 @@ To test run `make test` or `pytest dsmacc/test/`.
 
 
 
+
+## Check Version, Species or Equations
+To check the version, species or equations in a model you can run `./model 0 0` with the parameters `--species`, `--equations` or `--version` - see example below. 
+
+```
+./model 0 0 --species
+ NA             SA             SO3            O1D            CL             
+ CH4            H2O2           HSO3           H2             N2O5           
+ CH3O2NO2       HONO           CH3OH          CO             SO2            
+ HO2NO2         CH3O           CH3OOH         CH3NO3         HNO3           
+ HCHO           CH3O2          HO2            O3             OH             
+ NO3            O              NO             NO2            EMISS          
+ R              DUMMY     
+```
+
+## SPINUP
+There are two methods of spinning up a model- these are with or without constraint to observations. To activate this the python -run library must be run with the spinup flag. *NOTE: using a negative time no longer does anything*
+
+### Without observations
+`python -m dsmacc.run -s -c -r` (spinup, create_new, run)
+
+This runs an iterative reset of the diurnal cycle until the avarage difference between `sum(old-new)/new` concentrations for each species is less than 1e-3. 
+NOTE - this can potentially lead to an infinitely long simulation if the model does not converge on a steady state simulation. 
+
+On each restart, the concentrations from the initial conditions file are reset. 
+
+
+
+### With observations
+Set up the observations file as before. 
+`python -m dsmacc.run -s -o -c -r` (spinup, observations, create_new, run)
+
+
+
 ## Model debugging
 f90 model output is presented in the temp.txt file. This should be your first point of call for problems with no visible output. 
 

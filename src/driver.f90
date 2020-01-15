@@ -3,7 +3,7 @@ USE model_global
 USE model_Parameters
 USE model_Rates,       ONLY: Update_SUN, Update_RCONST
 USE model_integrator,  ONLY: integrate
-USE model_monitor,     ONLY: spc_names,Eqn_names
+USE model_monitor,     ONLY: spc_names,eqn_names
 !USE model_Function, ONLY: A,fun
 USE model_Util
 USE constants
@@ -58,6 +58,12 @@ spinup = 9999.
 call getarg(3,ln)!name
 if (trim(ln) .eq. '--version') then
     write(06,*) trim(version)
+    STOP
+else if (trim(ln) .eq. '--species') THEN
+    write(06,*) SPC_NAMES
+    STOP
+else if (trim(ln) .eq. '--equations') THEN
+    write(06,*) EQN_NAMES
     STOP
 end if
 
