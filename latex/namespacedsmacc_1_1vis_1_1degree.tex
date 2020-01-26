@@ -1,0 +1,194 @@
+\hypertarget{namespacedsmacc_1_1vis_1_1degree}{}\section{dsmacc.\+vis.\+degree Namespace Reference}
+\label{namespacedsmacc_1_1vis_1_1degree}\index{dsmacc.\+vis.\+degree@{dsmacc.\+vis.\+degree}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a9467accddb339c312c4cef4559e068f6}\label{namespacedsmacc_1_1vis_1_1degree_a9467accddb339c312c4cef4559e068f6}} 
+def {\bfseries group\+\_\+hour} (df, fn=np.\+mean, diurnal=False)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a3973e91404b84cbc301f2c5d5654d0a3}\label{namespacedsmacc_1_1vis_1_1degree_a3973e91404b84cbc301f2c5d5654d0a3}} 
+def {\bfseries n} (v)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a0f2124a28766d4a1966de9cd4d6a4ec7}\label{namespacedsmacc_1_1vis_1_1degree_a0f2124a28766d4a1966de9cd4d6a4ec7}} 
+def {\bfseries cn} (v)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a1a683ab20f670b8fd99a10362e97a513}\label{namespacedsmacc_1_1vis_1_1degree_a1a683ab20f670b8fd99a10362e97a513}} 
+def {\bfseries netdegree} (G)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a736314e2c72f5c809a076ad8fbe90d90}\label{namespacedsmacc_1_1vis_1_1degree_a736314e2c72f5c809a076ad8fbe90d90}} 
+int {\bfseries damping} = .\+95
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a3deedd5031defbd8da91b22c529bba3a}\label{namespacedsmacc_1_1vis_1_1degree_a3deedd5031defbd8da91b22c529bba3a}} 
+{\bfseries self} = \mbox{\hyperlink{classzhdf_1_1new}{zhdf.\+new}}(\textquotesingle{}clfoch2.\+h5\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a81347507159b941c64e850ca1fcb9c18}\label{namespacedsmacc_1_1vis_1_1degree_a81347507159b941c64e850ca1fcb9c18}} 
+string {\bfseries date} = u\textquotesingle{}1970-\/12-\/29 12\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_aa188e436af37710213d9a6dc1b63dc8b}\label{namespacedsmacc_1_1vis_1_1degree_aa188e436af37710213d9a6dc1b63dc8b}} 
+string {\bfseries inorganics} = \textquotesingle{}O,O1D,H2\+O2,N2\+O5,H\+O\+NO,H\+O2\+N\+O2,H\+S\+O3,H,O2,A,NA,SA,Cl,CL,S\+O2,S\+O3,H2,H\+N\+O3,O3,OH,H\+O2,NO,N\+O2,N\+O3\textquotesingle{}.split(\textquotesingle{},\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_acae526f6e86d5531eca0388beed53ccf}\label{namespacedsmacc_1_1vis_1_1degree_acae526f6e86d5531eca0388beed53ccf}} 
+{\bfseries posjac}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a1007bbfdeb8b3acc8754e0c61ef87727}\label{namespacedsmacc_1_1vis_1_1degree_a1007bbfdeb8b3acc8754e0c61ef87727}} 
+{\bfseries G} = graph.\+getnx(self,date)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_abe0062f5963af4d2c332282d78981b4c}\label{namespacedsmacc_1_1vis_1_1degree_abe0062f5963af4d2c332282d78981b4c}} 
+def {\bfseries ew} = n(nx.\+get\+\_\+edge\+\_\+attributes(G,\textquotesingle{}weight\textquotesingle{}))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a5e142baa8d465ebc108d85e846e6e39b}\label{namespacedsmacc_1_1vis_1_1degree_a5e142baa8d465ebc108d85e846e6e39b}} 
+dictionary {\bfseries dist} = \{\}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a70eb77da8afeaced6159f751ea250926}\label{namespacedsmacc_1_1vis_1_1degree_a70eb77da8afeaced6159f751ea250926}} 
+{\bfseries d} = nx.\+shortest\+\_\+path\+\_\+length(G,target=nd,weight=\textquotesingle{}distance\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a42526ce15225b63dcee5daffc9a9c197}\label{namespacedsmacc_1_1vis_1_1degree_a42526ce15225b63dcee5daffc9a9c197}} 
+{\bfseries pr} = nx.\+pagerank\+\_\+numpy(G, alpha=damping, personalization=None, weight=\textquotesingle{}weighted\textquotesingle{}, dangling=None)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ab0b2bb83926f1e21b0cb96e05d10da46}\label{namespacedsmacc_1_1vis_1_1degree_ab0b2bb83926f1e21b0cb96e05d10da46}} 
+dictionary {\bfseries ppr} = \{\}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a6adbca1f287f01cfa47dfebf80c5ba33}\label{namespacedsmacc_1_1vis_1_1degree_a6adbca1f287f01cfa47dfebf80c5ba33}} 
+{\bfseries p} = dict(zip(G.\+nodes(),np.\+repeat(0$\ast$(.\+1/len(G.\+nodes())),len(G.\+nodes()))))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ab314f568560fa9dc1e51bd96ceca6e37}\label{namespacedsmacc_1_1vis_1_1degree_ab314f568560fa9dc1e51bd96ceca6e37}} 
+{\bfseries prr} = nx.\+pagerank\+\_\+numpy(G, alpha=damping, personalization=p, weight=\textquotesingle{}weighted\textquotesingle{}, dangling=p)
+\item 
+\mbox{\hyperlink{namespacedsmacc_1_1vis_1_1degree_adbb4d4199b32ac300a4805757fd0e02b}{T}} = nx.\+to\+\_\+numpy\+\_\+matrix(G).T
+\begin{DoxyCompactList}\small\item\em lets just use nx \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ae686a501d453e8d12740cd9640ffb664}\label{namespacedsmacc_1_1vis_1_1degree_ae686a501d453e8d12740cd9640ffb664}} 
+{\bfseries R} = nx.\+from\+\_\+numpy\+\_\+matrix(\mbox{\hyperlink{namespacedsmacc_1_1vis_1_1degree_adbb4d4199b32ac300a4805757fd0e02b}{T}},type(G)())
+\item 
+def {\bfseries rpr}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a7fd6aa40de3132e4be42de1ebb349228}\label{namespacedsmacc_1_1vis_1_1degree_a7fd6aa40de3132e4be42de1ebb349228}} 
+dictionary {\bfseries rppr} = \{\}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_aba00231671e18adcab7788fca00446fa}\label{namespacedsmacc_1_1vis_1_1degree_aba00231671e18adcab7788fca00446fa}} 
+{\bfseries rprr} = nx.\+pagerank\+\_\+numpy(R, alpha=damping, personalization=p, weight=\textquotesingle{}weighted\textquotesingle{}, dangling=p)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a7d500e37b5140fb164e7eb24dea63e78}\label{namespacedsmacc_1_1vis_1_1degree_a7d500e37b5140fb164e7eb24dea63e78}} 
+{\bfseries cdf} = np.\+log10(self.\+spec.\+loc\mbox{[}self.\+timesteps\mbox{[}0\mbox{]},G.\+nodes()\mbox{]}.compute())
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_aa63d4c0784ab393b944958f0171ee1d0}\label{namespacedsmacc_1_1vis_1_1degree_aa63d4c0784ab393b944958f0171ee1d0}} 
+{\bfseries concs} = dict(zip(cdf.\+columns,cdf.\+values\mbox{[}0\mbox{]}))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_aa792aaba80547f3f9178a05dfa076b93}\label{namespacedsmacc_1_1vis_1_1degree_aa792aaba80547f3f9178a05dfa076b93}} 
+{\bfseries uwdeg} = G.\+degree()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a05d5156cf1380d8679218a37e1717bd0}\label{namespacedsmacc_1_1vis_1_1degree_a05d5156cf1380d8679218a37e1717bd0}} 
+{\bfseries h} = n(h)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a690218e8019be38508821c371d4606a3}\label{namespacedsmacc_1_1vis_1_1degree_a690218e8019be38508821c371d4606a3}} 
+{\bfseries a} = n(a)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a3c217eff6aa45c194772940f9182c7bc}\label{namespacedsmacc_1_1vis_1_1degree_a3c217eff6aa45c194772940f9182c7bc}} 
+{\bfseries tol}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a5cf98bc87d5ee539c0718a3e2e35faa8}\label{namespacedsmacc_1_1vis_1_1degree_a5cf98bc87d5ee539c0718a3e2e35faa8}} 
+{\bfseries normalized}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_adf9418ca0fc061b3f08cfe1f22e173f1}\label{namespacedsmacc_1_1vis_1_1degree_adf9418ca0fc061b3f08cfe1f22e173f1}} 
+{\bfseries j} = json\+\_\+graph.\+node\+\_\+link\+\_\+data(G)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a76fa67b7bf008ae01116185ccfc7f17c}\label{namespacedsmacc_1_1vis_1_1degree_a76fa67b7bf008ae01116185ccfc7f17c}} 
+{\bfseries j2} = json.\+dumps(j)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a332369179c6bd9f640d24a2e74001abc}\label{namespacedsmacc_1_1vis_1_1degree_a332369179c6bd9f640d24a2e74001abc}} 
+{\bfseries self2} = \mbox{\hyperlink{classzhdf_1_1new}{zhdf.\+new}}(\textquotesingle{}contiunue\+\_\+clfoch2\+\_\+0\+\_\+0\+\_\+280419.\+h5\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a618cd3d601f249cb9694958030748500}\label{namespacedsmacc_1_1vis_1_1degree_a618cd3d601f249cb9694958030748500}} 
+{\bfseries su} = dsmacc\+\_\+tools.\+undirect(self)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a9acb2d917147f0b3df975c1b8a4daa62}\label{namespacedsmacc_1_1vis_1_1degree_a9acb2d917147f0b3df975c1b8a4daa62}} 
+{\bfseries s2u} = dsmacc\+\_\+tools.\+undirect(self2)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a835331f4006340eeec804d0be16d4b30}\label{namespacedsmacc_1_1vis_1_1degree_a835331f4006340eeec804d0be16d4b30}} 
+int {\bfseries ts} = 144
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ab8b7e098a667978f50c1a3a95ad0741a}\label{namespacedsmacc_1_1vis_1_1degree_ab8b7e098a667978f50c1a3a95ad0741a}} 
+dictionary {\bfseries difference} = \{\}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_aaef4541965844fd547ce576d121ba002}\label{namespacedsmacc_1_1vis_1_1degree_aaef4541965844fd547ce576d121ba002}} 
+{\bfseries C} = nx.\+Di\+Graph()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ac8f39adb1b7d92f4efbce06157fd0af1}\label{namespacedsmacc_1_1vis_1_1degree_ac8f39adb1b7d92f4efbce06157fd0af1}} 
+list {\bfseries r} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a7672b092c8fb441b4e7769fa5e7f7c63}\label{namespacedsmacc_1_1vis_1_1degree_a7672b092c8fb441b4e7769fa5e7f7c63}} 
+{\bfseries val} = s2u\mbox{[}i\mbox{]}\mbox{[}ts\mbox{]} / su\mbox{[}i\mbox{]}\mbox{[}ts\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a44bd3b1b80407d134948d614b0e6a5ad}\label{namespacedsmacc_1_1vis_1_1degree_a44bd3b1b80407d134948d614b0e6a5ad}} 
+{\bfseries mnn} = np.\+min(r)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_abcc7a3a5a812e0ef2f9f7b5162ccd253}\label{namespacedsmacc_1_1vis_1_1degree_abcc7a3a5a812e0ef2f9f7b5162ccd253}} 
+{\bfseries maxx} = np.\+max(r) -\/ mnn
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a59c87c466c653809fae9841bcd32c50a}\label{namespacedsmacc_1_1vis_1_1degree_a59c87c466c653809fae9841bcd32c50a}} 
+{\bfseries v} = i.\+split(\textquotesingle{}-\/$>$\textquotesingle{})\mbox{[}\+::-\/1$\ast$int(np.\+sign(val))\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a786d4650deeb1a42441417854f5e0d3d}\label{namespacedsmacc_1_1vis_1_1degree_a786d4650deeb1a42441417854f5e0d3d}} 
+{\bfseries weight} = json.\+dumps(nx.\+shortest\+\_\+path\+\_\+length(G,target=spec,weight=\textquotesingle{}weighted\textquotesingle{}))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ab4ec10eea9412ccc263613ab58af6801}\label{namespacedsmacc_1_1vis_1_1degree_ab4ec10eea9412ccc263613ab58af6801}} 
+{\bfseries q} = self2.\+spec.\+loc\mbox{[}self2.\+timesteps\mbox{[}ts\mbox{]},G.\+nodes()\mbox{]}.compute()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a66742a6a9321dd42f1c47bb67d12ef13}\label{namespacedsmacc_1_1vis_1_1degree_a66742a6a9321dd42f1c47bb67d12ef13}} 
+{\bfseries w} = self.\+spec.\+loc\mbox{[}self.\+timesteps\mbox{[}ts\mbox{]},G.\+nodes()\mbox{]}.compute()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a35f6746a73068c2d6fc773a56a6f695d}\label{namespacedsmacc_1_1vis_1_1degree_a35f6746a73068c2d6fc773a56a6f695d}} 
+{\bfseries index}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a38a8e81b43ba523315b33ea71cc870a0}\label{namespacedsmacc_1_1vis_1_1degree_a38a8e81b43ba523315b33ea71cc870a0}} 
+{\bfseries sign} = np.\+sign(cdf)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a59dc121c6d926d87b664f210eb1f8f05}\label{namespacedsmacc_1_1vis_1_1degree_a59dc121c6d926d87b664f210eb1f8f05}} 
+{\bfseries cdfn} = np.\+log10(np.\+abs(cdf.\+values))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a2baeecdb267f3c1c4d64d55e64f56413}\label{namespacedsmacc_1_1vis_1_1degree_a2baeecdb267f3c1c4d64d55e64f56413}} 
+{\bfseries cpr} = nx.\+pagerank\+\_\+numpy(C, alpha=damping, personalization=None, weight=\textquotesingle{}weight\textquotesingle{}, dangling=None)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a9cd05f6db07f98fd18d24eaedacffbda}\label{namespacedsmacc_1_1vis_1_1degree_a9cd05f6db07f98fd18d24eaedacffbda}} 
+{\bfseries j3} = json\+\_\+graph.\+node\+\_\+link\+\_\+data(C)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a331480b6e17e61d4a8ced0841d93f15d}\label{namespacedsmacc_1_1vis_1_1degree_a331480b6e17e61d4a8ced0841d93f15d}} 
+{\bfseries j24} = json.\+dumps(j3)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a31306b4029f579342e262ea04ac7a990}\label{namespacedsmacc_1_1vis_1_1degree_a31306b4029f579342e262ea04ac7a990}} 
+string {\bfseries spec} = \textquotesingle{}H\+C\+HO\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_ab44347f8ff8675c95287f392f954155f}\label{namespacedsmacc_1_1vis_1_1degree_ab44347f8ff8675c95287f392f954155f}} 
+string {\bfseries hierarchical} = \textquotesingle{}\textbackslash{}n\textquotesingle{}.join(\mbox{[}\textquotesingle{}.\textquotesingle{}.join(i) for i in nx.\+shortest\+\_\+path(G,target=spec,weight=\textquotesingle{}weighted\textquotesingle{}).values()\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}run dsmacc/vis/degree/__init__.py\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_a8af259ed8c18d5050d081109f40ae153}\label{namespacedsmacc_1_1vis_1_1degree_a8af259ed8c18d5050d081109f40ae153}} 
+\index{dsmacc\+::vis\+::degree@{dsmacc\+::vis\+::degree}!rpr@{rpr}}
+\index{rpr@{rpr}!dsmacc\+::vis\+::degree@{dsmacc\+::vis\+::degree}}
+\subsubsection{\texorpdfstring{rpr}{rpr}}
+{\footnotesize\ttfamily dsmacc.\+vis.\+degree.\+rpr}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 =  n(nx.pagerank\_numpy(R, alpha=damping,\textcolor{comment}{# personalization=p,}
+2  weight=\textcolor{stringliteral}{'distance'}, dangling=\textcolor{keywordtype}{None}))
+\end{DoxyCode}
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1degree_adbb4d4199b32ac300a4805757fd0e02b}\label{namespacedsmacc_1_1vis_1_1degree_adbb4d4199b32ac300a4805757fd0e02b}} 
+\index{dsmacc\+::vis\+::degree@{dsmacc\+::vis\+::degree}!T@{T}}
+\index{T@{T}!dsmacc\+::vis\+::degree@{dsmacc\+::vis\+::degree}}
+\subsubsection{\texorpdfstring{T}{T}}
+{\footnotesize\ttfamily dsmacc.\+vis.\+degree.\+T = nx.\+to\+\_\+numpy\+\_\+matrix(G).T}
+
+
+
+lets just use nx 
+
+empty class make class Empty\+: pass 

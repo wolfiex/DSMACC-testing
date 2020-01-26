@@ -1,0 +1,62 @@
+\hypertarget{namespaceSTPR}{}\section{S\+T\+PR Namespace Reference}
+\label{namespaceSTPR}\index{S\+T\+PR@{S\+T\+PR}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classSTPR_1_1Sparse3D}{Sparse3D}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespaceSTPR_a072ffc21155b6212d382a7b1aaac73a7}{net2sparse}} (net\+\_\+edges)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}A cumelative page rank algorith for errors of a temporal network.
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSTPR_a072ffc21155b6212d382a7b1aaac73a7}\label{namespaceSTPR_a072ffc21155b6212d382a7b1aaac73a7}} 
+\index{S\+T\+PR@{S\+T\+PR}!net2sparse@{net2sparse}}
+\index{net2sparse@{net2sparse}!S\+T\+PR@{S\+T\+PR}}
+\subsubsection{\texorpdfstring{net2sparse()}{net2sparse()}}
+{\footnotesize\ttfamily def S\+T\+P\+R.\+net2sparse (\begin{DoxyParamCaption}\item[{}]{net\+\_\+edges }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Input:
+    net_edges (pandas dataframe, columns: source->target)
+Output:
+    Sparse3D object
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+196 \textcolor{keyword}{def }net2sparse(net\_edges):
+197     \textcolor{stringliteral}{'''}
+198 \textcolor{stringliteral}{    Input:}
+199 \textcolor{stringliteral}{        net\_edges (pandas dataframe, columns: source->target)}
+200 \textcolor{stringliteral}{    Output:}
+201 \textcolor{stringliteral}{        Sparse3D object}
+202 \textcolor{stringliteral}{    '''}
+203 
+204     sp = Sparse3D()
+205     names = list(set([i \textcolor{keywordflow}{for} j \textcolor{keywordflow}{in} (k.split(\textcolor{stringliteral}{'->'}) \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} net\_edges.columns) \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} j]))
+206     names.sort()
+207     sp.names = names
+208 
+209     names = dict(zip(names,range(len(names))))
+210 
+211     \textcolor{keywordflow}{for} c \textcolor{keywordflow}{in} net\_edges.columns:
+212         col = net\_edges[c]
+213         name = [names[x] \textcolor{keywordflow}{for} x \textcolor{keywordflow}{in} c.split(\textcolor{stringliteral}{'->'})]
+214 
+215         dummy = col*(col>0)
+216         \textcolor{keywordflow}{if} dummy.max() > 0 :
+217             sp.add(name[0],name[1],dummy.values)
+218 
+219         dummy = abs(col*(col<0))
+220         \textcolor{keywordflow}{if} dummy.max() > 0 :
+221             sp.add(name[1],name[0],dummy.values)
+222 
+223     \textcolor{keywordflow}{return} sp
+224 \end{DoxyCode}

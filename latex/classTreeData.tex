@@ -1,0 +1,131 @@
+\hypertarget{classTreeData}{}\section{Tree\+Data Class Reference}
+\label{classTreeData}\index{Tree\+Data@{Tree\+Data}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTreeData_a90cd5b202239e3342988e598782abe1a}\label{classTreeData_a90cd5b202239e3342988e598782abe1a}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ $>$\+::iterator {\bfseries leaf\+Iterator}
+\item 
+\mbox{\Hypertarget{classTreeData_a017eb19cf334a058cea1dbb6feb2c3b2}\label{classTreeData_a017eb19cf334a058cea1dbb6feb2c3b2}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries const\+\_\+leaf\+Iterator}
+\item 
+\mbox{\Hypertarget{classTreeData_a1c5a361e74df0272dacbe8b9566727c2}\label{classTreeData_a1c5a361e74df0272dacbe8b9566727c2}} 
+typedef \mbox{\hyperlink{classEdge}{Node\+Base\+::\+Edge\+Type}} {\bfseries Edge\+Type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTreeData_ac5c99083d4ad790701fca268306949ef}\label{classTreeData_ac5c99083d4ad790701fca268306949ef}} 
+{\bfseries Tree\+Data} (\mbox{\hyperlink{classNodeFactoryBase}{Node\+Factory\+Base}} $\ast$)
+\item 
+void \mbox{\hyperlink{classTreeData_af7aed3b2d2c5149331e36dd98767d9ef}{read\+From\+Sub\+Network}} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$parent)
+\item 
+\mbox{\Hypertarget{classTreeData_ab44dfb076eaef070940c74daad665db8}\label{classTreeData_ab44dfb076eaef070940c74daad665db8}} 
+const \mbox{\hyperlink{classNodeFactoryBase}{Node\+Factory\+Base}} \& {\bfseries node\+Factory} () const
+\item 
+\mbox{\Hypertarget{classTreeData_aeca2d83a81f4a25820e764dda195f115}\label{classTreeData_aeca2d83a81f4a25820e764dda195f115}} 
+leaf\+Iterator {\bfseries begin\+\_\+leaf} ()
+\item 
+\mbox{\Hypertarget{classTreeData_a0221ffda04a0b4f5779e7c9f6af64c4f}\label{classTreeData_a0221ffda04a0b4f5779e7c9f6af64c4f}} 
+leaf\+Iterator {\bfseries end\+\_\+leaf} ()
+\item 
+\mbox{\Hypertarget{classTreeData_a0788058c71c3c6f281c05246e1321309}\label{classTreeData_a0788058c71c3c6f281c05246e1321309}} 
+const\+\_\+leaf\+Iterator {\bfseries begin\+\_\+leaf} () const
+\item 
+\mbox{\Hypertarget{classTreeData_ae3faa2e9cb8eb3b1c231e3d851004c6d}\label{classTreeData_ae3faa2e9cb8eb3b1c231e3d851004c6d}} 
+const\+\_\+leaf\+Iterator {\bfseries end\+\_\+leaf} () const
+\item 
+\mbox{\Hypertarget{classTreeData_ac0f7988b2c51b61c0ab5c037e047920f}\label{classTreeData_ac0f7988b2c51b61c0ab5c037e047920f}} 
+\mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ {\bfseries root} ()
+\item 
+\mbox{\Hypertarget{classTreeData_a7079f33946d9a17d587b1d497e2432ab}\label{classTreeData_a7079f33946d9a17d587b1d497e2432ab}} 
+const \mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ {\bfseries root} () const
+\item 
+\mbox{\Hypertarget{classTreeData_abb6e801e3904f73b09bee2f02d137978}\label{classTreeData_abb6e801e3904f73b09bee2f02d137978}} 
+\mbox{\hyperlink{classNodeBase}{Node\+Base}} \& {\bfseries get\+Leaf\+Node} (unsigned int index)
+\item 
+\mbox{\Hypertarget{classTreeData_a512e6694542f62b7e67f47f8afc37eeb}\label{classTreeData_a512e6694542f62b7e67f47f8afc37eeb}} 
+const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \& {\bfseries get\+Leaf\+Node} (unsigned int index) const
+\item 
+\mbox{\Hypertarget{classTreeData_a0e93d369c15f31a481b69cc8580754d4}\label{classTreeData_a0e93d369c15f31a481b69cc8580754d4}} 
+unsigned int {\bfseries num\+Leaf\+Nodes} () const
+\item 
+\mbox{\Hypertarget{classTreeData_ab1c320bcbcece7452562ff2c11342d46}\label{classTreeData_ab1c320bcbcece7452562ff2c11342d46}} 
+unsigned int {\bfseries num\+Leaf\+Edges} () const
+\item 
+\mbox{\Hypertarget{classTreeData_a953594879b5f3e6dd22ffe1a662749e8}\label{classTreeData_a953594879b5f3e6dd22ffe1a662749e8}} 
+unsigned int {\bfseries calc\+Size} ()
+\item 
+\mbox{\Hypertarget{classTreeData_a2a62f94ac79c6a522689ad7b7525569c}\label{classTreeData_a2a62f94ac79c6a522689ad7b7525569c}} 
+void {\bfseries reserve\+Node\+Count} (unsigned int node\+Count)
+\item 
+\mbox{\Hypertarget{classTreeData_a6be4531a047646f870f9add5eedd1c5f}\label{classTreeData_a6be4531a047646f870f9add5eedd1c5f}} 
+void {\bfseries add\+New\+Node} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&other)
+\item 
+\mbox{\Hypertarget{classTreeData_a3de20d8637cf3292fc04b2b1fcf59421}\label{classTreeData_a3de20d8637cf3292fc04b2b1fcf59421}} 
+void {\bfseries add\+New\+Node} (std\+::string name, double flow, double teleport\+Weight)
+\item 
+\mbox{\Hypertarget{classTreeData_abf420385ac7256aa4b05f0124386ce62}\label{classTreeData_abf420385ac7256aa4b05f0124386ce62}} 
+void {\bfseries add\+Cloned\+Node} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$\mbox{\hyperlink{structnode}{node}})
+\item 
+\mbox{\Hypertarget{classTreeData_aa1f268197e475a1e1fff17fc7f20bd58}\label{classTreeData_aa1f268197e475a1e1fff17fc7f20bd58}} 
+void {\bfseries add\+Edge} (unsigned int source\+Index, unsigned int target\+Index, double weight, double flow)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTreeData_ad8700eb06c8de0a40db2ef52849adac1}\label{classTreeData_ad8700eb06c8de0a40db2ef52849adac1}} 
+class {\bfseries Infomap\+Base}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTreeData_af7aed3b2d2c5149331e36dd98767d9ef}\label{classTreeData_af7aed3b2d2c5149331e36dd98767d9ef}} 
+\index{Tree\+Data@{Tree\+Data}!read\+From\+Sub\+Network@{read\+From\+Sub\+Network}}
+\index{read\+From\+Sub\+Network@{read\+From\+Sub\+Network}!Tree\+Data@{Tree\+Data}}
+\subsubsection{\texorpdfstring{read\+From\+Sub\+Network()}{readFromSubNetwork()}}
+{\footnotesize\ttfamily void Tree\+Data\+::read\+From\+Sub\+Network (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+Create new leaf nodes by copying the children of {\ttfamily parent} T\+O\+DO\+: Should let parent be const, but setting its index property to be able to rebuild the edge structure. Do that in a preparation step instead. 
+\begin{DoxyCode}
+53 \{
+54     \textcolor{comment}{// Clone all nodes}
+55     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = parent->childDegree();
+56     reserveNodeCount(numNodes);
+57     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0;
+58     \textcolor{keywordflow}{for} (\mbox{\hyperlink{classSiblingIterator}{NodeBase::sibling\_iterator}} childIt(parent->begin\_child()), endIt(parent
+      ->end\_child());
+59             childIt != endIt; ++childIt, ++i)
+60     \{
+61         addNewNode(*childIt); \textcolor{comment}{// New node copies the data from the other}
+62         childIt->index = i; \textcolor{comment}{// Set index to its place in this subnetwork to be able to find edge target
+       below}
+63     \}
+64 
+65     \textcolor{comment}{// Clone edges}
+66     \textcolor{keywordflow}{for} (\mbox{\hyperlink{classSiblingIterator}{NodeBase::sibling\_iterator}} childIt(parent->begin\_child()), endIt(parent
+      ->end\_child());
+67             childIt != endIt; ++childIt)
+68     \{
+69         \mbox{\hyperlink{classNodeBase}{NodeBase}}& \mbox{\hyperlink{structnode}{node}} = *childIt;
+70         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator outEdgeIt(\mbox{\hyperlink{structnode}{node}}.begin\_outEdge()), endIt(
+      \mbox{\hyperlink{structnode}{node}}.end\_outEdge());
+71                 outEdgeIt != endIt; ++outEdgeIt)
+72         \{
+73             EdgeType edge = **outEdgeIt;
+74             \textcolor{comment}{// If neighbour node is within the same cluster, add the link to this subnetwork.}
+75             \textcolor{keywordflow}{if} (edge.target.parent == parent)
+76             \{
+77                 addEdge(\mbox{\hyperlink{structnode}{node}}.index, edge.target.index, edge.data.weight, edge.data.flow);
+78             \}
+79             \textcolor{comment}{// else flow out of sub-network}
+80         \}
+81     \}
+82 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Tree\+Data.\+h\item 
+dsmacc/graph/infomap/src/infomap/Tree\+Data.\+cpp\end{DoxyCompactItemize}

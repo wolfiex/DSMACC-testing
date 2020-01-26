@@ -66,7 +66,7 @@ ifndef intel
 	@echo 'using gfortran'
 	$(eval export FC=gfortran)
 	$(eval export F90=gfortran)
-	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none )
+	$(eval export F90FLAGS=-cpp -O0 -ffree-line-length-none)
 else
 	@echo 'using ifort'
 	$(eval export FC=ifort)

@@ -3,9 +3,9 @@
 The heavily edited and improved version of the Dynamically Simple Model for Atmospheric Chemical
 Complexity (DSMACC), as used in the Thesis:
 
-Understanding the Atmosphere using graph theory, visualisation and machine learning 
+Understanding the Atmosphere using graph theory, visualisation and machine learning
 
-by Daniel Ellis. 
+by Daniel Ellis.
 
 
 ## Cite
@@ -38,24 +38,32 @@ And to use this, we run (or add within our .bashrc):
 
 
 ## testing
-To test run `make test` or `pytest dsmacc/test/`. 
+To test run `make test` or `pytest dsmacc/test/`.
 
 
 
 
 ## Check Version, Species or Equations
-To check the version, species or equations in a model you can run `./model 0 0` with the parameters `--species`, `--equations` or `--version` - see example below. 
+To check the version, species or equations in a model you can run `./model 0 0` with the parameters `--species`, `--equations` or `--version` - see example below.
 
 ```
 ./model 0 0 --species
- NA             SA             SO3            O1D            CL             
- CH4            H2O2           HSO3           H2             N2O5           
- CH3O2NO2       HONO           CH3OH          CO             SO2            
- HO2NO2         CH3O           CH3OOH         CH3NO3         HNO3           
- HCHO           CH3O2          HO2            O3             OH             
- NO3            O              NO             NO2            EMISS          
- R              DUMMY     
+ NA             SA             SO3            O1D            CL
+ CH4            H2O2           HSO3           H2             N2O5
+ CH3O2NO2       HONO           CH3OH          CO             SO2
+ HO2NO2         CH3O           CH3OOH         CH3NO3         HNO3
+ HCHO           CH3O2          HO2            O3             OH
+ NO3            O              NO             NO2            EMISS
+ R              DUMMY
 ```
+
+
+### Runtime checks
+Runtime checks to ensure model species match those of the ics are automatically enabled as part of dsmacc.run.
+
+These may be disabled using `-n` or `--nosafe` flags. 
+
+
 
 ## SPINUP
 There are two methods of spinning up a model- these are with or without constraint to observations. To activate this the python -run library must be run with the spinup flag. *NOTE: using a negative time no longer does anything*
@@ -63,28 +71,35 @@ There are two methods of spinning up a model- these are with or without constrai
 ### Without observations
 `python -m dsmacc.run -s -c -r` (spinup, create_new, run)
 
-This runs an iterative reset of the diurnal cycle until the avarage difference between `sum(old-new)/new` concentrations for each species is less than 1e-3. 
-NOTE - this can potentially lead to an infinitely long simulation if the model does not converge on a steady state simulation. 
+This runs an iterative reset of the diurnal cycle until the avarage difference between `sum(old-new)/new` concentrations for each species is less than 1e-3.
+NOTE - this can potentially lead to an infinitely long simulation if the model does not converge on a steady state simulation.
 
-On each restart, the concentrations from the initial conditions file are reset. 
-
-
+On each restart, the concentrations from the initial conditions file are reset.
 
 ### With observations
-Set up the observations file as before. 
+Set up the observations file as before.
 `python -m dsmacc.run -s -o -c -r` (spinup, observations, create_new, run)
 
+### setting the 'SPINUP' variable in the initial conditions file.
+In running using the spinup flag, this is automatically reset to 0, and the diurnal cycle used. In the case that observations are used without a diurnal spinup flag, this variable can be used to determine how long the simulation is constrained to observational amounts before letting the model run free. See the observations section. [Note this really should be renamed within the initial conditions file.]
 
+## Initial conditions qwerks
+- Species with 0 or negative concentration values are ignored.
+- Species starting with X are ignored
+- DEPOS is a multiplier flag to determine rate of deposition (0 to disable)
+- EMISS is a multiplier flag to determine rate of emission (0 to disable)
+- For multiple runs, a description helps with identification.
+- (disabled) save parameter in description name to access archived (compiled) model setups. This allows a single initial conditions file to run multiple mechanisms for comparison.
 
 ## Model debugging
-f90 model output is presented in the temp.txt file. This should be your first point of call for problems with no visible output. 
+f90 model output is presented in the temp.txt file. This should be your first point of call for problems with no visible output.
 
-It is then important to check that an initial conditions file `Init_cons.dat` has been created, and that the model has been compiled. Try `./model 0 0 --version` and `./model 0 0` to run the first set of initial conditions. 
+It is then important to check that an initial conditions file `Init_cons.dat` has been created, and that the model has been compiled. Try `./model 0 0 --version` and `./model 0 0` to run the first set of initial conditions.
 
 
 
 ### Compiler Notes
-The intel compiler is preferable, although the makefile has been rewritten to fall back to gfortran should this not be available. In the rare case where ifort is installed, but not functional, you may have to either comment `#intel := $(shell command -v ifort 2> /dev/null)` within the Makefile (which disables the switch) or uninstall it for gfortran to be used. 
+The intel compiler is preferable, although the makefile has been rewritten to fall back to gfortran should this not be available. In the rare case where ifort is installed, but not functional, you may have to either comment `#intel := $(shell command -v ifort 2> /dev/null)` within the Makefile (which disables the switch) or uninstall it for gfortran to be used.
 
 
 
@@ -95,7 +110,7 @@ The intel compiler is preferable, although the makefile has been rewritten to fa
 
 
 
-# dsmacc python library 
+# dsmacc python library
 - python 3 hassle
 - test scripts
 - used to run parallel instances
@@ -107,7 +122,7 @@ The intel compiler is preferable, although the makefile has been rewritten to fa
 
 ## reformat kppfiles
 - `make kpp`
-or 
+or
 -`python -m dsmacc.parsekpp.reformat.py`
 (then use the ncurses interface - arrow keys, space and enter)
 
@@ -125,7 +140,7 @@ or
 
 
 ## Observation constrains
-- create the required files in format.... 
+- create the required files in format....
 - `python -m dsmacc.observations.constrain <csvfilenamewithdata>`
 - `python -m dsmacc.run -r -c -o`
 
@@ -161,7 +176,7 @@ Try the wiki - also in progress but contains some debug tips.
 TUV repository updated with thanks to @pb866
 
 ## Setting up files
-1. Download organic mechanism from mcm.york.ac.uk. 
+1. Download organic mechanism from mcm.york.ac.uk.
 2. Place file in mechanisms folder (and optionally add a version name: `VERS='TroposphericChemistry'`
 3. Reformat this to keep KPP happy. Use `make reformat` or `python -m dsmacc.parsekpp.reformat` for a quick format with additional deposition rates of 1/day.
 4. run `make kpp`
@@ -202,7 +217,7 @@ Set the loaded version of MPI to be used with mpi4py
 
 Then run `pip install mpi4py`
 
-### Parallel h5py - not enabled as none of the york hpc clusters have been configured to do this 
+### Parallel h5py - not enabled as none of the york hpc clusters have been configured to do this
 1 Build hdf5 library with the following flags (note many clusters dont seem to do this for some reason)
 `$./configure --enable-parallel --enable-shared`
 Note that --enable-shared is required.
@@ -263,4 +278,3 @@ git submodule update` or typing `make update_submodule`
 
 ## Makefile
 Type `make man` to see a description of available functions.
-

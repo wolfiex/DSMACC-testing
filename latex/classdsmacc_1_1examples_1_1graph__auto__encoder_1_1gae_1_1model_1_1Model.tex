@@ -1,0 +1,59 @@
+\hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model}{}\section{dsmacc.\+examples.\+graph\+\_\+auto\+\_\+encoder.\+gae.\+model.\+Model Class Reference}
+\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model}\index{dsmacc.\+examples.\+graph\+\_\+auto\+\_\+encoder.\+gae.\+model.\+Model@{dsmacc.\+examples.\+graph\+\_\+auto\+\_\+encoder.\+gae.\+model.\+Model}}
+Inheritance diagram for dsmacc.\+examples.\+graph\+\_\+auto\+\_\+encoder.\+gae.\+model.\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a841db6a74286a168b114a11da6742342}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a841db6a74286a168b114a11da6742342}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, kwargs)
+\item 
+def \mbox{\hyperlink{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a7725065430be8aac2d2ad1363f76d429}{build}} (self)
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_aa70cdf8a3cbd698f20b6aee2984db0fc}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_aa70cdf8a3cbd698f20b6aee2984db0fc}} 
+def {\bfseries fit} (self)
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a6d11e00c1cd728adcf3994f8fae4f387}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a6d11e00c1cd728adcf3994f8fae4f387}} 
+def {\bfseries predict} (self)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_ac094638906050172f9d08ae66ad1345c}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_ac094638906050172f9d08ae66ad1345c}} 
+{\bfseries name}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_ac2e32f303f484edf4babda4a85964e0c}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_ac2e32f303f484edf4babda4a85964e0c}} 
+{\bfseries logging}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a7cd3b350eb5f2128dda72bcc9d87ba78}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a7cd3b350eb5f2128dda72bcc9d87ba78}} 
+{\bfseries vars}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a7725065430be8aac2d2ad1363f76d429}\label{classdsmacc_1_1examples_1_1graph__auto__encoder_1_1gae_1_1model_1_1Model_a7725065430be8aac2d2ad1363f76d429}} 
+\index{dsmacc\+::examples\+::graph\+\_\+auto\+\_\+encoder\+::gae\+::model\+::\+Model@{dsmacc\+::examples\+::graph\+\_\+auto\+\_\+encoder\+::gae\+::model\+::\+Model}!build@{build}}
+\index{build@{build}!dsmacc\+::examples\+::graph\+\_\+auto\+\_\+encoder\+::gae\+::model\+::\+Model@{dsmacc\+::examples\+::graph\+\_\+auto\+\_\+encoder\+::gae\+::model\+::\+Model}}
+\subsubsection{\texorpdfstring{build()}{build()}}
+{\footnotesize\ttfamily def dsmacc.\+examples.\+graph\+\_\+auto\+\_\+encoder.\+gae.\+model.\+Model.\+build (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrapper for _build() \end{DoxyVerb}
+ 
+\begin{DoxyCode}
+30     \textcolor{keyword}{def }build(self):
+31         \textcolor{stringliteral}{""" Wrapper for \_build() """}
+32         with tf.variable\_scope(self.name):
+33             self.\_build()
+34         variables = tf.get\_collection(tf.GraphKeys.GLOBAL\_VARIABLES, scope=self.name)
+35         self.vars = \{var.name: var \textcolor{keywordflow}{for} var \textcolor{keywordflow}{in} variables\}
+36 
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/examples/graph\+\_\+auto\+\_\+encoder/gae/model.\+py\end{DoxyCompactItemize}

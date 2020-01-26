@@ -1,0 +1,9 @@
+Globchem files are included in the mechanisms directory. Photolysis rates for v11 are mapped in the T\+UV folder as G\+C11 and are taken from the fastjx engine, whose input file is located in src/background/geos...
+
+Newer globchem.\+eqns files need to have the photolysis array (P\+H\+O\+T\+O\+L(x)) renamed as J(x) and checked that the eqns in G\+C11.\+inc are correct.
+
+There are several methods to run this, although using the make kpp\+\_\+custom? flag may be easiest provided all the other files are correctly assembled.
+
+Additionally all the \textquotesingle{}+ hv\textquotesingle{} parts of the reactions must be removed. This can be done using `perl -\/p -\/i -\/e \textquotesingle{}s/+$\ast$hv//g' mechanisms/geoschem/globchem.\+eqn\`{} from the main directory.
+
+You must create a G\+C11 file in tuv using /src/background/g$\ast$/c$\ast$.py 

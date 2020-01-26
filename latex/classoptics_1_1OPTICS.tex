@@ -1,0 +1,340 @@
+\hypertarget{classoptics_1_1OPTICS}{}\section{optics.\+O\+P\+T\+I\+CS Class Reference}
+\label{classoptics_1_1OPTICS}\index{optics.\+O\+P\+T\+I\+CS@{optics.\+O\+P\+T\+I\+CS}}
+Inheritance diagram for optics.\+O\+P\+T\+I\+CS\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classoptics_1_1OPTICS}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a765402ad9157357a749f23475e5874a5}\label{classoptics_1_1OPTICS_a765402ad9157357a749f23475e5874a5}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, min\+\_\+samples=5, max\+\_\+eps=np.\+inf, metric=\textquotesingle{}minkowski\textquotesingle{}, p=2, metric\+\_\+params=None, cluster\+\_\+method=\textquotesingle{}xi\textquotesingle{}, eps=None, xi=0.\+05, predecessor\+\_\+correction=True, min\+\_\+cluster\+\_\+size=None, algorithm=\textquotesingle{}auto\textquotesingle{}, leaf\+\_\+size=30, n\+\_\+jobs=None)
+\item 
+def \mbox{\hyperlink{classoptics_1_1OPTICS_a26560c1c03e886345e61e7f002cbb3ef}{fit}} (self, X, y=None)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a335bfc9ebad0459b50b33d4a2e655991}\label{classoptics_1_1OPTICS_a335bfc9ebad0459b50b33d4a2e655991}} 
+{\bfseries max\+\_\+eps}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a38c3e214e79069984589505623d8c800}\label{classoptics_1_1OPTICS_a38c3e214e79069984589505623d8c800}} 
+{\bfseries min\+\_\+samples}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_afd060c4d514d54b4ef8fd22bf722938c}\label{classoptics_1_1OPTICS_afd060c4d514d54b4ef8fd22bf722938c}} 
+{\bfseries min\+\_\+cluster\+\_\+size}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a27e6a348e780c1084db7605c768cfa38}\label{classoptics_1_1OPTICS_a27e6a348e780c1084db7605c768cfa38}} 
+{\bfseries algorithm}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a469d438e56d63d96dc1f22cf73045c63}\label{classoptics_1_1OPTICS_a469d438e56d63d96dc1f22cf73045c63}} 
+{\bfseries metric}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a88a03c471987c5977c14e1b60fa13621}\label{classoptics_1_1OPTICS_a88a03c471987c5977c14e1b60fa13621}} 
+{\bfseries metric\+\_\+params}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_aee95e87a06435e60de8470c40882fe3a}\label{classoptics_1_1OPTICS_aee95e87a06435e60de8470c40882fe3a}} 
+{\bfseries p}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_ac878f335cb45561f8e5c4cee53c1fe58}\label{classoptics_1_1OPTICS_ac878f335cb45561f8e5c4cee53c1fe58}} 
+{\bfseries leaf\+\_\+size}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a2e760145998d56d5ca55677b47ddbc70}\label{classoptics_1_1OPTICS_a2e760145998d56d5ca55677b47ddbc70}} 
+{\bfseries cluster\+\_\+method}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a5f6443e793bee61396ebd8a50288b26c}\label{classoptics_1_1OPTICS_a5f6443e793bee61396ebd8a50288b26c}} 
+{\bfseries eps}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a6edcb6fbf15bfe5aea8a4931bbe9cafa}\label{classoptics_1_1OPTICS_a6edcb6fbf15bfe5aea8a4931bbe9cafa}} 
+{\bfseries xi}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a2414564071f38b053a3b1959ef53df30}\label{classoptics_1_1OPTICS_a2414564071f38b053a3b1959ef53df30}} 
+{\bfseries predecessor\+\_\+correction}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a01b73608720edba48ee64319afdd73b4}\label{classoptics_1_1OPTICS_a01b73608720edba48ee64319afdd73b4}} 
+{\bfseries n\+\_\+jobs}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_ae5591c030d72a3641e7600df46c10cd2}\label{classoptics_1_1OPTICS_ae5591c030d72a3641e7600df46c10cd2}} 
+{\bfseries cluster\+\_\+hierarchy\+\_\+}
+\item 
+\mbox{\Hypertarget{classoptics_1_1OPTICS_aa490cfd6c8e8d96d5387008106e58453}\label{classoptics_1_1OPTICS_aa490cfd6c8e8d96d5387008106e58453}} 
+{\bfseries labels\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Estimate clustering structure from vector array
+
+OPTICS (Ordering Points To Identify the Clustering Structure), closely
+related to DBSCAN, finds core sample of high density and expands clusters
+from them [1]_. Unlike DBSCAN, keeps cluster hierarchy for a variable
+neighborhood radius. Better suited for usage on large datasets than the
+current sklearn implementation of DBSCAN.
+
+Clusters are then extracted using a DBSCAN-like method
+(cluster_method = 'dbscan') or an automatic
+technique proposed in [1]_ (cluster_method = 'xi').
+
+This implementation deviates from the original OPTICS by first performing
+k-nearest-neighborhood searches on all points to identify core sizes, then
+computing only the distances to unprocessed points when constructing the
+cluster order. Note that we do not employ a heap to manage the expansion
+candidates, so the time complexity will be O(n^2).
+
+Read more in the :ref:`User Guide <optics>`.
+
+Parameters
+----------
+min_samples : int > 1 or float between 0 and 1 (default=5)
+    The number of samples in a neighborhood for a point to be considered as
+    a core point. Also, up and down steep regions can't have more then
+    ``min_samples`` consecutive non-steep points. Expressed as an absolute
+    number or a fraction of the number of samples (rounded to be at least
+    2).
+
+max_eps : float, optional (default=np.inf)
+    The maximum distance between two samples for one to be considered as
+    in the neighborhood of the other. Default value of ``np.inf`` will
+    identify clusters across all scales; reducing ``max_eps`` will result
+    in shorter run times.
+
+metric : string or callable, optional (default='minkowski')
+    Metric to use for distance computation. Any metric from scikit-learn
+    or scipy.spatial.distance can be used.
+
+    If metric is a callable function, it is called on each
+    pair of instances (rows) and the resulting value recorded. The callable
+    should take two arrays as input and return one value indicating the
+    distance between them. This works for Scipy's metrics, but is less
+    efficient than passing the metric name as a string. If metric is
+    "precomputed", X is assumed to be a distance matrix and must be square.
+
+    Valid values for metric are:
+
+    - from scikit-learn: ['cityblock', 'cosine', 'euclidean', 'l1', 'l2',
+      'manhattan']
+
+    - from scipy.spatial.distance: ['braycurtis', 'canberra', 'chebyshev',
+      'correlation', 'dice', 'hamming', 'jaccard', 'kulsinski',
+      'mahalanobis', 'minkowski', 'rogerstanimoto', 'russellrao',
+      'seuclidean', 'sokalmichener', 'sokalsneath', 'sqeuclidean',
+      'yule']
+
+    See the documentation for scipy.spatial.distance for details on these
+    metrics.
+
+p : integer, optional (default=2)
+    Parameter for the Minkowski metric from
+    :class:`sklearn.metrics.pairwise_distances`. When p = 1, this is
+    equivalent to using manhattan_distance (l1), and euclidean_distance
+    (l2) for p = 2. For arbitrary p, minkowski_distance (l_p) is used.
+
+metric_params : dict, optional (default=None)
+    Additional keyword arguments for the metric function.
+
+cluster_method : string, optional (default='xi')
+    The extraction method used to extract clusters using the calculated
+    reachability and ordering. Possible values are "xi" and "dbscan".
+
+eps : float, optional (default=None)
+    The maximum distance between two samples for one to be considered as
+    in the neighborhood of the other. By default it assumes the same value
+    as ``max_eps``.
+    Used only when ``cluster_method='dbscan'``.
+
+xi : float, between 0 and 1, optional (default=0.05)
+    Determines the minimum steepness on the reachability plot that
+    constitutes a cluster boundary. For example, an upwards point in the
+    reachability plot is defined by the ratio from one point to its
+    successor being at most 1-xi.
+    Used only when ``cluster_method='xi'``.
+
+predecessor_correction : bool, optional (default=True)
+    Correct clusters according to the predecessors calculated by OPTICS
+    [2]_. This parameter has minimal effect on most datasets.
+    Used only when ``cluster_method='xi'``.
+
+min_cluster_size : int > 1 or float between 0 and 1 (default=None)
+    Minimum number of samples in an OPTICS cluster, expressed as an
+    absolute number or a fraction of the number of samples (rounded to be
+    at least 2). If ``None``, the value of ``min_samples`` is used instead.
+    Used only when ``cluster_method='xi'``.
+
+algorithm : {'auto', 'ball_tree', 'kd_tree', 'brute'}, optional
+    Algorithm used to compute the nearest neighbors:
+
+    - 'ball_tree' will use :class:`BallTree`
+    - 'kd_tree' will use :class:`KDTree`
+    - 'brute' will use a brute-force search.
+    - 'auto' will attempt to decide the most appropriate algorithm
+      based on the values passed to :meth:`fit` method. (default)
+
+    Note: fitting on sparse input will override the setting of
+    this parameter, using brute force.
+
+leaf_size : int, optional (default=30)
+    Leaf size passed to :class:`BallTree` or :class:`KDTree`. This can
+    affect the speed of the construction and query, as well as the memory
+    required to store the tree. The optimal value depends on the
+    nature of the problem.
+
+n_jobs : int or None, optional (default=None)
+    The number of parallel jobs to run for neighbors search.
+    ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
+    ``-1`` means using all processors. See :term:`Glossary <n_jobs>`
+    for more details.
+
+Attributes
+----------
+labels_ : array, shape (n_samples,)
+    Cluster labels for each point in the dataset given to fit().
+    Noisy samples and points which are not included in a leaf cluster
+    of ``cluster_hierarchy_`` are labeled as -1.
+
+reachability_ : array, shape (n_samples,)
+    Reachability distances per sample, indexed by object order. Use
+    ``clust.reachability_[clust.ordering_]`` to access in cluster order.
+
+ordering_ : array, shape (n_samples,)
+    The cluster ordered list of sample indices.
+
+core_distances_ : array, shape (n_samples,)
+    Distance at which each sample becomes a core point, indexed by object
+    order. Points which will never be core have a distance of inf. Use
+    ``clust.core_distances_[clust.ordering_]`` to access in cluster order.
+
+predecessor_ : array, shape (n_samples,)
+    Point that a sample was reached from, indexed by object order.
+    Seed points have a predecessor of -1.
+
+cluster_hierarchy_ : array, shape (n_clusters, 2)
+    The list of clusters in the form of ``[start, end]`` in each row, with
+    all indices inclusive. The clusters are ordered according to
+    ``(end, -start)`` (ascending) so that larger clusters encompassing
+    smaller clusters come after those smaller ones. Since ``labels_`` does
+    not reflect the hierarchy, usually
+    ``len(cluster_hierarchy_) > np.unique(optics.labels_)``. Please also
+    note that these indices are of the ``ordering_``, i.e.
+    ``X[ordering_][start:end + 1]`` form a cluster.
+    Only available when ``cluster_method='xi'``.
+
+See also
+--------
+DBSCAN
+    A similar clustering for a specified neighborhood radius (eps).
+    Our implementation is optimized for runtime.
+
+References
+----------
+.. [1] Ankerst, Mihael, Markus M. Breunig, Hans-Peter Kriegel,
+   and Jörg Sander. "OPTICS: ordering points to identify the clustering
+   structure." ACM SIGMOD Record 28, no. 2 (1999): 49-60.
+
+.. [2] Schubert, Erich, Michael Gertz.
+   "Improving the Cluster Structure Extracted from OPTICS Plots." Proc. of
+   the Conference "Lernen, Wissen, Daten, Analysen" (LWDA) (2018): 318-329.
+\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classoptics_1_1OPTICS_a26560c1c03e886345e61e7f002cbb3ef}\label{classoptics_1_1OPTICS_a26560c1c03e886345e61e7f002cbb3ef}} 
+\index{optics\+::\+O\+P\+T\+I\+CS@{optics\+::\+O\+P\+T\+I\+CS}!fit@{fit}}
+\index{fit@{fit}!optics\+::\+O\+P\+T\+I\+CS@{optics\+::\+O\+P\+T\+I\+CS}}
+\subsubsection{\texorpdfstring{fit()}{fit()}}
+{\footnotesize\ttfamily def optics.\+O\+P\+T\+I\+C\+S.\+fit (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{X,  }\item[{}]{y = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Perform OPTICS clustering
+
+Extracts an ordered list of points and reachability distances, and
+performs initial clustering using ``max_eps`` distance specified at
+OPTICS object instantiation.
+
+Parameters
+----------
+X : array, shape (n_samples, n_features), or (n_samples, n_samples)  \
+if metric=’precomputed’.
+    A feature array, or array of distances between samples if
+    metric='precomputed'.
+
+y : ignored
+
+Returns
+-------
+self : instance of OPTICS
+    The instance.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+215     \textcolor{keyword}{def }fit(self, X, y=None):
+216         \textcolor{stringliteral}{"""Perform OPTICS clustering}
+217 \textcolor{stringliteral}{}
+218 \textcolor{stringliteral}{        Extracts an ordered list of points and reachability distances, and}
+219 \textcolor{stringliteral}{        performs initial clustering using ``max\_eps`` distance specified at}
+220 \textcolor{stringliteral}{        OPTICS object instantiation.}
+221 \textcolor{stringliteral}{}
+222 \textcolor{stringliteral}{        Parameters}
+223 \textcolor{stringliteral}{        ----------}
+224 \textcolor{stringliteral}{        X : array, shape (n\_samples, n\_features), or (n\_samples, n\_samples)  \(\backslash\)}
+225 \textcolor{stringliteral}{if metric=’precomputed’.}
+226 \textcolor{stringliteral}{            A feature array, or array of distances between samples if}
+227 \textcolor{stringliteral}{            metric='precomputed'.}
+228 \textcolor{stringliteral}{}
+229 \textcolor{stringliteral}{        y : ignored}
+230 \textcolor{stringliteral}{}
+231 \textcolor{stringliteral}{        Returns}
+232 \textcolor{stringliteral}{        -------}
+233 \textcolor{stringliteral}{        self : instance of OPTICS}
+234 \textcolor{stringliteral}{            The instance.}
+235 \textcolor{stringliteral}{        """}
+236         X = check\_array(X, dtype=np.float)
+237 
+238         \textcolor{keywordflow}{if} self.cluster\_method \textcolor{keywordflow}{not} \textcolor{keywordflow}{in} [\textcolor{stringliteral}{'dbscan'}, \textcolor{stringliteral}{'xi'}]:
+239             \textcolor{keywordflow}{raise} ValueError(\textcolor{stringliteral}{"cluster\_method should be one of"}
+240                              \textcolor{stringliteral}{" 'dbscan' or 'xi' but is %s"} %
+241                              self.cluster\_method)
+242 
+243         (self.ordering\_, self.core\_distances\_, self.reachability\_,
+244          self.predecessor\_) = compute\_optics\_graph(
+245              X=X, min\_samples=self.min\_samples, algorithm=self.algorithm,
+246              leaf\_size=self.leaf\_size, metric=self.metric,
+247              metric\_params=self.metric\_params, p=self.p, n\_jobs=self.n\_jobs,
+248              max\_eps=self.max\_eps)
+249 
+250         \textcolor{comment}{# Extract clusters from the calculated orders and reachability}
+251         \textcolor{keywordflow}{if} self.cluster\_method == \textcolor{stringliteral}{'xi'}:
+252             labels\_, clusters\_ = cluster\_optics\_xi(
+253                 self.reachability\_,
+254                 self.predecessor\_,
+255                 self.ordering\_,
+256                 self.min\_samples,
+257                 self.min\_cluster\_size,
+258                 self.xi,
+259                 self.predecessor\_correction)
+260             self.cluster\_hierarchy\_ = clusters\_
+261         \textcolor{keywordflow}{elif} self.cluster\_method == \textcolor{stringliteral}{'dbscan'}:
+262             \textcolor{keywordflow}{if} self.eps \textcolor{keywordflow}{is} \textcolor{keywordtype}{None}:
+263                 eps = self.max\_eps
+264             \textcolor{keywordflow}{else}:
+265                 eps = self.eps
+266 
+267             \textcolor{keywordflow}{if} eps > self.max\_eps:
+268                 \textcolor{keywordflow}{raise} ValueError(\textcolor{stringliteral}{'Specify an epsilon smaller than %s. Got %s.'}
+269                                  % (self.max\_eps, eps))
+270 
+271             labels\_ = cluster\_optics\_dbscan(self.reachability\_,
+272                                             self.core\_distances\_,
+273                                             self.ordering\_,
+274                                             eps)
+275 
+276         self.labels\_ = labels\_
+277         \textcolor{keywordflow}{return} self
+278 
+279 
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+optics.\+py\end{DoxyCompactItemize}

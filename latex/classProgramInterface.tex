@@ -1,0 +1,50 @@
+\hypertarget{classProgramInterface}{}\section{Program\+Interface Class Reference}
+\label{classProgramInterface}\index{Program\+Interface@{Program\+Interface}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classProgramInterface_a1500f81c169fc1f432683d21fbd3f2f1}\label{classProgramInterface_a1500f81c169fc1f432683d21fbd3f2f1}} 
+{\bfseries Program\+Interface} (std\+::string name, std\+::string short\+Description, std\+::string version)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a25a77ffcc8ec078a96e1eb83da5faf5e}\label{classProgramInterface_a25a77ffcc8ec078a96e1eb83da5faf5e}} 
+void {\bfseries add\+Program\+Description} (std\+::string desc)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a03881e0e2d5bcae48e02011b7d4012b7}\label{classProgramInterface_a03881e0e2d5bcae48e02011b7d4012b7}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries add\+Non\+Option\+Argument} (T \&target, std\+::string variable\+Name, std\+::string desc, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a2b64153fca1c424163c572f89fc9e2e9}\label{classProgramInterface_a2b64153fca1c424163c572f89fc9e2e9}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries add\+Optional\+Non\+Option\+Arguments} (std\+::vector$<$ T $>$ \&target, std\+::string variable\+Name, std\+::string desc, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a76ce3af8085bc098910eb14aa6e92345}\label{classProgramInterface_a76ce3af8085bc098910eb14aa6e92345}} 
+void {\bfseries add\+Option\+Argument} (char short\+Name, std\+::string long\+Name, std\+::string description, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_aa79d2d7ab562cec4268b265743f51ea9}\label{classProgramInterface_aa79d2d7ab562cec4268b265743f51ea9}} 
+void {\bfseries add\+Incremental\+Option\+Argument} (unsigned int \&target, char short\+Name, std\+::string long\+Name, std\+::string description, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a918b5aa0d9ac1223241757573afe610a}\label{classProgramInterface_a918b5aa0d9ac1223241757573afe610a}} 
+void {\bfseries add\+Option\+Argument} (bool \&target, char short\+Name, std\+::string long\+Name, std\+::string description, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a0dd09e2fa92b87a760275e07b73f13dd}\label{classProgramInterface_a0dd09e2fa92b87a760275e07b73f13dd}} 
+void {\bfseries add\+Option\+Argument} (bool \&target, std\+::string long\+Name, std\+::string description, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a7dc981bbd338419999768aceceefc3e4}\label{classProgramInterface_a7dc981bbd338419999768aceceefc3e4}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries add\+Option\+Argument} (T \&target, char short\+Name, std\+::string long\+Name, std\+::string description, std\+::string argument\+Name, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a6d9673650514edbb9473b2447161d544}\label{classProgramInterface_a6d9673650514edbb9473b2447161d544}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries add\+Option\+Argument} (T \&target, std\+::string long\+Name, std\+::string description, std\+::string argument\+Name, bool is\+Advanced=false)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a0ca4ca902cc30ea4bffe78d7919b46f5}\label{classProgramInterface_a0ca4ca902cc30ea4bffe78d7919b46f5}} 
+void {\bfseries parse\+Args} (const std\+::string \&args)
+\item 
+\mbox{\Hypertarget{classProgramInterface_a09da1351fb5c563c63d98c229779ff4e}\label{classProgramInterface_a09da1351fb5c563c63d98c229779ff4e}} 
+std\+::vector$<$ \mbox{\hyperlink{structParsedOption}{Parsed\+Option}} $>$ {\bfseries get\+Used\+Option\+Arguments} ()
+\item 
+\mbox{\Hypertarget{classProgramInterface_accda7856d59556569d00645087d0099d}\label{classProgramInterface_accda7856d59556569d00645087d0099d}} 
+unsigned int {\bfseries num\+Required\+Arguments} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/io/Program\+Interface.\+h\item 
+dsmacc/graph/infomap/src/io/Program\+Interface.\+cpp\end{DoxyCompactItemize}

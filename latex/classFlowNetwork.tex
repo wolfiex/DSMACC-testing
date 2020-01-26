@@ -1,0 +1,61 @@
+\hypertarget{classFlowNetwork}{}\section{Flow\+Network Class Reference}
+\label{classFlowNetwork}\index{Flow\+Network@{Flow\+Network}}
+Inheritance diagram for Flow\+Network\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classFlowNetwork}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structFlowNetwork_1_1Link}{Link}}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a351e5fddabb58212785d018ee6668840}\label{classFlowNetwork_a351e5fddabb58212785d018ee6668840}} 
+typedef Network\+::\+Link\+Map {\bfseries Link\+Map}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a5c77b7fd0cb165bd1d8ffefddbd61820}\label{classFlowNetwork_a5c77b7fd0cb165bd1d8ffefddbd61820}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{structFlowNetwork_1_1Link}{Link}} $>$ {\bfseries Link\+Vec}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a7fe9ac86ec22ae9fb5a5212d30e3c014}\label{classFlowNetwork_a7fe9ac86ec22ae9fb5a5212d30e3c014}} 
+virtual void {\bfseries calculate\+Flow} (const \mbox{\hyperlink{classNetwork}{Network}} \&network, const \mbox{\hyperlink{structConfig}{Config}} \&config)
+\item 
+\mbox{\Hypertarget{classFlowNetwork_ac7f6025ddeb7110f317882691a2cf35d}\label{classFlowNetwork_ac7f6025ddeb7110f317882691a2cf35d}} 
+const std\+::vector$<$ double $>$ \& {\bfseries get\+Node\+Flow} () const
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a1999937192326cad0d4f7d4f5aaab509}\label{classFlowNetwork_a1999937192326cad0d4f7d4f5aaab509}} 
+const std\+::vector$<$ double $>$ \& {\bfseries get\+Node\+Teleport\+Rates} () const
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a974c66cb336b7df454c95b0335afa04d}\label{classFlowNetwork_a974c66cb336b7df454c95b0335afa04d}} 
+const Link\+Vec \& {\bfseries get\+Flow\+Links} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a451f5b6539134737dee056ad024ddab7}\label{classFlowNetwork_a451f5b6539134737dee056ad024ddab7}} 
+void {\bfseries finalize} (const \mbox{\hyperlink{classNetwork}{Network}} \&network, const \mbox{\hyperlink{structConfig}{Config}} \&config, bool normalize\+Node\+Flow=false)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_ad149c0e9ea398fdf26afa8823b1b349e}\label{classFlowNetwork_ad149c0e9ea398fdf26afa8823b1b349e}} 
+std\+::vector$<$ double $>$ {\bfseries m\+\_\+node\+Flow}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a8af6bfb578aa5c30dd67152485a7396b}\label{classFlowNetwork_a8af6bfb578aa5c30dd67152485a7396b}} 
+std\+::vector$<$ double $>$ {\bfseries m\+\_\+node\+Teleport\+Rates}
+\item 
+\mbox{\Hypertarget{classFlowNetwork_a52c0a9acf760b9350205a9686de51418}\label{classFlowNetwork_a52c0a9acf760b9350205a9686de51418}} 
+Link\+Vec {\bfseries m\+\_\+flow\+Links}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Flow\+Network.\+h\item 
+dsmacc/graph/infomap/src/infomap/Flow\+Network.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,65 @@
+\hypertarget{classFileURI}{}\section{File\+U\+RI Class Reference}
+\label{classFileURI}\index{File\+U\+RI@{File\+U\+RI}}
+
+
+{\ttfamily \#include $<$File\+U\+R\+I.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFileURI_ae2216dec8474130ed9fdf7821b2010e7}\label{classFileURI_ae2216dec8474130ed9fdf7821b2010e7}} 
+{\bfseries File\+U\+RI} (const char $\ast$filename, bool require\+Extension=false)
+\item 
+\mbox{\Hypertarget{classFileURI_a5bbda26701eea6497f5f627bac77bcad}\label{classFileURI_a5bbda26701eea6497f5f627bac77bcad}} 
+{\bfseries File\+U\+RI} (const string \&filename, bool require\+Extension=false)
+\item 
+\mbox{\Hypertarget{classFileURI_a6d360fe34e94d6515e7a07f7e920a9f1}\label{classFileURI_a6d360fe34e94d6515e7a07f7e920a9f1}} 
+{\bfseries File\+U\+RI} (const \mbox{\hyperlink{classFileURI}{File\+U\+RI}} \&other)
+\item 
+\mbox{\Hypertarget{classFileURI_a568a7411f03e979c0c3600a4839fb5fd}\label{classFileURI_a568a7411f03e979c0c3600a4839fb5fd}} 
+\mbox{\hyperlink{classFileURI}{File\+U\+RI}} \& {\bfseries operator=} (const \mbox{\hyperlink{classFileURI}{File\+U\+RI}} \&other)
+\item 
+\mbox{\Hypertarget{classFileURI_a466f394fd9af0583935fc5d6a9ce2f9a}\label{classFileURI_a466f394fd9af0583935fc5d6a9ce2f9a}} 
+const string \& {\bfseries get\+Filename} () const
+\item 
+const string \& \mbox{\hyperlink{classFileURI_a9423995d29f27b5032c7061f4ea207f0}{get\+Directory}} () const
+\item 
+\mbox{\Hypertarget{classFileURI_a25bedd1ea4fa0737575da47b25e71375}\label{classFileURI_a25bedd1ea4fa0737575da47b25e71375}} 
+const string \& {\bfseries get\+Name} () const
+\item 
+\mbox{\Hypertarget{classFileURI_a6f16821c565883105347f57d1b9dcd3f}\label{classFileURI_a6f16821c565883105347f57d1b9dcd3f}} 
+const string \& {\bfseries get\+Extension} () const
+\item 
+\mbox{\Hypertarget{classFileURI_a0ed4a05918105050d5383c113484a550}\label{classFileURI_a0ed4a05918105050d5383c113484a550}} 
+std\+::string {\bfseries get\+Parts} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFileURI_aa89acde077dab30dbab6ce85c282e512}\label{classFileURI_aa89acde077dab30dbab6ce85c282e512}} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&out, const \mbox{\hyperlink{classFileURI}{File\+U\+RI}} \&file)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Filename class to simplify handling of parts of a filename. If a path is path/to/file.\+ext, the member methods of this class give these parts\+: get\+Filename -\/$>$ \char`\"{}path/to/file.\+ext\char`\"{} get\+Directory -\/$>$ \char`\"{}path/to/\char`\"{} get\+Name -\/$>$ \char`\"{}file\char`\"{} get\+Extension -\/$>$ \char`\"{}ext\char`\"{} Can throw std\+::invalid\+\_\+argument on creation. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classFileURI_a9423995d29f27b5032c7061f4ea207f0}\label{classFileURI_a9423995d29f27b5032c7061f4ea207f0}} 
+\index{File\+U\+RI@{File\+U\+RI}!get\+Directory@{get\+Directory}}
+\index{get\+Directory@{get\+Directory}!File\+U\+RI@{File\+U\+RI}}
+\subsubsection{\texorpdfstring{get\+Directory()}{getDirectory()}}
+{\footnotesize\ttfamily const string\& File\+U\+R\+I\+::get\+Directory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Includes last \textquotesingle{}/\textquotesingle{} if non-\/empty. 
+\begin{DoxyCode}
+67     \{
+68         \textcolor{keywordflow}{return} m\_directory;
+69     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/utils/File\+U\+R\+I.\+h\item 
+dsmacc/graph/infomap/src/utils/File\+U\+R\+I.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,380 @@
+\hypertarget{classInfomapBase}{}\section{Infomap\+Base Class Reference}
+\label{classInfomapBase}\index{Infomap\+Base@{Infomap\+Base}}
+Inheritance diagram for Infomap\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.693928cm]{classInfomapBase}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad70ef13ee923d11822c706c99e3acad1}\label{classInfomapBase_ad70ef13ee923d11822c706c99e3acad1}} 
+{\bfseries Infomap\+Base} (const \mbox{\hyperlink{structConfig}{Config}} \&conf, \mbox{\hyperlink{classNodeFactoryBase}{Node\+Factory\+Base}} $\ast$node\+Factory)
+\item 
+\mbox{\Hypertarget{classInfomapBase_af0d03cda09e95c018f5471f83bedb395}\label{classInfomapBase_af0d03cda09e95c018f5471f83bedb395}} 
+{\bfseries Infomap\+Base} (const \mbox{\hyperlink{classInfomapBase}{Infomap\+Base}} \&infomap, \mbox{\hyperlink{classNodeFactoryBase}{Node\+Factory\+Base}} $\ast$node\+Factory)
+\item 
+\mbox{\Hypertarget{classInfomapBase_a8b8bf35f42a03f3abf797b6a06ce9873}\label{classInfomapBase_a8b8bf35f42a03f3abf797b6a06ce9873}} 
+void {\bfseries run} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a3fae64f1a942f8efe41d7e40696b3d1d}\label{classInfomapBase_a3fae64f1a942f8efe41d7e40696b3d1d}} 
+void {\bfseries run} (\mbox{\hyperlink{classNetwork}{Network}} \&input, \mbox{\hyperlink{classHierarchicalNetwork}{Hierarchical\+Network}} \&output)
+\item 
+\mbox{\Hypertarget{classInfomapBase_a1865023eecb098ba1ba9d00164851d64}\label{classInfomapBase_a1865023eecb098ba1ba9d00164851d64}} 
+void {\bfseries run} (\mbox{\hyperlink{classHierarchicalNetwork}{Hierarchical\+Network}} \&output)
+\item 
+\mbox{\Hypertarget{classInfomapBase_a7c35382d0b4dc02e875f43174b20541b}\label{classInfomapBase_a7c35382d0b4dc02e875f43174b20541b}} 
+bool {\bfseries init\+Network} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a795d05d87685a4711eb528e3947c16f4}\label{classInfomapBase_a795d05d87685a4711eb528e3947c16f4}} 
+bool {\bfseries init\+Network} (\mbox{\hyperlink{classNetwork}{Network}} \&input)
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad808b0cf6c10cad542b5dcead997c147}\label{classInfomapBase_ad808b0cf6c10cad542b5dcead997c147}} 
+void {\bfseries calc\+One\+Level\+Codelength} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_af44c571136811f49c2d3c1fb2401983f}\label{classInfomapBase_af44c571136811f49c2d3c1fb2401983f}} 
+void {\bfseries calc\+Entropy\+Rate} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a580c1b1174a1093489faf6cfefaf0eb2}\label{classInfomapBase_a580c1b1174a1093489faf6cfefaf0eb2}} 
+bool {\bfseries consolidate\+External\+Cluster\+Data} (bool print\+Results=false)
+\item 
+\mbox{\Hypertarget{classInfomapBase_a72e68d442f3becf6e55942c8a0c15ca8}\label{classInfomapBase_a72e68d442f3becf6e55942c8a0c15ca8}} 
+virtual bool {\bfseries pre\+Cluster\+Multiplex\+Network} (bool print\+Results=false)
+\item 
+\mbox{\Hypertarget{classInfomapBase_a33a93dfdd5140b67eff80260f573968f}\label{classInfomapBase_a33a93dfdd5140b67eff80260f573968f}} 
+const \mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ {\bfseries root} () const
+\item 
+\mbox{\Hypertarget{classInfomapBase_a2927fa281448a7bf6aa489179186be95}\label{classInfomapBase_a2927fa281448a7bf6aa489179186be95}} 
+\mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ {\bfseries root} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a0d80d820eaaf0208a857445fbdfeeb49}\label{classInfomapBase_a0d80d820eaaf0208a857445fbdfeeb49}} 
+unsigned int {\bfseries max\+Depth} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a45e57381daf363449416709beb430ca8}\label{classInfomapBase_a45e57381daf363449416709beb430ca8}} 
+unsigned int {\bfseries num\+Bottom\+Modules} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a4193d5838c66fb72a6b3d3ae11a6c1d7}\label{classInfomapBase_a4193d5838c66fb72a6b3d3ae11a6c1d7}} 
+void {\bfseries sort\+Tree} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_afa239266be668176e188942ff419cf13}\label{classInfomapBase_afa239266be668176e188942ff419cf13}} 
+virtual void {\bfseries save\+Hierarchical\+Network} (\mbox{\hyperlink{classHierarchicalNetwork}{Hierarchical\+Network}} \&output, std\+::string root\+Name, bool include\+Links)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a9f3e9969b570435ce7da33c282992ae6}\label{classInfomapBase_a9f3e9969b570435ce7da33c282992ae6}} 
+virtual void {\bfseries debug\+Print\+Infomap\+Terms} ()=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapBase_aa518ba75554156fa59a7a33b4ada17d6}\label{classInfomapBase_aa518ba75554156fa59a7a33b4ada17d6}} 
+typedef \mbox{\hyperlink{classEdge}{Edge}}$<$ \mbox{\hyperlink{classNodeBase}{Node\+Base}} $>$ {\bfseries Edge\+Type}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a5d6f282c78e746621d33ca8a99d4230f}\label{classInfomapBase_a5d6f282c78e746621d33ca8a99d4230f}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ $>$\+::iterator {\bfseries active\+Network\+\_\+iterator}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapBase_aadb6aafc394421ab1061880d903edb67}\label{classInfomapBase_aadb6aafc394421ab1061880d903edb67}} 
+virtual \mbox{\hyperlink{structFlowDummy}{Flow\+Dummy}} {\bfseries get\+Node\+Data} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} \&\mbox{\hyperlink{structnode}{node}})=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a3b07335e7bdce0858a15b009d9265db6}\label{classInfomapBase_a3b07335e7bdce0858a15b009d9265db6}} 
+virtual std\+::vector$<$ \mbox{\hyperlink{structPhysData}{Phys\+Data}} $>$ \& {\bfseries get\+Physical\+Members} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} \&\mbox{\hyperlink{structnode}{node}})=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_add32bae3484c40b5613fcdac33c1ba7a}\label{classInfomapBase_add32bae3484c40b5613fcdac33c1ba7a}} 
+virtual \mbox{\hyperlink{structStateNode}{State\+Node}} \& {\bfseries get\+Memory\+Node} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} \&\mbox{\hyperlink{structnode}{node}})=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a13278a18743abf7336ceef12965b1cf7}\label{classInfomapBase_a13278a18743abf7336ceef12965b1cf7}} 
+void {\bfseries init\+Pre\+Clustering} (bool print\+Results=false)
+\item 
+virtual void \mbox{\hyperlink{classInfomapBase_a689210ed8f0eaeb767dc1321dfec65f5}{init\+Enter\+Exit\+Flow}} ()=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a0f3b1bbb40d79b006dffc762433dfad1}\label{classInfomapBase_a0f3b1bbb40d79b006dffc762433dfad1}} 
+virtual void {\bfseries reset\+Module\+Flow\+From\+Leaf\+Nodes} ()=0
+\item 
+virtual void \mbox{\hyperlink{classInfomapBase_a093ad5e840cb4529ac32eaf4f9d6d8b2}{init\+Constant\+Infomap\+Terms}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classInfomapBase_a8347fea5ed1cd22a27c7d972496e7d90}{init\+Module\+Optimization}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classInfomapBase_ab085f56e93df121d113b5869a51824c9}{move\+Nodes\+To\+Predefined\+Modules}} ()=0
+\item 
+virtual unsigned int \mbox{\hyperlink{classInfomapBase_a443a496b76cc78286cce345e018c4fd8}{optimize\+Modules}} ()=0
+\item 
+virtual unsigned int \mbox{\hyperlink{classInfomapBase_acb6dc935567c31d7ada4b514c5b8dcea}{optimize\+Modules\+Crude}} ()=0
+\item 
+virtual unsigned int \mbox{\hyperlink{classInfomapBase_ac6da8d87eb4d0760157367e8fcdfbdbc}{consolidate\+Modules}} (bool replace\+Existing\+Structure=true, bool as\+Sub\+Modules=false)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_aef66fda5744eda6c2db64d206ddba443}\label{classInfomapBase_aef66fda5744eda6c2db64d206ddba443}} 
+virtual std\+::auto\+\_\+ptr$<$ \mbox{\hyperlink{classInfomapBase}{Infomap\+Base}} $>$ {\bfseries get\+New\+Infomap\+Instance} ()=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a6c47213c7fb80fed3ee0febf213d0a3c}\label{classInfomapBase_a6c47213c7fb80fed3ee0febf213d0a3c}} 
+virtual std\+::auto\+\_\+ptr$<$ \mbox{\hyperlink{classInfomapBase}{Infomap\+Base}} $>$ {\bfseries get\+New\+Infomap\+Instance\+Without\+Memory} ()=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_ac67bce625b5f6da820370dae7b53bb7c}\label{classInfomapBase_ac67bce625b5f6da820370dae7b53bb7c}} 
+virtual unsigned int {\bfseries aggregate\+Flow\+Values\+From\+Leaf\+To\+Root} ()=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad6576086118043dddb163b5ffc4cf1aa}\label{classInfomapBase_ad6576086118043dddb163b5ffc4cf1aa}} 
+virtual double {\bfseries calc\+Codelength\+On\+All\+Nodes\+In\+Tree} ()=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_adf5f5156407a7708249806154eb74bf2}\label{classInfomapBase_adf5f5156407a7708249806154eb74bf2}} 
+virtual double {\bfseries calc\+Codelength\+On\+Root\+Of\+Leaf\+Nodes} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a9f45c822cf479e4cf069292099c4c077}\label{classInfomapBase_a9f45c822cf479e4cf069292099c4c077}} 
+virtual double {\bfseries calc\+Codelength\+On\+Module\+Of\+Leaf\+Nodes} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_afa3e083c4db38ae0f282c5344e627eb7}\label{classInfomapBase_afa3e083c4db38ae0f282c5344e627eb7}} 
+virtual double {\bfseries calc\+Codelength\+On\+Module\+Of\+Modules} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a62771f3d70b84e7d69f20d5ddce50c6d}\label{classInfomapBase_a62771f3d70b84e7d69f20d5ddce50c6d}} 
+virtual std\+::pair$<$ double, double $>$ {\bfseries calc\+Codelength} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_ada59370de9cad46ea24d1d3cdc85121f}\label{classInfomapBase_ada59370de9cad46ea24d1d3cdc85121f}} 
+virtual void {\bfseries generate\+Network\+From\+Children} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_ac14aed38b85ffe52f3a567c1774a5f42}\label{classInfomapBase_ac14aed38b85ffe52f3a567c1774a5f42}} 
+virtual void {\bfseries transform\+Node\+Flow\+To\+Enter\+Flow} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_afd72c0011eea101e8ec594b97afc16fa}\label{classInfomapBase_afd72c0011eea101e8ec594b97afc16fa}} 
+virtual void {\bfseries clone\+Flow\+Data} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&source, \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&target)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_af0c1c0631a612c78f4d05bfce17c573b}\label{classInfomapBase_af0c1c0631a612c78f4d05bfce17c573b}} 
+virtual void {\bfseries print\+Node\+Ranks} (std\+::ostream \&out)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a8b533aff01353379455bfd178997b374}\label{classInfomapBase_a8b533aff01353379455bfd178997b374}} 
+virtual void {\bfseries print\+Flow\+Network} (std\+::ostream \&out)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a452bbdb5f952c4d497c49908aaa20ab1}\label{classInfomapBase_a452bbdb5f952c4d497c49908aaa20ab1}} 
+virtual void {\bfseries sort\+Tree} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a53664f99d89e22c5175e00c9ed934b64}\label{classInfomapBase_a53664f99d89e22c5175e00c9ed934b64}} 
+unsigned int {\bfseries num\+Non\+Trivial\+Top\+Modules} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_afbd9e063924f287b9b0e57bb9e814ed9}\label{classInfomapBase_afbd9e063924f287b9b0e57bb9e814ed9}} 
+unsigned int {\bfseries num\+Top\+Modules} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_aa3e574923c01fd92b79dfd1b40243846}\label{classInfomapBase_aa3e574923c01fd92b79dfd1b40243846}} 
+unsigned int {\bfseries num\+Leaf\+Nodes} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_aadd0567d1b173d19e421291f606c04a3}\label{classInfomapBase_aadd0567d1b173d19e421291f606c04a3}} 
+virtual unsigned int {\bfseries num\+Dynamic\+Modules} ()=0
+\item 
+\mbox{\Hypertarget{classInfomapBase_a83dc486ce25757727437aaefa39a12a0}\label{classInfomapBase_a83dc486ce25757727437aaefa39a12a0}} 
+bool {\bfseries is\+Top\+Level} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a6aa3e0a34a98efa520e68301c6e7f2fd}\label{classInfomapBase_a6aa3e0a34a98efa520e68301c6e7f2fd}} 
+bool {\bfseries is\+Super\+Level\+On\+Top\+Level} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a14711330a837a9063a6548f783570c18}\label{classInfomapBase_a14711330a837a9063a6548f783570c18}} 
+bool {\bfseries is\+Full\+Network} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a2612f2f214e5673f89973c7f421d15cc}\label{classInfomapBase_a2612f2f214e5673f89973c7f421d15cc}} 
+bool {\bfseries is\+First\+Loop} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a080bdf84b2d311b3348ac8548b832df4}\label{classInfomapBase_a080bdf84b2d311b3348ac8548b832df4}} 
+bool {\bfseries have\+Modules} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_ab381afa30992135f54611f8f1c5797dc}\label{classInfomapBase_ab381afa30992135f54611f8f1c5797dc}} 
+bool {\bfseries have\+Sub\+Modules} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_afd4a4685d08ee59f39e65734d28cd3f1}\label{classInfomapBase_afd4a4685d08ee59f39e65734d28cd3f1}} 
+bool {\bfseries use\+Hard\+Partitions} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_a8bd3b453a38dd0af27aa664e5e4d73ce}\label{classInfomapBase_a8bd3b453a38dd0af27aa664e5e4d73ce}} 
+unsigned int {\bfseries get\+Level\+Aggregation\+Limit} ()
+\item 
+\mbox{\Hypertarget{classInfomapBase_ab2f0af29d538027add1d82464dd04508}\label{classInfomapBase_ab2f0af29d538027add1d82464dd04508}} 
+unsigned long int {\bfseries get\+Seed\+From\+Codelength} (double value)
+\item 
+\mbox{\Hypertarget{classInfomapBase_afc239c6037c43021c79c6e5f997d7be6}\label{classInfomapBase_afc239c6037c43021c79c6e5f997d7be6}} 
+void {\bfseries reseed} (unsigned long int seed)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad864fffe327deeff79a57f6f5c9a206e}\label{classInfomapBase_ad864fffe327deeff79a57f6f5c9a206e}} 
+\mbox{\hyperlink{structConfig}{Config}} {\bfseries m\+\_\+config}
+\item 
+\mbox{\Hypertarget{classInfomapBase_af26209a483326cbc9ceb3aaa203a5199}\label{classInfomapBase_af26209a483326cbc9ceb3aaa203a5199}} 
+\mbox{\hyperlink{classMTRand}{M\+T\+Rand}} {\bfseries m\+\_\+rand}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a4e325b3b37a623dbe5ce66e95bfddd3c}\label{classInfomapBase_a4e325b3b37a623dbe5ce66e95bfddd3c}} 
+\mbox{\hyperlink{classTreeData}{Tree\+Data}} {\bfseries m\+\_\+tree\+Data}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ac51c8b09b5c2cb8c36123845d474aab7}\label{classInfomapBase_ac51c8b09b5c2cb8c36123845d474aab7}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries m\+\_\+node\+Names}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a3c9cf55bef3392f7a3ace0c38e407588}\label{classInfomapBase_a3c9cf55bef3392f7a3ace0c38e407588}} 
+std\+::vector$<$ \mbox{\hyperlink{classNodeBase}{Node\+Base}} $\ast$ $>$ \& {\bfseries m\+\_\+active\+Network}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a86d9e83a4d4089744113c84d3f2d5e98}\label{classInfomapBase_a86d9e83a4d4089744113c84d3f2d5e98}} 
+std\+::vector$<$ unsigned int $>$ {\bfseries m\+\_\+move\+To}
+\item 
+\mbox{\Hypertarget{classInfomapBase_aef852877a7ecf8c88bd1b4fb22dd0cd2}\label{classInfomapBase_aef852877a7ecf8c88bd1b4fb22dd0cd2}} 
+bool {\bfseries m\+\_\+is\+Coarse\+Tune}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a0f6004f65c7c000985643b5f74fe9ec7}\label{classInfomapBase_a0f6004f65c7c000985643b5f74fe9ec7}} 
+unsigned int {\bfseries m\+\_\+trial\+Index}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a66cec7b6ee5b864117f001acf2b2ba24}\label{classInfomapBase_a66cec7b6ee5b864117f001acf2b2ba24}} 
+unsigned int {\bfseries m\+\_\+tune\+Iteration\+Index}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a836bc7654d622f5ca119d45cbb5b72c3}\label{classInfomapBase_a836bc7654d622f5ca119d45cbb5b72c3}} 
+unsigned int {\bfseries m\+\_\+aggregation\+Level}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a0dd41789ae9237970c18582fc6154830}\label{classInfomapBase_a0dd41789ae9237970c18582fc6154830}} 
+unsigned int {\bfseries m\+\_\+num\+Non\+Trivial\+Top\+Modules}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad7c51398734e88e0dadc61f881b92599}\label{classInfomapBase_ad7c51398734e88e0dadc61f881b92599}} 
+unsigned int {\bfseries m\+\_\+sub\+Level}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a685bea4bbc52e7125950431373c18db7}\label{classInfomapBase_a685bea4bbc52e7125950431373c18db7}} 
+const unsigned int {\bfseries m\+\_\+\+T\+O\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+A\+D\+D\+I\+T\+I\+ON}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad9a7c497570a187787194e341cd8946e}\label{classInfomapBase_ad9a7c497570a187787194e341cd8946e}} 
+double {\bfseries one\+Level\+Codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a74526eeb7ed801c098c49205a95310f0}\label{classInfomapBase_a74526eeb7ed801c098c49205a95310f0}} 
+double {\bfseries codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ae1a474d23c1e1d463f88ed04f350d984}\label{classInfomapBase_ae1a474d23c1e1d463f88ed04f350d984}} 
+double {\bfseries index\+Codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a48d4beb1bd668bd4d6bf6b2d903974cb}\label{classInfomapBase_a48d4beb1bd668bd4d6bf6b2d903974cb}} 
+double {\bfseries module\+Codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_aa4963cfc549ccddf4d44b45bd0256d76}\label{classInfomapBase_aa4963cfc549ccddf4d44b45bd0256d76}} 
+double {\bfseries hierarchical\+Codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a7adef48b01710e6172252878cc73bc92}\label{classInfomapBase_a7adef48b01710e6172252878cc73bc92}} 
+double {\bfseries best\+Hierarchical\+Codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_af76299594197c87a986b88bc731520c9}\label{classInfomapBase_af76299594197c87a986b88bc731520c9}} 
+double {\bfseries best\+Intermediate\+Codelength}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a5a977d4acbc74556676815a9dc53e024}\label{classInfomapBase_a5a977d4acbc74556676815a9dc53e024}} 
+std\+::ostringstream {\bfseries best\+Intermediate\+Statistics}
+\item 
+\mbox{\Hypertarget{classInfomapBase_addc56af424e75045a5267e24f54d0fd2}\label{classInfomapBase_addc56af424e75045a5267e24f54d0fd2}} 
+unsigned int {\bfseries m\+\_\+initial\+Max\+Number\+Of\+Modular\+Levels}
+\item 
+\mbox{\Hypertarget{classInfomapBase_af38843e45aa8dfbb152cf1afec177284}\label{classInfomapBase_af38843e45aa8dfbb152cf1afec177284}} 
+\mbox{\hyperlink{classHierarchicalNetwork}{Hierarchical\+Network}} {\bfseries m\+\_\+io\+Network}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a1255bc8c63d90d691ecc3036e69a9616}\label{classInfomapBase_a1255bc8c63d90d691ecc3036e69a9616}} 
+bool {\bfseries m\+\_\+external\+Output}
+\item 
+\mbox{\Hypertarget{classInfomapBase_ad29b0a59237bca92eb644b4c30ee83d7}\label{classInfomapBase_ad29b0a59237bca92eb644b4c30ee83d7}} 
+std\+::vector$<$ \mbox{\hyperlink{structPerIterationStats}{Per\+Iteration\+Stats}} $>$ {\bfseries m\+\_\+iteration\+Stats}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a54d9b0ca622edb831bf6a918770ed965}\label{classInfomapBase_a54d9b0ca622edb831bf6a918770ed965}} 
+std\+::ostringstream {\bfseries best\+Solution\+Statistics}
+\item 
+\mbox{\Hypertarget{classInfomapBase_a30ebedcdd39e023f72dbdf355be90577}\label{classInfomapBase_a30ebedcdd39e023f72dbdf355be90577}} 
+unsigned int {\bfseries best\+Num\+Levels}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classInfomapBase_ac6da8d87eb4d0760157367e8fcdfbdbc}\label{classInfomapBase_ac6da8d87eb4d0760157367e8fcdfbdbc}} 
+\index{Infomap\+Base@{Infomap\+Base}!consolidate\+Modules@{consolidate\+Modules}}
+\index{consolidate\+Modules@{consolidate\+Modules}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{consolidate\+Modules()}{consolidateModules()}}
+{\footnotesize\ttfamily virtual unsigned int Infomap\+Base\+::consolidate\+Modules (\begin{DoxyParamCaption}\item[{bool}]{replace\+Existing\+Structure = {\ttfamily true},  }\item[{bool}]{as\+Sub\+Modules = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Take the non-\/empty dynamic modules from the optimization of the active network and create module nodes to insert above the active network in the tree. Also aggregate the links from the active network to inter-\/module links in the new modular network.
+
+If true, it doesn\textquotesingle{}t add any depth to the tree but replacing either the existing modular parent structure (if {\ttfamily as\+Sub\+Modules} is true) or the active network itself if it\textquotesingle{}s not the leaf level, in which case it will add a level of depth to the tree anyway.
+
+Set to true to consolidate the dynamic modules as submodules under existing modules, and store existing parent structure on the index member of the submodules. Presupposes that the active network already have a modular parent structure, and that the dynamic structure that will be consolidated actually contains nothing but strict sub-\/structures of the existing modules, i.\+e. that the index property of two nodes with different parent must be different. Presumably the sub-\/module structure initiated on the active network is found by partitioning each existing module.
+
+\begin{DoxyReturn}{Returns}
+The number of created modules 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classInfomapGreedyCommon_ad4845dbd57d006f5220e6a7d9f293f9d}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedyCommon_ad4845dbd57d006f5220e6a7d9f293f9d}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$}}, and \mbox{\hyperlink{classInfomapGreedyCommon_ad4845dbd57d006f5220e6a7d9f293f9d}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$}}.
+
+\mbox{\Hypertarget{classInfomapBase_a093ad5e840cb4529ac32eaf4f9d6d8b2}\label{classInfomapBase_a093ad5e840cb4529ac32eaf4f9d6d8b2}} 
+\index{Infomap\+Base@{Infomap\+Base}!init\+Constant\+Infomap\+Terms@{init\+Constant\+Infomap\+Terms}}
+\index{init\+Constant\+Infomap\+Terms@{init\+Constant\+Infomap\+Terms}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{init\+Constant\+Infomap\+Terms()}{initConstantInfomapTerms()}}
+{\footnotesize\ttfamily virtual void Infomap\+Base\+::init\+Constant\+Infomap\+Terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Init the infomap term that only depends on the flow value on the leaf nodes. 
+
+Implemented in \mbox{\hyperlink{classInfomapGreedyCommon_af6135849730a24a4f3fea57ff32991e5}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedyCommon_af6135849730a24a4f3fea57ff32991e5}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$}}, and \mbox{\hyperlink{classInfomapGreedyCommon_af6135849730a24a4f3fea57ff32991e5}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$}}.
+
+\mbox{\Hypertarget{classInfomapBase_a689210ed8f0eaeb767dc1321dfec65f5}\label{classInfomapBase_a689210ed8f0eaeb767dc1321dfec65f5}} 
+\index{Infomap\+Base@{Infomap\+Base}!init\+Enter\+Exit\+Flow@{init\+Enter\+Exit\+Flow}}
+\index{init\+Enter\+Exit\+Flow@{init\+Enter\+Exit\+Flow}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{init\+Enter\+Exit\+Flow()}{initEnterExitFlow()}}
+{\footnotesize\ttfamily virtual void Infomap\+Base\+::init\+Enter\+Exit\+Flow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Set the exit (and enter) flow on the nodes.
+
+Note 1\+: Each node data has a enter\+Flow and exit\+Flow member, but for models with detailed balance (undirected and directed with teleportation) the enter\+Flow is equal to the exit\+Flow and declared as a reference to the exit\+Flow to simplify output methods. Thus, don\textquotesingle{}t add to enter\+Flow for those cases if it should not add to the exit\+Flow.
+
+Note 2\+: The enter and exit flow defines what should be coded for in the map equation for the {\itshape modular levels}, not the leaf node level.
+
+The reason for that special case is to be able to code self-\/flow (self-\/links and self-\/teleportation). If adding self-\/flow to enter and exit flow though, the enclosing module will also aggregate those initial values, but self-\/flow should not be seen as exiting the enclosing module, just the node.
+
+Instead of having special cases for the flow aggregation to modular levels, take the special case when calculating the codelength, using the flow values rather than the enter/exit flow values for the leaf nodes. 
+
+Implemented in \mbox{\hyperlink{classInfomapGreedySpecialized_a8a43bd2e0610fb4e5a9375f1c36202ec}{Infomap\+Greedy\+Specialized$<$ Flow\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedySpecialized_a8a43bd2e0610fb4e5a9375f1c36202ec}{Infomap\+Greedy\+Specialized$<$ derived\+\_\+traits$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$\+::flow\+\_\+type $>$}}, \mbox{\hyperlink{classInfomapGreedySpecialized_a8a43bd2e0610fb4e5a9375f1c36202ec}{Infomap\+Greedy\+Specialized$<$ derived\+\_\+traits$<$ Infomap\+Greedy\+Derived\+Type $>$\+::flow\+\_\+type $>$}}, \mbox{\hyperlink{classInfomapGreedySpecialized_a8a43bd2e0610fb4e5a9375f1c36202ec}{Infomap\+Greedy\+Specialized$<$ derived\+\_\+traits$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$\+::flow\+\_\+type $>$}}, \mbox{\hyperlink{classInfomapGreedySpecialized_ab1ccbef79b7e94cf2762aa5a94a28965}{Infomap\+Greedy\+Specialized$<$ Flow\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedySpecialized_ab1ccbef79b7e94cf2762aa5a94a28965}{Infomap\+Greedy\+Specialized$<$ derived\+\_\+traits$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$\+::flow\+\_\+type $>$}}, \mbox{\hyperlink{classInfomapGreedySpecialized_ab1ccbef79b7e94cf2762aa5a94a28965}{Infomap\+Greedy\+Specialized$<$ derived\+\_\+traits$<$ Infomap\+Greedy\+Derived\+Type $>$\+::flow\+\_\+type $>$}}, and \mbox{\hyperlink{classInfomapGreedySpecialized_ab1ccbef79b7e94cf2762aa5a94a28965}{Infomap\+Greedy\+Specialized$<$ derived\+\_\+traits$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$\+::flow\+\_\+type $>$}}.
+
+\mbox{\Hypertarget{classInfomapBase_a8347fea5ed1cd22a27c7d972496e7d90}\label{classInfomapBase_a8347fea5ed1cd22a27c7d972496e7d90}} 
+\index{Infomap\+Base@{Infomap\+Base}!init\+Module\+Optimization@{init\+Module\+Optimization}}
+\index{init\+Module\+Optimization@{init\+Module\+Optimization}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{init\+Module\+Optimization()}{initModuleOptimization()}}
+{\footnotesize\ttfamily virtual void Infomap\+Base\+::init\+Module\+Optimization (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Allocate a module for each node, with flow data from the node. 
+
+Implemented in \mbox{\hyperlink{classInfomapGreedyTypeSpecialized_3_01FlowType_00_01WithMemory_01_4_a3b8cb78e45b8879069d662c3791a702e}{Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$}}, and \mbox{\hyperlink{classInfomapGreedyTypeSpecialized_a2f5fa9b865bcded24d7875f56d28d4c5}{Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$}}.
+
+\mbox{\Hypertarget{classInfomapBase_ab085f56e93df121d113b5869a51824c9}\label{classInfomapBase_ab085f56e93df121d113b5869a51824c9}} 
+\index{Infomap\+Base@{Infomap\+Base}!move\+Nodes\+To\+Predefined\+Modules@{move\+Nodes\+To\+Predefined\+Modules}}
+\index{move\+Nodes\+To\+Predefined\+Modules@{move\+Nodes\+To\+Predefined\+Modules}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{move\+Nodes\+To\+Predefined\+Modules()}{moveNodesToPredefinedModules()}}
+{\footnotesize\ttfamily virtual void Infomap\+Base\+::move\+Nodes\+To\+Predefined\+Modules (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Loop through each node and move it to the module predefined by the member vector m\+\_\+move\+To. 
+
+Implemented in \mbox{\hyperlink{classInfomapGreedyCommon_affbdd4750e010adba7f1cd15a295303e}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedyCommon_affbdd4750e010adba7f1cd15a295303e}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$}}, and \mbox{\hyperlink{classInfomapGreedyCommon_affbdd4750e010adba7f1cd15a295303e}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$}}.
+
+\mbox{\Hypertarget{classInfomapBase_a443a496b76cc78286cce345e018c4fd8}\label{classInfomapBase_a443a496b76cc78286cce345e018c4fd8}} 
+\index{Infomap\+Base@{Infomap\+Base}!optimize\+Modules@{optimize\+Modules}}
+\index{optimize\+Modules@{optimize\+Modules}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{optimize\+Modules()}{optimizeModules()}}
+{\footnotesize\ttfamily virtual unsigned int Infomap\+Base\+::optimize\+Modules (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Loop through each node and move it to the module that reduces the total codelength the most. Start over until converged.
+
+\begin{DoxyReturn}{Returns}
+The number of effective optimization rounds, i.\+e. zero if no move was made. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classInfomapGreedyCommon_a17feb30bfa3d448f7933c3fcc237f833}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedyCommon_a17feb30bfa3d448f7933c3fcc237f833}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$}}, and \mbox{\hyperlink{classInfomapGreedyCommon_a17feb30bfa3d448f7933c3fcc237f833}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$}}.
+
+\mbox{\Hypertarget{classInfomapBase_acb6dc935567c31d7ada4b514c5b8dcea}\label{classInfomapBase_acb6dc935567c31d7ada4b514c5b8dcea}} 
+\index{Infomap\+Base@{Infomap\+Base}!optimize\+Modules\+Crude@{optimize\+Modules\+Crude}}
+\index{optimize\+Modules\+Crude@{optimize\+Modules\+Crude}!Infomap\+Base@{Infomap\+Base}}
+\subsubsection{\texorpdfstring{optimize\+Modules\+Crude()}{optimizeModulesCrude()}}
+{\footnotesize\ttfamily virtual unsigned int Infomap\+Base\+::optimize\+Modules\+Crude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+Loop through each node and move it to the strongest connected module. Start over until converged.
+
+\begin{DoxyReturn}{Returns}
+The number of effective optimization rounds, i.\+e. zero if no move was made. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classInfomapGreedyCommon_a3b5e71572ae01ce0788f919290903b63}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$}}, \mbox{\hyperlink{classInfomapGreedyCommon_a3b5e71572ae01ce0788f919290903b63}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, Network\+Type $>$ $>$}}, and \mbox{\hyperlink{classInfomapGreedyCommon_a3b5e71572ae01ce0788f919290903b63}{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Type\+Specialized$<$ Flow\+Type, With\+Memory $>$ $>$}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Infomap\+Base.\+h\item 
+dsmacc/graph/infomap/src/infomap/Infomap\+Base.\+cpp\end{DoxyCompactItemize}

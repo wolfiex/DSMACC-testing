@@ -1,0 +1,52 @@
+\hypertarget{namespacedsmacc_1_1vis_1_1ropa}{}\section{dsmacc.\+vis.\+ropa Namespace Reference}
+\label{namespacedsmacc_1_1vis_1_1ropa}\index{dsmacc.\+vis.\+ropa@{dsmacc.\+vis.\+ropa}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_abae042856b3427128c714d72113902f5}\label{namespacedsmacc_1_1vis_1_1ropa_abae042856b3427128c714d72113902f5}} 
+def {\bfseries group\+\_\+hour} (df, fn=np.\+mean, diurnal=False)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a9a88c1f223eed62931c7d418ad42f0b5}\label{namespacedsmacc_1_1vis_1_1ropa_a9a88c1f223eed62931c7d418ad42f0b5}} 
+{\bfseries self} = \mbox{\hyperlink{classzhdf_1_1new}{zhdf.\+new}}(\textquotesingle{}clfoch2.\+h5\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_ad2d07dcef12cb91b3c109d1b2e5fe546}\label{namespacedsmacc_1_1vis_1_1ropa_ad2d07dcef12cb91b3c109d1b2e5fe546}} 
+string {\bfseries spec} = \textquotesingle{}C\+H3\+C\+O3\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_af9489c1bb72c8f40f8d539864d755d00}\label{namespacedsmacc_1_1vis_1_1ropa_af9489c1bb72c8f40f8d539864d755d00}} 
+dictionary {\bfseries retdict} = \{\char`\"{}name\char`\"{}\+:spec\}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a49eb687f6f7a052fedd779c0c0de711b}\label{namespacedsmacc_1_1vis_1_1ropa_a49eb687f6f7a052fedd779c0c0de711b}} 
+string {\bfseries smileslist} = dsmacc.\+\_\+\+\_\+file\+\_\+\+\_\+.\+replace(\textquotesingle{}\+\_\+\+\_\+init\+\_\+\+\_\+.\+pyc\textquotesingle{},\textquotesingle{}\textquotesingle{})+ \textquotesingle{}datatables/smiles\+\_\+mined.\+csv\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a70d42c0faf16492f6744eae946b936d1}\label{namespacedsmacc_1_1vis_1_1ropa_a70d42c0faf16492f6744eae946b936d1}} 
+{\bfseries conc} = np.\+log10(group\+\_\+hour(self.\+spec\mbox{[}\mbox{[}spec,\textquotesingle{}S\+P\+I\+N\+UP\textquotesingle{}\mbox{]}\mbox{]}.compute()))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a2a576755fc740cd7a0e2b45b57c9f0b5}\label{namespacedsmacc_1_1vis_1_1ropa_a2a576755fc740cd7a0e2b45b57c9f0b5}} 
+{\bfseries vdot} = np.\+log10(group\+\_\+hour(self.\+vdot\mbox{[}\mbox{[}spec,\textquotesingle{}O3\textquotesingle{}\mbox{]}\mbox{]}.compute()))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a2bfc5de2157acc7bb2cd5d6ed57754c4}\label{namespacedsmacc_1_1vis_1_1ropa_a2bfc5de2157acc7bb2cd5d6ed57754c4}} 
+{\bfseries smiles} = pd.\+read\+\_\+csv(smileslist)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a013121dcd5f75a81449059a864cd86ba}\label{namespacedsmacc_1_1vis_1_1ropa_a013121dcd5f75a81449059a864cd86ba}} 
+{\bfseries pr} = self.\+prod(spec)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a59dc1a63621500950da8864712871d52}\label{namespacedsmacc_1_1vis_1_1ropa_a59dc1a63621500950da8864712871d52}} 
+{\bfseries ls} = self.\+loss(spec)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a87f2b5c32637f937dbe55c499ce96a66}\label{namespacedsmacc_1_1vis_1_1ropa_a87f2b5c32637f937dbe55c499ce96a66}} 
+{\bfseries pr1} = np.\+log10(group\+\_\+hour(self.\+flux.\+loc\mbox{[}\+:,pr\mbox{]}.compute()))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a47d2488c6bd11f09efb4fca5b9b559d1}\label{namespacedsmacc_1_1vis_1_1ropa_a47d2488c6bd11f09efb4fca5b9b559d1}} 
+{\bfseries ls1} = np.\+log10(group\+\_\+hour(self.\+flux.\+loc\mbox{[}\+:,ls\mbox{]}.compute()))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1vis_1_1ropa_a3846dc5f0688c95284ae87d9bf0305d7}\label{namespacedsmacc_1_1vis_1_1ropa_a3846dc5f0688c95284ae87d9bf0305d7}} 
+{\bfseries jarr} = json.\+dumps(retdict)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb} run dsmacc/vis/ropa/__init__.py\end{DoxyVerb}
+ 

@@ -116,6 +116,12 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     CASE('PRESS')
     PRESS=CONCS(I)
 
+     CASE('NOX')
+          if (concs(i)>0) then
+              CONSTRAIN_NOX=.TRUE.
+              WRITE (OUTPUT_UNIT,*) 'Constraining total NOx concentation'
+          end if 
+
     CASE('NOx')
         if (concs(i)>0) then
         CONSTRAIN_NOX=.TRUE.

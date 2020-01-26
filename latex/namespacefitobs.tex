@@ -1,0 +1,73 @@
+\hypertarget{namespacefitobs}{}\section{fitobs Namespace Reference}
+\label{namespacefitobs}\index{fitobs@{fitobs}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacefitobs_a8e260a0259bda79eaeac386cdfeab55b}\label{namespacefitobs_a8e260a0259bda79eaeac386cdfeab55b}} 
+def {\bfseries get\+\_\+spline} (match=\textquotesingle{} $\ast$.csv\textquotesingle{}, plot=True)
+\item 
+\mbox{\Hypertarget{namespacefitobs_a872d89d27c23d650bc14f48c887e9049}\label{namespacefitobs_a872d89d27c23d650bc14f48c887e9049}} 
+def {\bfseries count} (n)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacefitobs_aabd7a9a2b56b48331a5d9031515b1592}\label{namespacefitobs_aabd7a9a2b56b48331a5d9031515b1592}} 
+list {\bfseries names} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_afbd7256f05cd54c9c9db58e9d3765fab}\label{namespacefitobs_afbd7256f05cd54c9c9db58e9d3765fab}} 
+string {\bfseries copyto} = \textquotesingle{}../../../\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacefitobs_a758ea6e98824110c0ba642e2d769a5e9}\label{namespacefitobs_a758ea6e98824110c0ba642e2d769a5e9}} 
+string {\bfseries matched} = \textquotesingle{}Cl$\ast$/$\ast$.csv\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacefitobs_a9be10627e3532d7207fafc7ac440bf77}\label{namespacefitobs_a9be10627e3532d7207fafc7ac440bf77}} 
+{\bfseries cfarray} = np.\+asfortranarray(np.\+array(get\+\_\+spline(match=matched)))
+\item 
+\mbox{\Hypertarget{namespacefitobs_a54fc3cb1c10c750e595ba769b78f1227}\label{namespacefitobs_a54fc3cb1c10c750e595ba769b78f1227}} 
+string {\bfseries ratestring} = \char`\"{}!obs\+:\%d\textbackslash{}n\char`\"{}\%len(cfarray)
+\item 
+\mbox{\Hypertarget{namespacefitobs_a0e67329e8f106434fa57230f13817bc3}\label{namespacefitobs_a0e67329e8f106434fa57230f13817bc3}} 
+def {\bfseries c} = count(len(cfarray)+4)
+\item 
+\mbox{\Hypertarget{namespacefitobs_af113f905182192b4d1bc7992c04243a3}\label{namespacefitobs_af113f905182192b4d1bc7992c04243a3}} 
+{\bfseries n} = next
+\item 
+\mbox{\Hypertarget{namespacefitobs_a7e96d20452734e6518b0c4afcf0edbcc}\label{namespacefitobs_a7e96d20452734e6518b0c4afcf0edbcc}} 
+list {\bfseries ignore} = \mbox{[}\textquotesingle{}NO\textquotesingle{},\textquotesingle{}N\+O2\textquotesingle{},\textquotesingle{}H\+O2\textquotesingle{},\textquotesingle{}C\+H3\+O2\textquotesingle{},\textquotesingle{}OH\textquotesingle{},\textquotesingle{}T\+R\+I\+C\+L\+E\+TH\textquotesingle{},\textquotesingle{}H\+O\+NO\textquotesingle{},\textquotesingle{}B\+U\+T2\+C\+HO\textquotesingle{}, \textquotesingle{}C3\+M\+E3\+C\+HO\textquotesingle{}, \textquotesingle{}C5\+H11\+C\+HO\textquotesingle{}, \textquotesingle{}C\+H2\+C\+L2\textquotesingle{}, \textquotesingle{}L\+I\+M\+O\+N\+E\+NE\textquotesingle{}, \textquotesingle{}M\+A\+CR\textquotesingle{}, \textquotesingle{}M\+VK\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_a3d49997e21d33d11e8d33a027dc5fe72}\label{namespacefitobs_a3d49997e21d33d11e8d33a027dc5fe72}} 
+tuple {\bfseries id} = (n(c),n(c),n(c),n(c))
+\item 
+\mbox{\Hypertarget{namespacefitobs_a7b107518ac6ed091ac03e0598d3650e0}\label{namespacefitobs_a7b107518ac6ed091ac03e0598d3650e0}} 
+list {\bfseries B\+V\+OC} = \mbox{[}\textquotesingle{}C5\+H8\textquotesingle{},\textquotesingle{}A\+P\+I\+N\+E\+NE\textquotesingle{},\textquotesingle{}B\+P\+I\+N\+E\+NE\textquotesingle{},\textquotesingle{}L\+I\+M\+O\+N\+E\+NE\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_aeaaff3a86f56969731228ffbf36ba179}\label{namespacefitobs_aeaaff3a86f56969731228ffbf36ba179}} 
+list {\bfseries A\+N\+TH} = \mbox{[}\textquotesingle{}C2\+H6\textquotesingle{},\textquotesingle{}C3\+H8\textquotesingle{},\textquotesingle{}I\+C4\+H10\textquotesingle{},\textquotesingle{}N\+C4\+H10\textquotesingle{},\textquotesingle{}C\+H\+EX\textquotesingle{},\textquotesingle{}I\+C5\+H12\textquotesingle{},\textquotesingle{}M2\+PE\textquotesingle{},\textquotesingle{}N\+C5\+H12\textquotesingle{},\textquotesingle{}N\+C6\+H14\textquotesingle{},\textquotesingle{}N\+C7\+H16\textquotesingle{},\textquotesingle{}N\+C8\+H18\textquotesingle{},\textquotesingle{}N\+C9\+H20\textquotesingle{},\textquotesingle{}N\+C10\+H22\textquotesingle{},\textquotesingle{}N\+C11\+H24\textquotesingle{},\textquotesingle{}N\+C12\+H26\textquotesingle{},\textquotesingle{}B\+E\+N\+Z\+E\+NE\textquotesingle{},\textquotesingle{}T\+O\+L\+U\+E\+NE\textquotesingle{},\textquotesingle{}E\+B\+E\+NZ\textquotesingle{},\textquotesingle{}O\+X\+YL\textquotesingle{},\textquotesingle{}M\+X\+YL\textquotesingle{},\textquotesingle{}I\+P\+B\+E\+NZ\textquotesingle{},\textquotesingle{}P\+B\+E\+NZ\textquotesingle{},\textquotesingle{}M\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}P\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}T\+M135B\textquotesingle{},\textquotesingle{}O\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}T\+M124B\textquotesingle{},\textquotesingle{}T\+M123B\textquotesingle{},\textquotesingle{}D\+I\+M\+E35\+EB\textquotesingle{},\textquotesingle{}C2\+H4\textquotesingle{},\textquotesingle{}C3\+H6\textquotesingle{},\textquotesingle{}C2\+H2\textquotesingle{},\textquotesingle{}T\+B\+U\+T2\+E\+NE\textquotesingle{},\textquotesingle{}B\+U\+T1\+E\+NE\textquotesingle{},\textquotesingle{}M\+E\+P\+R\+O\+P\+E\+NE\textquotesingle{},\textquotesingle{}C\+B\+U\+T2\+E\+NE\textquotesingle{},\textquotesingle{}C4\+H6\textquotesingle{},\textquotesingle{}T\+P\+E\+N\+T2\+E\+NE\textquotesingle{},\textquotesingle{}C\+P\+E\+N\+T2\+E\+NE\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_acb4147c03f041448aebf39e7fb2d2837}\label{namespacefitobs_acb4147c03f041448aebf39e7fb2d2837}} 
+list {\bfseries N\+OX} = \mbox{[}\textquotesingle{}N\+O\+E\+M\+I\+SS\textquotesingle{},\textquotesingle{}N\+O2\+E\+M\+IS\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_abee2a9c6e9b6b675345fc82175f7fef9}\label{namespacefitobs_abee2a9c6e9b6b675345fc82175f7fef9}} 
+list {\bfseries CO} = \mbox{[}\textquotesingle{}CO\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_a03f293cd55acf187e12ceb33b2ff5e7c}\label{namespacefitobs_a03f293cd55acf187e12ceb33b2ff5e7c}} 
+list {\bfseries L\+A\+R\+OM} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_adf948be4bd868bc4368e3ff7161b51bf}\label{namespacefitobs_adf948be4bd868bc4368e3ff7161b51bf}} 
+list {\bfseries S\+A\+R\+OM} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_ab6b7e3f1268bb88f88ddebcf07258b35}\label{namespacefitobs_ab6b7e3f1268bb88f88ddebcf07258b35}} 
+list {\bfseries A\+L\+KE} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_adb0b5037f50ae76637b2c860372eabf5}\label{namespacefitobs_adb0b5037f50ae76637b2c860372eabf5}} 
+list {\bfseries M\+E\+T\+H\+A\+NE} = \mbox{[}\textquotesingle{}C\+H4\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacefitobs_a187f3d4c2fd636969c4daedb84e9ad11}\label{namespacefitobs_a187f3d4c2fd636969c4daedb84e9ad11}} 
+list {\bfseries A\+R\+OM} = \mbox{[}\textquotesingle{}B\+E\+N\+Z\+E\+NE\textquotesingle{},\textquotesingle{}T\+O\+L\+U\+E\+NE\textquotesingle{},\textquotesingle{}E\+B\+E\+NZ\textquotesingle{},\textquotesingle{}O\+X\+YL\textquotesingle{},\textquotesingle{}M\+X\+YL\textquotesingle{},\textquotesingle{}I\+P\+B\+E\+NZ\textquotesingle{},\textquotesingle{}P\+B\+E\+NZ\textquotesingle{},\textquotesingle{}M\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}P\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}T\+M135B\textquotesingle{},\textquotesingle{}O\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}T\+M124B\textquotesingle{},\textquotesingle{}T\+M123B\textquotesingle{},\textquotesingle{}D\+I\+M\+E35\+EB\textquotesingle{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}observation data array \end{DoxyVerb}
+ 

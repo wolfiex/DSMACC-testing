@@ -1,0 +1,91 @@
+\hypertarget{classTreeDataWriter}{}\section{Tree\+Data\+Writer Class Reference}
+\label{classTreeDataWriter}\index{Tree\+Data\+Writer@{Tree\+Data\+Writer}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTreeDataWriter_a1ee80675e8b1b75f54025fd5f9cec45f}\label{classTreeDataWriter_a1ee80675e8b1b75f54025fd5f9cec45f}} 
+typedef unsigned int {\bfseries uint}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTreeDataWriter_a9fbc9400c30bcae428a401a8525eb07e}\label{classTreeDataWriter_a9fbc9400c30bcae428a401a8525eb07e}} 
+{\bfseries Tree\+Data\+Writer} (const \mbox{\hyperlink{classTreeData}{Tree\+Data}} \&)
+\item 
+void \mbox{\hyperlink{classTreeDataWriter_ad31058029c1cfbcc823aaf3aaa750dc7}{write\+Tree}} (std\+::ostream \&out, bool collapse\+Leafs=false)
+\item 
+\mbox{\Hypertarget{classTreeDataWriter_a68a6d3d28c7d96e2e20de20f89f3c09b}\label{classTreeDataWriter_a68a6d3d28c7d96e2e20de20f89f3c09b}} 
+void {\bfseries write\+Top\+Graph} (std\+::ostream \&)
+\item 
+\mbox{\Hypertarget{classTreeDataWriter_acda6566e26580f57e3d950cdd97fc00d}\label{classTreeDataWriter_acda6566e26580f57e3d950cdd97fc00d}} 
+void {\bfseries write\+Leaf\+Nodes} (std\+::ostream \&)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTreeDataWriter_ad31058029c1cfbcc823aaf3aaa750dc7}\label{classTreeDataWriter_ad31058029c1cfbcc823aaf3aaa750dc7}} 
+\index{Tree\+Data\+Writer@{Tree\+Data\+Writer}!write\+Tree@{write\+Tree}}
+\index{write\+Tree@{write\+Tree}!Tree\+Data\+Writer@{Tree\+Data\+Writer}}
+\subsubsection{\texorpdfstring{write\+Tree()}{writeTree()}}
+{\footnotesize\ttfamily void Tree\+Data\+Writer\+::write\+Tree (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{bool}]{collapse\+Leafs = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Print the module indices down to the leaf nodes like\+: 0\+: First super module 0\+:0\+: First sub module 0\+:0\+:0\+: Leaf node 0\+:0\+:1\+: Leaf node 0\+:1\+: Second sub module 0\+:1\+:0\+: Leaf node 1\+: Second super module 1\+:0\+: ... 
+\begin{DoxyCode}
+53 \{
+54     uint oldDepth = 0;
+55     std::vector<unsigned int> indexStack;
+56     \textcolor{keyword}{const} \mbox{\hyperlink{classNodeBase}{NodeBase}}* root = m\_tree.root();
+57     \textcolor{keywordflow}{for} (\mbox{\hyperlink{classDepthFirstIterator}{NodeBase::const\_pre\_depth\_first\_iterator}} nodeIt(root); !
+      nodeIt.isEnd(); ++nodeIt)
+58     \{
+59         \textcolor{keywordflow}{if} (collapseLeafs)
+60         \{
+61             \textcolor{keywordflow}{if} (nodeIt->isLeaf())
+62             \{
+63                 \textcolor{keywordflow}{if} (nodeIt->next == 0)
+64                 \{
+65 \textcolor{comment}{//                  for (unsigned int i = 0; i < indexStack.size(); ++i)}
+66 \textcolor{comment}{//                      out << "  ";}
+67 \textcolor{comment}{//                  out << "(" << nodeIt->parent->childDegree() << ")" << std::endl;}
+68                     out << \textcolor{stringliteral}{"("} << nodeIt->parent->childDegree() << \textcolor{stringliteral}{")\(\backslash\)t(node id: "} << *nodeIt->parent << \textcolor{stringliteral}{")
+      "} << std::endl;
+69                 \}
+70                 \textcolor{keywordflow}{continue};
+71             \}
+72         \}
+73         \textcolor{keywordflow}{if} (nodeIt.base() == root)
+74         \{
+75 \textcolor{comment}{//          indexStack.push\_back(0);}
+76         \}
+77         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nodeIt.depth() == oldDepth) \textcolor{comment}{// ->next}
+78         \{
+79             ++indexStack.back();
+80         \}
+81         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nodeIt.depth() > oldDepth) \textcolor{comment}{// ->firstChild}
+82         \{
+83             indexStack.push\_back(0);
+84         \}
+85         \textcolor{keywordflow}{else} \textcolor{comment}{// ->parent[->parent->...]->sibling}
+86         \{
+87             \textcolor{keywordflow}{while} (indexStack.size() > nodeIt.depth())
+88             \{
+89                 indexStack.pop\_back();
+90             \}
+91             ++indexStack.back();
+92         \}
+93         oldDepth = nodeIt.depth();
+94 
+95 \textcolor{comment}{//      writeIndexStack(out, indexStack);}
+96         std::copy(indexStack.begin(), indexStack.end(), std::ostream\_iterator<uint>(out,\textcolor{stringliteral}{":"}));
+97         \textcolor{keywordflow}{if} (collapseLeafs && nodeIt.next()->isLeaf())
+98             \textcolor{keywordflow}{continue};
+99         out << \textcolor{stringliteral}{"\(\backslash\)t(node id: "} << *nodeIt << \textcolor{stringliteral}{")"} << std::endl;
+100     \}
+101 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/io/Tree\+Data\+Writer.\+h\item 
+dsmacc/graph/infomap/src/io/Tree\+Data\+Writer.\+cpp\end{DoxyCompactItemize}

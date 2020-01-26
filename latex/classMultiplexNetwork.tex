@@ -1,0 +1,377 @@
+\hypertarget{classMultiplexNetwork}{}\section{Multiplex\+Network Class Reference}
+\label{classMultiplexNetwork}\index{Multiplex\+Network@{Multiplex\+Network}}
+Inheritance diagram for Multiplex\+Network\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classMultiplexNetwork}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a22f21bea1bb09c240d432eccdb3aae0f}\label{classMultiplexNetwork_a22f21bea1bb09c240d432eccdb3aae0f}} 
+typedef std\+::map$<$ unsigned int, double $>$ {\bfseries Inter\+Link\+Map}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a992053f3a42486d3561a4edd2879129d}\label{classMultiplexNetwork_a992053f3a42486d3561a4edd2879129d}} 
+typedef std\+::map$<$ unsigned int, double $>$ {\bfseries Intra\+Link\+Map}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a49c02439ac30969eb9bd095e15a8a6e1}\label{classMultiplexNetwork_a49c02439ac30969eb9bd095e15a8a6e1}} 
+typedef std\+::map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, std\+::map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, double $>$ $>$ {\bfseries Multiplex\+Link\+Map}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a4a46456af1428bf8696574a4e1a6444a}\label{classMultiplexNetwork_a4a46456af1428bf8696574a4e1a6444a}} 
+{\bfseries Multiplex\+Network} (const \mbox{\hyperlink{structConfig}{Config}} \&config)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a8ac0494e3647cf6ed21875cce81f5076}\label{classMultiplexNetwork_a8ac0494e3647cf6ed21875cce81f5076}} 
+virtual void {\bfseries read\+Input\+Data} (std\+::string filename=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a6ab8cd2cb02ca3b6b96040418668855f}\label{classMultiplexNetwork_a6ab8cd2cb02ca3b6b96040418668855f}} 
+virtual void {\bfseries finalize\+And\+Check\+Network} (bool print\+Summary=true)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a56309f8e4ef8faaa359012377f0ba849}\label{classMultiplexNetwork_a56309f8e4ef8faaa359012377f0ba849}} 
+virtual void {\bfseries add\+Multiplex\+Link} (int layer1, int node1, int layer2, int node2, double w)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a346dbbd0838137935ef8ad20a9967286}\label{classMultiplexNetwork_a346dbbd0838137935ef8ad20a9967286}} 
+void {\bfseries add\+Memory\+Network\+From\+Multiplex\+Links} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMultiplexNetwork_adef6c48117bba4729ad4067ee886860d}{parse\+Multiplex\+Network}} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a18e0acfff14cdfe92d41a6ac3d1cc03f}\label{classMultiplexNetwork_a18e0acfff14cdfe92d41a6ac3d1cc03f}} 
+void {\bfseries parse\+Multiple\+Networks} ()
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ae1a15fc36aab7568d72d10e19ea853cd}\label{classMultiplexNetwork_ae1a15fc36aab7568d72d10e19ea853cd}} 
+unsigned int {\bfseries adjust\+For\+Different\+Number\+Of\+Nodes} ()
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ab756c856e9ee64f2973ea78575796883}\label{classMultiplexNetwork_ab756c856e9ee64f2973ea78575796883}} 
+void {\bfseries generate\+Memory\+Network\+With\+Inter\+Layer\+Links\+From\+Data} ()
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a4e9502b36ee1259f762526082fd03d73}\label{classMultiplexNetwork_a4e9502b36ee1259f762526082fd03d73}} 
+void {\bfseries generate\+Memory\+Network\+With\+Simulated\+Inter\+Layer\+Links} ()
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_af1810bd3d428cf7c124bf9c2de951ac7}\label{classMultiplexNetwork_af1810bd3d428cf7c124bf9c2de951ac7}} 
+void {\bfseries generate\+Memory\+Network\+With\+Jensen\+Shannon\+Simulated\+Inter\+Layer\+Links} ()
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ac338bc6dedb3af36d30cbcb71e9f62e4}\label{classMultiplexNetwork_ac338bc6dedb3af36d30cbcb71e9f62e4}} 
+double {\bfseries calculate\+Jensen\+Shannon\+Divergence} (bool \&intersect, const Intra\+Link\+Map \&layer1\+Out\+Links, double sum\+Out\+Link\+Weight\+Layer1, const Intra\+Link\+Map \&layer2\+Out\+Links, double sum\+Out\+Link\+Weight\+Layer2)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ae084ab5790f56609b6c408eb080e305b}\label{classMultiplexNetwork_ae084ab5790f56609b6c408eb080e305b}} 
+double {\bfseries calculate\+Jensen\+Shannon\+Divergence} (bool \&intersect, const Intra\+Link\+Map \&layer1\+Out\+Links, const Intra\+Link\+Map \&layer1\+Opposite\+Out\+Links, double sum\+Out\+Link\+Weight\+Layer1, const Intra\+Link\+Map \&layer2\+Out\+Links, const Intra\+Link\+Map \&layer2\+Opposite\+Out\+Links, double sum\+Out\+Link\+Weight\+Layer2)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a09e1b743910bfe6fe052a4cc5161ad38}\label{classMultiplexNetwork_a09e1b743910bfe6fe052a4cc5161ad38}} 
+double {\bfseries calculate\+Jensen\+Shannon\+Divergence} (bool \&intersect, std\+::vector$<$ const Intra\+Link\+Map $\ast$$>$ \&layer1\+Links\+Vec, double sum\+Out\+Link\+Weight\+Layer1, std\+::vector$<$ const Intra\+Link\+Map $\ast$$>$ \&layer2\+Links\+Vec, double sum\+Out\+Link\+Weight\+Layer2)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a39e2fe7f6703ac40aba7a47bfbdee60c}\label{classMultiplexNetwork_a39e2fe7f6703ac40aba7a47bfbdee60c}} 
+Intra\+Link\+Map\+::const\+\_\+iterator $\ast$ {\bfseries get\+Undir\+Link\+It\+Ptr} (std\+::vector$<$ pair$<$ Intra\+Link\+Map\+::const\+\_\+iterator, Intra\+Link\+Map\+::const\+\_\+iterator $>$ $>$ \&out\+Link\+It\+Vec)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_af9722acb242cc842ffb3848344644554}\label{classMultiplexNetwork_af9722acb242cc842ffb3848344644554}} 
+bool {\bfseries undir\+Link\+Remains} (std\+::vector$<$ pair$<$ Intra\+Link\+Map\+::const\+\_\+iterator, Intra\+Link\+Map\+::const\+\_\+iterator $>$ $>$ \&out\+Link\+It\+Vec)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a120781791ec092f4fa79eb0cbfe403b7}\label{classMultiplexNetwork_a120781791ec092f4fa79eb0cbfe403b7}} 
+bool {\bfseries create\+Intra\+Links\+To\+Neighbouring\+Nodes\+In\+Target\+Layer} (State\+Link\+Map\+::iterator state\+Source\+It, unsigned int node\+Index, unsigned int target\+Layer, const Link\+Map \&target\+Layer\+Links, double link\+Weight\+Normalization\+Factor, double state\+Node\+Weight\+Normalization\+Factor)
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a28567a8d79b37726ca0af4e169292e76}\label{classMultiplexNetwork_a28567a8d79b37726ca0af4e169292e76}} 
+bool {\bfseries create\+Intra\+Links\+To\+Neighbouring\+Nodes\+In\+Target\+Layer} (unsigned int source\+Layer, unsigned int node\+Index, unsigned int target\+Layer, const Link\+Map \&target\+Layer\+Links, double link\+Weight\+Normalization\+Factor, double state\+Node\+Weight\+Normalization\+Factor)
+\item 
+std\+::string \mbox{\hyperlink{classMultiplexNetwork_a52326c2cf646b3e15c2266270434629f}{parse\+Intra\+Links}} (std\+::ifstream \&file)
+\item 
+std\+::string \mbox{\hyperlink{classMultiplexNetwork_abf35346b12fdce91821440d0d49e39fc}{parse\+Inter\+Links}} (std\+::ifstream \&file)
+\item 
+std\+::string \mbox{\hyperlink{classMultiplexNetwork_ad881d099c442d8e2ad242f357a3f97d7}{parse\+Multiplex\+Links}} (std\+::ifstream \&file)
+\item 
+void \mbox{\hyperlink{classMultiplexNetwork_a3d6c1aff64a77c74e9c998a796762777}{parse\+Intra\+Link}} (const std\+::string \&line, unsigned int \&layer, unsigned int \&node1, unsigned int \&node2, double \&weight)
+\item 
+void \mbox{\hyperlink{classMultiplexNetwork_a48d45b3e0738f2e755e67ebf7aeac728}{parse\+Inter\+Link}} (const std\+::string \&line, unsigned int \&layer1, unsigned int \&\mbox{\hyperlink{structnode}{node}}, unsigned int \&layer2, double \&weight)
+\item 
+void \mbox{\hyperlink{classMultiplexNetwork_acb4b8c1bb1c8d4fd613ca467436e18eb}{parse\+Multiplex\+Link}} (const std\+::string \&line, unsigned int \&\mbox{\hyperlink{structnode}{node}}, unsigned int \&level1, unsigned int \&level2, unsigned int \&node2, double \&weight)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ad64080ab8bae668365aeeafda9c90d4b}\label{classMultiplexNetwork_ad64080ab8bae668365aeeafda9c90d4b}} 
+unsigned int {\bfseries m\+\_\+num\+Intra\+Links\+Found}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a4134fedee8c504d080afe0edbfe30341}\label{classMultiplexNetwork_a4134fedee8c504d080afe0edbfe30341}} 
+std\+::deque$<$ \mbox{\hyperlink{classNetwork}{Network}} $>$ {\bfseries m\+\_\+networks}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_abbd21041ec49bfbdfcf2c73ee34581e0}\label{classMultiplexNetwork_abbd21041ec49bfbdfcf2c73ee34581e0}} 
+unsigned int {\bfseries m\+\_\+num\+Inter\+Links\+Found}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ac18585ae2750ca4e76da62ddd4eaf0b8}\label{classMultiplexNetwork_ac18585ae2750ca4e76da62ddd4eaf0b8}} 
+std\+::map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, Inter\+Link\+Map $>$ {\bfseries m\+\_\+inter\+Links}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a21c5521713198e3d1963c29dac1d1850}\label{classMultiplexNetwork_a21c5521713198e3d1963c29dac1d1850}} 
+std\+::map$<$ unsigned int, unsigned int $>$ {\bfseries m\+\_\+inter\+Link\+Layers}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a4bd6b433c8bb37918b151439c14e8ba7}\label{classMultiplexNetwork_a4bd6b433c8bb37918b151439c14e8ba7}} 
+unsigned int {\bfseries m\+\_\+num\+Multiplex\+Links\+Found}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_ab3a86bc9e4f43f056030dc0f062102dc}\label{classMultiplexNetwork_ab3a86bc9e4f43f056030dc0f062102dc}} 
+Multiplex\+Link\+Map {\bfseries m\+\_\+multiplex\+Links}
+\item 
+\mbox{\Hypertarget{classMultiplexNetwork_a214487528d6974cab509740cfc2cf275}\label{classMultiplexNetwork_a214487528d6974cab509740cfc2cf275}} 
+std\+::map$<$ unsigned int, unsigned int $>$ {\bfseries m\+\_\+multiplex\+Link\+Layers}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMultiplexNetwork_a48d45b3e0738f2e755e67ebf7aeac728}\label{classMultiplexNetwork_a48d45b3e0738f2e755e67ebf7aeac728}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Inter\+Link@{parse\+Inter\+Link}}
+\index{parse\+Inter\+Link@{parse\+Inter\+Link}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Inter\+Link()}{parseInterLink()}}
+{\footnotesize\ttfamily void Multiplex\+Network\+::parse\+Inter\+Link (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{line,  }\item[{unsigned int \&}]{layer1,  }\item[{unsigned int \&}]{node,  }\item[{unsigned int \&}]{layer2,  }\item[{double \&}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse a string of inter link data for a certain node, \char`\"{}layer node layer \mbox{[}weight\mbox{]}\char`\"{}. If no weight data can be extracted, the default value 1.\+0 will be used. 
+\begin{DoxyExceptions}{Exceptions}
+{\em an} & error if not enough data can be extracted.\\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{structLink}{Link}} between layers\+:
+
+layer node layer \mbox{[}weight\mbox{]} 
+\begin{DoxyCode}
+1022 \{
+1023     m\_extractor.clear();
+1024     m\_extractor.str(line);
+1025     \textcolor{keywordflow}{if} (!(m\_extractor >> layer1 >> \mbox{\hyperlink{structnode}{node}} >> layer2))
+1026         \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Can't parse multilayer inter link data
+       (layer1 node layer2) from line '"} << line << \textcolor{stringliteral}{"'"});
+1027     (m\_extractor >> weight) || (weight = 1.0);
+1028     layer1 -= m\_indexOffset;
+1029     \mbox{\hyperlink{structnode}{node}} -= m\_indexOffset;
+1030     layer2 -= m\_indexOffset;
+1031 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMultiplexNetwork_abf35346b12fdce91821440d0d49e39fc}\label{classMultiplexNetwork_abf35346b12fdce91821440d0d49e39fc}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Inter\+Links@{parse\+Inter\+Links}}
+\index{parse\+Inter\+Links@{parse\+Inter\+Links}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Inter\+Links()}{parseInterLinks()}}
+{\footnotesize\ttfamily std\+::string Multiplex\+Network\+::parse\+Inter\+Links (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse inter-\/network links (links between networks) until end or new header. \begin{DoxyReturn}{Returns}
+The last line parsed, which may be a new header. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+939 \{
+940     std::string line;
+941     \textcolor{keywordflow}{while}(!std::getline(file, line).fail())
+942     \{
+943         \textcolor{keywordflow}{if} (line.length() == 0 || line[0] == \textcolor{charliteral}{'#'})
+944             \textcolor{keywordflow}{continue};
+945 
+946         \textcolor{keywordflow}{if} (line[0] == \textcolor{charliteral}{'*'})
+947             \textcolor{keywordflow}{break};
+948 
+949         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} nodeIndex, layer1, layer2;
+950         \textcolor{keywordtype}{double} weight;
+951 
+952         \mbox{\hyperlink{classMultiplexNetwork_a48d45b3e0738f2e755e67ebf7aeac728}{parseInterLink}}(line, layer1, nodeIndex, layer2, weight);
+953 
+954         m\_interLinks[\mbox{\hyperlink{structStateNode}{StateNode}}(layer1, nodeIndex)][layer2] += weight;
+955 
+956         ++m\_numInterLinksFound;
+957         ++m\_interLinkLayers[layer1];
+958         ++m\_interLinkLayers[layer2];
+959     \}
+960     \textcolor{keywordflow}{return} line;
+961 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMultiplexNetwork_a3d6c1aff64a77c74e9c998a796762777}\label{classMultiplexNetwork_a3d6c1aff64a77c74e9c998a796762777}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Intra\+Link@{parse\+Intra\+Link}}
+\index{parse\+Intra\+Link@{parse\+Intra\+Link}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Intra\+Link()}{parseIntraLink()}}
+{\footnotesize\ttfamily void Multiplex\+Network\+::parse\+Intra\+Link (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{line,  }\item[{unsigned int \&}]{layer\+Index,  }\item[{unsigned int \&}]{n1,  }\item[{unsigned int \&}]{n2,  }\item[{double \&}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse a string of intra link data for a certain network, \char`\"{}layer node node \mbox{[}weight\mbox{]}\char`\"{}. If no weight data can be extracted, the default value 1.\+0 will be used. 
+\begin{DoxyExceptions}{Exceptions}
+{\em an} & error if not enough data can be extracted.\\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{structLink}{Link}} within the layer\+:
+
+layer node node \mbox{[}weight\mbox{]} 
+\begin{DoxyCode}
+1005 \{
+1006     m\_extractor.clear();
+1007     m\_extractor.str(line);
+1008     \textcolor{keywordflow}{if} (!(m\_extractor >> layerIndex >> n1 >> n2))
+1009         \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Can't parse multilayer intra link data
+       (layer node1 node2) from line '"} << line << \textcolor{stringliteral}{"'"});
+1010     (m\_extractor >> weight) || (weight = 1.0);
+1011     layerIndex -= m\_indexOffset;
+1012     n1 -= m\_indexOffset;
+1013     n2 -= m\_indexOffset;
+1014 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMultiplexNetwork_a52326c2cf646b3e15c2266270434629f}\label{classMultiplexNetwork_a52326c2cf646b3e15c2266270434629f}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Intra\+Links@{parse\+Intra\+Links}}
+\index{parse\+Intra\+Links@{parse\+Intra\+Links}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Intra\+Links()}{parseIntraLinks()}}
+{\footnotesize\ttfamily std\+::string Multiplex\+Network\+::parse\+Intra\+Links (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse intra-\/network links (links within a network) until end or new header. \begin{DoxyReturn}{Returns}
+The last line parsed, which may be a new header. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+913 \{
+914     std::string line;
+915     \textcolor{keywordflow}{while}(!std::getline(file, line).fail())
+916     \{
+917         \textcolor{keywordflow}{if} (line.length() == 0 || line[0] == \textcolor{charliteral}{'#'})
+918             \textcolor{keywordflow}{continue};
+919 
+920         \textcolor{keywordflow}{if} (line[0] == \textcolor{charliteral}{'*'})
+921             \textcolor{keywordflow}{break};
+922 
+923         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} layerIndex, n1, n2;
+924         \textcolor{keywordtype}{double} weight;
+925 
+926         \mbox{\hyperlink{classMultiplexNetwork_a3d6c1aff64a77c74e9c998a796762777}{parseIntraLink}}(line, layerIndex, n1, n2, weight);
+927 
+928         \textcolor{keywordflow}{while} (m\_networks.size() < layerIndex + 1)
+929             m\_networks.push\_back(\mbox{\hyperlink{classNetwork}{Network}}(m\_config));
+930 
+931         m\_networks[layerIndex].addLink(n1, n2, weight);
+932 
+933         ++m\_numIntraLinksFound;
+934     \}
+935     \textcolor{keywordflow}{return} line;
+936 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMultiplexNetwork_acb4b8c1bb1c8d4fd613ca467436e18eb}\label{classMultiplexNetwork_acb4b8c1bb1c8d4fd613ca467436e18eb}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Multiplex\+Link@{parse\+Multiplex\+Link}}
+\index{parse\+Multiplex\+Link@{parse\+Multiplex\+Link}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Multiplex\+Link()}{parseMultiplexLink()}}
+{\footnotesize\ttfamily void Multiplex\+Network\+::parse\+Multiplex\+Link (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{line,  }\item[{unsigned int \&}]{layer1,  }\item[{unsigned int \&}]{node1,  }\item[{unsigned int \&}]{layer2,  }\item[{unsigned int \&}]{node2,  }\item[{double \&}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse a string of general multiplex link data, \char`\"{}layer1 node1 layer2 node2 weight\char`\"{}. If no weight data can be extracted, the default value 1.\+0 will be used. 
+\begin{DoxyExceptions}{Exceptions}
+{\em an} & error if not enough data can be extracted.\\
+\hline
+\end{DoxyExceptions}
+Parse general multiplex link\+:
+
+layer1 node1 layer2 node2 \mbox{[}weight\mbox{]} 
+\begin{DoxyCode}
+1039 \{
+1040     m\_extractor.clear();
+1041     m\_extractor.str(line);
+1042     \textcolor{keywordflow}{if} (!(m\_extractor >> layer1 >> node1 >> layer2 >> node2))
+1043         \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Can't parse multilayer link data (layer1
+       node1 layer2 node2) from line '"} << line << \textcolor{stringliteral}{"'"});
+1044     (m\_extractor >> weight) || (weight = 1.0);
+1045     layer1 -= m\_indexOffset;
+1046     node1 -= m\_indexOffset;
+1047     layer2 -= m\_indexOffset;
+1048     node2 -= m\_indexOffset;
+1049 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMultiplexNetwork_ad881d099c442d8e2ad242f357a3f97d7}\label{classMultiplexNetwork_ad881d099c442d8e2ad242f357a3f97d7}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Multiplex\+Links@{parse\+Multiplex\+Links}}
+\index{parse\+Multiplex\+Links@{parse\+Multiplex\+Links}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Multiplex\+Links()}{parseMultiplexLinks()}}
+{\footnotesize\ttfamily std\+::string Multiplex\+Network\+::parse\+Multiplex\+Links (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse general multiplex links until end or new header. \begin{DoxyReturn}{Returns}
+The last line parsed, which may be a new header. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+973 \{
+974     std::string line;
+975     \textcolor{keywordflow}{while}(!std::getline(file, line).fail())
+976     \{
+977         \textcolor{keywordflow}{if} (line.length() == 0 || line[0] == \textcolor{charliteral}{'#'})
+978             \textcolor{keywordflow}{continue};
+979 
+980         \textcolor{keywordflow}{if} (line[0] == \textcolor{charliteral}{'*'})
+981             \textcolor{keywordflow}{break};
+982 
+983         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} layer1, node1, layer2, node2;
+984         \textcolor{keywordtype}{double} weight;
+985 
+986         \mbox{\hyperlink{classMultiplexNetwork_acb4b8c1bb1c8d4fd613ca467436e18eb}{parseMultiplexLink}}(line, layer1, node1, layer2, node2, weight);
+987 
+988         addMultiplexLink(layer1, node1, layer2, node2, weight);
+989 
+990         \textcolor{keywordflow}{if}(layer1 == layer2)
+991             ++m\_numIntraLinksFound;
+992         \textcolor{keywordflow}{else}
+993             ++m\_numInterLinksFound;
+994 
+995     \}
+996     \textcolor{keywordflow}{return} line;
+997 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMultiplexNetwork_adef6c48117bba4729ad4067ee886860d}\label{classMultiplexNetwork_adef6c48117bba4729ad4067ee886860d}} 
+\index{Multiplex\+Network@{Multiplex\+Network}!parse\+Multiplex\+Network@{parse\+Multiplex\+Network}}
+\index{parse\+Multiplex\+Network@{parse\+Multiplex\+Network}!Multiplex\+Network@{Multiplex\+Network}}
+\subsubsection{\texorpdfstring{parse\+Multiplex\+Network()}{parseMultiplexNetwork()}}
+{\footnotesize\ttfamily void Multiplex\+Network\+::parse\+Multiplex\+Network (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Example of general multilayer network\+:
+
+$\ast$\+Vertices 4 1 \char`\"{}\+Node 1\char`\"{} 2 \char`\"{}\+Node 2\char`\"{} 3 \char`\"{}\+Node 3\char`\"{} 4 \char`\"{}\+Node 4\char`\"{} $\ast$\+Multilayer \subsection*{layer node layer node \mbox{[}weight\mbox{]}}
+
+1 1 1 2 2 1 1 2 2 1 1 2 1 1 1 1 3 2 2 1 2 2 1 3 1 2 3 2 2 1 2 4 2 1 2 2 4 1 2 1
+
+The $\ast$\+Vertices section and the $\ast$\+Multilayer line can be omitted. More compact sections can be defined for intra-\/network links and inter-\/network links by adding $\ast$\+Intra and $\ast$\+Inter lines like below\+:
+
+$\ast$\+Intra \subsection*{layer node node weight}
+
+1 1 2 1 1 2 1 1 1 2 3 1 1 3 2 1 1 3 1 1 1 1 3 1 1 2 4 1 1 4 2 1 2 4 5 1 2 5 4 1 2 5 6 1 2 6 5 1 2 6 4 1 2 4 6 1 2 3 6 1 2 6 3 1 $\ast$\+Inter \subsection*{layer node layer weight}
+
+1 3 1 2 1 3 2 1 2 3 2 1 2 3 1 1 1 4 1 1 1 4 2 1 2 4 2 2 2 4 1 1
+
+Note\+: $\ast$\+Inter links define unrecorded movements\+: Each inter-\/link (layer1 node1 layer2) is expanded to a set of multilayer links \{layer1 node1 layer2 node2\} for all node2 that node1 points to in the second layer. 
+\begin{DoxyCode}
+122 \{
+123     \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{"Parsing multilayer network from file '"} << filename << \textcolor{stringliteral}{"'... "} << std::flush;
+124 
+125     \mbox{\hyperlink{classSafeInFile}{SafeInFile}} input(filename.c\_str());
+126 
+127     \textcolor{comment}{// Assume general multilayer links}
+128     \textcolor{keywordtype}{string} line = \mbox{\hyperlink{classMultiplexNetwork_ad881d099c442d8e2ad242f357a3f97d7}{parseMultiplexLinks}}(input);
+129 
+130     \textcolor{keywordflow}{while} (line.length() > 0 && line[0] == \textcolor{charliteral}{'*'})
+131     \{
+132         std::string header = io::firstWord(line);
+133         \textcolor{keywordflow}{if} (header == \textcolor{stringliteral}{"*Vertices"} || header == \textcolor{stringliteral}{"*vertices"}) \{
+134             line = \mbox{\hyperlink{classNetwork_a57b99ecccedc6200838163fa3b1ad252}{parseVertices}}(input, line);
+135         \}
+136         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (header == \textcolor{stringliteral}{"*Intra"} || header == \textcolor{stringliteral}{"*intra"}) \{
+137             line = \mbox{\hyperlink{classMultiplexNetwork_a52326c2cf646b3e15c2266270434629f}{parseIntraLinks}}(input);
+138         \}
+139         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (header == \textcolor{stringliteral}{"*Inter"} || header == \textcolor{stringliteral}{"*inter"}) \{
+140             line = \mbox{\hyperlink{classMultiplexNetwork_abf35346b12fdce91821440d0d49e39fc}{parseInterLinks}}(input);
+141         \}
+142         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (header == \textcolor{stringliteral}{"*Multilayer"} || header == \textcolor{stringliteral}{"*multilayer"}) \{
+143             line = \mbox{\hyperlink{classMultiplexNetwork_ad881d099c442d8e2ad242f357a3f97d7}{parseMultiplexLinks}}(input);
+144         \}
+145         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (header == \textcolor{stringliteral}{"*Multiplex"} || header == \textcolor{stringliteral}{"*multiplex"}) \{
+146             \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{"\(\backslash\)nWarning: Header '*Multiplex' has been deprecated, use *Multilayer\(\backslash\)n"};
+147             line = \mbox{\hyperlink{classMultiplexNetwork_ad881d099c442d8e2ad242f357a3f97d7}{parseMultiplexLinks}}(input);
+148         \}
+149         \textcolor{keywordflow}{else}
+150             \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Unrecognized header in multilayer
+       network file: '"} << line << \textcolor{stringliteral}{"'."});
+151     \}
+152 
+153     \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{"done!\(\backslash\)n"};
+154 
+155     finalizeAndCheckNetwork();
+156 
+157 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Multiplex\+Network.\+h\item 
+dsmacc/graph/infomap/src/infomap/Multiplex\+Network.\+cpp\end{DoxyCompactItemize}

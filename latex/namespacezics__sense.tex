@@ -1,0 +1,59 @@
+\hypertarget{namespacezics__sense}{}\section{zics\+\_\+sense Namespace Reference}
+\label{namespacezics__sense}\index{zics\+\_\+sense@{zics\+\_\+sense}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacezics__sense_adca209f54fd7c6cdf4704b40f3d03b25}\label{namespacezics__sense_adca209f54fd7c6cdf4704b40f3d03b25}} 
+def {\bfseries write} (df)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a0b86fb7dc35a934cac6607114ff488c4}\label{namespacezics__sense_a0b86fb7dc35a934cac6607114ff488c4}} 
+{\bfseries parser} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a3e1365c342fb39d0865c74219f128059}\label{namespacezics__sense_a3e1365c342fb39d0865c74219f128059}} 
+{\bfseries action}
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a3a8d787d09f3072c4da32f4850ed7a63}\label{namespacezics__sense_a3a8d787d09f3072c4da32f4850ed7a63}} 
+{\bfseries dest}
+\item 
+\mbox{\Hypertarget{namespacezics__sense_adef40f72d755c60b3834d59da57e3c63}\label{namespacezics__sense_adef40f72d755c60b3834d59da57e3c63}} 
+{\bfseries args} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a0b64f0a08edce8c043be82215c0f8355}\label{namespacezics__sense_a0b64f0a08edce8c043be82215c0f8355}} 
+{\bfseries base}
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a84e505a5d3bdcc6f2e621b2042855195}\label{namespacezics__sense_a84e505a5d3bdcc6f2e621b2042855195}} 
+{\bfseries df} = pd.\+read\+\_\+csv(args.\+base,header=2)
+\item 
+\mbox{\Hypertarget{namespacezics__sense_af61f3e9eb7ddd012de351dee35b45895}\label{namespacezics__sense_af61f3e9eb7ddd012de351dee35b45895}} 
+{\bfseries spindex} = dict(zip(df.\+Species,df.\+index))
+\item 
+\mbox{\Hypertarget{namespacezics__sense_ad8677e68746b56bdf1223e74a980342f}\label{namespacezics__sense_ad8677e68746b56bdf1223e74a980342f}} 
+{\bfseries fract} = np.\+array(args.\+lns.\+split(\textquotesingle{},\textquotesingle{})).astype(\textquotesingle{}int\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacezics__sense_aeaebb25fa4cf8e82c0bd77e4f9da3e10}\label{namespacezics__sense_aeaebb25fa4cf8e82c0bd77e4f9da3e10}} 
+{\bfseries cycle} = set(df.\+loc\mbox{[}df.\+Index==\textquotesingle{}ii\textquotesingle{},\textquotesingle{}Species\textquotesingle{}\mbox{]}) $^\wedge$ set(list(df.\+Species)) $^\wedge$ set(\mbox{[}\textquotesingle{}O3\textquotesingle{},\textquotesingle{}H2\textquotesingle{}\mbox{]})
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a54fc15cb9bfa5a6a62256cf84a935e5c}\label{namespacezics__sense_a54fc15cb9bfa5a6a62256cf84a935e5c}} 
+int {\bfseries counter} = 0
+\item 
+\mbox{\Hypertarget{namespacezics__sense_adad1c9bd87458cee13344e8c2c37d480}\label{namespacezics__sense_adad1c9bd87458cee13344e8c2c37d480}} 
+{\bfseries copy} = np.\+array(df.\+Base\+Run\mbox{[}\+:\mbox{]})
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a28ee685820337f3c2a935246cfed9974}\label{namespacezics__sense_a28ee685820337f3c2a935246cfed9974}} 
+{\bfseries inf} = np.\+array(args.\+lhc.\+split(\textquotesingle{},\textquotesingle{}))
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a4c16dfebc4d8f9aa0ca680fef0e59d7d}\label{namespacezics__sense_a4c16dfebc4d8f9aa0ca680fef0e59d7d}} 
+list {\bfseries index} = \mbox{[}spindex\mbox{[}i\mbox{]} for i in inf\mbox{[}\mbox{[}0,3\mbox{]}\mbox{]} \mbox{]}
+\item 
+\mbox{\Hypertarget{namespacezics__sense_a349aee1587e23db8c820d055a65f52cc}\label{namespacezics__sense_a349aee1587e23db8c820d055a65f52cc}} 
+{\bfseries lhc} = py\+D\+O\+E.\+lhs(2,samples=int(inf\mbox{[}-\/1\mbox{]})).T
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Vary inputs, or use a latin hypercube for two inputs
+\end{DoxyVerb}
+ 

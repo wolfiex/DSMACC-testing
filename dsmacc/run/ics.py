@@ -1,6 +1,6 @@
 
 
-def create_ics(fileic=False,    last=False,    keepx=True , postime = False ,spin = False):
+def create_ics(fileic=False,    last=False,    keepx=True , spin = False):
     print ("\033]0;creating ics\007")
     import h5py,glob,os,sys,re
     import numpy as np
@@ -49,12 +49,13 @@ def create_ics(fileic=False,    last=False,    keepx=True , postime = False ,spi
         data[run,jday]= '%.4f'%(float(data[run,jday])-localtime)
 
     time = data[3,3]
-    print(time)
+
 
     time = time.replace('-','')
-    if spin:#and not postime:
+    if spin:
         time = '-'+time
-
+        
+    print('duration',time)
 
     data = data[1:,4:]
 

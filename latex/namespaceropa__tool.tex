@@ -1,0 +1,165 @@
+\hypertarget{namespaceropa__tool}{}\section{ropa\+\_\+tool Namespace Reference}
+\label{namespaceropa__tool}\index{ropa\+\_\+tool@{ropa\+\_\+tool}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a21c67d02dd7076de296b4d7ebaa523a3}\label{namespaceropa__tool_a21c67d02dd7076de296b4d7ebaa523a3}} 
+def {\bfseries combine} (ln)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_abd10613cddb56de86cbe4e4eb898d2b2}\label{namespaceropa__tool_abd10613cddb56de86cbe4e4eb898d2b2}} 
+{\bfseries xlen} = lambda x\+: xrange(len(x))
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_af09b0bf862ccf4fbf2ea2588f53a12ed}\label{namespaceropa__tool_af09b0bf862ccf4fbf2ea2588f53a12ed}} 
+{\bfseries ncfile} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a685d456eb9b1fa1bd9870af53a105fa2}\label{namespaceropa__tool_a685d456eb9b1fa1bd9870af53a105fa2}} 
+int {\bfseries ncores} = 4
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_af477292d1e317f14120e47173d774449}\label{namespaceropa__tool_af477292d1e317f14120e47173d774449}} 
+\mbox{\hyperlink{namespaceropa__tool_af477292d1e317f14120e47173d774449}{myfile}} = ncfile
+\begin{DoxyCompactList}\small\item\em read dsmacc data \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespaceropa__tool_a9a7961138879eadbd21e63aa8e02dec7}\label{namespaceropa__tool_a9a7961138879eadbd21e63aa8e02dec7}} 
+{\bfseries nc} = Dataset(\mbox{\hyperlink{namespaceropa__tool_af477292d1e317f14120e47173d774449}{myfile}},\textquotesingle{}r\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_acb6b7d554ab526bf6f104884d5f399c0}\label{namespaceropa__tool_acb6b7d554ab526bf6f104884d5f399c0}} 
+{\bfseries group} = tuple(nc.\+groups)\mbox{[}int(input(\textquotesingle{}Enter Number \textbackslash{}n\textquotesingle{}))\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}{specs}} = pd.\+Data\+Frame(nc.\+groups\mbox{[}group\mbox{]}.variables\mbox{[}\textquotesingle{}Spec\textquotesingle{}\mbox{]}\mbox{[}\+:\mbox{]})
+\begin{DoxyCompactList}\small\item\em specs\mbox{[}\textquotesingle{}T\+I\+ME\textquotesingle{}\mbox{]} = pd.\+to\+\_\+datetime(specs.\+T\+I\+ME, unit=\textquotesingle{}s\textquotesingle{}) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespaceropa__tool_a0279b89b5e928d90e6e4c9dd3a6160dd}\label{namespaceropa__tool_a0279b89b5e928d90e6e4c9dd3a6160dd}} 
+{\bfseries columns}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ab433fdcb5774e431dc2673370dd97c6f}\label{namespaceropa__tool_ab433fdcb5774e431dc2673370dd97c6f}} 
+{\bfseries rates} = pd.\+Data\+Frame(nc.\+groups\mbox{[}group\mbox{]}.variables\mbox{[}\textquotesingle{}Rate\textquotesingle{}\mbox{]}\mbox{[}\+:\mbox{]})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aba9c20771e3090731a8350af5bcf1b58}\label{namespaceropa__tool_aba9c20771e3090731a8350af5bcf1b58}} 
+{\bfseries M} = \mbox{\hyperlink{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}{specs}}\mbox{[}\textquotesingle{}M\textquotesingle{}\mbox{]}.mean(),
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aef9230309f67d19bcb6da205bd72e0e5}\label{namespaceropa__tool_aef9230309f67d19bcb6da205bd72e0e5}} 
+string {\bfseries rate\+\_\+head} = \textquotesingle{}\textbackslash{}n\textquotesingle{}+\textquotesingle{}\textbackslash{}n\textquotesingle{}.join(rates.\+columns)+\textquotesingle{}\textbackslash{}n\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a181a2cb979199797275e3e7422bd7217}\label{namespaceropa__tool_a181a2cb979199797275e3e7422bd7217}} 
+list {\bfseries products} = \mbox{[}i.\+split(\textquotesingle{}+\textquotesingle{}) for i in re.\+findall(r\textquotesingle{}-\/-\/$>$(\mbox{[}A-\/z0-\/9+\mbox{]}$\ast$)\textquotesingle{},rate\+\_\+head)\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_afa79b1220b02a0b5007da1b11e52a8ee}\label{namespaceropa__tool_afa79b1220b02a0b5007da1b11e52a8ee}} 
+list {\bfseries reactants} = \mbox{[}j.\+split(\textquotesingle{}+\textquotesingle{}) for j in re.\+findall(r\textquotesingle{}\textbackslash{}n(\mbox{[}A-\/z0-\/9+\mbox{]}\{1,60\})\mbox{[}-\/-\/$>$\mbox{]}\{0,1\}\textquotesingle{},rate\+\_\+head)\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a1ee968ae0da8e9ee33aef2e0243a5e50}\label{namespaceropa__tool_a1ee968ae0da8e9ee33aef2e0243a5e50}} 
+list {\bfseries flux} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a9ca8877e2c6a990e867c309f1597af27}\label{namespaceropa__tool_a9ca8877e2c6a990e867c309f1597af27}} 
+list {\bfseries rcol} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_af7d48f97c7b0e9c66280beaee707ccac}\label{namespaceropa__tool_af7d48f97c7b0e9c66280beaee707ccac}} 
+{\bfseries dummy} = \mbox{\hyperlink{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}{specs}}\mbox{[}re.\+sub(r\textquotesingle{}(\mbox{[}\textbackslash{}.\textbackslash{}d\textbackslash{}s\mbox{]}$\ast$)(\textbackslash{}D\mbox{[}\textbackslash{}d\textbackslash{}D\mbox{]}$\ast$)\textquotesingle{}, r\textquotesingle{}\textbackslash{}2\textquotesingle{}, j)\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a917154385184f61915d23cdc706846df}\label{namespaceropa__tool_a917154385184f61915d23cdc706846df}} 
+int {\bfseries prod} = 1
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a44fe1e772799c026cdf648e6463afb11}\label{namespaceropa__tool_a44fe1e772799c026cdf648e6463afb11}} 
+{\bfseries locs2} = dict(enumerate(specs.\+columns\mbox{[}7\+:\mbox{]}))
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aa265eeef6d2283d267ba274db92e10a4}\label{namespaceropa__tool_aa265eeef6d2283d267ba274db92e10a4}} 
+dictionary {\bfseries locs} = \{v\+: k for k, v in locs2.\+iteritems()\}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a23910c8464443305b1f90033d3ba7c86}\label{namespaceropa__tool_a23910c8464443305b1f90033d3ba7c86}} 
+list {\bfseries edges} = \mbox{[}$\,$\mbox{]} ; \mbox{[}edges.\+extend(i) for i in dummy\mbox{]} ; edges.\+sort()
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aff74371a2e21e538002f968ad0130b2b}\label{namespaceropa__tool_aff74371a2e21e538002f968ad0130b2b}} 
+{\bfseries individual} = list(set(frozenset(i\mbox{[}0\mbox{]}) for i in edges))
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_af610fc0f3881d18e9a9869c3ca882b3e}\label{namespaceropa__tool_af610fc0f3881d18e9a9869c3ca882b3e}} 
+list {\bfseries flux\+\_\+data} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ae42ef391fe5e91917b8ffdeb7fd78c49}\label{namespaceropa__tool_ae42ef391fe5e91917b8ffdeb7fd78c49}} 
+{\bfseries fp}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a8b71524a24560ba6350950743b667748}\label{namespaceropa__tool_a8b71524a24560ba6350950743b667748}} 
+{\bfseries fm}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ad9f2f4638099d187a54615d1d42e3950}\label{namespaceropa__tool_ad9f2f4638099d187a54615d1d42e3950}} 
+{\bfseries st} = list(i)
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ab05a7e18e5f429465edc855ee661d07a}\label{namespaceropa__tool_ab05a7e18e5f429465edc855ee661d07a}} 
+{\bfseries d0}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a20b395818e9c0c82f9c68147f0ca5654}\label{namespaceropa__tool_a20b395818e9c0c82f9c68147f0ca5654}} 
+{\bfseries d1}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a930b3036e788dae38c7d49885e3d9832}\label{namespaceropa__tool_a930b3036e788dae38c7d49885e3d9832}} 
+list {\bfseries edge} = edges\mbox{[}k\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aa079aa5a045d7c10dd2433d920785679}\label{namespaceropa__tool_aa079aa5a045d7c10dd2433d920785679}} 
+{\bfseries combinations} = str(list(flux\+\_\+data\mbox{[}\+:,0\mbox{]}))
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ad7bd41ae6cc3e6d21f6b2729a5e8b8ea}\label{namespaceropa__tool_ad7bd41ae6cc3e6d21f6b2729a5e8b8ea}} 
+{\bfseries src} = np.\+array(flux\+\_\+data\mbox{[}\+:,1\mbox{]})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aee9e21562693c655b9082d19402a2d77}\label{namespaceropa__tool_aee9e21562693c655b9082d19402a2d77}} 
+{\bfseries tar} = np.\+array(flux\+\_\+data\mbox{[}\+:,2\mbox{]})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a08a4d01c579e77e0256f5c06b128a846}\label{namespaceropa__tool_a08a4d01c579e77e0256f5c06b128a846}} 
+{\bfseries times} = np.\+array(specs.\+T\+I\+ME$\ast$M).astype(int)
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_aff0fcebbb7aa553896c572d253f2a160}\label{namespaceropa__tool_aff0fcebbb7aa553896c572d253f2a160}} 
+{\bfseries locs\+\_\+json} = str(locs).replace(\char`\"{}u\textquotesingle{}\char`\"{},\textquotesingle{}\char`\"{}\textquotesingle{}).replace(\char`\"{}\textbackslash{}\textquotesingle{}\char`\"{},\textquotesingle{}\char`\"{}\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a13298c41f1bbd40f84f1b131f11cf1c5}\label{namespaceropa__tool_a13298c41f1bbd40f84f1b131f11cf1c5}} 
+{\bfseries conc} = np.\+array(\mbox{\hyperlink{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}{specs}}\mbox{[}specs.\+columns\mbox{[}7\+:\mbox{]}\mbox{]})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a733dc75004917e063d8dd2803c00fcde}\label{namespaceropa__tool_a733dc75004917e063d8dd2803c00fcde}} 
+{\bfseries nrows} = conc.\+shape\mbox{[}0\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_af8e2b6cf149b71980dee7095eb2b49f8}\label{namespaceropa__tool_af8e2b6cf149b71980dee7095eb2b49f8}} 
+{\bfseries info\+\_\+file} = Dataset(\textquotesingle{}ropa\+\_\+\textquotesingle{}+ncfile, \textquotesingle{}w\textquotesingle{}, format=\textquotesingle{}N\+E\+T\+C\+D\+F3\+\_\+\+C\+L\+A\+S\+S\+IC\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ac3f8d08f8ead17c0298df874d9c949c6}\label{namespaceropa__tool_ac3f8d08f8ead17c0298df874d9c949c6}} 
+{\bfseries cnc} = info\+\_\+file.\+create\+Variable(\textquotesingle{}concentration\textquotesingle{}, \textquotesingle{}f8\textquotesingle{}, (\textquotesingle{}time\textquotesingle{}, \textquotesingle{}\mbox{\hyperlink{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}{specs}}\textquotesingle{}))
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a7a5fdc844f36ecfd5a9b3eb8b532bba5}\label{namespaceropa__tool_a7a5fdc844f36ecfd5a9b3eb8b532bba5}} 
+{\bfseries flx} = info\+\_\+file.\+create\+Variable(\textquotesingle{}edge-\/length\textquotesingle{}, \textquotesingle{}f8\textquotesingle{}, (\textquotesingle{}time\textquotesingle{}, \textquotesingle{}fluxes\textquotesingle{}))
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ac84a9ba934373685cc245d7a3838a273}\label{namespaceropa__tool_ac84a9ba934373685cc245d7a3838a273}} 
+{\bfseries rt} = info\+\_\+file.\+create\+Variable(\textquotesingle{}rate\textquotesingle{}, \textquotesingle{}c\textquotesingle{}, \textquotesingle{}rateheader\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a093c6241e7252409d3b58c5fe9fbcbc1}\label{namespaceropa__tool_a093c6241e7252409d3b58c5fe9fbcbc1}} 
+{\bfseries sources} = info\+\_\+file.\+create\+Variable(\textquotesingle{}source\textquotesingle{}, \textquotesingle{}i4\textquotesingle{}, \textquotesingle{}sourcetarget\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ad00c504f87af16df2a5d7c521fb4fc2e}\label{namespaceropa__tool_ad00c504f87af16df2a5d7c521fb4fc2e}} 
+{\bfseries targets} = info\+\_\+file.\+create\+Variable(\textquotesingle{}target\textquotesingle{}, \textquotesingle{}i4\textquotesingle{}, \textquotesingle{}sourcetarget\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a33f136db192dc764f4dc2e8f999928a6}\label{namespaceropa__tool_a33f136db192dc764f4dc2e8f999928a6}} 
+{\bfseries dictn} = info\+\_\+file.\+create\+Variable(\textquotesingle{}nodes\textquotesingle{}, \textquotesingle{}c\textquotesingle{}, \textquotesingle{}dict\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_ab593554c0a9637a11dd87b1a19b078e5}\label{namespaceropa__tool_ab593554c0a9637a11dd87b1a19b078e5}} 
+{\bfseries comb} = info\+\_\+file.\+create\+Variable(\textquotesingle{}combinations\textquotesingle{}, \textquotesingle{}c\textquotesingle{}, \textquotesingle{}comb\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a76504265909ca51dedfe21f21e86e0d7}\label{namespaceropa__tool_a76504265909ca51dedfe21f21e86e0d7}} 
+{\bfseries stime} = info\+\_\+file.\+create\+Variable(\textquotesingle{}timeseconds\textquotesingle{}, \textquotesingle{}f8\textquotesingle{}, \textquotesingle{}time\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceropa__tool_a3d47fe71d27ae723d19e08111dc7203a}\label{namespaceropa__tool_a3d47fe71d27ae723d19e08111dc7203a}} 
+list {\bfseries conc\+\_\+adjust} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}A tool to calculate the fluxes from DSMACC
+D.Ellis 2016
+\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}\label{namespaceropa__tool_aa744f70435f5581e7e9d31783776f50c}} 
+\index{ropa\+\_\+tool@{ropa\+\_\+tool}!specs@{specs}}
+\index{specs@{specs}!ropa\+\_\+tool@{ropa\+\_\+tool}}
+\subsubsection{\texorpdfstring{specs}{specs}}
+{\footnotesize\ttfamily ropa\+\_\+tool.\+specs = pd.\+Data\+Frame(nc.\+groups\mbox{[}group\mbox{]}.variables\mbox{[}\textquotesingle{}Spec\textquotesingle{}\mbox{]}\mbox{[}\+:\mbox{]})}
+
+
+
+specs\mbox{[}\textquotesingle{}T\+I\+ME\textquotesingle{}\mbox{]} = pd.\+to\+\_\+datetime(specs.\+T\+I\+ME, unit=\textquotesingle{}s\textquotesingle{}) 
+
+need atleast two timesteps here specs = specs.\+ix\mbox{[}\mbox{[}99,100\mbox{]}\mbox{]} rates = rates.\+ix\mbox{[}\mbox{[}99,100\mbox{]}\mbox{]} 

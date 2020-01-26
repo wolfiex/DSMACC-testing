@@ -1,0 +1,56 @@
+\hypertarget{classInfomap}{}\section{Infomap Class Reference}
+\label{classInfomap}\index{Infomap@{Infomap}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomap_a4251dd2b76af966d9d3ba505abd60018}\label{classInfomap_a4251dd2b76af966d9d3ba505abd60018}} 
+{\bfseries Infomap} (const std\+::string flags)
+\item 
+\mbox{\Hypertarget{classInfomap_afa1e883fbcca6b4209fc76282b06d801}\label{classInfomap_afa1e883fbcca6b4209fc76282b06d801}} 
+void {\bfseries read\+Input\+Data} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{classInfomap_a9bd57986bdff3f060635d9933fbd3ff2}\label{classInfomap_a9bd57986bdff3f060635d9933fbd3ff2}} 
+bool {\bfseries add\+Link} (unsigned int n1, unsigned int n2, double weight=1.\+0)
+\item 
+void \mbox{\hyperlink{classInfomap_ade43d1ba11abfdc5346870ae2b7fc851}{set\+Bipartite\+Nodes\+From}} (unsigned int bipartite\+Start\+Index)
+\item 
+\mbox{\Hypertarget{classInfomap_a793283823dec45eb768b958616f48b85}\label{classInfomap_a793283823dec45eb768b958616f48b85}} 
+int {\bfseries run} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomap_a444552207aca65648974467c9834ad89}\label{classInfomap_a444552207aca65648974467c9834ad89}} 
+\mbox{\hyperlink{structConfig}{Config}} {\bfseries config}
+\item 
+\mbox{\Hypertarget{classInfomap_ab1707423fbf1288fbb47968a34462cfd}\label{classInfomap_ab1707423fbf1288fbb47968a34462cfd}} 
+\mbox{\hyperlink{classMultiplexNetwork}{Multiplex\+Network}} {\bfseries network}
+\item 
+\mbox{\Hypertarget{classInfomap_a369af8f9f1d795309376d2960bc9aaa6}\label{classInfomap_a369af8f9f1d795309376d2960bc9aaa6}} 
+\mbox{\hyperlink{classHierarchicalNetwork}{Hierarchical\+Network}} {\bfseries tree}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classInfomap_ade43d1ba11abfdc5346870ae2b7fc851}\label{classInfomap_ade43d1ba11abfdc5346870ae2b7fc851}} 
+\index{Infomap@{Infomap}!set\+Bipartite\+Nodes\+From@{set\+Bipartite\+Nodes\+From}}
+\index{set\+Bipartite\+Nodes\+From@{set\+Bipartite\+Nodes\+From}!Infomap@{Infomap}}
+\subsubsection{\texorpdfstring{set\+Bipartite\+Nodes\+From()}{setBipartiteNodesFrom()}}
+{\footnotesize\ttfamily void Infomap\+::set\+Bipartite\+Nodes\+From (\begin{DoxyParamCaption}\item[{unsigned int}]{bipartite\+Start\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Change this network to a bipartite network 
+\begin{DoxyParams}{Parameters}
+{\em bipartite\+Start\+Index} & Nodes equal to or above this index are treated as feature nodes \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+79                                                                  \{
+80         network.\mbox{\hyperlink{classNetwork_a7ebe3a5e948fc60e81fb94df08ca4358}{setBipartiteNodesFrom}}(bipartiteStartIndex);
+81     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/Infomap.\+h\end{DoxyCompactItemize}

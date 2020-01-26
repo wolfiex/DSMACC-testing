@@ -1,0 +1,38 @@
+\hypertarget{namespacemineSmiles}{}\section{mine\+Smiles Namespace Reference}
+\label{namespacemineSmiles}\index{mine\+Smiles@{mine\+Smiles}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_abc9fb406999d9ac11ba1e06b1094cb94}\label{namespacemineSmiles_abc9fb406999d9ac11ba1e06b1094cb94}} 
+def {\bfseries mine} (spec)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_a4c044104897aa035af11accaf6841720}\label{namespacemineSmiles_a4c044104897aa035af11accaf6841720}} 
+{\bfseries inchis} = re.\+compile(r\textquotesingle{}$<$span class=\char`\"{}inchi\char`\"{}$>$(.$\ast$)$<$\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_ad3b6c2fccb50363dbbc8d6e14829d86e}\label{namespacemineSmiles_ad3b6c2fccb50363dbbc8d6e14829d86e}} 
+{\bfseries smiles} = re.\+compile(r\textquotesingle{}$<$span class=\char`\"{}smiles\char`\"{}$>$(.$\ast$)$<$\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_aeebff49478938a36f8ba83978fbb3f1d}\label{namespacemineSmiles_aeebff49478938a36f8ba83978fbb3f1d}} 
+{\bfseries synonyms} = re.\+compile(r\textquotesingle{}$<$span$>$\textbackslash{}n\textbackslash{}t\textbackslash{}s$\ast$(\mbox{[}\textbackslash{}w;,\textbackslash{}-\/\textbackslash{}s\mbox{]}$\ast$);\textbackslash{}n\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_abefd382c189cd320dc537d63ac0dd282}\label{namespacemineSmiles_abefd382c189cd320dc537d63ac0dd282}} 
+{\bfseries species} = re.\+findall(r\textquotesingle{}\textbackslash{}b(\textbackslash{}w$\ast$)\textbackslash{}b = I\+G\+N\+O\+RE\textquotesingle{},str(tuple(open(\textquotesingle{}../../src/background/mcm331complete.\+kpp\textquotesingle{}))))
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_aa9ac153b560eaa5012e0598f1233226c}\label{namespacemineSmiles_aa9ac153b560eaa5012e0598f1233226c}} 
+{\bfseries data} = mp.\+Pool(6).map(mine, species)
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_a38020d5d8da931fc86d3cfb3813fff0f}\label{namespacemineSmiles_a38020d5d8da931fc86d3cfb3813fff0f}} 
+{\bfseries df} = Data\+Frame(data,columns= \mbox{[}\textquotesingle{}name\textquotesingle{},\textquotesingle{}smiles\textquotesingle{},\textquotesingle{}inchi\textquotesingle{},\textquotesingle{}synonyms\textquotesingle{}\mbox{]})
+\item 
+\mbox{\Hypertarget{namespacemineSmiles_a63c0dcfac527885f51fc39d82302ad51}\label{namespacemineSmiles_a63c0dcfac527885f51fc39d82302ad51}} 
+{\bfseries inplace}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}A program that mines the latest smiles and inchi strings from the mcm website. 
+Please do not use this unless there are species missing from the pre provided list, or a new version is released. \end{DoxyVerb}
+ 

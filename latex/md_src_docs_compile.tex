@@ -1,0 +1,29 @@
+\paragraph*{Generates required f90 files for D\+S\+M\+A\+CC}
+
+
+\begin{DoxyCode}
+make kpp
+\end{DoxyCode}
+ This opens a list of available kpp files in the mechanisms folder. Select either one, or multiple by supplying a space between each selection.
+
+
+
+\paragraph*{If run correctly this should produce no errors.}
+
+Duplicate warnings will run, although may become problematic when trying to select an equation later on. Use the subset selector to eliminate these.
+
+
+
+\subsection*{Compiling (old doc)}
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries Clear the directory.} If you are just starting or want a clean slate use {\ttfamily make distclean \&\& make new} to clear all. Otherwise you can opt for {\ttfamily make clear or make clean} to remove the .f90/other files
+\item {\bfseries Download mechanism} from mcm website and save it in the mechanisms folder. If you wish to compile it with the inorganics.\+kpp for the M\+CM, please include the {\ttfamily \+\_\+organics} tag in the name. All mechanism files require the {\ttfamily .kpp} extention.
+\item Emissions/ Deposition may be adjusted . These can be enabled/disabled during runtime with the F\+E\+M\+I\+SS and D\+E\+P\+OS flags in the Initial Conditions.
+\item {\bfseries Create model.\+kpp and run kpp using {\ttfamily make kpp}}. Here you shall be tempted to select which mechanism/mechanisms you require.
+\item {\bfseries Compile D\+S\+M\+A\+CC} with {\ttfamily make}
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item If there is an error with the params file, tuv may not have been compiled (ie make new was not run). To fix this type {\ttfamily make tuv} followed by {\ttfamily make}. 
+\end{DoxyItemize}

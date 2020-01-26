@@ -4,10 +4,10 @@ import os, sys, multiprocessing, re, glob
 from sympy import Symbol, expand, N
 try:
     ncores = int(os.popen(r'echo $NCPUS').read())
-except Exception as e :
-    print e
+except Exception as e:
+    print(e)
     ncores=1
-print ncores
+print(ncores)
 available_cores=ncores
 co2 =False
 
@@ -19,11 +19,11 @@ if co2:
     smiles['CO2']='C'
     smiles['DUMMY']=''
     smiles['NA']=''
-    smiles =dict(zip(smiles.index,[str(i).upper().count('C') for i in smiles]))
+    smiles =dict(list(zip(smiles.index,[str(i).upper().count('C') for i in smiles])))
     
     
-print 'THIS ADDS INORGANICS< DO NOT USE COMPLETE MECH'
-print 'todo - check duplicate matches, then also check combinations'
+print('THIS ADDS INORGANICS< DO NOT USE COMPLETE MECH')
+print('todo - check duplicate matches, then also check combinations')
 
 try: filename1=sys.argv[1]
 except:filename1 = '../src/background/mcm331complete.kpp'
@@ -67,7 +67,7 @@ def pool_eqn(x):
     r='+'.join(r)
     x[0] = r+'='+p
     #replace D and exp for sympy  re.sub(r'(\d)[dD]([+-\.\d])',r'\1e\2',  x[1].split('//')[0].replace('EXP','exp')
-    x[1] =  x[1].split('//')[0].replace(';','')
+    eqn[1] =  x[1].split('//')[0].replace(';','')
     return x
 
 eqn = multiprocessing.Pool(available_cores).map(pool_eqn,combined1)
@@ -93,7 +93,7 @@ string = '''// reformatted by reformat.py
 
 ''' %(filename1 + '+' + filename, len(specs),len(eqn))
 
-print string
+print(string)
 
 
 string += '''
@@ -149,7 +149,7 @@ for i,j in enumerate(eqn):
     if j[0][-1]=='=':j[0]+='DUMMY'
     string += '{%04d} %s : %s;\n'%(i,j[0],j[1].replace('\r',''))
 
-string = re.sub(r';\h*;',';',string)
+string = re.sub(';\h*;',';',string)
 
 
 
@@ -157,6 +157,6 @@ ic_file = filename1.replace('../InitCons/','').replace('.csv','').replace('../sr
 with open("formatted_"+ic_file, 'w') as f:
     f.write(string)
 
-print "\n formatted_"+ic_file+' written'
+print("\n formatted_"+ic_file+' written')
     
 

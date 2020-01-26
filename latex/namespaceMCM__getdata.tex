@@ -1,0 +1,133 @@
+\hypertarget{namespaceMCM__getdata}{}\section{M\+C\+M\+\_\+getdata Namespace Reference}
+\label{namespaceMCM__getdata}\index{M\+C\+M\+\_\+getdata@{M\+C\+M\+\_\+getdata}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespaceMCM__getdata_af01612e4dc4d42140d736222480555fe}{trace}} (spec)
+\begin{DoxyCompactList}\small\item\em using all reactions generated from specie list if a species is in the products, and all reactants present... \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_adfe73acab3b9fec3c96a8577dc2acd7a}\label{namespaceMCM__getdata_adfe73acab3b9fec3c96a8577dc2acd7a}} 
+int {\bfseries available\+\_\+cores} = 16
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a9d66f140b299c467b96d7398ee3b2daf}\label{namespaceMCM__getdata_a9d66f140b299c467b96d7398ee3b2daf}} 
+{\bfseries filename}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a0c13efe15a67ccbbddd44b2d34e1aece}\label{namespaceMCM__getdata_a0c13efe15a67ccbbddd44b2d34e1aece}} 
+{\bfseries full} = tuple(open(filename))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a35b98d88dad51f57350ecee371a0e8dc}\label{namespaceMCM__getdata_a35b98d88dad51f57350ecee371a0e8dc}} 
+{\bfseries inorganics} = tuple(open(filename))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a483f96b19c47cdf2b2fca57ab6684479}\label{namespaceMCM__getdata_a483f96b19c47cdf2b2fca57ab6684479}} 
+{\bfseries gen} = xrange(len(full))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a8bfc1bedfa4a307ae0d16416aaf3aa5a}\label{namespaceMCM__getdata_a8bfc1bedfa4a307ae0d16416aaf3aa5a}} 
+{\bfseries inorganic\+\_\+species} = set(re.\+findall(r\textquotesingle{}(\mbox{[}A-\/z0-\/9\mbox{]}$\ast$)\mbox{[}\textbackslash{}s=\mbox{]}$\ast$I\+G\+N\+O\+RE\textquotesingle{} ,str(inorganics)))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_ab7bf5deca5ad8fc4e05cadd36a801e22}\label{namespaceMCM__getdata_ab7bf5deca5ad8fc4e05cadd36a801e22}} 
+{\bfseries all\+\_\+species} = re.\+findall(r\textquotesingle{}(\mbox{[}A-\/z0-\/9\mbox{]}$\ast$)\mbox{[}\textbackslash{}s=\mbox{]}$\ast$I\+G\+N\+O\+RE\textquotesingle{} ,str(full))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_ae407c0f945744385b9cf214fdb50a36b}\label{namespaceMCM__getdata_ae407c0f945744385b9cf214fdb50a36b}} 
+{\bfseries sarr} = pd.\+Series(index=all\+\_\+species)
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_acd12adef9048f08b8b1587991431c6e6}\label{namespaceMCM__getdata_acd12adef9048f08b8b1587991431c6e6}} 
+{\bfseries num2spec} = dict(enumerate(all\+\_\+species))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a6f2d64def39b1298b7027f184a89799a}\label{namespaceMCM__getdata_a6f2d64def39b1298b7027f184a89799a}} 
+dictionary {\bfseries spec2num} = \{v\+: k for k, v in num2spec.\+iteritems()\}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_ae744e84ed43132fcea6cff97fb4c7f09}\label{namespaceMCM__getdata_ae744e84ed43132fcea6cff97fb4c7f09}} 
+string {\bfseries fullstr} = \textquotesingle{}\textquotesingle{}.join(full).replace(\textquotesingle{}\textbackslash{}n\textquotesingle{},\textquotesingle{}\textquotesingle{}).replace(\textquotesingle{}\textbackslash{}t\textquotesingle{},\textquotesingle{}\textquotesingle{}).replace(\textquotesingle{} \textquotesingle{},\textquotesingle{}\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_aef48e03bafede08ea1c54b0a25c99ec2}\label{namespaceMCM__getdata_aef48e03bafede08ea1c54b0a25c99ec2}} 
+list {\bfseries eqn} = \mbox{[}i.\+replace(\textquotesingle{} \textquotesingle{},\textquotesingle{}\textquotesingle{}).split(\textquotesingle{}\+:\textquotesingle{}) for i in re.\+findall(r\textquotesingle{}\}(\mbox{[}A-\/z0-\/9+-\/=\+:()$\ast$/\mbox{]}$\ast$);\textquotesingle{} ,fullstr)\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_ac6ca830b18e945e77d06d54b97ce29c0}\label{namespaceMCM__getdata_ac6ca830b18e945e77d06d54b97ce29c0}} 
+list {\bfseries equations} = \mbox{[} i\mbox{[}0\mbox{]}.split(\textquotesingle{}=\textquotesingle{}) for i in eqn\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_ace6971f53b0e35f59d396ed1e1687e31}\label{namespaceMCM__getdata_ace6971f53b0e35f59d396ed1e1687e31}} 
+list {\bfseries eq\+\_\+split} = \mbox{[}\mbox{[}set(i\mbox{[}0\mbox{]}.split(\textquotesingle{}+\textquotesingle{})), set(i\mbox{[}1\mbox{]}.split(\textquotesingle{}+\textquotesingle{}))\mbox{]} for i in equations\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a23a2b80b410ba3411a998006eda0ffa4}\label{namespaceMCM__getdata_a23a2b80b410ba3411a998006eda0ffa4}} 
+dictionary {\bfseries origin} = \{\textquotesingle{}O3\textquotesingle{},\textquotesingle{}NO\textquotesingle{},\textquotesingle{}N\+O2\textquotesingle{},\textquotesingle{}N\+C7\+H16\textquotesingle{}\}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a5c8c593e0cf8e01a50ffe726c45b2660}\label{namespaceMCM__getdata_a5c8c593e0cf8e01a50ffe726c45b2660}} 
+dictionary {\bfseries species} = origin $\vert$ inorganic\+\_\+species $^\wedge$ set (\mbox{[}\textquotesingle{}\textquotesingle{} \mbox{]})
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_ad4d3c485621f3ca7a6aa71d5c538afc0}\label{namespaceMCM__getdata_ad4d3c485621f3ca7a6aa71d5c538afc0}} 
+int {\bfseries counter} = 0
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a5934db315647a300329373175a38137e}\label{namespaceMCM__getdata_a5934db315647a300329373175a38137e}} 
+string {\bfseries previous} = \textquotesingle{}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a4a161c3489ef4b4a107ecd681bf6123e}\label{namespaceMCM__getdata_a4a161c3489ef4b4a107ecd681bf6123e}} 
+list {\bfseries dummy} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a49ab3d994518599583c42248fd8053f7}\label{namespaceMCM__getdata_a49ab3d994518599583c42248fd8053f7}} 
+list {\bfseries reactions} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a85e857599ace3e5a3b56f77d60aefa1e}\label{namespaceMCM__getdata_a85e857599ace3e5a3b56f77d60aefa1e}} 
+{\bfseries s} = sarr\mbox{[}sarr$>$-\/1\mbox{]}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a0fe98f381a6163e79347e5f01f0d3e1a}\label{namespaceMCM__getdata_a0fe98f381a6163e79347e5f01f0d3e1a}} 
+{\bfseries xpos} = np.\+linspace(0,1,s.\+max()+1)
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a92be93a6a2306fa302ee4fff611400c8}\label{namespaceMCM__getdata_a92be93a6a2306fa302ee4fff611400c8}} 
+string {\bfseries json} = \textquotesingle{}\mbox{[}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a33d8b5a09486bdfeffe10a5cdac866d0}\label{namespaceMCM__getdata_a33d8b5a09486bdfeffe10a5cdac866d0}} 
+{\bfseries names} = sarr\mbox{[}sarr==i\mbox{]}.index
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_aee541ad37acdaffad20e364a8c85ab82}\label{namespaceMCM__getdata_aee541ad37acdaffad20e364a8c85ab82}} 
+{\bfseries ypos} = np.\+linspace(0,1,len(names))
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a86ae28fe958e0ae9447f74a498953db6}\label{namespaceMCM__getdata_a86ae28fe958e0ae9447f74a498953db6}} 
+string {\bfseries links} = \textquotesingle{}\mbox{[}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_abd4e2a9cc45f63b8d7a03f20bcb68674}\label{namespaceMCM__getdata_abd4e2a9cc45f63b8d7a03f20bcb68674}} 
+{\bfseries names1} = sarr\mbox{[}sarr==i-\/1\mbox{]}.index
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a4429166d60605ecfb3fa20ec8c0629be}\label{namespaceMCM__getdata_a4429166d60605ecfb3fa20ec8c0629be}} 
+{\bfseries names2} = sarr\mbox{[}sarr==i\mbox{]}.index
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_aac3c4c8ef9bd8a6b6e5b248f4e788e79}\label{namespaceMCM__getdata_aac3c4c8ef9bd8a6b6e5b248f4e788e79}} 
+{\bfseries traces} = multiprocessing.\+Pool(4).map( \mbox{\hyperlink{namespaceMCM__getdata_af01612e4dc4d42140d736222480555fe}{trace}} , s.\+index )
+\item 
+\mbox{\Hypertarget{namespaceMCM__getdata_a6e7c3b11f0a88c4844788c25c14d3836}\label{namespaceMCM__getdata_a6e7c3b11f0a88c4844788c25c14d3836}} 
+string {\bfseries string} = \textquotesingle{}\{\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}A program to extract relevant data regarding the MCM, 
+to be used for extracting subsets
+
+D.Ellis 2016
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceMCM__getdata_af01612e4dc4d42140d736222480555fe}\label{namespaceMCM__getdata_af01612e4dc4d42140d736222480555fe}} 
+\index{M\+C\+M\+\_\+getdata@{M\+C\+M\+\_\+getdata}!trace@{trace}}
+\index{trace@{trace}!M\+C\+M\+\_\+getdata@{M\+C\+M\+\_\+getdata}}
+\subsubsection{\texorpdfstring{trace()}{trace()}}
+{\footnotesize\ttfamily def M\+C\+M\+\_\+getdata.\+trace (\begin{DoxyParamCaption}\item[{}]{spec }\end{DoxyParamCaption})}
+
+
+
+using all reactions generated from specie list if a species is in the products, and all reactants present... 
+
+this is a generation reaction 
+\begin{DoxyCode}
+104 \textcolor{keyword}{def }trace( spec ):
+105     created = []
+106     loss = []
+107     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} reactions: 
+108         \textcolor{keywordflow}{if}  spec \textcolor{keywordflow}{in} eq\_split[i][1]: created.append(eqn[i] )
+109         \textcolor{keywordflow}{elif} spec \textcolor{keywordflow}{in} eq\_split[i][0]:   loss.append(eqn[i] )
+110     \textcolor{keywordflow}{return} [created,loss]
+111 
+112  
+\end{DoxyCode}

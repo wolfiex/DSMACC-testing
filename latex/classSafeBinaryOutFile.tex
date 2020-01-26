@@ -1,0 +1,45 @@
+\hypertarget{classSafeBinaryOutFile}{}\section{Safe\+Binary\+Out\+File Class Reference}
+\label{classSafeBinaryOutFile}\index{Safe\+Binary\+Out\+File@{Safe\+Binary\+Out\+File}}
+
+
+{\ttfamily \#include $<$Safe\+File.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSafeBinaryOutFile_a57cee06f3c5bc897b74ccf5d0b72e53c}\label{classSafeBinaryOutFile_a57cee06f3c5bc897b74ccf5d0b72e53c}} 
+{\bfseries Safe\+Binary\+Out\+File} (const char $\ast$filename)
+\item 
+\mbox{\Hypertarget{classSafeBinaryOutFile_a9e37616d205bb174a86e16933c47a31a}\label{classSafeBinaryOutFile_a9e37616d205bb174a86e16933c47a31a}} 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classSafeBinaryOutFile}{Safe\+Binary\+Out\+File}} \& {\bfseries operator$<$$<$} (T value)
+\item 
+size\+\_\+t \mbox{\hyperlink{classSafeBinaryOutFile_a6c75cb4cbb2438d0f4abad8021f1baa5}{size}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Wrapper class for writing low-\/level binary data with a simple stream interface.
+
+\begin{DoxyNote}{Note}
+Strings are prepended with its length as unsigned short. 
+\end{DoxyNote}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSafeBinaryOutFile_a6c75cb4cbb2438d0f4abad8021f1baa5}\label{classSafeBinaryOutFile_a6c75cb4cbb2438d0f4abad8021f1baa5}} 
+\index{Safe\+Binary\+Out\+File@{Safe\+Binary\+Out\+File}!size@{size}}
+\index{size@{size}!Safe\+Binary\+Out\+File@{Safe\+Binary\+Out\+File}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t Safe\+Binary\+Out\+File\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the number of bytes written to the file stream 
+\begin{DoxyCode}
+225     \{
+226         \textcolor{keywordflow}{return} ftell(m\_file);
+227     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/io/Safe\+File.\+h\end{DoxyCompactItemize}

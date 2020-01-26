@@ -1,0 +1,115 @@
+\hypertarget{classgae_1_1model_1_1Model}{}\section{gae.\+model.\+Model Class Reference}
+\label{classgae_1_1model_1_1Model}\index{gae.\+model.\+Model@{gae.\+model.\+Model}}
+Inheritance diagram for gae.\+model.\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.647059cm]{classgae_1_1model_1_1Model}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a25a8f79629236a53d2cb535c2ac443fb}\label{classgae_1_1model_1_1Model_a25a8f79629236a53d2cb535c2ac443fb}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, kwargs)
+\item 
+def \mbox{\hyperlink{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}{build}} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a15161ebe091cfd4130566a0cd0179db5}\label{classgae_1_1model_1_1Model_a15161ebe091cfd4130566a0cd0179db5}} 
+def {\bfseries fit} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a2e3aa821b39038c04c0c5b0140d7737d}\label{classgae_1_1model_1_1Model_a2e3aa821b39038c04c0c5b0140d7737d}} 
+def {\bfseries predict} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a25a8f79629236a53d2cb535c2ac443fb}\label{classgae_1_1model_1_1Model_a25a8f79629236a53d2cb535c2ac443fb}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, kwargs)
+\item 
+def \mbox{\hyperlink{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}{build}} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a15161ebe091cfd4130566a0cd0179db5}\label{classgae_1_1model_1_1Model_a15161ebe091cfd4130566a0cd0179db5}} 
+def {\bfseries fit} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a2e3aa821b39038c04c0c5b0140d7737d}\label{classgae_1_1model_1_1Model_a2e3aa821b39038c04c0c5b0140d7737d}} 
+def {\bfseries predict} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a25a8f79629236a53d2cb535c2ac443fb}\label{classgae_1_1model_1_1Model_a25a8f79629236a53d2cb535c2ac443fb}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, kwargs)
+\item 
+def \mbox{\hyperlink{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}{build}} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a15161ebe091cfd4130566a0cd0179db5}\label{classgae_1_1model_1_1Model_a15161ebe091cfd4130566a0cd0179db5}} 
+def {\bfseries fit} (self)
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a2e3aa821b39038c04c0c5b0140d7737d}\label{classgae_1_1model_1_1Model_a2e3aa821b39038c04c0c5b0140d7737d}} 
+def {\bfseries predict} (self)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_af936d9906841e14af274763908c6da96}\label{classgae_1_1model_1_1Model_af936d9906841e14af274763908c6da96}} 
+{\bfseries name}
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_acb51cd2f9bfe1550788fb319645f3671}\label{classgae_1_1model_1_1Model_acb51cd2f9bfe1550788fb319645f3671}} 
+{\bfseries logging}
+\item 
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_af4d50a442f4c7a7b48018efbaf856339}\label{classgae_1_1model_1_1Model_af4d50a442f4c7a7b48018efbaf856339}} 
+{\bfseries vars}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}\label{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}} 
+\index{gae\+::model\+::\+Model@{gae\+::model\+::\+Model}!build@{build}}
+\index{build@{build}!gae\+::model\+::\+Model@{gae\+::model\+::\+Model}}
+\subsubsection{\texorpdfstring{build()}{build()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily def gae.\+model.\+Model.\+build (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrapper for _build() \end{DoxyVerb}
+ 
+\begin{DoxyCode}
+29     \textcolor{keyword}{def }build(self):
+30         \textcolor{stringliteral}{""" Wrapper for \_build() """}
+31         with tf.variable\_scope(self.name):
+32             self.\_build()
+33         variables = tf.get\_collection(tf.GraphKeys.GLOBAL\_VARIABLES, scope=self.name)
+34         self.vars = \{var.name: var \textcolor{keywordflow}{for} var \textcolor{keywordflow}{in} variables\}
+35 
+\end{DoxyCode}
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}\label{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}} 
+\index{gae\+::model\+::\+Model@{gae\+::model\+::\+Model}!build@{build}}
+\index{build@{build}!gae\+::model\+::\+Model@{gae\+::model\+::\+Model}}
+\subsubsection{\texorpdfstring{build()}{build()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily def gae.\+model.\+Model.\+build (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrapper for _build() \end{DoxyVerb}
+ 
+\begin{DoxyCode}
+29     \textcolor{keyword}{def }build(self):
+30         \textcolor{stringliteral}{""" Wrapper for \_build() """}
+31         with tf.variable\_scope(self.name):
+32             self.\_build()
+33         variables = tf.get\_collection(tf.GraphKeys.GLOBAL\_VARIABLES, scope=self.name)
+34         self.vars = \{var.name: var \textcolor{keywordflow}{for} var \textcolor{keywordflow}{in} variables\}
+35 
+\end{DoxyCode}
+\mbox{\Hypertarget{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}\label{classgae_1_1model_1_1Model_a04510784ad07bd7f15e3798f2730700a}} 
+\index{gae\+::model\+::\+Model@{gae\+::model\+::\+Model}!build@{build}}
+\index{build@{build}!gae\+::model\+::\+Model@{gae\+::model\+::\+Model}}
+\subsubsection{\texorpdfstring{build()}{build()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily def gae.\+model.\+Model.\+build (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrapper for _build() \end{DoxyVerb}
+ 
+\begin{DoxyCode}
+29     \textcolor{keyword}{def }build(self):
+30         \textcolor{stringliteral}{""" Wrapper for \_build() """}
+31         with tf.variable\_scope(self.name):
+32             self.\_build()
+33         variables = tf.get\_collection(tf.GraphKeys.GLOBAL\_VARIABLES, scope=self.name)
+34         self.vars = \{var.name: var \textcolor{keywordflow}{for} var \textcolor{keywordflow}{in} variables\}
+35 
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/examples/gae/gae/model.\+py\end{DoxyCompactItemize}

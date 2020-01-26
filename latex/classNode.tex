@@ -1,0 +1,53 @@
+\hypertarget{classNode}{}\section{Node$<$ T $>$ Class Template Reference}
+\label{classNode}\index{Node$<$ T $>$@{Node$<$ T $>$}}
+Inheritance diagram for Node$<$ T $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classNode}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNode_aa7e6b5582624ef1e8eedac07e620a208}\label{classNode_aa7e6b5582624ef1e8eedac07e620a208}} 
+typedef \mbox{\hyperlink{classNode}{Node}}$<$ T $>$ {\bfseries node\+\_\+type}
+\item 
+\mbox{\Hypertarget{classNode_afbe280f14fe9ca1e184d975fa24415b0}\label{classNode_afbe280f14fe9ca1e184d975fa24415b0}} 
+typedef \mbox{\hyperlink{classEdge}{Edge}}$<$ \mbox{\hyperlink{classNode}{node\+\_\+type}} $>$ {\bfseries edge\+\_\+type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNode_ad417826027504b85ef6b50735ca64bee}\label{classNode_ad417826027504b85ef6b50735ca64bee}} 
+{\bfseries Node} (std\+::string name)
+\item 
+\mbox{\Hypertarget{classNode_aaeebae509d7dbfb05328124ffbd3f7f2}\label{classNode_aaeebae509d7dbfb05328124ffbd3f7f2}} 
+{\bfseries Node} (std\+::string name, double flow, double tele\+Weight)
+\item 
+\mbox{\Hypertarget{classNode_a0692b16d246460bf94c18d49592facdd}\label{classNode_a0692b16d246460bf94c18d49592facdd}} 
+{\bfseries Node} (T data)
+\item 
+\mbox{\Hypertarget{classNode_acf3c93a34ec38f260a20186e4c126a2d}\label{classNode_acf3c93a34ec38f260a20186e4c126a2d}} 
+{\bfseries Node} (const \mbox{\hyperlink{classNode}{node\+\_\+type}} \&other)
+\item 
+\mbox{\Hypertarget{classNode_adf5e7c58a8b667bde50a9d54de5cd5c1}\label{classNode_adf5e7c58a8b667bde50a9d54de5cd5c1}} 
+virtual void {\bfseries print\+Data} (std\+::ostream \&out)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNode_ac450c71a8677a38d306361f9ced518d3}\label{classNode_ac450c71a8677a38d306361f9ced518d3}} 
+T {\bfseries data}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNode_adcab8ad07fc4a325f5697a520a051b7e}\label{classNode_adcab8ad07fc4a325f5697a520a051b7e}} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&out, const \mbox{\hyperlink{classNode}{node\+\_\+type}} \&\mbox{\hyperlink{structnode}{node}})
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Node.\+h\end{DoxyCompactItemize}

@@ -11,7 +11,7 @@ rank = comm.rank  # The process ID (integer 0-3 for 4-process run)
 try:
     soft=int(MPI.INFO_ENV.get("soft"))
 except:
-    print('cant find MPI soft, using 2 cores')
+    #print('cant find MPI soft, using 2 cores')
     soft = 2
 #maxprocs= int(MPI.INFO_ENV.get("maxprocs"))
 
@@ -26,7 +26,6 @@ except:
 
 ncpus = soft# int(comm.Get_attr(MPI.UNIVERSE_SIZE)) #int(os.popen('echo $NCPUS').read())
 
-print(('ncpu rank', ncpus , rank , soft))
 
 if ncpus <2 :
     ncpus = 2
@@ -43,7 +42,7 @@ if ncpus > 130:
 
 obs=False
 groups = None
-debug=None #'for boradcast'
+debug='' #'for boradcast'
 savelist = ['spec','rate','flux','vdot','jacsp']
 
 
@@ -53,18 +52,24 @@ for i in sys.argv[1:]:
             obs = int(tuple(open('include.obs'))[0].strip().replace('!obs:',''))
             print('observations being used, number of obs: ',int(obs))
     elif i == '--spinup':
-            obs = -1
+            if not obs: obs = -1
             print('Spinup period active')
     if '.h5' in i :
         filename = i.strip()
-    if '--debug' in i:
-        debug = True
+        
+    
+    if '--debug' not in i:
+        debug = '1>>temp.txt'# 2>&1
 
 #print ('dsfds',__file__,os.popen('pwd').read())
 
 try:
     
     if rank == 0:
+        #remove temp file - once
+        print(('ncpu rank', ncpus , rank , soft))
+        os.system('touch temp.txt && rm temp.txt')
+        
         ###read args
         extend = True
         rewind = False
@@ -87,10 +92,6 @@ try:
 
         print('edges:',len(edges))
         ### end jacheader ###
-
-        if not debug:
-            os.system(' touch temp.txt && rm temp.txt')
-            debug = '>>temp.txt'
 
         head= hf.attrs['ictime'] + '\n' + '!'.join(['%15s'%i.decode('utf-8') for i in hf['icspecs']])+ '\n' + '!'.join(['%15s'%i for i in hf['icconst']])
 
@@ -121,15 +122,16 @@ try:
     groups = comm.bcast(groups,root=0)
     obs = comm.bcast(obs,root=0)
     lgroups = len(groups)
-
+    warn = ''
     #sys.stdout.flush()
     #print ('barrier:bcast')
     comm.Barrier()
-
+    
     n=rank-1
 
     if rank>0:
-
+        import subprocess
+        
 
         while n < lgroups:
 
@@ -137,10 +139,12 @@ try:
 
                 #set the model
                 model='model'
-
+                
                 if '-' in g[1]:
-                    if runsaved: model='save/exec/%s/model'%(g[1].split('-')[-1])
-                    else:  description = g[1].split('-')[0]
+                    if runsaved: 
+                        model='save/exec/%s/model'%(g[1].split('-')[-1])
+                        
+                description = g[1]
 
 
                 #run cmd
@@ -149,12 +153,16 @@ try:
                 print('\n'+ run, ' of version ' , version) ;
 
                 ##the actual run
-                start = time.strftime("%s");os.system(run)
+                start = time.strftime("%s");
+                warn = os.popen(run).read()
+                    
+                if warn.replace(' ','') != '':
+                    warn = '\n --- Run No %d - %s ---\n%s'%(n,str(description),warn)
                 wall = int(time.strftime("%s")) - int(start)
 
 
                 #return data
-                data = {'wall':wall,'group':g[1],'vers':version.strip(),'id':g[0]}
+                data = {'wall':wall,'group':g[1],'vers':version.strip(),'id':g[0],'warn':warn}
                 comm.isend(data, 0,tag=n)
 
                 #next task
@@ -162,7 +170,7 @@ try:
 
 
     else:
-
+        warn = ''
         for i in range(lgroups):
                 
                 print('Progress: %02d '%((float(i)/lgroups)*100.))
@@ -177,8 +185,8 @@ try:
 
                 g.attrs['version'] = req['vers']
                 g.attrs['wall']= req['wall']
-
-
+                g.attrs['warn']= req['warn']
+                warn += req['warn']
                 
                 for dataset in savelist:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
@@ -258,6 +266,11 @@ try:
 
     if rank ==0 :
         print("\033]0; Simulation Finished \007")
+        
+        if len(warn)>0:
+            import warnings
+            warnings.warn(warn)
+        
         hf.close()
         print('written' , filename)
 

@@ -1,0 +1,359 @@
+\hypertarget{classMemNetwork}{}\section{Mem\+Network Class Reference}
+\label{classMemNetwork}\index{Mem\+Network@{Mem\+Network}}
+Inheritance diagram for Mem\+Network\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classMemNetwork}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a64ae997611534ee80c4993a49ccbb652}\label{classMemNetwork_a64ae997611534ee80c4993a49ccbb652}} 
+typedef map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, double $>$ $>$ {\bfseries State\+Link\+Map}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a8eba1b8ed53d6d20635f1772f5b9528f}\label{classMemNetwork_a8eba1b8ed53d6d20635f1772f5b9528f}} 
+typedef map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, unsigned int $>$ {\bfseries State\+Node\+Map}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a3f2dccd42343679d2cdecd4496a793a7}\label{classMemNetwork_a3f2dccd42343679d2cdecd4496a793a7}} 
+{\bfseries Mem\+Network} (const \mbox{\hyperlink{structConfig}{Config}} \&config)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a0e87a2663a07e17318081c531e9700fd}\label{classMemNetwork_a0e87a2663a07e17318081c531e9700fd}} 
+{\bfseries Mem\+Network} (const \mbox{\hyperlink{classMemNetwork}{Mem\+Network}} \&other)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a367df9f78eec8a77fbc1641a3a688d94}\label{classMemNetwork_a367df9f78eec8a77fbc1641a3a688d94}} 
+\mbox{\hyperlink{classMemNetwork}{Mem\+Network}} \& {\bfseries operator=} (const \mbox{\hyperlink{classMemNetwork}{Mem\+Network}} \&other)
+\item 
+\mbox{\Hypertarget{classMemNetwork_ae6270848b45e64c7eca02729f2a5d562}\label{classMemNetwork_ae6270848b45e64c7eca02729f2a5d562}} 
+virtual void {\bfseries read\+Input\+Data} (std\+::string filename=\char`\"{}\char`\"{})
+\item 
+bool \mbox{\hyperlink{classMemNetwork_aed51978dfece1214f4fa9ea2bfebc492}{add\+State\+Link}} (unsigned int n1\+Prior\+State, unsigned int n1, unsigned int n2\+Prior\+State, unsigned int n2, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a37d94f61d885fb39edcde2800cd49a7c}\label{classMemNetwork_a37d94f61d885fb39edcde2800cd49a7c}} 
+bool {\bfseries add\+State\+Link} (unsigned int n1\+Prior\+State, unsigned int n1, unsigned int n2\+Prior\+State, unsigned int n2, double weight, double first\+State\+Node\+Weight, double second\+State\+Node\+Weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a0d404d08ee81830ae2a335ff7350b2c3}\label{classMemNetwork_a0d404d08ee81830ae2a335ff7350b2c3}} 
+bool {\bfseries add\+State\+Link} (State\+Link\+Map\+::iterator first\+State\+Node, unsigned int n2\+Prior\+State, unsigned int n2, double weight, double first\+State\+Node\+Weight, double second\+State\+Node\+Weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_add3e62a4019d3ee07045c499aa730c0c}\label{classMemNetwork_add3e62a4019d3ee07045c499aa730c0c}} 
+bool {\bfseries add\+State\+Link} (const \mbox{\hyperlink{structStateNode}{State\+Node}} \&s1, const \mbox{\hyperlink{structStateNode}{State\+Node}} \&s2, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a7d7f888a1cbc2b99a3e9ceda8095ddde}\label{classMemNetwork_a7d7f888a1cbc2b99a3e9ceda8095ddde}} 
+void {\bfseries add\+State\+Node} (unsigned int prior\+State, unsigned int node\+Index, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a43c7ce8410462fe8575fcfc389473a87}\label{classMemNetwork_a43c7ce8410462fe8575fcfc389473a87}} 
+void {\bfseries add\+State\+Node} (\mbox{\hyperlink{structStateNode}{State\+Node}} \&state\+Node)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a7efa401263402c00f295bb52b54554d9}\label{classMemNetwork_a7efa401263402c00f295bb52b54554d9}} 
+virtual void {\bfseries finalize\+And\+Check\+Network} (bool print\+Summary=true)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a12246e20e8fc3d36f96526de289dcca5}\label{classMemNetwork_a12246e20e8fc3d36f96526de289dcca5}} 
+virtual void {\bfseries print\+Parsing\+Result} (bool include\+First\+Order\+Data=false)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a8590241668fab41d6e37a947ad493885}\label{classMemNetwork_a8590241668fab41d6e37a947ad493885}} 
+unsigned int {\bfseries num\+State\+Nodes} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a34ae888dbea67cad6730a1d9fa611823}\label{classMemNetwork_a34ae888dbea67cad6730a1d9fa611823}} 
+unsigned int {\bfseries num\+Physical\+Nodes} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_ab15e2122de094a042a8cebc1a0e73b37}\label{classMemNetwork_ab15e2122de094a042a8cebc1a0e73b37}} 
+const State\+Node\+Map \& {\bfseries state\+Node\+Map} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a658ae66d196bfff7a3b0db1a3e53e169}\label{classMemNetwork_a658ae66d196bfff7a3b0db1a3e53e169}} 
+const std\+::vector$<$ double $>$ \& {\bfseries state\+Node\+Weights} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_ad8bd42ef05b22797cf723fe2440dcd21}\label{classMemNetwork_ad8bd42ef05b22797cf723fe2440dcd21}} 
+double {\bfseries total\+State\+Node\+Weight} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a23596299629ff7f9ed2dbd6133387ffd}\label{classMemNetwork_a23596299629ff7f9ed2dbd6133387ffd}} 
+const State\+Link\+Map \& {\bfseries state\+Link\+Map} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a07d326d83eb80044df4b6cbd07127aad}\label{classMemNetwork_a07d326d83eb80044df4b6cbd07127aad}} 
+unsigned int {\bfseries num\+State\+Links} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_ac87bd8997dbd5838bbad40e0add47ef8}\label{classMemNetwork_ac87bd8997dbd5838bbad40e0add47ef8}} 
+double {\bfseries total\+State\+Link\+Weight} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a3296368c20f34b50799a386d1ae05630}\label{classMemNetwork_a3296368c20f34b50799a386d1ae05630}} 
+double {\bfseries total\+Memory\+Self\+Link\+Weight} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_af11e1ae05b9c7bbc3a94191891a1e173}\label{classMemNetwork_af11e1ae05b9c7bbc3a94191891a1e173}} 
+const map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, double $>$ \& {\bfseries state\+Nodes} () const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a62129dba818fb621ec3918496039aadd}\label{classMemNetwork_a62129dba818fb621ec3918496039aadd}} 
+virtual void {\bfseries print\+Network\+As\+Pajek} (std\+::string filename) const
+\item 
+\mbox{\Hypertarget{classMemNetwork_abc53094afd486d22794161aeea271c79}\label{classMemNetwork_abc53094afd486d22794161aeea271c79}} 
+virtual void {\bfseries print\+State\+Network} (std\+::string filename) const
+\item 
+\mbox{\Hypertarget{classMemNetwork_a46cb150d68448f2dbf85805f20261d76}\label{classMemNetwork_a46cb150d68448f2dbf85805f20261d76}} 
+virtual void {\bfseries dispose\+Links} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a1b12cb9149ba117eff752f410d44f834}\label{classMemNetwork_a1b12cb9149ba117eff752f410d44f834}} 
+void {\bfseries parse\+Trigram} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{classMemNetwork_ade763dd1db958471f3c85964e17cbf80}\label{classMemNetwork_ade763dd1db958471f3c85964e17cbf80}} 
+void {\bfseries parse\+State\+Network} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{classMemNetwork_ae81d8cbf0f145c5686ed8943679cde39}\label{classMemNetwork_ae81d8cbf0f145c5686ed8943679cde39}} 
+std\+::string {\bfseries parse\+State\+Nodes} (std\+::ifstream \&file)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a440df2398c40391ff5d6163f8817f261}\label{classMemNetwork_a440df2398c40391ff5d6163f8817f261}} 
+std\+::string {\bfseries parse\+State\+Links} (std\+::ifstream \&file)
+\item 
+void \mbox{\hyperlink{classMemNetwork_a2dd225189f5c53efd99bffacfc18bf7a}{simulate\+Memory\+From\+Ordinary\+Network}} ()
+\item 
+\mbox{\Hypertarget{classMemNetwork_a0146d7f7b42ae6ea197d00a6e0acf90d}\label{classMemNetwork_a0146d7f7b42ae6ea197d00a6e0acf90d}} 
+void {\bfseries simulate\+Memory\+To\+Incomplete\+Data} ()
+\item 
+\mbox{\Hypertarget{classMemNetwork_a6361b3a7bcd1ea6ece14a5bec4146977}\label{classMemNetwork_a6361b3a7bcd1ea6ece14a5bec4146977}} 
+void {\bfseries parse\+State\+Node} (const std\+::string \&line, \mbox{\hyperlink{structStateNode}{State\+Node}} \&state\+Node)
+\item 
+void \mbox{\hyperlink{classMemNetwork_acb0405c84f7e3e436867da1673ea7611}{parse\+State\+Link}} (const std\+::string \&line, int \&n1, unsigned int \&n2, unsigned int \&n3, double \&weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_afe668bf6cf827ba60f1f49c48d2f433a}\label{classMemNetwork_afe668bf6cf827ba60f1f49c48d2f433a}} 
+void {\bfseries parse\+State\+Link} (char line\mbox{[}$\,$\mbox{]}, int \&n1, unsigned int \&n2, unsigned int \&n3, double \&weight)
+\item 
+bool \mbox{\hyperlink{classMemNetwork_a57ed428085242fe3d0538a97f52f174d}{insert\+State\+Link}} (unsigned int n1\+Prior\+State, unsigned int n1, unsigned int n2\+Prior\+State, unsigned int n2, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a77997b6d47b209c195e37026338fd34c}\label{classMemNetwork_a77997b6d47b209c195e37026338fd34c}} 
+bool {\bfseries insert\+State\+Link} (const \mbox{\hyperlink{structStateNode}{State\+Node}} \&s1, const \mbox{\hyperlink{structStateNode}{State\+Node}} \&s2, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a4d09b351573739a7956ce1db3926aa57}\label{classMemNetwork_a4d09b351573739a7956ce1db3926aa57}} 
+bool {\bfseries insert\+State\+Link} (State\+Link\+Map\+::iterator first\+State\+Node, unsigned int n2\+Prior\+State, unsigned int n2, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_a41ddbd68bad604a6750fa709013f0cb2}\label{classMemNetwork_a41ddbd68bad604a6750fa709013f0cb2}} 
+bool {\bfseries add\+Incomplete\+State\+Link} (unsigned int n1, unsigned int n2, double weight)
+\item 
+\mbox{\Hypertarget{classMemNetwork_acd3e449e39cdd1b841aa65496aee3680}\label{classMemNetwork_acd3e449e39cdd1b841aa65496aee3680}} 
+unsigned int {\bfseries add\+Missing\+Physical\+Nodes} ()
+\item 
+\mbox{\Hypertarget{classMemNetwork_a7ab065a52785f969762a60146476e2fe}\label{classMemNetwork_a7ab065a52785f969762a60146476e2fe}} 
+virtual void {\bfseries init\+Node\+Degrees} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemNetwork_ac706a78a4f646f1c2b9828711298e0a6}\label{classMemNetwork_ac706a78a4f646f1c2b9828711298e0a6}} 
+map$<$ \mbox{\hyperlink{structStateNode}{State\+Node}}, double $>$ {\bfseries m\+\_\+state\+Nodes}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a895ed9cdf6f0dee0deeaed21fdeafa85}\label{classMemNetwork_a895ed9cdf6f0dee0deeaed21fdeafa85}} 
+State\+Node\+Map {\bfseries m\+\_\+state\+Node\+Map}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a117526846877a6823dd8b5d8d6889b35}\label{classMemNetwork_a117526846877a6823dd8b5d8d6889b35}} 
+std\+::vector$<$ double $>$ {\bfseries m\+\_\+state\+Node\+Weights}
+\item 
+\mbox{\Hypertarget{classMemNetwork_ad5b3d6b5da22a29a409194041a28e2a3}\label{classMemNetwork_ad5b3d6b5da22a29a409194041a28e2a3}} 
+double {\bfseries m\+\_\+tot\+State\+Node\+Weight}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a7594289a82cf1824d7c7b929a3e86dc9}\label{classMemNetwork_a7594289a82cf1824d7c7b929a3e86dc9}} 
+Link\+Map {\bfseries m\+\_\+incomplete\+State\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_af517f59c8a83be477b0ab1dc7aa2f4fb}\label{classMemNetwork_af517f59c8a83be477b0ab1dc7aa2f4fb}} 
+std\+::set$<$ unsigned int $>$ {\bfseries m\+\_\+phys\+Nodes}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a57085fec03a1541df84e4d6ee19e823a}\label{classMemNetwork_a57085fec03a1541df84e4d6ee19e823a}} 
+unsigned int {\bfseries m\+\_\+num\+State\+Links\+Found}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a713b9d3b7f9f9efebee37f02477e8ea2}\label{classMemNetwork_a713b9d3b7f9f9efebee37f02477e8ea2}} 
+unsigned int {\bfseries m\+\_\+num\+State\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a5348b97b2d1af2815ae73619cdc5695c}\label{classMemNetwork_a5348b97b2d1af2815ae73619cdc5695c}} 
+State\+Link\+Map {\bfseries m\+\_\+state\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a2ef328a3ab98dc5843809a1958fb7036}\label{classMemNetwork_a2ef328a3ab98dc5843809a1958fb7036}} 
+double {\bfseries m\+\_\+tot\+State\+Link\+Weight}
+\item 
+\mbox{\Hypertarget{classMemNetwork_ac9734738693565231f0c0a740c273689}\label{classMemNetwork_ac9734738693565231f0c0a740c273689}} 
+unsigned int {\bfseries m\+\_\+num\+Aggregated\+State\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_ab396d47122d220c554a81eafb6670dcc}\label{classMemNetwork_ab396d47122d220c554a81eafb6670dcc}} 
+unsigned int {\bfseries m\+\_\+num\+Memory\+Self\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_af17324a2d3a89d8eaeacf4b9f3dc6fbc}\label{classMemNetwork_af17324a2d3a89d8eaeacf4b9f3dc6fbc}} 
+double {\bfseries m\+\_\+total\+Memory\+Self\+Link\+Weight}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a2bb43754ac441f43da612aa4b0c4f1b9}\label{classMemNetwork_a2bb43754ac441f43da612aa4b0c4f1b9}} 
+unsigned int {\bfseries m\+\_\+num\+Incomplete\+State\+Links\+Found}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a4549e85a4c7e0b62e0a07783e6cbd4a3}\label{classMemNetwork_a4549e85a4c7e0b62e0a07783e6cbd4a3}} 
+unsigned int {\bfseries m\+\_\+num\+Incomplete\+State\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_ad497ebf3a8b142df868d5a92ecb08b07}\label{classMemNetwork_ad497ebf3a8b142df868d5a92ecb08b07}} 
+unsigned int {\bfseries m\+\_\+num\+Aggregated\+Incomplete\+State\+Links}
+\item 
+\mbox{\Hypertarget{classMemNetwork_aa374feda8d019ef54d6d45b09f57ca61}\label{classMemNetwork_aa374feda8d019ef54d6d45b09f57ca61}} 
+unsigned int {\bfseries m\+\_\+num\+State\+Nodes\+Found}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a7d9f544e2e8b71812e9605170b07f886}\label{classMemNetwork_a7d9f544e2e8b71812e9605170b07f886}} 
+unsigned int {\bfseries m\+\_\+max\+State\+Index}
+\item 
+\mbox{\Hypertarget{classMemNetwork_a540d28cc9eb1f7a7f33913251c2399ad}\label{classMemNetwork_a540d28cc9eb1f7a7f33913251c2399ad}} 
+unsigned int {\bfseries m\+\_\+min\+State\+Index}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMemNetwork_aed51978dfece1214f4fa9ea2bfebc492}\label{classMemNetwork_aed51978dfece1214f4fa9ea2bfebc492}} 
+\index{Mem\+Network@{Mem\+Network}!add\+State\+Link@{add\+State\+Link}}
+\index{add\+State\+Link@{add\+State\+Link}!Mem\+Network@{Mem\+Network}}
+\subsubsection{\texorpdfstring{add\+State\+Link()}{addStateLink()}}
+{\footnotesize\ttfamily bool Mem\+Network\+::add\+State\+Link (\begin{DoxyParamCaption}\item[{unsigned int}]{n1\+Prior\+State,  }\item[{unsigned int}]{n1,  }\item[{unsigned int}]{n2\+Prior\+State,  }\item[{unsigned int}]{n2,  }\item[{double}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Add a weighted link between two memory nodes. \begin{DoxyReturn}{Returns}
+true if a new link was inserted, false if skipped due to cutoff limit or aggregated to existing link 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+340 \{
+341     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMemNetwork_aed51978dfece1214f4fa9ea2bfebc492}{addStateLink}}(n1PriorState, n1, n2PriorState, n2, weight, weight, 0.0);
+342 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMemNetwork_a57ed428085242fe3d0538a97f52f174d}\label{classMemNetwork_a57ed428085242fe3d0538a97f52f174d}} 
+\index{Mem\+Network@{Mem\+Network}!insert\+State\+Link@{insert\+State\+Link}}
+\index{insert\+State\+Link@{insert\+State\+Link}!Mem\+Network@{Mem\+Network}}
+\subsubsection{\texorpdfstring{insert\+State\+Link()}{insertStateLink()}}
+{\footnotesize\ttfamily bool Mem\+Network\+::insert\+State\+Link (\begin{DoxyParamCaption}\item[{unsigned int}]{n1\+Prior\+State,  }\item[{unsigned int}]{n1,  }\item[{unsigned int}]{n2\+Prior\+State,  }\item[{unsigned int}]{n2,  }\item[{double}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Insert memory link, indexed on first state-\/node and aggregated if exist \begin{DoxyNote}{Note}
+Called by add\+State\+Link 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+true if a new link was inserted, false if aggregated 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+660 \{
+661     \mbox{\hyperlink{structStateNode}{StateNode}} s1(n1PriorState, n1);
+662     \mbox{\hyperlink{structStateNode}{StateNode}} s2(n2PriorState, n2);
+663     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMemNetwork_a57ed428085242fe3d0538a97f52f174d}{insertStateLink}}(s1, s2, weight);
+664 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMemNetwork_acb0405c84f7e3e436867da1673ea7611}\label{classMemNetwork_acb0405c84f7e3e436867da1673ea7611}} 
+\index{Mem\+Network@{Mem\+Network}!parse\+State\+Link@{parse\+State\+Link}}
+\index{parse\+State\+Link@{parse\+State\+Link}!Mem\+Network@{Mem\+Network}}
+\subsubsection{\texorpdfstring{parse\+State\+Link()}{parseStateLink()}}
+{\footnotesize\ttfamily void Mem\+Network\+::parse\+State\+Link (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{line,  }\item[{int \&}]{n1,  }\item[{unsigned int \&}]{n2,  }\item[{unsigned int \&}]{n3,  }\item[{double \&}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse a string of link data. If no weight data can be extracted, the default value 1.\+0 will be used. Note that the first node number can be negative, which means that memory information is missing. 
+\begin{DoxyExceptions}{Exceptions}
+{\em an} & error if not both node numbers can be extracted. \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyCode}
+508 \{
+509     m\_extractor.clear();
+510     m\_extractor.str(line);
+511     \textcolor{keywordflow}{if} (!(m\_extractor >> n1 >> n2 >> n3))
+512         \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Can't parse link data from line '"} << 
+      line << \textcolor{stringliteral}{"'"});
+513     (m\_extractor >> weight) || (weight = 1.0);
+514 
+515     n1 -= m\_indexOffset;
+516     n2 -= m\_indexOffset;
+517     n3 -= m\_indexOffset;
+518 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMemNetwork_a2dd225189f5c53efd99bffacfc18bf7a}\label{classMemNetwork_a2dd225189f5c53efd99bffacfc18bf7a}} 
+\index{Mem\+Network@{Mem\+Network}!simulate\+Memory\+From\+Ordinary\+Network@{simulate\+Memory\+From\+Ordinary\+Network}}
+\index{simulate\+Memory\+From\+Ordinary\+Network@{simulate\+Memory\+From\+Ordinary\+Network}!Mem\+Network@{Mem\+Network}}
+\subsubsection{\texorpdfstring{simulate\+Memory\+From\+Ordinary\+Network()}{simulateMemoryFromOrdinaryNetwork()}}
+{\footnotesize\ttfamily void Mem\+Network\+::simulate\+Memory\+From\+Ordinary\+Network (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Create trigrams from first order data by chaining pair of overlapping links. Example pair (1,2) and (2,3) will be chained and (2,1) (2,3) only if undirected
+
+Example of ordinary network\+: n1 n2 w12 n1 n3 w13 n2 n3 w23 n2 n4 w24 n3 n4 w34
+
+Its corresponding trigram (for directed input)\+: n1 n2 n3 w23 n1 n2 n4 w24 n1 n3 n4 w34 n2 n3 n4 w34 +first-\/order links for dangling memory nodes
+
+For undirected input, the ordinary network will first be inflated for both directions\+: n1 n2 w12 n1 n3 w13 n2 n3 w23 n2 n4 w24 n3 n4 w34 n2 n1 w12 n3 n1 w13 n3 n2 w23 n4 n2 w24 n4 n3 w34
+
+Its corresponding trigram (for undirected input)\+: n1 n2 n1 w12 n1 n2 n3 w23 n1 n2 n4 w24 n1 n3 n1 w13 n1 n3 n2 w23 n1 n3 n4 w34 n2 n3 n1 w13 n2 n3 n2 w32 n2 n3 n4 w34 n2 n1 n2 w12 n2 n1 n3 w13 n3 n1 n2 w12 n3 n1 n3 w13 n3 n2 n1 w12 n3 n2 n3 w23 n3 n2 n4 w24 n4 n2 n1 w12 n4 n2 n3 w23 n4 n2 n4 w24 n4 n3 n1 w13 n4 n3 n2 w23 n4 n3 n4 w34 
+\begin{DoxyCode}
+255 \{
+256     \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{"Simulating memory from ordinary network by chaining pair of overlapping links to
+       trigrams... "} << std::flush;
+257 
+258     \textcolor{comment}{// Reset some data from ordinary network}
+259     m\_totalLinkWeight = 0.0;
+260     m\_numSelfLinks = 0.0;
+261     m\_totalSelfLinkWeight = 0.0;
+262 
+263     \textcolor{keywordflow}{if} (m\_config.originallyUndirected)
+264     \{
+265         \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{"(inflating undirected network... "} << std::flush;
+266         LinkMap oldNetwork;
+267         oldNetwork.swap(m\_links);
+268         \textcolor{keywordflow}{for} (LinkMap::const\_iterator linkIt(oldNetwork.begin()); linkIt != oldNetwork.end(); ++linkIt)
+269         \{
+270             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} linkEnd1 = linkIt->first;
+271             \textcolor{keyword}{const} std::map<unsigned int, double>& subLinks = linkIt->second;
+272             \textcolor{keywordflow}{for} (std::map<unsigned int, double>::const\_iterator subIt(subLinks.begin()); subIt != subLinks.
+      end(); ++subIt)
+273             \{
+274                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} linkEnd2 = subIt->first;
+275                 \textcolor{keywordtype}{double} linkWeight = subIt->second;
+276                 \textcolor{comment}{// Add link to both directions}
+277                 \mbox{\hyperlink{classNetwork_ace5fa3249715ed1b840fa733976aa57b}{insertLink}}(linkEnd1, linkEnd2, linkWeight);
+278                 \mbox{\hyperlink{classNetwork_ace5fa3249715ed1b840fa733976aa57b}{insertLink}}(linkEnd2, linkEnd1, linkWeight);
+279             \}
+280         \}
+281 
+282         \textcolor{comment}{// Dispose old network from memory}
+283         LinkMap().swap(oldNetwork);
+284         \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{") "} << std::flush;
+285     \}
+286 
+287     \textcolor{keywordflow}{for} (LinkMap::const\_iterator linkIt(m\_links.begin()); linkIt != m\_links.end(); ++linkIt)
+288     \{
+289         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n1 = linkIt->first;
+290         \textcolor{keyword}{const} std::map<unsigned int, double>& subLinks = linkIt->second;
+291         \textcolor{keywordflow}{for} (std::map<unsigned int, double>::const\_iterator subIt(subLinks.begin()); subIt != subLinks.end(
+      ); ++subIt)
+292         \{
+293             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n2 = subIt->first;
+294             \textcolor{keywordtype}{double} firstLinkWeight = subIt->second;
+295 
+296             \textcolor{comment}{// Create trigrams with all links that start with the end node of current link}
+297             LinkMap::iterator secondLinkIt = m\_links.find(n2);
+298             \textcolor{keywordflow}{if} (secondLinkIt != m\_links.end())
+299             \{
+300                 std::map<unsigned int, double>& secondLinkSubMap = secondLinkIt->second;
+301                 \textcolor{keywordflow}{for} (std::map<unsigned int, double>::const\_iterator secondSubIt(secondLinkSubMap.begin()); 
+      secondSubIt != secondLinkSubMap.end(); ++secondSubIt)
+302                 \{
+303                     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n3 = secondSubIt->first;
+304                     \textcolor{keywordtype}{double} linkWeight = secondSubIt->second;
+305 
+306                     \textcolor{keywordflow}{if}(!m\_config.nonBacktracking || (n1 != n3))
+307                         \mbox{\hyperlink{classMemNetwork_aed51978dfece1214f4fa9ea2bfebc492}{addStateLink}}(n1, n2, n2, n3, linkWeight, firstLinkWeight / 
+      secondLinkSubMap.size(), 0.0);
+308 
+309                 \}
+310             \}
+311             \textcolor{keywordflow}{else}
+312             \{
+313                 \textcolor{comment}{// No chainable link found, create a dangling memory node (or remove need for existence in
+       MemFlowNetwork?)}
+314 \textcolor{comment}{//              addStateNode(n1, n2, firstLinkWeight);}
+315                 \mbox{\hyperlink{classMemNetwork_aed51978dfece1214f4fa9ea2bfebc492}{addStateLink}}(n1, n1, n1, n2, firstLinkWeight);
+316             \}
+317         \}
+318     \}
+319 
+320     \mbox{\hyperlink{classLog}{Log}}() << \textcolor{stringliteral}{"done!"} << std::endl;
+321 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Mem\+Network.\+h\item 
+dsmacc/graph/infomap/src/infomap/Mem\+Network.\+cpp\end{DoxyCompactItemize}

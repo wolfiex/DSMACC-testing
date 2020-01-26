@@ -1,0 +1,97 @@
+\hypertarget{namespacesimplify__rates}{}\section{simplify\+\_\+rates Namespace Reference}
+\label{namespacesimplify__rates}\index{simplify\+\_\+rates@{simplify\+\_\+rates}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a6db8f9f3f49dea6899ba0f2a4d35f978}\label{namespacesimplify__rates_a6db8f9f3f49dea6899ba0f2a4d35f978}} 
+def {\bfseries numeric} (x)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a4d43fee0fbf9678d90c62926c876680c}\label{namespacesimplify__rates_a4d43fee0fbf9678d90c62926c876680c}} 
+\mbox{\hyperlink{namespacesimplify__rates_a4d43fee0fbf9678d90c62926c876680c}{filename}} = sys.\+argv\mbox{[}1\mbox{]}
+\begin{DoxyCompactList}\small\item\em Rate file we wish to open. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespacesimplify__rates_accb9a5eaca8a4c894674fd7328df1ac3}\label{namespacesimplify__rates_accb9a5eaca8a4c894674fd7328df1ac3}} 
+{\bfseries data} = tuple(open(\mbox{\hyperlink{namespacesimplify__rates_a4d43fee0fbf9678d90c62926c876680c}{filename}}))
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_acf232c01e969293f2f939cec89a778b9}\label{namespacesimplify__rates_acf232c01e969293f2f939cec89a778b9}} 
+{\bfseries nonreal}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a103cda6412711765c1f0b9e76b8d6531}\label{namespacesimplify__rates_a103cda6412711765c1f0b9e76b8d6531}} 
+{\bfseries string}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a0464575d1bab331bf7939b87961ffa6f}\label{namespacesimplify__rates_a0464575d1bab331bf7939b87961ffa6f}} 
+{\bfseries datalower}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_aa522a07e391b2e485d618a63fa902532}\label{namespacesimplify__rates_aa522a07e391b2e485d618a63fa902532}} 
+{\bfseries constants} = re.\+findall(r\textquotesingle{}\textbackslash{}b(\textbackslash{}w+)\textbackslash{}b\textbackslash{}s$\ast$=\textquotesingle{},datalower)
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_ade82266907adfa43d287db8ad95cb173}\label{namespacesimplify__rates_ade82266907adfa43d287db8ad95cb173}} 
+{\bfseries coeff\+\_\+d} = dict(\mbox{[}\mbox{[}j,i\mbox{]} for i,j in enumerate(constants)\mbox{]})
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_ac6883fe98ae952d900de0c35ca9edba0}\label{namespacesimplify__rates_ac6883fe98ae952d900de0c35ca9edba0}} 
+list {\bfseries eqns} = \mbox{[} re.\+sub(r\textquotesingle{}(\textbackslash{}d)\mbox{[}d\mbox{]}(\mbox{[}\textbackslash{}W\textbackslash{}d\mbox{]})\textquotesingle{}, r\textquotesingle{}\textbackslash{}1e\textbackslash{}2\textquotesingle{} , eq ) for eq in re.\+findall( r\textquotesingle{}\textbackslash{}b\textbackslash{}w+\textbackslash{}b\textbackslash{}s$\ast$=\textbackslash{}s$\ast$(\mbox{[}\textbackslash{}\+S \mbox{]}+)\textbackslash{}n\textquotesingle{}, datalower)\mbox{]}
+\item 
+\mbox{\hyperlink{namespacesimplify__rates_a39faabc858790d5788b9077e58bd20fc}{const}} = constants\mbox{[}i\mbox{]}
+\begin{DoxyCompactList}\small\item\em First pass from equation simplification. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a6a7252cbdd68227b6ccbb17ee90e8fa2}\label{namespacesimplify__rates_a6a7252cbdd68227b6ccbb17ee90e8fa2}} 
+bool {\bfseries spfd} = False
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a229dbb8f6a9d8a4142256188f3efa7a4}\label{namespacesimplify__rates_a229dbb8f6a9d8a4142256188f3efa7a4}} 
+\mbox{\hyperlink{namespacesimplify__rates_a229dbb8f6a9d8a4142256188f3efa7a4}{cffs}} = re.\+findall(r\textquotesingle{}\textbackslash{}b(\mbox{[}A-\/z\mbox{]}\textbackslash{}w$\ast$)\textbackslash{}b\textquotesingle{},eqns\mbox{[}coeff\+\_\+d\mbox{[}name\mbox{]}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Second pass. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespacesimplify__rates_aedb66986f43a0c635e57c7368c48a2ec}\label{namespacesimplify__rates_aedb66986f43a0c635e57c7368c48a2ec}} 
+list {\bfseries j} = eqns\mbox{[}coeff\+\_\+d\mbox{[}name\mbox{]}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a76d1ab81ce30b654efc37f33cde1962b}\label{namespacesimplify__rates_a76d1ab81ce30b654efc37f33cde1962b}} 
+{\bfseries neweqn} = re.\+sub(r\textquotesingle{}mpmath.\+log10\textbackslash{}((\textquotesingle{}+\textquotesingle{}$\vert$\textquotesingle{}.join(nonreal)+\textquotesingle{})\textbackslash{})\textquotesingle{},r\textquotesingle{}L\+O\+G10(\textbackslash{}1)\textquotesingle{},j.\+replace(\textquotesingle{}log10\textquotesingle{},\textquotesingle{}mpmath.\+log10\textquotesingle{}))
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a9681db7e2db921306dd2ee456f65bc61}\label{namespacesimplify__rates_a9681db7e2db921306dd2ee456f65bc61}} 
+list {\bfseries values} = \mbox{[}str(locals()\mbox{[}i\mbox{]}) for i in constants\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_ab466add2abba2a60a035d1655ebb7c0f}\label{namespacesimplify__rates_ab466add2abba2a60a035d1655ebb7c0f}} 
+list {\bfseries fixed} = \mbox{[}numeric(i) for i in values\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a8c18a8ba4e3ee8345970ff62482b41ef}\label{namespacesimplify__rates_a8c18a8ba4e3ee8345970ff62482b41ef}} 
+{\bfseries df} = pd.\+Data\+Frame(\mbox{[}eqns,values,fixed\mbox{]},columns=constants,index=\mbox{[}\textquotesingle{}original\textquotesingle{},\textquotesingle{}simplified\textquotesingle{},\textquotesingle{}parameter\textquotesingle{}\mbox{]}).T
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a3cdf5a6cd15c4382f0420647fefded1c}\label{namespacesimplify__rates_a3cdf5a6cd15c4382f0420647fefded1c}} 
+\mbox{\hyperlink{namespacesimplify__rates_a3cdf5a6cd15c4382f0420647fefded1c}{save}} = df\mbox{[}df.\+parameter\mbox{]}
+\begin{DoxyCompactList}\small\item\em split into variable and fixed rate constants \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a96869f829cae709ac6fd563faf6d5791}\label{namespacesimplify__rates_a96869f829cae709ac6fd563faf6d5791}} 
+{\bfseries variable} = df\mbox{[}df.\+parameter==False\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a1d2c39c6058806173e47118bd65e3f2c}\label{namespacesimplify__rates_a1d2c39c6058806173e47118bd65e3f2c}} 
+string {\bfseries definitions} = \textquotesingle{}Real(dp) \+:: \textquotesingle{}+ \textquotesingle{},\textquotesingle{}.join(variable.\+index) + \textquotesingle{}\textbackslash{}n\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacesimplify__rates_a2bbe67188c1665ed96ab5e7bd7cf0ce0}\label{namespacesimplify__rates_a2bbe67188c1665ed96ab5e7bd7cf0ce0}} 
+string {\bfseries variables} = \textquotesingle{}\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Simplifying the rate coefficients of DSMACC using the sympy symbolic simplification library
+
+Creates a Param definition file, and a variable definition file. 
+
+
+daniel.ellis@york.ac.uk 2017
+\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacesimplify__rates_a39faabc858790d5788b9077e58bd20fc}\label{namespacesimplify__rates_a39faabc858790d5788b9077e58bd20fc}} 
+\index{simplify\+\_\+rates@{simplify\+\_\+rates}!const@{const}}
+\index{const@{const}!simplify\+\_\+rates@{simplify\+\_\+rates}}
+\subsubsection{\texorpdfstring{const}{const}}
+{\footnotesize\ttfamily simplify\+\_\+rates.\+const = constants\mbox{[}i\mbox{]}}
+
+
+
+First pass from equation simplification. 
+
+
+\begin{DoxyItemize}
+\item this round identifies equations that are exclusively numeric 
+\end{DoxyItemize}

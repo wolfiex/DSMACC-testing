@@ -99,24 +99,18 @@ run_counter = run_counter+1
 CALL Update_RCONST()! Update the rate constants
 
 !If we wish to spinup or constrain to observations
-
 if (obs > 0) then
         ! DFRACT - day fraction
         DFRACT = (Time-tstart)
 
-
         if (DFRACT < spinup) then
-
             ! multi day daycounter
             ! DFRACT = ((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.)
-
             !diurnal daycounter
             DFRACT = mod(((DAYCOUNTER*dt)/86400.) + mod(JDAY,1.),1.)
-
             include 'include.obs'
 
         else if (DFRACT .eq. spinup) then
-
             ! print *, 'Stop constrain at ',DFRACT
             DFRACT = -1
             include 'include.obs'
@@ -234,11 +228,19 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
     DIURNAL_OLD(1:NVAR,1:Daycounter)=DIURNAL_NEW(1:NVAR,1:DAYCOUNTER)
     TEND = TEND + DAY
     print *, line, ' fractional difference aim 0 :', abs(fracdiff - 1e-3)
+    
+    !write to standarderror
+    if (spinup/day>30) THEN
+        write(0,*) ' '//achar(27)//'[91m WARNING:',ln,'spinup took longer than a month - steady state NOT reached. Continuing as if it had.'//achar(27)//'[97m'
+        FRACDIFF = 0
+    END IF
+
+    
     IF (FRACDIFF .LE. 1e-3) THEN
 
             CONSTRAIN_RUN = .FALSE.
             obs = 0
-            print *, 'Converged at ',spinup,'timesteps'
+            print *, 'Converged at ',spinup,'timesteps with FRACDIFF', FRACDIFF
             call initVal(concs,.FALSE.)
             continue
             !If (FRACDIFF .le. 0) GOTO 1000    ! stop if system has converged end simulation
@@ -247,6 +249,7 @@ IF (CONSTRAIN_RUN .eqv. .TRUE.) THEN
     !Reset params and add a day to TEND
 
     SPINUP = SPINUP + DAY
+    
 
     if (obs < 0) then
         call initVal(concs,.FALSE.)!re-initialise values

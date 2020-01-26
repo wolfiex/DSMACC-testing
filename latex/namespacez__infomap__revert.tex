@@ -1,0 +1,100 @@
+\hypertarget{namespacez__infomap__revert}{}\section{z\+\_\+infomap\+\_\+revert Namespace Reference}
+\label{namespacez__infomap__revert}\index{z\+\_\+infomap\+\_\+revert@{z\+\_\+infomap\+\_\+revert}}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_af3e8e8bdaf06738e404a9f531baa05bd}\label{namespacez__infomap__revert_af3e8e8bdaf06738e404a9f531baa05bd}} 
+{\bfseries mcm} = list(pd.\+read\+\_\+csv(\textquotesingle{}src/background/smiles\+\_\+mined.\+csv\textquotesingle{}).name)
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a8ce6e864c2e1a72db7cbb716ad1bfd1f}\label{namespacez__infomap__revert_a8ce6e864c2e1a72db7cbb716ad1bfd1f}} 
+list {\bfseries cs} = \mbox{[}i.\+split(\textquotesingle{},\textquotesingle{})\mbox{[}-\/1\mbox{]}.replace(\textquotesingle{}\textbackslash{}n\textquotesingle{},\textquotesingle{}\textquotesingle{}) for i in tuple(open(\textquotesingle{}carbons.\+csv\textquotesingle{}))\mbox{]}
+\item 
+list {\bfseries exclude}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a2205a50a4a651eac2c3a48097d3f5bf9}\label{namespacez__infomap__revert_a2205a50a4a651eac2c3a48097d3f5bf9}} 
+{\bfseries filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a34b8f073044fbe3e464ac8c75254ccdc}\label{namespacez__infomap__revert_a34b8f073044fbe3e464ac8c75254ccdc}} 
+int {\bfseries group\+\_\+id} = int(sys.\+argv\mbox{[}2\mbox{]})-\/1
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a91f0b991bd4fa8ff35dcdde1c8bb5c3c}\label{namespacez__infomap__revert_a91f0b991bd4fa8ff35dcdde1c8bb5c3c}} 
+{\bfseries data} = \mbox{\hyperlink{classzhdf_1_1new}{new}}(filename,group\+\_\+id)
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a7c582f7b2b581ec74d2ecfb79493ef6d}\label{namespacez__infomap__revert_a7c582f7b2b581ec74d2ecfb79493ef6d}} 
+{\bfseries allspecs} = filter(lambda x\+: x not in exclude ,data.\+spec.\+columns)
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_aeffcf8e78f15807b94556b5ffb793828}\label{namespacez__infomap__revert_aeffcf8e78f15807b94556b5ffb793828}} 
+{\bfseries spec2num} = dict(zip(allspecs,range(len(allspecs))))
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_af21b623980bf60bfd13a88cdbc982be1}\label{namespacez__infomap__revert_af21b623980bf60bfd13a88cdbc982be1}} 
+{\bfseries flux} = data.\+flux.\+compute()
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a9d5cc2e7c214ff1f76e97aa6c7a86fec}\label{namespacez__infomap__revert_a9d5cc2e7c214ff1f76e97aa6c7a86fec}} 
+string {\bfseries day} = \textquotesingle{}10,11,12,13,14\textquotesingle{}.split(\textquotesingle{},\textquotesingle{})\mbox{[}0\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a57043f45d2f159db61584f5eb2bcb015}\label{namespacez__infomap__revert_a57043f45d2f159db61584f5eb2bcb015}} 
+string {\bfseries night} = \textquotesingle{}22,23,00,01,02\textquotesingle{}.split(\textquotesingle{},\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a5b4c2437f892c1b8c2875054e8fc2651}\label{namespacez__infomap__revert_a5b4c2437f892c1b8c2875054e8fc2651}} 
+list {\bfseries extent} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_abc98b3b7c69f731db8fcfbd88a53e142}\label{namespacez__infomap__revert_abc98b3b7c69f731db8fcfbd88a53e142}} 
+list {\bfseries edges} = \mbox{[}\mbox{[}$\,$\mbox{]},\mbox{[}$\,$\mbox{]}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a6a39a4b44d75a619b7fc3500f5847066}\label{namespacez__infomap__revert_a6a39a4b44d75a619b7fc3500f5847066}} 
+{\bfseries f} = set(data.\+prodloss\mbox{[}spec\mbox{]}\mbox{[}\textquotesingle{}prod\textquotesingle{}\mbox{]}) \& set(data.\+prodloss\mbox{[}i\mbox{]}\mbox{[}\textquotesingle{}loss\textquotesingle{}\mbox{]})
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_adcd1f246be4c115b2c3ce73eec71abaf}\label{namespacez__infomap__revert_adcd1f246be4c115b2c3ce73eec71abaf}} 
+int {\bfseries arr} = 20 + np.\+log10(np.\+array(flux\mbox{[}photo\mbox{]}.loc\mbox{[}\+:,flux\mbox{[}photo\mbox{]}.columns\mbox{[}list(f)\mbox{]}\mbox{]}.sum(axis=1)))
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a08f83e40e2f7a35e99c6328f8e0a4bf9}\label{namespacez__infomap__revert_a08f83e40e2f7a35e99c6328f8e0a4bf9}} 
+{\bfseries G} = \mbox{\hyperlink{classinfomap_1_1Infomap}{infomap.\+Infomap}}(\char`\"{}-\/d -\/N 2 -\/z\char`\"{})
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a8fe365b2bbb77a4d839d185984af0fd7}\label{namespacez__infomap__revert_a8fe365b2bbb77a4d839d185984af0fd7}} 
+{\bfseries Gnx} = nx.\+Di\+Graph()
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_aa97e5ba6e821736bfb18e0699ac8a5d6}\label{namespacez__infomap__revert_aa97e5ba6e821736bfb18e0699ac8a5d6}} 
+{\bfseries mine} = min(extent)
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a67cb3f03ab89d739cd957548bc9db28f}\label{namespacez__infomap__revert_a67cb3f03ab89d739cd957548bc9db28f}} 
+{\bfseries maxe} = max(extent)
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a5dcde3e6b17225a91ecce358163ea07e}\label{namespacez__infomap__revert_a5dcde3e6b17225a91ecce358163ea07e}} 
+{\bfseries weight}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a61d5792978cbb0855cb75ab5e1b33c88}\label{namespacez__infomap__revert_a61d5792978cbb0855cb75ab5e1b33c88}} 
+{\bfseries tree} = G.\+tree
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a60af258757dddb8b505a27c33e65cd41}\label{namespacez__infomap__revert_a60af258757dddb8b505a27c33e65cd41}} 
+dictionary {\bfseries partition} = \{\}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a48aa8830f2fa5d904c3125e14a87f251}\label{namespacez__infomap__revert_a48aa8830f2fa5d904c3125e14a87f251}} 
+list {\bfseries groups} = \mbox{[}\mbox{[}$\,$\mbox{]} for i in np.\+empty(np.\+array(partition.\+values()).max())\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacez__infomap__revert_a1fc16dd3398a0569317836ea1064e8f1}\label{namespacez__infomap__revert_a1fc16dd3398a0569317836ea1064e8f1}} 
+{\bfseries sdfads} = fdsfd
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}READ....
+
+Daniel Ellis 2018
+\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacez__infomap__revert_a897168f28801206de8850a65c6160df9}\label{namespacez__infomap__revert_a897168f28801206de8850a65c6160df9}} 
+\index{z\+\_\+infomap\+\_\+revert@{z\+\_\+infomap\+\_\+revert}!exclude@{exclude}}
+\index{exclude@{exclude}!z\+\_\+infomap\+\_\+revert@{z\+\_\+infomap\+\_\+revert}}
+\subsubsection{\texorpdfstring{exclude}{exclude}}
+{\footnotesize\ttfamily list z\+\_\+infomap\+\_\+revert.\+exclude}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 =  [\textcolor{stringliteral}{'RO2'},\textcolor{stringliteral}{'LAT'}, \textcolor{stringliteral}{'LON'},\textcolor{stringliteral}{'PRESS'}, \textcolor{stringliteral}{'TEMP'}, \textcolor{stringliteral}{'H2O'}, \textcolor{stringliteral}{'M'},\textcolor{stringliteral}{'NA'}, \textcolor{stringliteral}{'O1D'}, \textcolor{stringliteral}{'R','}O','O1D',
+2  \textcolor{stringliteral}{'O3'}, \textcolor{stringliteral}{'O2'}, \textcolor{stringliteral}{'NO2'}, \textcolor{stringliteral}{'NO3'}, \textcolor{stringliteral}{'N2O5'}, \textcolor{stringliteral}{'H2O2'}, \textcolor{stringliteral}{'TEMP'}, \textcolor{stringliteral}{'NO'}, \textcolor{stringliteral}{'NA'},
+3  \textcolor{stringliteral}{'KMT05'}, \textcolor{stringliteral}{'KMT04'}, \textcolor{stringliteral}{'KMT07'}, \textcolor{stringliteral}{'KMT06'}, \textcolor{stringliteral}{'KMT01'}, \textcolor{stringliteral}{'HO2NO2'}, \textcolor{stringliteral}{'KMT03'},
+4   \textcolor{stringliteral}{'KMT02'}, \textcolor{stringliteral}{'HO2'}, \textcolor{stringliteral}{'KMT09'}, \textcolor{stringliteral}{'KMT08'}, \textcolor{stringliteral}{'HNO3'}, \textcolor{stringliteral}{'SO3'}, \textcolor{stringliteral}{'SO2'},
+5   \textcolor{stringliteral}{'N2'}, \textcolor{stringliteral}{'OH'}, \textcolor{stringliteral}{'H2'}, \textcolor{stringliteral}{'HONO'}, \textcolor{stringliteral}{'HSO3'}, \textcolor{stringliteral}{'H2O'}, \textcolor{stringliteral}{'KMT12'}, \textcolor{stringliteral}{'KMT11'}, \textcolor{stringliteral}{'SA'}]
+\end{DoxyCode}

@@ -1,0 +1,83 @@
+\hypertarget{classBipartiteClusterReader}{}\section{Bipartite\+Cluster\+Reader Class Reference}
+\label{classBipartiteClusterReader}\index{Bipartite\+Cluster\+Reader@{Bipartite\+Cluster\+Reader}}
+Inheritance diagram for Bipartite\+Cluster\+Reader\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBipartiteClusterReader}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBipartiteClusterReader_aaf4b9222c6e5416942f01ccad9467395}\label{classBipartiteClusterReader_aaf4b9222c6e5416942f01ccad9467395}} 
+{\bfseries Bipartite\+Cluster\+Reader} (bool zero\+Based\+Indexing=false)
+\item 
+\mbox{\Hypertarget{classBipartiteClusterReader_a91e9b6307b0b82b640ba5083831fb5c8}\label{classBipartiteClusterReader_a91e9b6307b0b82b640ba5083831fb5c8}} 
+const std\+::map$<$ unsigned int, unsigned int $>$ \& {\bfseries feature\+Clusters} () const
+\item 
+\mbox{\Hypertarget{classBipartiteClusterReader_a7dcf8a6c5258dbf71752c8a72d9e0b72}\label{classBipartiteClusterReader_a7dcf8a6c5258dbf71752c8a72d9e0b72}} 
+unsigned int {\bfseries max\+Feature\+Node\+Index} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classBipartiteClusterReader_a1766b76de634ba4f50695b427a4ec446}{parse\+Cluster\+Line}} (std\+::string line)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBipartiteClusterReader_aec090dd89587acf40e59abd7b7d74f80}\label{classBipartiteClusterReader_aec090dd89587acf40e59abd7b7d74f80}} 
+std\+::map$<$ unsigned int, unsigned int $>$ {\bfseries m\+\_\+feature\+Clusters}
+\item 
+\mbox{\Hypertarget{classBipartiteClusterReader_a2c45834c7e1df4394b7be03648276e09}\label{classBipartiteClusterReader_a2c45834c7e1df4394b7be03648276e09}} 
+unsigned int {\bfseries m\+\_\+max\+Feature\+Node\+Index}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBipartiteClusterReader_a1766b76de634ba4f50695b427a4ec446}\label{classBipartiteClusterReader_a1766b76de634ba4f50695b427a4ec446}} 
+\index{Bipartite\+Cluster\+Reader@{Bipartite\+Cluster\+Reader}!parse\+Cluster\+Line@{parse\+Cluster\+Line}}
+\index{parse\+Cluster\+Line@{parse\+Cluster\+Line}!Bipartite\+Cluster\+Reader@{Bipartite\+Cluster\+Reader}}
+\subsubsection{\texorpdfstring{parse\+Cluster\+Line()}{parseClusterLine()}}
+{\footnotesize\ttfamily void Bipartite\+Cluster\+Reader\+::parse\+Cluster\+Line (\begin{DoxyParamCaption}\item[{std\+::string}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Read bipartite cluster data, where node id\+:s are prefixed by \textquotesingle{}n\textquotesingle{} for ordinary nodes and \textquotesingle{}f\textquotesingle{} for feature nodes.
+
+\subsection*{node\+Id cluster\+Id}
+
+n1 1 n2 1 n4 1 f1 1 n3 2 n5 2 n6 2 f2 2 
+
+Reimplemented from \mbox{\hyperlink{classClusterReader}{Cluster\+Reader}}.
+
+
+\begin{DoxyCode}
+35 \{
+36     std::istringstream lineStream(line);
+37 
+38     std::string nodeId;
+39     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} clusterId;
+40     \textcolor{keywordflow}{if} (!(lineStream >> nodeId >> clusterId))
+41         \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Can't parse bipartite cluster data from
+       line '"} << line << \textcolor{stringliteral}{"'"});
+42     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} nodeIndex;
+43     \textcolor{keywordflow}{if} ((nodeId[0] != \textcolor{charliteral}{'n'} && nodeId[0] != \textcolor{charliteral}{'f'}) || nodeId.length() == 1 || !(std::istringstream( nodeId.
+      substr(1) ) >> nodeIndex)) \{
+44         \textcolor{keywordflow}{throw} \mbox{\hyperlink{classFileFormatError}{FileFormatError}}(\mbox{\hyperlink{classio_1_1Str}{io::Str}}() << \textcolor{stringliteral}{"Can't parse bipartite node id (a
+       numerical id prefixed by 'n' or 'f') from line '"} << line << \textcolor{stringliteral}{"'"});
+45     \}
+46 
+47     nodeIndex -= m\_indexOffset; \textcolor{comment}{// Get zero-based indexing}
+48     \textcolor{keywordflow}{if} (nodeId[0] == \textcolor{charliteral}{'n'})
+49         m\_clusters[nodeIndex] = clusterId;
+50     \textcolor{keywordflow}{else}
+51         m\_featureClusters[nodeIndex] = clusterId;
+52     m\_maxNodeIndex = std::max(m\_maxNodeIndex, nodeIndex);
+53     ++m\_numParsedRows;
+54 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/io/Bipartite\+Cluster\+Reader.\+h\item 
+dsmacc/graph/infomap/src/io/Bipartite\+Cluster\+Reader.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,53 @@
+\hypertarget{classgcn_1_1layers_1_1Layer}{}\section{gcn.\+layers.\+Layer Class Reference}
+\label{classgcn_1_1layers_1_1Layer}\index{gcn.\+layers.\+Layer@{gcn.\+layers.\+Layer}}
+Inheritance diagram for gcn.\+layers.\+Layer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classgcn_1_1layers_1_1Layer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classgcn_1_1layers_1_1Layer_a3cb75085099246b809c8f1bd2554971a}\label{classgcn_1_1layers_1_1Layer_a3cb75085099246b809c8f1bd2554971a}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, kwargs)
+\item 
+\mbox{\Hypertarget{classgcn_1_1layers_1_1Layer_ac7069f14eebc658a247826ac02a7c73f}\label{classgcn_1_1layers_1_1Layer_ac7069f14eebc658a247826ac02a7c73f}} 
+def {\bfseries \+\_\+\+\_\+call\+\_\+\+\_\+} (self, inputs)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classgcn_1_1layers_1_1Layer_abc8fd81b46413f4fc7d4b432ec09134c}\label{classgcn_1_1layers_1_1Layer_abc8fd81b46413f4fc7d4b432ec09134c}} 
+{\bfseries name}
+\item 
+\mbox{\Hypertarget{classgcn_1_1layers_1_1Layer_a42e6cc82997021c3b3353b22c4852cc5}\label{classgcn_1_1layers_1_1Layer_a42e6cc82997021c3b3353b22c4852cc5}} 
+{\bfseries vars}
+\item 
+\mbox{\Hypertarget{classgcn_1_1layers_1_1Layer_ac48b4ebad30a7e49877b0f2c466963e8}\label{classgcn_1_1layers_1_1Layer_ac48b4ebad30a7e49877b0f2c466963e8}} 
+{\bfseries logging}
+\item 
+\mbox{\Hypertarget{classgcn_1_1layers_1_1Layer_ae4b7ee4784d65f356f3fb92c923111db}\label{classgcn_1_1layers_1_1Layer_ae4b7ee4784d65f356f3fb92c923111db}} 
+{\bfseries sparse\+\_\+inputs}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Base layer class. Defines basic API for all layer objects.
+Implementation inspired by keras (http://keras.io).
+
+# Properties
+    name: String, defines the variable scope of the layer.
+    logging: Boolean, switches Tensorflow histogram logging on/off
+
+# Methods
+    _call(inputs): Defines computation graph of layer
+        (i.e. takes input, returns output)
+    __call__(inputs): Wrapper for _call()
+    _log_vars(): Log all variables
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/examples/gcn/gcn/layers.\+py\end{DoxyCompactItemize}

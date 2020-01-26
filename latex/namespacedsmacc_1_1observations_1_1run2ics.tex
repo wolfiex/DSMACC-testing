@@ -1,0 +1,123 @@
+\hypertarget{namespacedsmacc_1_1observations_1_1run2ics}{}\section{dsmacc.\+observations.\+run2ics Namespace Reference}
+\label{namespacedsmacc_1_1observations_1_1run2ics}\index{dsmacc.\+observations.\+run2ics@{dsmacc.\+observations.\+run2ics}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1run2ics_abe3c37ef6b47eda01a6165ddfb38e88d}\label{namespacedsmacc_1_1observations_1_1run2ics_abe3c37ef6b47eda01a6165ddfb38e88d}} 
+def {\bfseries lumpfn} (df, mech)
+\item 
+def \mbox{\hyperlink{namespacedsmacc_1_1observations_1_1run2ics_acf4b75327ea907f90e391080a9ce7fcc}{newics}} (h5file, lump=False, filename=False, write=False, group=0, rmspinup=False, timestep=144, constrain=\mbox{[}\textquotesingle{}N\+OX\textquotesingle{}\mbox{]}, ignore=\mbox{[}\textquotesingle{}R\textquotesingle{}, R\+O2, M, J1, J\+O1D, J\+N\+O2, df=pd.\+Data\+Frame(\mbox{[}\mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}T\+I\+ME\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, str(24 $\ast$60 $\ast$60)\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}T\+E\+MP\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}298\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}L\+AT\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}36.\+9\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}L\+ON\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}116.\+31\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}J\+D\+AY\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}173.\+5\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}H2O\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}0.\+02\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}A\+L\+B\+E\+DO\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}0\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}P\+R\+E\+SS\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}1013\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}N\+Ox\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}0\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}D\+E\+P\+OS\textquotesingle{}, \textquotesingle{}1\textquotesingle{}, \textquotesingle{}0\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}ii\textquotesingle{}, \textquotesingle{}F\+E\+M\+I\+SS\textquotesingle{}, \textquotesingle{}1\textquotesingle{}, \textquotesingle{}0\textquotesingle{}\mbox{]}, \mbox{[}\textquotesingle{}s\textquotesingle{}, \textquotesingle{}S\+P\+I\+N\+UP\textquotesingle{}, \textquotesingle{}0\textquotesingle{}, \textquotesingle{}1e99\textquotesingle{}\mbox{]}\mbox{]}))
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Take a selected timestep from a model run and use it to create the initial conditions for a new run.
+
+Usage:
+python -m dsmacc.observations.run2ics <filename>.h5 <timestep number> -r
+
+
+file created args : contiune_h5name_groupname_timestep_datenow
+
+
+If using the lumped function it reads groups from a mechanism file.
+Must use format from lumper.jl for this to work.\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1run2ics_acf4b75327ea907f90e391080a9ce7fcc}\label{namespacedsmacc_1_1observations_1_1run2ics_acf4b75327ea907f90e391080a9ce7fcc}} 
+\index{dsmacc\+::observations\+::run2ics@{dsmacc\+::observations\+::run2ics}!newics@{newics}}
+\index{newics@{newics}!dsmacc\+::observations\+::run2ics@{dsmacc\+::observations\+::run2ics}}
+\subsubsection{\texorpdfstring{newics()}{newics()}}
+{\footnotesize\ttfamily def dsmacc.\+observations.\+run2ics.\+newics (\begin{DoxyParamCaption}\item[{}]{h5file,  }\item[{}]{lump = {\ttfamily False},  }\item[{}]{filename = {\ttfamily False},  }\item[{}]{write = {\ttfamily False},  }\item[{}]{group = {\ttfamily 0},  }\item[{}]{rmspinup = {\ttfamily False},  }\item[{}]{timestep = {\ttfamily 144},  }\item[{}]{constrain = {\ttfamily \mbox{[}\textquotesingle{}NOX\textquotesingle{}\mbox{]}},  }\item[{}]{ignore = {\ttfamily \mbox{[}\textquotesingle{}R\textquotesingle{}},  }\item[{}]{R\+O2,  }\item[{}]{M,  }\item[{}]{J1,  }\item[{}]{J\+O1D,  }\item[{}]{J\+N\+O2,  }\item[{}]{df = {\ttfamily pd.DataFrame(
+~~~~\mbox{[}
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}TIME\textquotesingle{},~\textquotesingle{}0\textquotesingle{},str(24$\ast$60$\ast$60)\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}TEMP\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}298\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}LAT\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}36.9\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}LON\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}116.31\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}JDAY\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}173.5\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}H2O\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}0.02\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}ALBEDO\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}0\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}PRESS\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}1013\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}NOx\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}0\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}DEPOS\textquotesingle{},~\textquotesingle{}1\textquotesingle{},~\textquotesingle{}0\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}ii\textquotesingle{},~\textquotesingle{}FEMISS\textquotesingle{},~\textquotesingle{}1\textquotesingle{},~\textquotesingle{}0\textquotesingle{}\mbox{]},
+~~~~~~~~~~~\mbox{[}\textquotesingle{}s\textquotesingle{},~\textquotesingle{}SPINUP\textquotesingle{},~\textquotesingle{}0\textquotesingle{},~\textquotesingle{}1e99\textquotesingle{}\mbox{]}
+
+~~~~~~~~~~~\mbox{]}
+~~~~)} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}make new InitCons
+
+Args required:
+ - h5file
+
+ Many optional arguments\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+68     ):
+69 
+70 
+71     \textcolor{stringliteral}{'''}
+72 \textcolor{stringliteral}{    make new InitCons}
+73 \textcolor{stringliteral}{}
+74 \textcolor{stringliteral}{    Args required:}
+75 \textcolor{stringliteral}{     - h5file}
+76 \textcolor{stringliteral}{}
+77 \textcolor{stringliteral}{     Many optional arguments}
+78 \textcolor{stringliteral}{}
+79 \textcolor{stringliteral}{     '''}
+80 
+81 
+82     df.columns =  [\textcolor{stringliteral}{'Index'}, \textcolor{stringliteral}{'Species'}, \textcolor{stringliteral}{'Constrain'}, \textcolor{stringliteral}{'base'}]
+83 
+84     a = \mbox{\hyperlink{classzhdf_1_1new}{zhdf.new}}(h5file,group)
+85     \textcolor{keywordflow}{if} rmspinup: a.rm\_spinup()
+86 
+87     cols = filter(\textcolor{keyword}{lambda} x: x \textcolor{keywordflow}{not} \textcolor{keywordflow}{in} ignore,a.spec.columns)
+88     \textcolor{keywordflow}{try}:
+89         specs = a.spec.loc[a.timesteps[timestep],cols].compute()
+90     \textcolor{keywordflow}{except}:
+91         specs = a.spec.loc[timestep,cols].compute()
+92     df.index = df.Species
+93     df = df.T
+94 
+95     \textcolor{keywordflow}{for} s \textcolor{keywordflow}{in} specs.columns:
+96         M = 1
+97         \textcolor{keywordflow}{if} s \textcolor{keywordflow}{in} [\textcolor{stringliteral}{'LAT'},\textcolor{stringliteral}{'LON'},\textcolor{stringliteral}{'TEMP'}]: M = a.M.compute()
+98         df[s] = [\textcolor{stringliteral}{'continue'},s,int(s \textcolor{keywordflow}{in} constrain),specs[s][0]*M]
+99 
+100     \textcolor{keywordflow}{if} lump:
+101         df = lumpfn(df,lump)
+102 
+103     df = df.astype(str)
+104 
+105 
+106 
+107 
+108     \textcolor{keywordflow}{if} write:
+109         \textcolor{keywordflow}{if} \textcolor{keywordflow}{not} filename:
+110                 filename = \textcolor{stringliteral}{'contiunue\_%s\_%s\_%s\_%s'}%(h5file.split(\textcolor{stringliteral}{'.h5'})[0],group,timestep,
+      datetime.date.today().strftime(\textcolor{stringliteral}{"%d%m%y"}))
+111 
+112         df = df.astype(str).T
+113         with open(\textcolor{stringliteral}{'InitCons/'}+filename+\textcolor{stringliteral}{'.csv'},\textcolor{stringliteral}{'w'}) \textcolor{keyword}{as} f:
+114             f.write(\textcolor{stringliteral}{'A continuation ics file'}+\textcolor{stringliteral}{','}*(df.shape[1]-1))
+115             f.write(\textcolor{stringliteral}{'\(\backslash\)n'})
+116             f.write(\textcolor{stringliteral}{','}*(df.shape[1]-1))
+117             f.write(\textcolor{stringliteral}{'\(\backslash\)n'})
+118             f.write(\textcolor{stringliteral}{','}.join(df.columns))
+119             f.write(\textcolor{stringliteral}{'\(\backslash\)n'})
+120             f.write(\textcolor{stringliteral}{'\(\backslash\)n'}.join([\textcolor{stringliteral}{','}.join(i) \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} df.values]))
+121         \textcolor{keywordflow}{print} filename, \textcolor{stringliteral}{'written'}
+122 
+123     \textcolor{keywordflow}{return} df
+124 \textcolor{stringliteral}{'''}
+125 \textcolor{stringliteral}{df = newics('test.h5', filename = 'normalcri', write =True,lump = False)}
+126 \textcolor{stringliteral}{}
+127 \textcolor{stringliteral}{df = newics('test.h5', filename = 'lumpedcri', write =True,lump = '
+      ./mechanisms/lumped\_formatted\_CRI\_FULL\_2.2.kpp')}
+128 \textcolor{stringliteral}{}
+129 \textcolor{stringliteral}{}
+130 \textcolor{stringliteral}{'''}
+131 \end{DoxyCode}

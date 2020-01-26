@@ -1,0 +1,113 @@
+\hypertarget{namespacefhandle}{}\section{fhandle Namespace Reference}
+\label{namespacefhandle}\index{fhandle@{fhandle}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacefhandle_a360835d7e26fd2d516934a8265dc0ea1}{wrt\+K\+PP}} (rrate, fkpp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}*******************
+*                 *
+* Library fhandle *
+*                 *
+*******************
+
+PURPOSE:
+Includes all routines concerned with reading/writing/manipulating files.
+
+FUNCTIONS:
+- wrtKPP
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacefhandle_a360835d7e26fd2d516934a8265dc0ea1}\label{namespacefhandle_a360835d7e26fd2d516934a8265dc0ea1}} 
+\index{fhandle@{fhandle}!wrt\+K\+PP@{wrt\+K\+PP}}
+\index{wrt\+K\+PP@{wrt\+K\+PP}!fhandle@{fhandle}}
+\subsubsection{\texorpdfstring{wrt\+K\+P\+P()}{wrtKPP()}}
+{\footnotesize\ttfamily def fhandle.\+wrt\+K\+PP (\begin{DoxyParamCaption}\item[{}]{rrate,  }\item[{}]{fkpp }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}*******************
+*                 *
+* Function wrtKPP *
+*                 *
+*******************
+
+PURPOSE:
+    Rewrite kpp file with revised duplicate reactions.
+
+IMPORTED PYTHON LIBRARIES:
+    - system from os
+
+VARIABLES:
+
+I/O:
+    - rrate:    dictionary with mechanistic and kinetic data of
+                combined duplicate reactions and line numbers of
+                all duplicate entries
+    - fkpp:     path + name of kpp file retrieved from warnings
+
+internal:
+    - key:      counter for loop over keys in rrate
+    - i/d:      counter for loops
+    - line:     list with lines of kpp file
+    - f:        index for files
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+15 \textcolor{keyword}{def }wrtKPP(rrate,fkpp):
+16 
+17     \textcolor{stringliteral}{"""}
+18 \textcolor{stringliteral}{    *******************}
+19 \textcolor{stringliteral}{    *                 *}
+20 \textcolor{stringliteral}{    * Function wrtKPP *}
+21 \textcolor{stringliteral}{    *                 *}
+22 \textcolor{stringliteral}{    *******************}
+23 \textcolor{stringliteral}{}
+24 \textcolor{stringliteral}{    PURPOSE:}
+25 \textcolor{stringliteral}{        Rewrite kpp file with revised duplicate reactions.}
+26 \textcolor{stringliteral}{}
+27 \textcolor{stringliteral}{    IMPORTED PYTHON LIBRARIES:}
+28 \textcolor{stringliteral}{        - system from os}
+29 \textcolor{stringliteral}{}
+30 \textcolor{stringliteral}{    VARIABLES:}
+31 \textcolor{stringliteral}{}
+32 \textcolor{stringliteral}{    I/O:}
+33 \textcolor{stringliteral}{        - rrate:    dictionary with mechanistic and kinetic data of}
+34 \textcolor{stringliteral}{                    combined duplicate reactions and line numbers of}
+35 \textcolor{stringliteral}{                    all duplicate entries}
+36 \textcolor{stringliteral}{        - fkpp:     path + name of kpp file retrieved from warnings}
+37 \textcolor{stringliteral}{}
+38 \textcolor{stringliteral}{    internal:}
+39 \textcolor{stringliteral}{        - key:      counter for loop over keys in rrate}
+40 \textcolor{stringliteral}{        - i/d:      counter for loops}
+41 \textcolor{stringliteral}{        - line:     list with lines of kpp file}
+42 \textcolor{stringliteral}{        - f:        index for files}
+43 \textcolor{stringliteral}{    """}
+44 
+45 \textcolor{comment}{# import python libraries}
+46     \textcolor{keyword}{from} os \textcolor{keyword}{import} system
+47 
+48 \textcolor{comment}{# Read in all lines from kpp file}
+49     with open(fkpp,\textcolor{stringliteral}{'r+'}) \textcolor{keyword}{as} f:
+50         line = f.readlines()
+51 
+52 \textcolor{comment}{# For duplicate reactions defined in rrate re-write reactions}
+53 \textcolor{comment}{# with refined kinetic data}
+54         \textcolor{keywordflow}{for} key \textcolor{keywordflow}{in} rrate:
+55             line[key] = rrate[key][0]+\textcolor{stringliteral}{"  "}+rrate[key][1]+\textcolor{stringliteral}{" ;\(\backslash\)n"}
+56 
+57 \textcolor{comment}{# Delete all other lines with duplicate reactions}
+58             \textcolor{keywordflow}{for} d \textcolor{keywordflow}{in} range(len(rrate[key][2])):
+59                 line[rrate[key][2][d]] = \textcolor{stringliteral}{""}
+60 
+61 \textcolor{comment}{# Write output to temporary file}
+62     with open(\textcolor{stringliteral}{'../mechanisms/temp.kpp'},\textcolor{stringliteral}{'w+'}) \textcolor{keyword}{as} f:
+63         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(line)):
+64             f.write(line[i])
+65 
+66 \textcolor{comment}{# Use Unix to replace original kpp file with corrected file}
+67     system(\textcolor{stringliteral}{"mv -f ../mechanisms/temp.kpp "}+fkpp)
+68 \end{DoxyCode}

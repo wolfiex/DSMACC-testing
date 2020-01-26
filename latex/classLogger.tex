@@ -1,0 +1,44 @@
+\hypertarget{classLogger}{}\section{Logger Class Reference}
+\label{classLogger}\index{Logger@{Logger}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLogger_ac744681e23720966b5f430ec2060da36}\label{classLogger_ac744681e23720966b5f430ec2060da36}} 
+enum {\bfseries Log\+Level} \{ {\bfseries L\+O\+G\+\_\+\+I\+N\+FO}, 
+{\bfseries L\+O\+G\+\_\+\+D\+E\+B\+UG}, 
+{\bfseries L\+O\+G\+\_\+\+W\+A\+RN}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLogger_a7b3f807b6571165771e06922741254a9}\label{classLogger_a7b3f807b6571165771e06922741254a9}} 
+static void {\bfseries push\+Indent\+Level} ()
+\item 
+\mbox{\Hypertarget{classLogger_a083002f7662352961c4d99cce0f70697}\label{classLogger_a083002f7662352961c4d99cce0f70697}} 
+static void {\bfseries pop\+Indent\+Level} ()
+\item 
+\mbox{\Hypertarget{classLogger_a449af95b2c2e0ff3b16634d73f1e5746}\label{classLogger_a449af95b2c2e0ff3b16634d73f1e5746}} 
+static const std\+::string \& {\bfseries indent} ()
+\item 
+\mbox{\Hypertarget{classLogger_a11ba981a8b6e48b3227c130919f6db75}\label{classLogger_a11ba981a8b6e48b3227c130919f6db75}} 
+static unsigned int {\bfseries indent\+Level} ()
+\item 
+\mbox{\Hypertarget{classLogger_ad85f91b2c2884df733bc08fec1802f98}\label{classLogger_ad85f91b2c2884df733bc08fec1802f98}} 
+static void {\bfseries set\+Benchmark\+Filename} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{classLogger_a0aa000dfebfb2f44e8146878d8139baf}\label{classLogger_a0aa000dfebfb2f44e8146878d8139baf}} 
+static void {\bfseries benchmark} (std\+::string tag, double codelength, unsigned int num\+Top\+Modules, unsigned int num\+Non\+Trivial\+Top\+Modules, unsigned int num\+Levels, bool write\+Only\+Tag=false)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLogger_a0c34b941500235016fdb8358553587b5}\label{classLogger_a0c34b941500235016fdb8358553587b5}} 
+static unsigned int {\bfseries M\+A\+X\+\_\+\+I\+N\+D\+E\+N\+T\+\_\+\+L\+E\+V\+EL} = 10
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/utils/Logger.\+h\item 
+dsmacc/graph/infomap/src/utils/Logger.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,183 @@
+\hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph}{}\section{dsmacc.\+examples.\+node2vec.\+Graph Class Reference}
+\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph}\index{dsmacc.\+examples.\+node2vec.\+Graph@{dsmacc.\+examples.\+node2vec.\+Graph}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a39c59607c43f0d90e5ac615af86fa351}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a39c59607c43f0d90e5ac615af86fa351}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, nx\+\_\+G, is\+\_\+directed, p, q)
+\item 
+def \mbox{\hyperlink{classdsmacc_1_1examples_1_1node2vec_1_1Graph_ae81b905fa75b4ced46d0722cf85d90dd}{node2vec\+\_\+walk}} (self, walk\+\_\+length, start\+\_\+node)
+\item 
+def \mbox{\hyperlink{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a71bea4409cd123157c0d7edfd2efcd36}{simulate\+\_\+walks}} (self, num\+\_\+walks, walk\+\_\+length)
+\item 
+def \mbox{\hyperlink{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a487b5cdcbd1260ec84f0c56b49548dff}{get\+\_\+alias\+\_\+edge}} (self, src, dst)
+\item 
+def \mbox{\hyperlink{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a8ef32284bcdfe5c25333712e2e790c55}{preprocess\+\_\+transition\+\_\+probs}} (self)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a01ec9a78c2e80e6df67c2c767d51a5a2}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a01ec9a78c2e80e6df67c2c767d51a5a2}} 
+{\bfseries G}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_ad94fa520788235af2066a10c8049c11d}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_ad94fa520788235af2066a10c8049c11d}} 
+{\bfseries is\+\_\+directed}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a4ed1f039275b92676df6db17af19b6df}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a4ed1f039275b92676df6db17af19b6df}} 
+{\bfseries p}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a6b13e8bbbcb028cbc00b360bbac67a00}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a6b13e8bbbcb028cbc00b360bbac67a00}} 
+{\bfseries q}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_aff47a19ec69b4ba1dcfb879047be824b}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_aff47a19ec69b4ba1dcfb879047be824b}} 
+{\bfseries alias\+\_\+nodes}
+\item 
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_abab42ea179875d03bee180ca874a0d43}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_abab42ea179875d03bee180ca874a0d43}} 
+{\bfseries alias\+\_\+edges}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a487b5cdcbd1260ec84f0c56b49548dff}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a487b5cdcbd1260ec84f0c56b49548dff}} 
+\index{dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}!get\+\_\+alias\+\_\+edge@{get\+\_\+alias\+\_\+edge}}
+\index{get\+\_\+alias\+\_\+edge@{get\+\_\+alias\+\_\+edge}!dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}}
+\subsubsection{\texorpdfstring{get\+\_\+alias\+\_\+edge()}{get\_alias\_edge()}}
+{\footnotesize\ttfamily def dsmacc.\+examples.\+node2vec.\+Graph.\+get\+\_\+alias\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{src,  }\item[{}]{dst }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the alias edge setup lists for a given edge.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+55     \textcolor{keyword}{def }get\_alias\_edge(self, src, dst):
+56         \textcolor{stringliteral}{'''}
+57 \textcolor{stringliteral}{        Get the alias edge setup lists for a given edge.}
+58 \textcolor{stringliteral}{        '''}
+59         G = self.G
+60         p = self.p
+61         q = self.q
+62 
+63         unnormalized\_probs = []
+64         \textcolor{keywordflow}{for} dst\_nbr \textcolor{keywordflow}{in} sorted(G.neighbors(dst)):
+65             \textcolor{keywordflow}{if} dst\_nbr == src:
+66                 unnormalized\_probs.append(G[dst][dst\_nbr][0][\textcolor{stringliteral}{'weight'}]/p)
+67             \textcolor{keywordflow}{elif} G.has\_edge(dst\_nbr, src):
+68                 unnormalized\_probs.append(G[dst][dst\_nbr][0][\textcolor{stringliteral}{'weight'}])
+69             \textcolor{keywordflow}{else}:
+70                 unnormalized\_probs.append(G[dst][dst\_nbr][0][\textcolor{stringliteral}{'weight'}]/q)
+71         norm\_const = sum(unnormalized\_probs)
+72         normalized\_probs =  [float(u\_prob)/norm\_const \textcolor{keywordflow}{for} u\_prob \textcolor{keywordflow}{in} unnormalized\_probs]
+73 
+74         \textcolor{keywordflow}{return} alias\_setup(normalized\_probs)
+75 
+\end{DoxyCode}
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_ae81b905fa75b4ced46d0722cf85d90dd}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_ae81b905fa75b4ced46d0722cf85d90dd}} 
+\index{dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}!node2vec\+\_\+walk@{node2vec\+\_\+walk}}
+\index{node2vec\+\_\+walk@{node2vec\+\_\+walk}!dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}}
+\subsubsection{\texorpdfstring{node2vec\+\_\+walk()}{node2vec\_walk()}}
+{\footnotesize\ttfamily def dsmacc.\+examples.\+node2vec.\+Graph.\+node2vec\+\_\+walk (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{walk\+\_\+length,  }\item[{}]{start\+\_\+node }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Simulate a random walk starting from start node.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+13     \textcolor{keyword}{def }node2vec\_walk(self, walk\_length, start\_node):
+14         \textcolor{stringliteral}{'''}
+15 \textcolor{stringliteral}{        Simulate a random walk starting from start node.}
+16 \textcolor{stringliteral}{        '''}
+17         G = self.G
+18         alias\_nodes = self.alias\_nodes
+19         alias\_edges = self.alias\_edges
+20 
+21         walk = [start\_node]
+22 
+23         \textcolor{keywordflow}{while} len(walk) < walk\_length:
+24             cur = walk[-1]
+25             cur\_nbrs = sorted(G.neighbors(cur))
+26             \textcolor{keywordflow}{if} len(cur\_nbrs) > 0:
+27                 \textcolor{keywordflow}{if} len(walk) == 1:
+28                     walk.append(cur\_nbrs[alias\_draw(alias\_nodes[cur][0], alias\_nodes[cur][1])])
+29                 \textcolor{keywordflow}{else}:
+30                     prev = walk[-2]
+31                     next = cur\_nbrs[alias\_draw(alias\_edges[(prev, cur)][0],
+32                         alias\_edges[(prev, cur)][1])]
+33                     walk.append(next)
+34             \textcolor{keywordflow}{else}:
+35                 \textcolor{keywordflow}{break}
+36 
+37         \textcolor{keywordflow}{return} walk
+38 
+\end{DoxyCode}
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a8ef32284bcdfe5c25333712e2e790c55}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a8ef32284bcdfe5c25333712e2e790c55}} 
+\index{dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}!preprocess\+\_\+transition\+\_\+probs@{preprocess\+\_\+transition\+\_\+probs}}
+\index{preprocess\+\_\+transition\+\_\+probs@{preprocess\+\_\+transition\+\_\+probs}!dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}}
+\subsubsection{\texorpdfstring{preprocess\+\_\+transition\+\_\+probs()}{preprocess\_transition\_probs()}}
+{\footnotesize\ttfamily def dsmacc.\+examples.\+node2vec.\+Graph.\+preprocess\+\_\+transition\+\_\+probs (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Preprocessing of transition probabilities for guiding the random walks.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+76     \textcolor{keyword}{def }preprocess\_transition\_probs(self):
+77         \textcolor{stringliteral}{'''}
+78 \textcolor{stringliteral}{        Preprocessing of transition probabilities for guiding the random walks.}
+79 \textcolor{stringliteral}{        '''}
+80         G = self.G
+81         is\_directed = self.is\_directed
+82 
+83         alias\_nodes = \{\}
+84         \textcolor{keywordflow}{for} node \textcolor{keywordflow}{in} G.nodes():
+85             unnormalized\_probs = [G[node][nbr][0][\textcolor{stringliteral}{'weight'}] \textcolor{keywordflow}{for} nbr \textcolor{keywordflow}{in} sorted(G.neighbors(node))]
+86             norm\_const = sum(unnormalized\_probs)
+87             normalized\_probs =  [float(u\_prob)/norm\_const \textcolor{keywordflow}{for} u\_prob \textcolor{keywordflow}{in} unnormalized\_probs]
+88             alias\_nodes[node] = alias\_setup(normalized\_probs)
+89 
+90         alias\_edges = \{\}
+91         triads = \{\}
+92 
+93         \textcolor{keywordflow}{if} is\_directed:
+94             \textcolor{keywordflow}{for} edge \textcolor{keywordflow}{in} G.edges():
+95                 alias\_edges[edge] = self.get\_alias\_edge(edge[0], edge[1])
+96         \textcolor{keywordflow}{else}:
+97             \textcolor{keywordflow}{for} edge \textcolor{keywordflow}{in} G.edges():
+98                 alias\_edges[edge] = self.get\_alias\_edge(edge[0], edge[1])
+99                 alias\_edges[(edge[1], edge[0])] = self.get\_alias\_edge(edge[1], edge[0])
+100 
+101         self.alias\_nodes = alias\_nodes
+102         self.alias\_edges = alias\_edges
+103 
+104         \textcolor{keywordflow}{return}
+105 
+106 
+\end{DoxyCode}
+\mbox{\Hypertarget{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a71bea4409cd123157c0d7edfd2efcd36}\label{classdsmacc_1_1examples_1_1node2vec_1_1Graph_a71bea4409cd123157c0d7edfd2efcd36}} 
+\index{dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}!simulate\+\_\+walks@{simulate\+\_\+walks}}
+\index{simulate\+\_\+walks@{simulate\+\_\+walks}!dsmacc\+::examples\+::node2vec\+::\+Graph@{dsmacc\+::examples\+::node2vec\+::\+Graph}}
+\subsubsection{\texorpdfstring{simulate\+\_\+walks()}{simulate\_walks()}}
+{\footnotesize\ttfamily def dsmacc.\+examples.\+node2vec.\+Graph.\+simulate\+\_\+walks (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{num\+\_\+walks,  }\item[{}]{walk\+\_\+length }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Repeatedly simulate random walks from each node.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+39     \textcolor{keyword}{def }simulate\_walks(self, num\_walks, walk\_length):
+40         \textcolor{stringliteral}{'''}
+41 \textcolor{stringliteral}{        Repeatedly simulate random walks from each node.}
+42 \textcolor{stringliteral}{        '''}
+43         G = self.G
+44         walks = []
+45         nodes = list(G.nodes())
+46         \textcolor{keywordflow}{print} (\textcolor{stringliteral}{'Walk iteration:'})
+47         \textcolor{keywordflow}{for} walk\_iter \textcolor{keywordflow}{in} range(num\_walks):
+48             \textcolor{keywordflow}{print} (str(walk\_iter+1), \textcolor{stringliteral}{'/'}, str(num\_walks))
+49             random.shuffle(nodes)
+50             \textcolor{keywordflow}{for} node \textcolor{keywordflow}{in} nodes:
+51                 walks.append(self.node2vec\_walk(walk\_length=walk\_length, start\_node=node))
+52 
+53         \textcolor{keywordflow}{return} walks
+54 
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/examples/node2vec.\+py\end{DoxyCompactItemize}

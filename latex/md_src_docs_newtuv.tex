@@ -1,0 +1,20 @@
+To use a different tuv mapping for your mechanism (e.\+g. M\+CM or G\+E\+O\+S\+C\+H\+EM), insert the following into your mechanism file. The default is 1 for the M\+C\+M3.\+3.\+1 using tuv5. \begin{DoxyVerb}            #INLINE F90_INIT
+              TUVvers = 1
+            #ENDINLINE
+\end{DoxyVerb}
+
+
+Currently the switches correspond to
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ tuv\+\_\+old  }&\textbf{ tuv5\+\_\+mcm3  }&\textbf{ tuv5\+\_\+mcm4  }&\textbf{ tuv5\+\_\+geoschem   }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ tuv\+\_\+old  }&\textbf{ tuv5\+\_\+mcm3  }&\textbf{ tuv5\+\_\+mcm4  }&\textbf{ tuv5\+\_\+geoschem   }\\\cline{1-4}
+\endhead
+0  &1  &2  &3   \\\cline{1-4}
+\end{longtabu}

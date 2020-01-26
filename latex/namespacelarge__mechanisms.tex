@@ -1,0 +1,54 @@
+\hypertarget{namespacelarge__mechanisms}{}\section{large\+\_\+mechanisms Namespace Reference}
+\label{namespacelarge__mechanisms}\index{large\+\_\+mechanisms@{large\+\_\+mechanisms}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a0ddf139537a04e726bf373f07449b941}\label{namespacelarge__mechanisms_a0ddf139537a04e726bf373f07449b941}} 
+def \mbox{\hyperlink{namespacelarge__mechanisms_a0ddf139537a04e726bf373f07449b941}{checker}} (line, filename=file\+\_\+name, c\+\_\+lim=210, l\+\_\+lim=200)
+\begin{DoxyCompactList}\small\item\em fn \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_aa112d470983fd10068918dad86bd3aba}\label{namespacelarge__mechanisms_aa112d470983fd10068918dad86bd3aba}} 
+{\bfseries file\+\_\+name} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a7d373bd920760bab376b4e8627c04061}\label{namespacelarge__mechanisms_a7d373bd920760bab376b4e8627c04061}} 
+int \mbox{\hyperlink{namespacelarge__mechanisms_a7d373bd920760bab376b4e8627c04061}{ncores}} = 4
+\begin{DoxyCompactList}\small\item\em program run files\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a9faa0bf477b6d91f4363514a57f70493}\label{namespacelarge__mechanisms_a9faa0bf477b6d91f4363514a57f70493}} 
+{\bfseries data} = tuple(open(file\+\_\+name))
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_ab5e309d41d9e071d10a36e2c6be530e1}\label{namespacelarge__mechanisms_ab5e309d41d9e071d10a36e2c6be530e1}} 
+{\bfseries output} = multiprocessing.\+Pool(\mbox{\hyperlink{namespacelarge__mechanisms_a7d373bd920760bab376b4e8627c04061}{ncores}}).map(\mbox{\hyperlink{namespacelarge__mechanisms_a0ddf139537a04e726bf373f07449b941}{checker}},data)
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a87e9ab8ea5f68a6202f1b425bc920fb3}\label{namespacelarge__mechanisms_a87e9ab8ea5f68a6202f1b425bc920fb3}} 
+bool {\bfseries strip} = False
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a484a7c56287702f84f99fcd06e4cf846}\label{namespacelarge__mechanisms_a484a7c56287702f84f99fcd06e4cf846}} 
+{\bfseries current} = output\mbox{[}line\mbox{]}.replace(\textquotesingle{} \textquotesingle{},\textquotesingle{}\textquotesingle{})
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a111c6b81ce392fafdbf68185ff63271c}\label{namespacelarge__mechanisms_a111c6b81ce392fafdbf68185ff63271c}} 
+string {\bfseries string} = \textquotesingle{}R\+O2 = 0.\textbackslash{}n\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_ae3030076975849d49c7f4ce786383c3b}\label{namespacelarge__mechanisms_ae3030076975849d49c7f4ce786383c3b}} 
+{\bfseries ro2data} = re.\+findall( r\textquotesingle{}C\textbackslash{}(ind\+\_\+(\mbox{[}A-\/z0-\/9\mbox{]}+)\textbackslash{})\textquotesingle{},data)
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_a733fb04e88d77352cc51bad98f9bbba6}\label{namespacelarge__mechanisms_a733fb04e88d77352cc51bad98f9bbba6}} 
+list {\bfseries newdata} = \mbox{[}\textquotesingle{}! parsed by large\+\_\+mechanisms.\+py D.\+Ellis 2017\textbackslash{}n\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacelarge__mechanisms_af4a68d1a15b82bf468f7504388a82f78}\label{namespacelarge__mechanisms_af4a68d1a15b82bf468f7504388a82f78}} 
+{\bfseries f} = open(file\+\_\+name,\textquotesingle{}w\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}When large mechanisms are used with kpp, these often break the compiler consinuation line and character limits. 
+It is therefore required that lines are split into smaller groupings. 
+
+This is a program that does just that, abeit a bit crudely. 
+
+Daniel Ellis 
+daniel.ellis.research@googlemail.com 
+daniel.ellis@york.ac.uk 
+2017\end{DoxyVerb}
+ 

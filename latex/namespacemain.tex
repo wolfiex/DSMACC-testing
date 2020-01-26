@@ -1,0 +1,113 @@
+\hypertarget{namespacemain}{}\section{main Namespace Reference}
+\label{namespacemain}\index{main@{main}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacemain_aae54088deb902f6478332bfaf91f888f}\label{namespacemain_aae54088deb902f6478332bfaf91f888f}} 
+def {\bfseries parsefile} (f)
+\item 
+def \mbox{\hyperlink{namespacemain_a42969f03e14f9d500397028177ed72ec}{merge\+\_\+nodes}} (G, nodes, new\+\_\+node)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacemain_a21bfb290c2938894b2f3bf5dc01eb49d}\label{namespacemain_a21bfb290c2938894b2f3bf5dc01eb49d}} 
+int {\bfseries ncores} = 4
+\item 
+\mbox{\Hypertarget{namespacemain_aacecf8034c3446f4b93a5aa31f616e4a}\label{namespacemain_aacecf8034c3446f4b93a5aa31f616e4a}} 
+{\bfseries dirs} = sys.\+argv\mbox{[}1\+:\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacemain_a9707e2ca85a5f1bceadafcd3b49aee12}\label{namespacemain_a9707e2ca85a5f1bceadafcd3b49aee12}} 
+list {\bfseries files} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacemain_a8332d1261ee0382aace00edb978eb5bb}\label{namespacemain_a8332d1261ee0382aace00edb978eb5bb}} 
+{\bfseries includes} = re.\+compile(r\textquotesingle{}include\textbackslash{}s+\mbox{[}\textbackslash{}\textquotesingle{}\char`\"{}\mbox{]}(.$\ast$)\mbox{[}\textbackslash{}\textquotesingle{}\char`\"{}\mbox{]}\textquotesingle{}, re.\+I\+G\+N\+O\+R\+E\+C\+A\+SE)
+\item 
+\mbox{\Hypertarget{namespacemain_a461ca3dee9162fdae53af242c121c352}\label{namespacemain_a461ca3dee9162fdae53af242c121c352}} 
+{\bfseries use} = re.\+compile(r\textquotesingle{}use\textbackslash{}s+(\mbox{[}$^\wedge$\textbackslash{}s\textbackslash{}b,\+:\mbox{]}$\ast$)\textquotesingle{}, re.\+I\+G\+N\+O\+R\+E\+C\+A\+SE)
+\item 
+\mbox{\Hypertarget{namespacemain_a71ce69de127f79fc075b3e0e7dc33779}\label{namespacemain_a71ce69de127f79fc075b3e0e7dc33779}} 
+{\bfseries module} = re.\+compile(r\textquotesingle{}module\textbackslash{}s+(.$\ast$)\textbackslash{}b\textquotesingle{}, re.\+I\+G\+N\+O\+R\+E\+C\+A\+SE)
+\item 
+\mbox{\Hypertarget{namespacemain_adee976540258861284f9692d071dbf34}\label{namespacemain_adee976540258861284f9692d071dbf34}} 
+{\bfseries subroutine} = re.\+compile(r\textquotesingle{}(subroutine$\vert$function)\textbackslash{}s+(\mbox{[}\textbackslash{}w\+\_\+\mbox{]}$\ast$\textbackslash{}s$\ast$\textbackslash{}(.$\ast$\textbackslash{}))\textquotesingle{}, re.\+I\+G\+N\+O\+R\+E\+C\+A\+SE)
+\item 
+\mbox{\Hypertarget{namespacemain_a6026ef516de9d45644ba57ee20f74526}\label{namespacemain_a6026ef516de9d45644ba57ee20f74526}} 
+{\bfseries res} = multiprocessing.\+Pool(ncores).map(parsefile,files)
+\item 
+\mbox{\Hypertarget{namespacemain_a34a8da9e4ea0d649ffa69af902cf521a}\label{namespacemain_a34a8da9e4ea0d649ffa69af902cf521a}} 
+list {\bfseries depends} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacemain_aadebc0109a5753a37cb9a31d2ed48cf1}\label{namespacemain_aadebc0109a5753a37cb9a31d2ed48cf1}} 
+list {\bfseries allmodules} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacemain_abf92d840d5fa38a81ba842df3bb1de98}\label{namespacemain_abf92d840d5fa38a81ba842df3bb1de98}} 
+{\bfseries G} = networkx.\+Di\+Graph()
+\item 
+\mbox{\Hypertarget{namespacemain_a9ae7702cafad26b5d092dffe74689ad6}\label{namespacemain_a9ae7702cafad26b5d092dffe74689ad6}} 
+{\bfseries weight}
+\item 
+\mbox{\Hypertarget{namespacemain_ae4c7f095ddd008e5b685e83c4d166cc3}\label{namespacemain_ae4c7f095ddd008e5b685e83c4d166cc3}} 
+{\bfseries o}
+\item 
+\mbox{\Hypertarget{namespacemain_a2b72d44d2090c947f5f8a9bbf595f7b4}\label{namespacemain_a2b72d44d2090c947f5f8a9bbf595f7b4}} 
+{\bfseries pos} = networkx.\+spring\+\_\+layout(G)
+\item 
+\mbox{\Hypertarget{namespacemain_a4a33a9469e5788aba73f4a5bd96272a1}\label{namespacemain_a4a33a9469e5788aba73f4a5bd96272a1}} 
+{\bfseries pr} = networkx.\+pagerank(G, alpha=0.\+85, personalization=None, max\+\_\+iter=100, tol=1e-\/06, nstart=\+None, weight=\textquotesingle{}weight\textquotesingle{}, dangling=\+None)
+\item 
+\mbox{\Hypertarget{namespacemain_a9f8ea998890504549f6e7371c8337056}\label{namespacemain_a9f8ea998890504549f6e7371c8337056}} 
+list {\bfseries sizes} = \mbox{[}(pr\mbox{[}i\mbox{]}$\ast$$\ast$.\+5)$\ast$1000 for i in G.\+nodes\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacemain_a8675ef8ce0b90d4ee43557fb7984d873}\label{namespacemain_a8675ef8ce0b90d4ee43557fb7984d873}} 
+{\bfseries node\+\_\+size}
+\item 
+\mbox{\Hypertarget{namespacemain_a9582bd76fa0468c20a318f771203f2f6}\label{namespacemain_a9582bd76fa0468c20a318f771203f2f6}} 
+{\bfseries data} = networkx.\+node\+\_\+link\+\_\+data(G)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}All reuses of this program must contain this message
+
+Written by Daniel Ellis 2018. daniel.ellis.research@googlemail.com
+Twitter: @danellisscience
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemain_a42969f03e14f9d500397028177ed72ec}\label{namespacemain_a42969f03e14f9d500397028177ed72ec}} 
+\index{main@{main}!merge\+\_\+nodes@{merge\+\_\+nodes}}
+\index{merge\+\_\+nodes@{merge\+\_\+nodes}!main@{main}}
+\subsubsection{\texorpdfstring{merge\+\_\+nodes()}{merge\_nodes()}}
+{\footnotesize\ttfamily def main.\+merge\+\_\+nodes (\begin{DoxyParamCaption}\item[{}]{G,  }\item[{}]{nodes,  }\item[{}]{new\+\_\+node }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Merges the selected `nodes` of the graph G into one `new_node`,
+meaning that all the edges that pointed to or from one of these
+`nodes` will point to or from the `new_node`.
+attr_dict and **attr are defined as in `G.add_node`.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+90 \textcolor{keyword}{def }merge\_nodes(G,nodes, new\_node,):
+91     \textcolor{stringliteral}{"""}
+92 \textcolor{stringliteral}{    Merges the selected `nodes` of the graph G into one `new\_node`,}
+93 \textcolor{stringliteral}{    meaning that all the edges that pointed to or from one of these}
+94 \textcolor{stringliteral}{    `nodes` will point to or from the `new\_node`.}
+95 \textcolor{stringliteral}{    attr\_dict and **attr are defined as in `G.add\_node`.}
+96 \textcolor{stringliteral}{    """}
+97 
+98     G.add\_node(new\_node) \textcolor{comment}{# Add the 'merged' node}
+99 
+100     \textcolor{keywordflow}{for} n1,n2,data \textcolor{keywordflow}{in} G.edges(data=\textcolor{keyword}{True}):
+101         \textcolor{comment}{# For all edges related to one of the nodes to merge,}
+102         \textcolor{comment}{# make an edge going to or coming from the `new gene`.\(\backslash\)}
+103         \textcolor{keywordflow}{if} n1 \textcolor{keywordflow}{in} nodes:
+104             G.add\_edge(new\_node,n2)
+105         \textcolor{keywordflow}{elif} n2 \textcolor{keywordflow}{in} nodes:
+106             G.add\_edge(n1,new\_node)
+107 
+108     \textcolor{keywordflow}{for} n \textcolor{keywordflow}{in} nodes: \textcolor{comment}{# remove the merged nodes}
+109         G.remove\_node(n)
+110 
+\end{DoxyCode}

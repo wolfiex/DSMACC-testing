@@ -1,0 +1,92 @@
+\hypertarget{namespacemakeparallel}{}\section{makeparallel Namespace Reference}
+\label{namespacemakeparallel}\index{makeparallel@{makeparallel}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacemakeparallel_afa44c3440c004029068f5ac7738d0d26}{make}} (f)
+\item 
+def \mbox{\hyperlink{namespacemakeparallel_a8efd375d839b5b7bc78f108de8ceb703}{make\+\_\+all}} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacemakeparallel_a489798aad1f515e949f758627b301bdb}\label{namespacemakeparallel_a489798aad1f515e949f758627b301bdb}} 
+string {\bfseries cmd} = \textquotesingle{}ifort -\/cpp -\/mcmodel large -\/O0 -\/fpp -\/traceback -\/heap-\/arrays -\/ftz -\/implicitnone -\/fp-\/model strict \textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacemakeparallel_a51f9f710eb55720e89049a87f4370537}\label{namespacemakeparallel_a51f9f710eb55720e89049a87f4370537}} 
+string {\bfseries tuv} = \textquotesingle{}T\+U\+V\+\_\+5.\+2.\+1\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}A script to reduce compilation time of DSMACC by doing some files in parallel
+This header must not be removed
+
+Daniel Ells
+daniel.ellis@york.ac.uk
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemakeparallel_afa44c3440c004029068f5ac7738d0d26}\label{namespacemakeparallel_afa44c3440c004029068f5ac7738d0d26}} 
+\index{makeparallel@{makeparallel}!make@{make}}
+\index{make@{make}!makeparallel@{makeparallel}}
+\subsubsection{\texorpdfstring{make()}{make()}}
+{\footnotesize\ttfamily def makeparallel.\+make (\begin{DoxyParamCaption}\item[{}]{f }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}sys call to run compiler\end{DoxyVerb}
+ 
+\begin{DoxyCode}
+14 \textcolor{keyword}{def }make(f):
+15     \textcolor{stringliteral}{''' sys call to run compiler'''}
+16     \textcolor{keyword}{global} cmd
+17     \textcolor{keywordflow}{print} \textcolor{stringliteral}{'making'},f
+18     os.system(\textcolor{stringliteral}{' %s -c %s'}%(cmd,f))
+19     \textcolor{comment}{#debug print 'done',f}
+20 
+21 
+\end{DoxyCode}
+\mbox{\Hypertarget{namespacemakeparallel_a8efd375d839b5b7bc78f108de8ceb703}\label{namespacemakeparallel_a8efd375d839b5b7bc78f108de8ceb703}} 
+\index{makeparallel@{makeparallel}!make\+\_\+all@{make\+\_\+all}}
+\index{make\+\_\+all@{make\+\_\+all}!makeparallel@{makeparallel}}
+\subsubsection{\texorpdfstring{make\+\_\+all()}{make\_all()}}
+{\footnotesize\ttfamily def makeparallel.\+make\+\_\+all (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}main make function \end{DoxyVerb}
+ 
+\begin{DoxyCode}
+22 \textcolor{keyword}{def }make\_all():
+23     \textcolor{stringliteral}{''' main make function '''}
+24     \textcolor{keyword}{global} cmd,tuv
+25     start\_time = time.time()
+26 
+27     p1= [\textcolor{stringliteral}{'model\_Parameters.f90'},\textcolor{stringliteral}{'model\_Global.f90'},\textcolor{stringliteral}{'model\_Monitor.f90'},\textcolor{stringliteral}{'model\_Precision.f90'}]\textcolor{comment}{#jacsp can be
+       here}
+28     p2= [\textcolor{stringliteral}{'model\_Global.f90'},\textcolor{stringliteral}{'model\_Function.f90'},\textcolor{stringliteral}{'model\_JacobianSP.f90'}]
+29     p3= [\textcolor{stringliteral}{'model\_constants.f90'},\textcolor{stringliteral}{'model\_Initialize.f90'},\textcolor{stringliteral}{'model\_Util.f90'},\textcolor{stringliteral}{'model\_Rates.f90'}]
+30     p4= [\textcolor{stringliteral}{'model\_Jacobian.f90'},\textcolor{stringliteral}{'model\_LinearAlgebra.f90'}]
+31     p5= [\textcolor{stringliteral}{'model\_Integrator.f90'}]
+32     p6= [\textcolor{stringliteral}{'model\_Main.f90'}, \textcolor{stringliteral}{'model\_Model.f90'}]
+33 
+34     cores=4 \textcolor{comment}{# only ever 4 files at a time based on workflow}
+35 
+36 
+37 
+38     pool = multiprocessing.Pool(cores)
+39     counter = 0
+40     \textcolor{keywordflow}{for} p \textcolor{keywordflow}{in} [p1,p2,p3,p4,p5,p6]:
+41         counter += 1
+42         \textcolor{keywordflow}{print} \textcolor{stringliteral}{"\(\backslash\)033]0; compiling... %d/6 \(\backslash\)007"}%counter
+43         pool.map(make,p)
+44 
+45     \textcolor{keywordflow}{print} \textcolor{stringliteral}{"\(\backslash\)033]0; It all comes together \(\backslash\)007"}
+46     \textcolor{keywordflow}{print} \textcolor{stringliteral}{'Putting it all together now.'}
+47     os.system(\textcolor{stringliteral}{'%s -o model *.o %s/*.o'}%(cmd,tuv))
+48 
+49     \textcolor{keywordflow}{print} \textcolor{stringliteral}{"--- %s seconds ---"} % (time.time() - start\_time)
+50 
+51     \textcolor{keywordflow}{print} \textcolor{stringliteral}{"\(\backslash\)033]0; Your model is ready \(\backslash\)007"}
+52     \textcolor{keywordflow}{print} \textcolor{stringliteral}{'Model is ready!'}
+53 
+54 
+\end{DoxyCode}

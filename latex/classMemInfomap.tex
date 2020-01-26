@@ -1,0 +1,40 @@
+\hypertarget{classMemInfomap}{}\section{Mem\+Infomap Class Reference}
+\label{classMemInfomap}\index{Mem\+Infomap@{Mem\+Infomap}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemInfomap_a9749dbee214026c54bb199ac0c812bd6}\label{classMemInfomap_a9749dbee214026c54bb199ac0c812bd6}} 
+{\bfseries Mem\+Infomap} (const std\+::string flags)
+\item 
+\mbox{\Hypertarget{classMemInfomap_a15a8f29a213d7e58b2954091bdd17feb}\label{classMemInfomap_a15a8f29a213d7e58b2954091bdd17feb}} 
+void {\bfseries read\+Input\+Data} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{classMemInfomap_af6e2a69195afd819af38ab05720ae843}\label{classMemInfomap_af6e2a69195afd819af38ab05720ae843}} 
+bool {\bfseries add\+Trigram} (unsigned int n1, unsigned int n2, unsigned int n3, double weight=1.\+0)
+\item 
+\mbox{\Hypertarget{classMemInfomap_a68d227a6d56ae70b8e0589f3ffd5fc6c}\label{classMemInfomap_a68d227a6d56ae70b8e0589f3ffd5fc6c}} 
+bool {\bfseries add\+State\+Link} (unsigned int n1\+Prior\+State, unsigned int n1, unsigned int n2\+Prior\+State, unsigned int n2, double weight=1.\+0)
+\item 
+\mbox{\Hypertarget{classMemInfomap_a699c7b57d57805ddf79efe0a5cb12542}\label{classMemInfomap_a699c7b57d57805ddf79efe0a5cb12542}} 
+void {\bfseries add\+Multiplex\+Link} (int layer1, int node1, int layer2, int node2, double weight=1.\+0)
+\item 
+\mbox{\Hypertarget{classMemInfomap_a2ba6b32eee1838cb421b376ac281c559}\label{classMemInfomap_a2ba6b32eee1838cb421b376ac281c559}} 
+int {\bfseries run} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemInfomap_ac069836abe651b024f0f8e98e1e75a28}\label{classMemInfomap_ac069836abe651b024f0f8e98e1e75a28}} 
+\mbox{\hyperlink{structConfig}{Config}} {\bfseries config}
+\item 
+\mbox{\Hypertarget{classMemInfomap_af8fc6302d5ebaf3dceb6e644c37b07a9}\label{classMemInfomap_af8fc6302d5ebaf3dceb6e644c37b07a9}} 
+\mbox{\hyperlink{classMultiplexNetwork}{Multiplex\+Network}} {\bfseries network}
+\item 
+\mbox{\Hypertarget{classMemInfomap_a29fe5cb3396adbdb85a8a6c83dc6db73}\label{classMemInfomap_a29fe5cb3396adbdb85a8a6c83dc6db73}} 
+\mbox{\hyperlink{classHierarchicalNetwork}{Hierarchical\+Network}} {\bfseries tree}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/Infomap.\+h\end{DoxyCompactItemize}

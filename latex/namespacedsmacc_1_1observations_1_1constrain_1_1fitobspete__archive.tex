@@ -1,0 +1,64 @@
+\hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive}{}\section{dsmacc.\+observations.\+constrain.\+fitobspete\+\_\+archive Namespace Reference}
+\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive}\index{dsmacc.\+observations.\+constrain.\+fitobspete\+\_\+archive@{dsmacc.\+observations.\+constrain.\+fitobspete\+\_\+archive}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ac58ff719ec739b182ff0d05c1face649}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ac58ff719ec739b182ff0d05c1face649}} 
+def {\bfseries get\+\_\+spline} (match=\textquotesingle{} $\ast$.csv\textquotesingle{}, plot=True)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a383605cf9b411f032e40cb9f584c663d}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a383605cf9b411f032e40cb9f584c663d}} 
+def {\bfseries count} (n)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a153ab00216080e263fbd4a472edcad03}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a153ab00216080e263fbd4a472edcad03}} 
+list {\bfseries names} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ad0f9028d2576cd57fa7becba0cab05d4}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ad0f9028d2576cd57fa7becba0cab05d4}} 
+string {\bfseries copyto} = \textquotesingle{}../../../\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ad94f6b7ab6221e2f59a9e94fb65c3cfc}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ad94f6b7ab6221e2f59a9e94fb65c3cfc}} 
+string {\bfseries matched} = \textquotesingle{}constraints\+\_\+040617/$\ast$.csv\textquotesingle{}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a1ed48b44d7a2548481606242de2b36e9}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a1ed48b44d7a2548481606242de2b36e9}} 
+{\bfseries cfarray} = np.\+asfortranarray(np.\+array(get\+\_\+spline(match=matched)))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a49efc53382508fe61f030ad426bc2cbb}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a49efc53382508fe61f030ad426bc2cbb}} 
+string {\bfseries ratestring} = \char`\"{}!obs\+:\%d\textbackslash{}n\char`\"{}\%len(cfarray)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a7a9dd840faa17c2a11b8b6c481fc6e68}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a7a9dd840faa17c2a11b8b6c481fc6e68}} 
+def {\bfseries c} = count(len(cfarray))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a691d1315515dcdb8423fdc5302d91d59}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a691d1315515dcdb8423fdc5302d91d59}} 
+{\bfseries n} = next
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ae8dd1c4cd2589929fde954346e93457b}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_ae8dd1c4cd2589929fde954346e93457b}} 
+list {\bfseries B\+V\+OC} = \mbox{[}\textquotesingle{}C5\+H8\textquotesingle{},\textquotesingle{}A\+P\+I\+N\+E\+NE\textquotesingle{},\textquotesingle{}B\+P\+I\+N\+E\+NE\textquotesingle{},\textquotesingle{}L\+I\+M\+O\+N\+E\+NE\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a0bdfb6b7b07bc25cb5913fc888ca71db}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a0bdfb6b7b07bc25cb5913fc888ca71db}} 
+list {\bfseries A\+N\+TH} = \mbox{[}\textquotesingle{}C2\+H6\textquotesingle{},\textquotesingle{}C3\+H8\textquotesingle{},\textquotesingle{}I\+C4\+H10\textquotesingle{},\textquotesingle{}N\+C4\+H10\textquotesingle{},\textquotesingle{}C\+H\+EX\textquotesingle{},\textquotesingle{}I\+C5\+H12\textquotesingle{},\textquotesingle{}M2\+PE\textquotesingle{},\textquotesingle{}N\+C5\+H12\textquotesingle{},\textquotesingle{}N\+C6\+H14\textquotesingle{},\textquotesingle{}N\+C7\+H16\textquotesingle{},\textquotesingle{}N\+C8\+H18\textquotesingle{},\textquotesingle{}N\+C9\+H20\textquotesingle{},\textquotesingle{}N\+C10\+H22\textquotesingle{},\textquotesingle{}N\+C11\+H24\textquotesingle{},\textquotesingle{}N\+C12\+H26\textquotesingle{},\textquotesingle{}B\+E\+N\+Z\+E\+NE\textquotesingle{},\textquotesingle{}T\+O\+L\+U\+E\+NE\textquotesingle{},\textquotesingle{}E\+B\+E\+NZ\textquotesingle{},\textquotesingle{}O\+X\+YL\textquotesingle{},\textquotesingle{}M\+X\+YL\textquotesingle{},\textquotesingle{}I\+P\+B\+E\+NZ\textquotesingle{},\textquotesingle{}P\+B\+E\+NZ\textquotesingle{},\textquotesingle{}M\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}P\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}T\+M135B\textquotesingle{},\textquotesingle{}O\+E\+T\+H\+T\+OL\textquotesingle{},\textquotesingle{}T\+M124B\textquotesingle{},\textquotesingle{}T\+M123B\textquotesingle{},\textquotesingle{}D\+I\+M\+E35\+EB\textquotesingle{},\textquotesingle{}C2\+H4\textquotesingle{},\textquotesingle{}C3\+H6\textquotesingle{},\textquotesingle{}C2\+H2\textquotesingle{},\textquotesingle{}T\+B\+U\+T2\+E\+NE\textquotesingle{},\textquotesingle{}B\+U\+T1\+E\+NE\textquotesingle{},\textquotesingle{}M\+E\+P\+R\+O\+P\+E\+NE\textquotesingle{},\textquotesingle{}C\+B\+U\+T2\+E\+NE\textquotesingle{},\textquotesingle{}C4\+H6\textquotesingle{},\textquotesingle{}T\+P\+E\+N\+T2\+E\+NE\textquotesingle{},\textquotesingle{}C\+P\+E\+N\+T2\+E\+NE\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a2315e6e783d26a81873e8c15cf6389c6}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a2315e6e783d26a81873e8c15cf6389c6}} 
+list {\bfseries N\+OX} = \mbox{[}\textquotesingle{}N\+O\+E\+M\+I\+SS\textquotesingle{},\textquotesingle{}N\+O2\+E\+M\+IS\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_aa8fce288ec2a30baefd9bb90759253a6}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_aa8fce288ec2a30baefd9bb90759253a6}} 
+list {\bfseries CO} = \mbox{[}\textquotesingle{}CO\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a405a36f693f5886c1eef7d20b9de5b9f}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a405a36f693f5886c1eef7d20b9de5b9f}} 
+list {\bfseries L\+A\+R\+OM} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a1a936a6298415c38efa3d23bf22b241c}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a1a936a6298415c38efa3d23bf22b241c}} 
+list {\bfseries S\+A\+R\+OM} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a3eefbdc40918e36c9c21e25f6997f128}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a3eefbdc40918e36c9c21e25f6997f128}} 
+list {\bfseries A\+L\+KE} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a096a5b1f393c775291392e63d28d0d6c}\label{namespacedsmacc_1_1observations_1_1constrain_1_1fitobspete__archive_a096a5b1f393c775291392e63d28d0d6c}} 
+list {\bfseries M\+E\+T\+H\+A\+NE} = \mbox{[}\textquotesingle{}C\+H4\textquotesingle{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}observation data array \end{DoxyVerb}
+ 

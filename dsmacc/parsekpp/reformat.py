@@ -37,7 +37,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
     '''
 
 
-    file_list = picker.Picker('mechanisms/[!form]*.kpp',remove=['mechanisms/','.kpp'],title = 'Select Mechanisms').getSelected()
+    file_list = picker.Picker('mechanisms/[!fo]*.kpp',remove=['mechanisms/','.kpp'],title = 'Select Mechanisms').getSelected()
 
 
     if co2:

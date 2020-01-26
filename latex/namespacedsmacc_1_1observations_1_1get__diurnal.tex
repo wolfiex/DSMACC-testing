@@ -1,0 +1,137 @@
+\hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal}{}\section{dsmacc.\+observations.\+get\+\_\+diurnal Namespace Reference}
+\label{namespacedsmacc_1_1observations_1_1get__diurnal}\index{dsmacc.\+observations.\+get\+\_\+diurnal@{dsmacc.\+observations.\+get\+\_\+diurnal}}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a913883661be023e5318fd82cd5d9d73a}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a913883661be023e5318fd82cd5d9d73a}} 
+{\bfseries df} = pd.\+Data\+Frame()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a4d2fdfe2ec018716282a10c28b75929b}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a4d2fdfe2ec018716282a10c28b75929b}} 
+{\bfseries f} = list(filter(lambda x \+: x != \textquotesingle{}True\textquotesingle{},sys.\+argv\mbox{[}1\+:\mbox{]}))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_ac275a4f55671597f5e76ac3c52174d32}\label{namespacedsmacc_1_1observations_1_1get__diurnal_ac275a4f55671597f5e76ac3c52174d32}} 
+{\bfseries inplace}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_aef9ba65f80fdf8e9acd289d4a4e5b5c5}\label{namespacedsmacc_1_1observations_1_1get__diurnal_aef9ba65f80fdf8e9acd289d4a4e5b5c5}} 
+string {\bfseries dr} = \textquotesingle{}\+\_\+\textquotesingle{}.join(\mbox{[}i.\+split(\textquotesingle{}.\textquotesingle{})\mbox{[}0\mbox{]} for i in f\mbox{]})
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a35f252d52a909ac318ea8b38a2557f70}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a35f252d52a909ac318ea8b38a2557f70}} 
+{\bfseries date}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a2777291e478e3b9699b1d2b6cf10884c}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a2777291e478e3b9699b1d2b6cf10884c}} 
+{\bfseries columns}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_aad9c8bdafe36064863015928e3a1eb27}\label{namespacedsmacc_1_1observations_1_1get__diurnal_aad9c8bdafe36064863015928e3a1eb27}} 
+{\bfseries scale} = None
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a4a83c10c18852c5bbdc39097290acda3}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a4a83c10c18852c5bbdc39097290acda3}} 
+{\bfseries fail} = float(item)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a1e5c6d9ef2f710a54393939de4b81fed}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a1e5c6d9ef2f710a54393939de4b81fed}} 
+{\bfseries df1} = df\mbox{[}\mbox{[}\textquotesingle{}H\+O\+UR\textquotesingle{},\textquotesingle{}M\+O\+N\+TH\textquotesingle{},item\mbox{]}\mbox{]}.dropna().astype(float)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_aee925ef8db1b9593b772813a5a4d30a7}\label{namespacedsmacc_1_1observations_1_1get__diurnal_aee925ef8db1b9593b772813a5a4d30a7}} 
+{\bfseries X} = df1\mbox{[}\textquotesingle{}H\+O\+UR M\+O\+N\+TH\textquotesingle{}.split()\mbox{]}.values
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a9a3fe2c4578c23e9daafc57a7b2bead2}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a9a3fe2c4578c23e9daafc57a7b2bead2}} 
+{\bfseries Y} = np.\+log10(df1\mbox{[}item\mbox{]}$\ast$scale).values
+\item 
+{\bfseries nn}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a029cd852e32ae7dd3c9dbcc9d4ba5d28}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a029cd852e32ae7dd3c9dbcc9d4ba5d28}} 
+string {\bfseries mname} = \textquotesingle{}January February March April May June July August September October November December\textquotesingle{}.split()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a3cc14a7ec95219828dd99c17d0665a44}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a3cc14a7ec95219828dd99c17d0665a44}} 
+int {\bfseries entries} = np.\+array(list(set(df1.\+M\+O\+N\+TH)))$\ast$12
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a5129c11bfed74eb88568ab75d129d45a}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a5129c11bfed74eb88568ab75d129d45a}} 
+{\bfseries fig} = plt.\+figure(figsize=(16.$\ast$((max(entries)-\/min(entries)+1)/12),8))
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a80ea9ae952f10e1c91eb0ebd9a505faf}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a80ea9ae952f10e1c91eb0ebd9a505faf}} 
+{\bfseries start} = min(entries)
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_aa62c30f744cbf3467cb562c80d91c9b6}\label{namespacedsmacc_1_1observations_1_1get__diurnal_aa62c30f744cbf3467cb562c80d91c9b6}} 
+int {\bfseries m} = m1/12
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_af47f426ceee2f5c2bd7c6ef4ab65923f}\label{namespacedsmacc_1_1observations_1_1get__diurnal_af47f426ceee2f5c2bd7c6ef4ab65923f}} 
+{\bfseries s} = df1\mbox{[}df1.\+M\+O\+N\+TH==m\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a730efeee06e030a319864ccd678c0432}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a730efeee06e030a319864ccd678c0432}} 
+{\bfseries values}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_ab2b37f1b187826a2774c379076dba528}\label{namespacedsmacc_1_1observations_1_1get__diurnal_ab2b37f1b187826a2774c379076dba528}} 
+{\bfseries alpha}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a7de8121ed56bd18b11956333b8492f9e}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a7de8121ed56bd18b11956333b8492f9e}} 
+int {\bfseries h} = np.\+array(range(24))/24.
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_aa5d4ce92accff7f16ffbebbb1bb3ec74}\label{namespacedsmacc_1_1observations_1_1get__diurnal_aa5d4ce92accff7f16ffbebbb1bb3ec74}} 
+{\bfseries axis}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a1cbe408ed25abb2964096a551820b0c9}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a1cbe408ed25abb2964096a551820b0c9}} 
+{\bfseries nbins}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a2dedeff222be24b562028d900f6ff04d}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a2dedeff222be24b562028d900f6ff04d}} 
+{\bfseries rect}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_afd909b567c5889491e96932630002690}\label{namespacedsmacc_1_1observations_1_1get__diurnal_afd909b567c5889491e96932630002690}} 
+{\bfseries w\+\_\+pad}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_ab0bbbfc94b7aaa9bac8c48686056b70e}\label{namespacedsmacc_1_1observations_1_1get__diurnal_ab0bbbfc94b7aaa9bac8c48686056b70e}} 
+{\bfseries ax} = fig.\+gca()
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a2732ed80fc1377f1352c4437a2f64a88}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a2732ed80fc1377f1352c4437a2f64a88}} 
+list {\bfseries labels} = \mbox{[}re.\+sub(r\textquotesingle{}\mbox{[}$^\wedge$\textbackslash{}x00-\/\textbackslash{}x7F\mbox{]}+\textquotesingle{},\textquotesingle{}-\/\textquotesingle{},item.\+get\+\_\+text()) for item in ax.\+get\+\_\+yticklabels()\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a0bb476aaf3c7a4fca0d7b22dd6ad6abb}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a0bb476aaf3c7a4fca0d7b22dd6ad6abb}} 
+{\bfseries which}
+\item 
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a80cf8dbff1fdd8f2fb3c62b06a163010}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a80cf8dbff1fdd8f2fb3c62b06a163010}} 
+{\bfseries length}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}This script reads a csv (or excel) file from a field campaign and then applies a feed forward (simple) neural network to generate a mean monthly diurnal for the entirety of the data. 
+
+Input arguments: <Str:filename(s)> <Bool:all columns>
+
+File structure:
+ 1. Species must contain 'ppbv' or 'pptv' after their names to be considered unless the optional second argument to the script is supplied, and set to 'True'
+ 2. A 'date' column must be supplied with the format of xxxx/mm/xxxx hh:mm:xx or 
+xxxx-mm-xxxx hh:mm:xx, where x is not considered in the parsing. 
+
+Missing/data with gaps works is fine - and is why this program was created!
+
+Requirements:
+- sklearn
+- pandas
+- matplotlib
+- xlrd (if using excel)
+
+###############
+
+This script was developed as part of the PhD of Daniel Ellis at the university of York. An aim to make it universal (for all experimental data) has been taken, and it is yet to be tidied. If any tweaks are required feel free to update it and submit a pull request detailing any of the changes made. 
+
+If used please cite the DSMACC repository doi <insert here> to which the script belongs and my thesis itself <insert link here>. 
+
+##############
+
+Author: daniel.ellis@york.ac.uk\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacedsmacc_1_1observations_1_1get__diurnal_a2e635882309c8af963b3474c770b5dd1}\label{namespacedsmacc_1_1observations_1_1get__diurnal_a2e635882309c8af963b3474c770b5dd1}} 
+\index{dsmacc\+::observations\+::get\+\_\+diurnal@{dsmacc\+::observations\+::get\+\_\+diurnal}!nn@{nn}}
+\index{nn@{nn}!dsmacc\+::observations\+::get\+\_\+diurnal@{dsmacc\+::observations\+::get\+\_\+diurnal}}
+\subsubsection{\texorpdfstring{nn}{nn}}
+{\footnotesize\ttfamily dsmacc.\+observations.\+get\+\_\+diurnal.\+nn}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 =  MLPRegressor(
+2         hidden\_layer\_sizes=(10,),  activation=\textcolor{stringliteral}{'tanh'}, solver=\textcolor{stringliteral}{'lbfgs'}, alpha=0.001, batch\_size=\textcolor{stringliteral}{'auto'},
+3         learning\_rate=\textcolor{stringliteral}{'adaptive'}, learning\_rate\_init=0.005, power\_t=0.5, max\_iter=2000, shuffle=\textcolor{keyword}{True},
+4         random\_state=9, tol=1e-4, verbose=\textcolor{keyword}{False} , warm\_start=\textcolor{keyword}{False}, momentum=0.9, nesterovs\_momentum=\textcolor{keyword}{True},
+5         early\_stopping=\textcolor{keyword}{False}, validation\_fraction=0.4, beta\_1=0.9, beta\_2=0.999, epsilon=1e-08)
+\end{DoxyCode}

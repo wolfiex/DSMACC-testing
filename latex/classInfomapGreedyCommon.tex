@@ -1,0 +1,1398 @@
+\hypertarget{classInfomapGreedyCommon}{}\section{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$ Class Template Reference}
+\label{classInfomapGreedyCommon}\index{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$@{Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$}}
+Inheritance diagram for Infomap\+Greedy\+Common$<$ Infomap\+Greedy\+Derived\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.584000cm]{classInfomapGreedyCommon}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a8889c3cd57d341ee75ae9c13b7d77dee}\label{classInfomapGreedyCommon_a8889c3cd57d341ee75ae9c13b7d77dee}} 
+{\bfseries Infomap\+Greedy\+Common} (const \mbox{\hyperlink{structConfig}{Config}} \&conf, \mbox{\hyperlink{classNodeFactoryBase}{Node\+Factory\+Base}} $\ast$node\+Factory)
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a3d115399a2be685d098a372faa969d32}\label{classInfomapGreedyCommon_a3d115399a2be685d098a372faa969d32}} 
+{\bfseries Infomap\+Greedy\+Common} (const \mbox{\hyperlink{classInfomapBase}{Infomap\+Base}} \&infomap, \mbox{\hyperlink{classNodeFactoryBase}{Node\+Factory\+Base}} $\ast$node\+Factory)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_aaaa423506d351f689fe1e2cf0092930c}\label{classInfomapGreedyCommon_aaaa423506d351f689fe1e2cf0092930c}} 
+virtual std\+::auto\+\_\+ptr$<$ \mbox{\hyperlink{classInfomapBase}{Infomap\+Base}} $>$ {\bfseries get\+New\+Infomap\+Instance} ()
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_ab6f3822e0e2a7d5bbbc00f52b2750222}\label{classInfomapGreedyCommon_ab6f3822e0e2a7d5bbbc00f52b2750222}} 
+Node\+Type \& {\bfseries get\+Node} (\mbox{\hyperlink{classNodeBase}{Node\+Base}} \&\mbox{\hyperlink{structnode}{node}})
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a6e46fb6c7041f09993a70135e22585a7}\label{classInfomapGreedyCommon_a6e46fb6c7041f09993a70135e22585a7}} 
+const Node\+Type \& {\bfseries get\+Node} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&\mbox{\hyperlink{structnode}{node}}) const
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a201b93e2f668b3f55c130c933a78e4ce}\label{classInfomapGreedyCommon_a201b93e2f668b3f55c130c933a78e4ce}} 
+virtual unsigned int {\bfseries aggregate\+Flow\+Values\+From\+Leaf\+To\+Root} ()
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a7c15dc01895797111c8b546cbc35d797}\label{classInfomapGreedyCommon_a7c15dc01895797111c8b546cbc35d797}} 
+virtual double {\bfseries calc\+Codelength\+On\+All\+Nodes\+In\+Tree} ()
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a16b8fb2ee1e3c5fa6bb52caba21558e7}\label{classInfomapGreedyCommon_a16b8fb2ee1e3c5fa6bb52caba21558e7}} 
+virtual double {\bfseries calc\+Codelength\+On\+Root\+Of\+Leaf\+Nodes} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_ae651d281b4b98215fe2ace4c25b2ecd0}\label{classInfomapGreedyCommon_ae651d281b4b98215fe2ace4c25b2ecd0}} 
+virtual double {\bfseries calc\+Codelength\+On\+Module\+Of\+Modules} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a83f8c77d553b7da850ae770a3cda2ac0}\label{classInfomapGreedyCommon_a83f8c77d553b7da850ae770a3cda2ac0}} 
+virtual double {\bfseries calc\+Codelength\+On\+Module\+Of\+Leaf\+Nodes} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_a912810e1dba306751dacd82acddf373a}\label{classInfomapGreedyCommon_a912810e1dba306751dacd82acddf373a}} 
+virtual std\+::pair$<$ double, double $>$ {\bfseries calc\+Codelength} (const \mbox{\hyperlink{classNodeBase}{Node\+Base}} \&parent)
+\item 
+virtual void \mbox{\hyperlink{classInfomapGreedyCommon_af6135849730a24a4f3fea57ff32991e5}{init\+Constant\+Infomap\+Terms}} ()
+\item 
+virtual void \mbox{\hyperlink{classInfomapGreedyCommon_ae168ab41c18759e09b1a3dff97ee017d}{calculate\+Codelength\+From\+Active\+Network}} ()
+\item 
+virtual unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_a17feb30bfa3d448f7933c3fcc237f833}{optimize\+Modules}} ()
+\item 
+virtual unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_a3b5e71572ae01ce0788f919290903b63}{optimize\+Modules\+Crude}} ()
+\item 
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_a25af363aae49138b379a823b6ab2ad5c}{try\+Move\+Each\+Node\+Into\+Best\+Module}} ()
+\item 
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_a5d0eb8fd059c6d308c53f8c4ed8f10f9}{try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable}} ()
+\item 
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_aebf032fcd793b9496e5b1952cb14c233}{try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel}} ()
+\item 
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_ac1026d8aaeb5a5ceeb6c272d6adba431}{try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module}} ()
+\item 
+virtual void \mbox{\hyperlink{classInfomapGreedyCommon_affbdd4750e010adba7f1cd15a295303e}{move\+Nodes\+To\+Predefined\+Modules}} ()
+\item 
+virtual unsigned int \mbox{\hyperlink{classInfomapGreedyCommon_ad4845dbd57d006f5220e6a7d9f293f9d}{consolidate\+Modules}} (bool replace\+Existing\+Structure, bool as\+Sub\+Modules)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInfomapGreedyCommon_aca47c78ffb35ca1a504ee5ed811adce4}\label{classInfomapGreedyCommon_aca47c78ffb35ca1a504ee5ed811adce4}} 
+unsigned int {\bfseries m\+\_\+core\+Loop\+Count}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classInfomapGreedyCommon_ae168ab41c18759e09b1a3dff97ee017d}\label{classInfomapGreedyCommon_ae168ab41c18759e09b1a3dff97ee017d}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!calculate\+Codelength\+From\+Active\+Network@{calculate\+Codelength\+From\+Active\+Network}}
+\index{calculate\+Codelength\+From\+Active\+Network@{calculate\+Codelength\+From\+Active\+Network}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{calculate\+Codelength\+From\+Active\+Network()}{calculateCodelengthFromActiveNetwork()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+void \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::calculate\+Codelength\+From\+Active\+Network (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Specialized for the case when enter and exit flow may differ 
+\begin{DoxyCode}
+334 \{
+335     Super::enter\_log\_enter = 0.0;
+336     Super::flow\_log\_flow = 0.0;
+337     Super::exit\_log\_exit = 0.0;
+338     Super::enterFlow = 0.0;
+339 
+340     \textcolor{comment}{// For each module}
+341     \textcolor{keywordflow}{for} (\textcolor{keyword}{typename} Super::activeNetwork\_iterator it(Super::m\_activeNetwork.\mbox{\hyperlink{namespacebegin}{begin}}()), itEnd(
+      Super::m\_activeNetwork.end());
+342             it != itEnd; ++it)
+343     \{
+344         NodeType& \mbox{\hyperlink{structnode}{node}} = getNode(**it);
+345         \textcolor{comment}{// own node/module codebook}
+346         Super::flow\_log\_flow += infomath::plogp(\mbox{\hyperlink{structnode}{node}}.data.flow + \mbox{\hyperlink{structnode}{node}}.data.exitFlow);
+347 
+348         \textcolor{comment}{// use of index codebook}
+349         Super::enter\_log\_enter += infomath::plogp(\mbox{\hyperlink{structnode}{node}}.data.enterFlow);
+350         Super::exit\_log\_exit += infomath::plogp(\mbox{\hyperlink{structnode}{node}}.data.exitFlow);
+351         Super::enterFlow += \mbox{\hyperlink{structnode}{node}}.data.enterFlow;
+352     \}
+353     Super::enterFlow += Super::exitNetworkFlow;
+354     Super::enterFlow\_log\_enterFlow = infomath::plogp(Super::enterFlow);
+355 
+356     derived().calculateNodeFlow\_log\_nodeFlowForMemoryNetwork();
+357 
+358     Super::indexCodelength = Super::enterFlow\_log\_enterFlow - Super::enter\_log\_enter - 
+      Super::exitNetworkFlow\_log\_exitNetworkFlow;
+359     Super::moduleCodelength = -Super::exit\_log\_exit + Super::flow\_log\_flow - Super::nodeFlow\_log\_nodeFlow;
+360     Super::codelength = Super::indexCodelength + Super::moduleCodelength;
+361 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_ad4845dbd57d006f5220e6a7d9f293f9d}\label{classInfomapGreedyCommon_ad4845dbd57d006f5220e6a7d9f293f9d}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!consolidate\+Modules@{consolidate\+Modules}}
+\index{consolidate\+Modules@{consolidate\+Modules}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{consolidate\+Modules()}{consolidateModules()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::consolidate\+Modules (\begin{DoxyParamCaption}\item[{bool}]{replace\+Existing\+Structure,  }\item[{bool}]{as\+Sub\+Modules }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Take the non-\/empty dynamic modules from the optimization of the active network and create module nodes to insert above the active network in the tree. Also aggregate the links from the active network to inter-\/module links in the new modular network.
+
+If true, it doesn\textquotesingle{}t add any depth to the tree but replacing either the existing modular parent structure (if {\ttfamily as\+Sub\+Modules} is true) or the active network itself if it\textquotesingle{}s not the leaf level, in which case it will add a level of depth to the tree anyway.
+
+Set to true to consolidate the dynamic modules as submodules under existing modules, and store existing parent structure on the index member of the submodules. Presupposes that the active network already have a modular parent structure, and that the dynamic structure that will be consolidated actually contains nothing but strict sub-\/structures of the existing modules, i.\+e. that the index property of two nodes with different parent must be different. Presumably the sub-\/module structure initiated on the active network is found by partitioning each existing module.
+
+\begin{DoxyReturn}{Returns}
+The number of created modules 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classInfomapBase_ac6da8d87eb4d0760157367e8fcdfbdbc}{Infomap\+Base}}.
+
+
+\begin{DoxyCode}
+1329 \{
+1330     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = Super::m\_activeNetwork.size();
+1331     std::vector<NodeBase*> modules(numNodes, 0);
+1332 
+1333     \textcolor{keywordtype}{bool} activeNetworkAlreadyHaveModuleLevel = Super::m\_activeNetwork[0]->parent != Super::root();
+1334     \textcolor{keywordtype}{bool} activeNetworkIsLeafNetwork = Super::m\_activeNetwork[0]->isLeaf();
+1335 
+1336 
+1337     \textcolor{keywordflow}{if} (asSubModules)
+1338     \{
+1339         ASSERT(activeNetworkAlreadyHaveModuleLevel);
+1340         \textcolor{comment}{// Release the pointers from modules to leaf nodes so that the new submodules will be inserted as
+       its only children.}
+1341         \textcolor{keywordflow}{for} (\mbox{\hyperlink{classSiblingIterator}{NodeBase::sibling\_iterator}} moduleIt(Super::root()->begin\_child()), 
+      moduleEnd(Super::root()->end\_child());
+1342                 moduleIt != moduleEnd; ++moduleIt)
+1343         \{
+1344             moduleIt->releaseChildren();
+1345         \}
+1346     \}
+1347     \textcolor{keywordflow}{else}
+1348     \{
+1349         \textcolor{comment}{// Happens after optimizing fine-tune and when moving leaf nodes to super clusters}
+1350         \textcolor{keywordflow}{if} (activeNetworkAlreadyHaveModuleLevel)
+1351         \{
+1352             DEBUG\_OUT(\textcolor{stringliteral}{"Replace existing "} << numTopModules() << \textcolor{stringliteral}{" modules with its children before
+       consolidating the "} <<
+1353                     numActiveModules() << \textcolor{stringliteral}{" dynamic modules... "});
+1354             Super::root()->replaceChildrenWithGrandChildren();
+1355             ASSERT(m\_activeNetwork[0]->parent == root());
+1356         \}
+1357         Super::root()->releaseChildren();
+1358     \}
+1359 
+1360     \textcolor{comment}{// Create the new module nodes and re-parent the active network from its common parent to the new
+       module level}
+1361     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < numNodes; ++i)
+1362     \{
+1363         \mbox{\hyperlink{classNodeBase}{NodeBase}}* \mbox{\hyperlink{structnode}{node}} = Super::m\_activeNetwork[i];
+1364         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} moduleIndex = \mbox{\hyperlink{structnode}{node}}->index;
+1365         \textcolor{keywordflow}{if} (modules[moduleIndex] == 0)
+1366         \{
+1367             modules[moduleIndex] = \textcolor{keyword}{new} NodeType(Super::m\_moduleFlowData[moduleIndex]);
+1368             \mbox{\hyperlink{structnode}{node}}->parent->addChild(modules[moduleIndex]);
+1369             modules[moduleIndex]->index = moduleIndex;
+1370             \textcolor{comment}{// If node->parent is a module, its former children (leafnodes) has been released above,
+       getting only submodules}
+1371 \textcolor{comment}{//          if (node->parent->firstChild == node)}
+1372 \textcolor{comment}{//              node->parent->firstChild = modules[moduleIndex];}
+1373         \}
+1374         modules[moduleIndex]->addChild(\mbox{\hyperlink{structnode}{node}});
+1375     \}
+1376 
+1377     \textcolor{keywordflow}{if} (asSubModules)
+1378     \{
+1379         DEBUG\_OUT(\textcolor{stringliteral}{"Consolidated "} << numActiveModules() << \textcolor{stringliteral}{" submodules under "} << numTopModules() << \textcolor{stringliteral}{"
+       modules, "} <<
+1380                 \textcolor{stringliteral}{"store module structure before releasing it..."} << std::endl);
+1381         \textcolor{comment}{// Store the module structure on the submodules}
+1382         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} moduleIndex = 0;
+1383         \textcolor{keywordflow}{for} (\mbox{\hyperlink{classSiblingIterator}{NodeBase::sibling\_iterator}} moduleIt(Super::root()->begin\_child()), 
+      endIt(Super::root()->end\_child());
+1384                 moduleIt != endIt; ++moduleIt, ++moduleIndex)
+1385         \{
+1386             \textcolor{keywordflow}{for} (\mbox{\hyperlink{classSiblingIterator}{NodeBase::sibling\_iterator}} subModuleIt(moduleIt->begin\_child()),
+       endIt(moduleIt->end\_child());
+1387                     subModuleIt != endIt; ++subModuleIt)
+1388             \{
+1389                 subModuleIt->index = moduleIndex;
+1390             \}
+1391         \}
+1392         \textcolor{keywordflow}{if} (replaceExistingStructure)
+1393         \{
+1394             \textcolor{comment}{// Remove the module level}
+1395             Super::root()->replaceChildrenWithGrandChildren();
+1396         \}
+1397     \}
+1398 
+1399 
+1400     \textcolor{comment}{// Aggregate links from lower level to the new modular level}
+1401     \textcolor{keyword}{typedef} std::pair<NodeBase*, NodeBase*> NodePair;
+1402     \textcolor{keyword}{typedef} std::map<NodePair, double, CompNodePair> EdgeMap;
+1403     EdgeMap moduleLinks;
+1404 
+1405     \textcolor{keywordflow}{for} (\textcolor{keyword}{typename} Super::activeNetwork\_iterator nodeIt(Super::m\_activeNetwork.
+      \mbox{\hyperlink{namespacebegin}{begin}}()), nodeEnd(Super::m\_activeNetwork.end());
+1406             nodeIt != nodeEnd; ++nodeIt)
+1407     \{
+1408         \mbox{\hyperlink{classNodeBase}{NodeBase}}* \mbox{\hyperlink{structnode}{node}} = *nodeIt;
+1409 
+1410         \mbox{\hyperlink{classNodeBase}{NodeBase}}* parent = \mbox{\hyperlink{structnode}{node}}->parent;
+1411         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(\mbox{\hyperlink{structnode}{node}}->begin\_outEdge()), edgeEnd(
+      \mbox{\hyperlink{structnode}{node}}->end\_outEdge());
+1412                 edgeIt != edgeEnd; ++edgeIt)
+1413         \{
+1414             EdgeType* edge = *edgeIt;
+1415             \mbox{\hyperlink{classNodeBase}{NodeBase}}* otherParent = edge->target.parent;
+1416 
+1417             \textcolor{keywordflow}{if} (otherParent != parent)
+1418             \{
+1419                 \mbox{\hyperlink{classNodeBase}{NodeBase}} *m1 = parent, *m2 = otherParent;
+1420                 \textcolor{comment}{// If undirected, the order may be swapped to aggregate the edge on an opposite one}
+1421                 \textcolor{keywordflow}{if} (!IsDirectedType() && m1->index > m2->index)
+1422                     std::swap(m1, m2);
+1423                 \textcolor{comment}{// Insert the node pair in the edge map. If not inserted, add the flow value to existing
+       node pair.}
+1424                 std::pair<typename EdgeMap::iterator, bool> ret = \(\backslash\)
+1425                     moduleLinks.insert(std::make\_pair(NodePair(m1, m2), edge->data.flow));
+1426                 \textcolor{keywordflow}{if} (!ret.second)
+1427                     ret.first->second += edge->data.flow;
+1428             \}
+1429         \}
+1430     \}
+1431 
+1432     \textcolor{comment}{// Add the aggregated edge flow structure to the new modules}
+1433     \textcolor{keywordflow}{for} (EdgeMap::const\_iterator edgeIt(moduleLinks.begin()), edgeEnd(moduleLinks.end());
+1434             edgeIt != edgeEnd; ++edgeIt)
+1435     \{
+1436         \textcolor{keyword}{const} NodePair& nodePair = edgeIt->first;
+1437         nodePair.first->addOutEdge(*nodePair.second, 0.0, edgeIt->second);
+1438     \}
+1439 
+1440     \textcolor{comment}{// Replace active network with its children if not at leaf level.}
+1441     \textcolor{keywordflow}{if} (!activeNetworkIsLeafNetwork && replaceExistingStructure)
+1442     \{
+1443         \textcolor{keywordflow}{for} (\textcolor{keyword}{typename} Super::activeNetwork\_iterator nodeIt(Super::m\_activeNetwork.
+      \mbox{\hyperlink{namespacebegin}{begin}}()), nodeEnd(Super::m\_activeNetwork.end());
+1444                 nodeIt != nodeEnd; ++nodeIt)
+1445         \{
+1446             (*nodeIt)->replaceWithChildren();
+1447         \}
+1448     \}
+1449 
+1450     \textcolor{comment}{// Calculate the number of non-trivial modules}
+1451     Super::m\_numNonTrivialTopModules = 0;
+1452     \textcolor{keywordflow}{for} (\mbox{\hyperlink{classSiblingIterator}{NodeBase::sibling\_iterator}} moduleIt(Super::root()->begin\_child()), endIt
+      (Super::root()->end\_child());
+1453             moduleIt != endIt; ++moduleIt)
+1454     \{
+1455         \textcolor{keywordflow}{if} (moduleIt->childDegree() != 1)
+1456             ++Super::m\_numNonTrivialTopModules;
+1457     \}
+1458 
+1459     \textcolor{comment}{// For memory networks}
+1460     derived().consolidatePhysicalNodes(modules);
+1461 
+1462     \textcolor{keywordflow}{return} Super::numActiveModules();
+1463 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_af6135849730a24a4f3fea57ff32991e5}\label{classInfomapGreedyCommon_af6135849730a24a4f3fea57ff32991e5}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!init\+Constant\+Infomap\+Terms@{init\+Constant\+Infomap\+Terms}}
+\index{init\+Constant\+Infomap\+Terms@{init\+Constant\+Infomap\+Terms}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{init\+Constant\+Infomap\+Terms()}{initConstantInfomapTerms()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+void \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::init\+Constant\+Infomap\+Terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Init the infomap term that only depends on the flow value on the leaf nodes. 
+
+Implements \mbox{\hyperlink{classInfomapBase_a093ad5e840cb4529ac32eaf4f9d6d8b2}{Infomap\+Base}}.
+
+
+\begin{DoxyCode}
+317 \{
+318     \textcolor{comment}{// Not constant for memory Infomap!}
+319     Super::nodeFlow\_log\_nodeFlow = 0.0;
+320     \textcolor{comment}{// For each module}
+321     \textcolor{keywordflow}{for} (\textcolor{keyword}{typename} Super::activeNetwork\_iterator it(Super::m\_activeNetwork.\mbox{\hyperlink{namespacebegin}{begin}}()), itEnd(
+      Super::m\_activeNetwork.end());
+322             it != itEnd; ++it)
+323     \{
+324         NodeType& \mbox{\hyperlink{structnode}{node}} = getNode(**it);
+325         Super::nodeFlow\_log\_nodeFlow += infomath::plogp(\mbox{\hyperlink{structnode}{node}}.data.flow);
+326     \}
+327 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_affbdd4750e010adba7f1cd15a295303e}\label{classInfomapGreedyCommon_affbdd4750e010adba7f1cd15a295303e}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!move\+Nodes\+To\+Predefined\+Modules@{move\+Nodes\+To\+Predefined\+Modules}}
+\index{move\+Nodes\+To\+Predefined\+Modules@{move\+Nodes\+To\+Predefined\+Modules}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{move\+Nodes\+To\+Predefined\+Modules()}{moveNodesToPredefinedModules()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+void \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::move\+Nodes\+To\+Predefined\+Modules (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Loop through each node and move it to the module predefined by the member vector m\+\_\+move\+To. 
+
+Implements \mbox{\hyperlink{classInfomapBase_ab085f56e93df121d113b5869a51824c9}{Infomap\+Base}}.
+
+
+\begin{DoxyCode}
+1246 \{
+1247     \textcolor{comment}{// Size of active network and cluster array should match.}
+1248     ASSERT(m\_moveTo.size() == m\_activeNetwork.size());
+1249 
+1250     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = Super::m\_activeNetwork.size();
+1251 
+1252     DEBUG\_OUT(\textcolor{stringliteral}{"Begin moving "} << numNodes << \textcolor{stringliteral}{" nodes to predefined modules, starting with codelength "} <<
+1253             codelength << \textcolor{stringliteral}{"..."} << std::endl);
+1254 
+1255     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numMoved = 0;
+1256     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} k = 0; k < numNodes; ++k)
+1257     \{
+1258         NodeType& current = getNode(*Super::m\_activeNetwork[k]);
+1259         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oldM = current.index; \textcolor{comment}{// == k}
+1260         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} newM = Super::m\_moveTo[k];
+1261 
+1262         \textcolor{keywordflow}{if} (newM != oldM)
+1263         \{
+1264             DeltaFlowType oldModuleDelta(oldM, 0.0, 0.0, 0.0, 0.0);
+1265             DeltaFlowType newModuleDelta(newM, 0.0, 0.0, 0.0, 0.0);
+1266 
+1267             Super::addTeleportationDeltaFlowOnOldModuleIfMove(current, oldModuleDelta);
+1268             Super::addTeleportationDeltaFlowOnNewModuleIfMove(current, newModuleDelta);
+1269 
+1270             \textcolor{comment}{// For all outlinks}
+1271             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+1272                     edgeIt != endIt; ++edgeIt)
+1273             \{
+1274                 EdgeType& edge = **edgeIt;
+1275                 \textcolor{keywordflow}{if} (edge.isSelfPointing())
+1276                     \textcolor{keywordflow}{continue};
+1277                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = edge.target.index;
+1278                 \textcolor{keywordflow}{if} (otherModule == oldM)
+1279                     oldModuleDelta.deltaExit += edge.data.flow;
+1280                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otherModule == newM)
+1281                     newModuleDelta.deltaExit += edge.data.flow;
+1282             \}
+1283 
+1284             \textcolor{comment}{// For all inlinks}
+1285             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+1286                     edgeIt != endIt; ++edgeIt)
+1287             \{
+1288                 EdgeType& edge = **edgeIt;
+1289                 \textcolor{keywordflow}{if} (edge.isSelfPointing())
+1290                     \textcolor{keywordflow}{continue};
+1291                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = edge.source.index;
+1292                 \textcolor{keywordflow}{if} (otherModule == oldM)
+1293                     oldModuleDelta.deltaEnter += edge.data.flow;
+1294                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otherModule == newM)
+1295                     newModuleDelta.deltaEnter += edge.data.flow;
+1296             \}
+1297 
+1298 
+1299             \textcolor{comment}{// For memory networks}
+1300             derived().performPredefinedMoveOfMemoryNode(current, oldM, newM, oldModuleDelta, newModuleDelta
+      );
+1301 
+1302 
+1303             \textcolor{comment}{//Update empty module vector}
+1304             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[newM] == 0)
+1305             \{
+1306                 Super::m\_emptyModules.pop\_back();
+1307             \}
+1308             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[oldM] == 1)
+1309             \{
+1310                 Super::m\_emptyModules.push\_back(oldM);
+1311             \}
+1312 
+1313             \mbox{\hyperlink{classInfomapGreedySpecialized_a6f4ff75d89a26f1b474ca5a2190878c7}{Super::updateCodelengthOnMovingNode}}(current, oldModuleDelta,
+       newModuleDelta);
+1314             derived().updateCodelengthOnMovingMemoryNode(oldModuleDelta, newModuleDelta);
+1315 
+1316             Super::m\_moduleMembers[oldM] -= 1;
+1317             Super::m\_moduleMembers[newM] += 1;
+1318 
+1319             current.index = newM;
+1320             ++numMoved;
+1321         \}
+1322     \}
+1323     DEBUG\_OUT(\textcolor{stringliteral}{"Done! Moved "} << numMoved << \textcolor{stringliteral}{" nodes into "} << numActiveModules() << \textcolor{stringliteral}{" modules to
+       codelength: "} << codelength << std::endl);
+1324 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_a17feb30bfa3d448f7933c3fcc237f833}\label{classInfomapGreedyCommon_a17feb30bfa3d448f7933c3fcc237f833}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!optimize\+Modules@{optimize\+Modules}}
+\index{optimize\+Modules@{optimize\+Modules}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{optimize\+Modules()}{optimizeModules()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::optimize\+Modules (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Loop through each node and move it to the module that reduces the total codelength the most. Start over until converged.
+
+\begin{DoxyReturn}{Returns}
+The number of effective optimization rounds, i.\+e. zero if no move was made. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classInfomapBase_a443a496b76cc78286cce345e018c4fd8}{Infomap\+Base}}.
+
+
+\begin{DoxyCode}
+366 \{
+367     DEBUG\_OUT(\textcolor{stringliteral}{"\(\backslash\)nInfomapGreedyCommon<InfomapGreedyDerivedType>::optimizeModules()"});
+368     m\_coreLoopCount = 0;
+369     \textcolor{keywordtype}{double} oldCodelength = Super::codelength;
+370     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} loopLimit = Super::m\_config.coreLoopLimit;
+371     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} minRandLoop = 2;
+372     \textcolor{keywordflow}{if} (loopLimit >= minRandLoop && Super::m\_config.randomizeCoreLoopLimit)
+373         loopLimit = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}\textcolor{keyword}{>}(Super::m\_rand() * (loopLimit - minRandLoop)) + minRandLoop;
+374     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} loopLimitOnAggregationLevels = 20;
+375 
+376     \textcolor{comment}{// Iterate while the optimization loop moves some nodes within the dynamic modular structure}
+377     \textcolor{keywordflow}{do}
+378     \{
+379         oldCodelength = Super::codelength;
+380         \textcolor{keywordflow}{if} (Super::m\_config.innerParallelization)
+381             \mbox{\hyperlink{classInfomapGreedyCommon_aebf032fcd793b9496e5b1952cb14c233}{tryMoveEachNodeIntoBestModuleInParallel}}(); \textcolor{comment}{// returns
+       numNodesMoved}
+382         \textcolor{keywordflow}{else}
+383             \mbox{\hyperlink{classInfomapGreedyCommon_a25af363aae49138b379a823b6ab2ad5c}{tryMoveEachNodeIntoBestModule}}(); \textcolor{comment}{// returns numNodesMoved}
+384         ++m\_coreLoopCount;
+385     \} \textcolor{keywordflow}{while} (m\_coreLoopCount != (Super::m\_aggregationLevel == 0 && !Super::m\_isCoarseTune? loopLimit : 
+      loopLimitOnAggregationLevels) &&
+386             Super::codelength < oldCodelength - Super::m\_config.minimumCodelengthImprovement);
+387 
+388     \textcolor{keywordflow}{return} m\_coreLoopCount;
+389 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_a3b5e71572ae01ce0788f919290903b63}\label{classInfomapGreedyCommon_a3b5e71572ae01ce0788f919290903b63}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!optimize\+Modules\+Crude@{optimize\+Modules\+Crude}}
+\index{optimize\+Modules\+Crude@{optimize\+Modules\+Crude}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{optimize\+Modules\+Crude()}{optimizeModulesCrude()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::optimize\+Modules\+Crude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Loop through each node and move it to the strongest connected module. Start over until converged.
+
+\begin{DoxyReturn}{Returns}
+The number of effective optimization rounds, i.\+e. zero if no move was made. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classInfomapBase_acb6dc935567c31d7ada4b514c5b8dcea}{Infomap\+Base}}.
+
+
+\begin{DoxyCode}
+394 \{
+395     m\_coreLoopCount = 0;
+396     \textcolor{comment}{// double oldCodelength = Super::codelength;}
+397     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} loopLimit = Super::m\_config.coreLoopLimit;
+398     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} minRandLoop = 3;
+399     \textcolor{keywordflow}{if} (loopLimit >= minRandLoop && Super::m\_config.randomizeCoreLoopLimit)
+400         loopLimit = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}\textcolor{keyword}{>}(Super::m\_rand() * (loopLimit - minRandLoop)) + minRandLoop;
+401     \textcolor{comment}{// unsigned int loopLimitOnAggregationLevels = -1;}
+402     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numMoved = 0;
+403 
+404     \textcolor{comment}{// Iterate while the optimization loop moves some nodes within the dynamic modular structure}
+405     \textcolor{keywordflow}{do}
+406     \{
+407         \textcolor{comment}{// oldCodelength = Super::codelength;}
+408         numMoved = \mbox{\hyperlink{classInfomapGreedyCommon_ac1026d8aaeb5a5ceeb6c272d6adba431}{tryMoveEachNodeIntoStrongestConnectedModule}}()
+      ; \textcolor{comment}{// returns numNodesMoved}
+409         ++m\_coreLoopCount;
+410     \} \textcolor{keywordflow}{while} (m\_coreLoopCount != loopLimit && numMoved > 0);
+411 
+412     \textcolor{keywordflow}{return} m\_coreLoopCount;
+413 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_a25af363aae49138b379a823b6ab2ad5c}\label{classInfomapGreedyCommon_a25af363aae49138b379a823b6ab2ad5c}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!try\+Move\+Each\+Node\+Into\+Best\+Module@{try\+Move\+Each\+Node\+Into\+Best\+Module}}
+\index{try\+Move\+Each\+Node\+Into\+Best\+Module@{try\+Move\+Each\+Node\+Into\+Best\+Module}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{try\+Move\+Each\+Node\+Into\+Best\+Module()}{tryMoveEachNodeIntoBestModule()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::try\+Move\+Each\+Node\+Into\+Best\+Module (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Minimize the codelength by trying to move each node into best module.
+
+For each node\+:
+\begin{DoxyEnumerate}
+\item Calculate the change in codelength for a move to each of its neighbouring modules or to an empty module
+\item Move to the one that reduces the codelength the most, if any.
+\end{DoxyEnumerate}
+
+\begin{DoxyReturn}{Returns}
+The number of nodes moved. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+427 \{
+428     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = Super::m\_activeNetwork.size();
+429     \textcolor{comment}{// Get random enumeration of nodes}
+430     std::vector<unsigned int> randomOrder(numNodes);
+431     infomath::getRandomizedIndexVector(randomOrder, Super::m\_rand);
+432 
+433     std::vector<DeltaFlowType> moduleDeltaEnterExit(numNodes);
+434     std::vector<unsigned int> redirect(numNodes, 0);
+435     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset = 1;
+436     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} maxOffset = std::numeric\_limits<unsigned int>::max() - 1 - numNodes;
+437 
+438 
+439     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numMoved = 0;
+440     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < numNodes; ++i)
+441     \{
+442         \textcolor{comment}{// Reset offset before overflow}
+443         \textcolor{keywordflow}{if} (offset > maxOffset)
+444         \{
+445             redirect.assign(numNodes, 0);
+446             offset = 1;
+447         \}
+448 
+449         \textcolor{comment}{// Pick nodes in random order}
+450         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flip = randomOrder[i];
+451         NodeType& current = getNode(*Super::m\_activeNetwork[flip]);
+452 
+453         \textcolor{keywordflow}{if} (!current.dirty)
+454             \textcolor{keywordflow}{continue};
+455 
+456         \textcolor{comment}{// Don't move out from previous merge on first loop}
+457         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::isFirstLoop() && m\_config.
+      tuneIterationLimit != 1)
+458             \textcolor{keywordflow}{continue};
+459 
+460         \textcolor{comment}{// Don't decrease the number of modules if already equal the preferred number}
+461         \textcolor{keywordflow}{if} (Super::isTopLevel() && Super::numActiveModules() == m\_config.preferredNumberOfModules && 
+      Super::m\_moduleMembers[current.index] == 1)
+462             \textcolor{keywordflow}{continue};
+463 
+464 
+465         \textcolor{comment}{// If no links connecting this node with other nodes, it won't move into others,}
+466         \textcolor{comment}{// and others won't move into this. TODO: Always best leave it alone?}
+467 \textcolor{comment}{//      if (current.degree() == 0)}
+468         \textcolor{comment}{// if (current.degree() == 0 ||}
+469         \textcolor{comment}{//  (Super::m\_config.includeSelfLinks &&}
+470         \textcolor{comment}{//  (current.outDegree() == 1 && current.inDegree() == 1) &&}
+471         \textcolor{comment}{//  (**current.begin\_outEdge()).target == current))}
+472         \textcolor{comment}{// \{}
+473         \textcolor{comment}{//  DEBUG\_OUT("SKIPPING isolated node " << current << "\(\backslash\)n");}
+474         \textcolor{comment}{//  //TODO: If not skipping self-links, this yields different results from
+       moveNodesToPredefinedModules!!}
+475         \textcolor{comment}{//  ASSERT(!m\_config.includeSelfLinks);}
+476         \textcolor{comment}{//  current.dirty = false;}
+477         \textcolor{comment}{//  continue;}
+478         \textcolor{comment}{// \}}
+479 
+480         \textcolor{comment}{// Create vector with module links}
+481 
+482         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numModuleLinks = 0;
+483         \textcolor{keywordflow}{if} (current.isDangling())
+484         \{
+485             redirect[current.index] = offset + numModuleLinks;
+486             moduleDeltaEnterExit[numModuleLinks] = DeltaFlowType(current.index, 0.0, 0.0);
+487             ++numModuleLinks;
+488         \}
+489         \textcolor{keywordflow}{else}
+490         \{
+491             \textcolor{comment}{// For all outlinks}
+492             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+493                     edgeIt != endIt; ++edgeIt)
+494             \{
+495                 EdgeType& edge = **edgeIt;
+496                 \textcolor{keywordflow}{if} (edge.isSelfPointing())
+497                     \textcolor{keywordflow}{continue};
+498                 NodeType& neighbour = getNode(edge.target);
+499 
+500                 \textcolor{keywordflow}{if} (redirect[neighbour.index] >= offset)
+501                 \{
+502                     moduleDeltaEnterExit[redirect[neighbour.index] - offset].deltaExit += edge.data.flow;
+503                 \}
+504                 \textcolor{keywordflow}{else}
+505                 \{
+506                     redirect[neighbour.index] = offset + numModuleLinks;
+507                     moduleDeltaEnterExit[numModuleLinks] = DeltaFlowType(neighbour.index, edge.data.flow, 0
+      .0);
+508                     ++numModuleLinks;
+509                 \}
+510             \}
+511         \}
+512         \textcolor{comment}{// For all inlinks}
+513         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+514                 edgeIt != endIt; ++edgeIt)
+515         \{
+516             EdgeType& edge = **edgeIt;
+517             \textcolor{keywordflow}{if} (edge.isSelfPointing())
+518                 \textcolor{keywordflow}{continue};
+519             NodeType& neighbour = getNode(edge.source);
+520 
+521             \textcolor{keywordflow}{if} (redirect[neighbour.index] >= offset)
+522             \{
+523                 moduleDeltaEnterExit[redirect[neighbour.index] - offset].deltaEnter += edge.data.flow;
+524             \}
+525             \textcolor{keywordflow}{else}
+526             \{
+527                 redirect[neighbour.index] = offset + numModuleLinks;
+528                 moduleDeltaEnterExit[numModuleLinks] = DeltaFlowType(neighbour.index, 0.0, edge.data.flow);
+529                 ++numModuleLinks;
+530             \}
+531         \}
+532 
+533         \textcolor{comment}{// If alone in the module, add virtual link to the module (used when adding teleportation)}
+534         \textcolor{keywordflow}{if} (redirect[current.index] < offset)
+535         \{
+536             redirect[current.index] = offset + numModuleLinks;
+537             moduleDeltaEnterExit[numModuleLinks] = DeltaFlowType(current.index, 0.0, 0.0);
+538             ++numModuleLinks;
+539         \}
+540 
+541 
+542         \textcolor{comment}{// Empty function if no teleportation coding model}
+543         Super::template addTeleportationDeltaFlowIfMove<DeltaFlowType>(current, moduleDeltaEnterExit, 
+      numModuleLinks);
+544 
+545         \textcolor{comment}{// Option to move to empty module (if node not already alone, and not already at the preferred
+       number of modules)}
+546         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::m\_emptyModules.size() > 0 &&
+547                 (m\_config.preferredNumberOfModules == 0 || (Super::isTopLevel() && Super::numActiveModules(
+      ) != m\_config.preferredNumberOfModules)))
+548         \{
+549             moduleDeltaEnterExit[numModuleLinks] = DeltaFlowType(Super::m\_emptyModules.back(), 0.0, 0.0);
+550             ++numModuleLinks;
+551         \}
+552 
+553         \textcolor{comment}{// Store the DeltaFlow of the current module}
+554         DeltaFlowType oldModuleDelta(moduleDeltaEnterExit[redirect[current.index] - offset]);
+555 
+556 
+557         \textcolor{comment}{// For memory networks}
+558         derived().addContributionOfMovingMemoryNodes(current, oldModuleDelta, moduleDeltaEnterExit, 
+      redirect, offset, numModuleLinks);
+559 
+560 
+561         \textcolor{comment}{// Randomize link order for optimized search}
+562         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j < numModuleLinks - 1; ++j)
+563         \{
+564             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} randPos = j + Super::m\_rand.randInt(numModuleLinks - j - 1);
+565             swap(moduleDeltaEnterExit[j], moduleDeltaEnterExit[randPos]);
+566         \}
+567 
+568         DeltaFlowType bestDeltaModule(oldModuleDelta);
+569         \textcolor{keywordtype}{double} bestDeltaCodelength = 0.0;
+570         DeltaFlowType strongestConnectedModule(oldModuleDelta);
+571         \textcolor{keywordtype}{double} deltaCodelengthOnStrongestConnectedModule = 0.0;
+572 
+573         \textcolor{comment}{// Find the move that minimizes the description length}
+574         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j < numModuleLinks; ++j)
+575         \{
+576             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = moduleDeltaEnterExit[j].module;
+577             \textcolor{keywordflow}{if}(otherModule != current.index)
+578             \{
+579                 \textcolor{keywordtype}{double} deltaCodelength = Super::getDeltaCodelengthOnMovingNode(current, oldModuleDelta, 
+      moduleDeltaEnterExit[j]);
+580                 deltaCodelength += derived().getDeltaCodelengthOnMovingMemoryNode(oldModuleDelta, 
+      moduleDeltaEnterExit[j]);
+581 
+582                 \textcolor{keywordflow}{if} (deltaCodelength < bestDeltaCodelength - Super::m\_config.
+      minimumSingleNodeCodelengthImprovement)
+583                 \{
+584                     bestDeltaModule = moduleDeltaEnterExit[j];
+585                     bestDeltaCodelength = deltaCodelength;
+586                 \}
+587 
+588                 \textcolor{comment}{// Save strongest connected module to prefer if codelength improvement equal}
+589                 \textcolor{keywordflow}{if} (moduleDeltaEnterExit[j].deltaExit > strongestConnectedModule.deltaExit)
+590                 \{
+591                     strongestConnectedModule = moduleDeltaEnterExit[j];
+592                     deltaCodelengthOnStrongestConnectedModule = deltaCodelength;
+593                 \}
+594             \}
+595         \}
+596 
+597         \textcolor{comment}{// Prefer strongest connected module if equal delta codelength}
+598         \textcolor{keywordflow}{if} (strongestConnectedModule.module != bestDeltaModule.module &&
+599                 deltaCodelengthOnStrongestConnectedModule <= bestDeltaCodelength + Super::m\_config.
+      minimumCodelengthImprovement)
+600         \{
+601             bestDeltaModule = strongestConnectedModule;
+602         \}
+603 
+604         \textcolor{comment}{// Make best possible move}
+605         \textcolor{keywordflow}{if}(bestDeltaModule.module != current.index)
+606         \{
+607             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bestModuleIndex = bestDeltaModule.module;
+608             \textcolor{comment}{//Update empty module vector}
+609             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[bestModuleIndex] == 0)
+610             \{
+611                 Super::m\_emptyModules.pop\_back();
+612             \}
+613             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[current.index] == 1)
+614             \{
+615                 Super::m\_emptyModules.push\_back(current.index);
+616             \}
+617 
+618             \mbox{\hyperlink{classInfomapGreedySpecialized_a6f4ff75d89a26f1b474ca5a2190878c7}{Super::updateCodelengthOnMovingNode}}(current, oldModuleDelta,
+       bestDeltaModule);
+619             derived().updateCodelengthOnMovingMemoryNode(oldModuleDelta, bestDeltaModule);
+620 
+621             Super::m\_moduleMembers[current.index] -= 1;
+622             Super::m\_moduleMembers[bestModuleIndex] += 1;
+623 
+624             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oldModuleIndex = current.index;
+625             current.index = bestModuleIndex;
+626 
+627             \textcolor{comment}{// Update physical node map on move for memory networks}
+628             derived().performMoveOfMemoryNode(current, oldModuleIndex, bestModuleIndex);
+629 
+630             ++numMoved;
+631 
+632             \textcolor{comment}{// Mark neighbours as dirty}
+633             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+634                     edgeIt != endIt; ++edgeIt)
+635                 (*edgeIt)->target.dirty = \textcolor{keyword}{true};
+636             for (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+637                     edgeIt != endIt; ++edgeIt)
+638                 (*edgeIt)->source.dirty = \textcolor{keyword}{true};
+639         \}
+640         \textcolor{keywordflow}{else}
+641             current.dirty = \textcolor{keyword}{false};
+642 
+643         offset += numNodes;
+644     \}
+645 
+646     \textcolor{keywordflow}{return} numMoved;
+647 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_aebf032fcd793b9496e5b1952cb14c233}\label{classInfomapGreedyCommon_aebf032fcd793b9496e5b1952cb14c233}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel@{try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel}}
+\index{try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel@{try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel()}{tryMoveEachNodeIntoBestModuleInParallel()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::try\+Move\+Each\+Node\+Into\+Best\+Module\+In\+Parallel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Minimize the codelength by trying to move each node into best module, in parallel.
+
+For each node\+:
+\begin{DoxyEnumerate}
+\item Calculate the change in codelength for a move to each of its neighbouring modules or to an empty module
+\item Move to the one that reduces the codelength the most, if any.
+\end{DoxyEnumerate}
+
+\begin{DoxyReturn}{Returns}
+The number of nodes moved. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+848 \{
+849     \textcolor{comment}{// Don't nest parallelization}
+850     \textcolor{keywordflow}{if} (!Super::isTopLevel())
+851         \textcolor{keywordflow}{return} \mbox{\hyperlink{classInfomapGreedyCommon_a25af363aae49138b379a823b6ab2ad5c}{tryMoveEachNodeIntoBestModule}}();
+852 
+853     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = Super::m\_activeNetwork.size();
+854     \textcolor{comment}{// Get random enumeration of nodes}
+855     std::vector<unsigned int> randomOrder(numNodes);
+856     infomath::getRandomizedIndexVector(randomOrder, Super::m\_rand);
+857 
+858     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numMoved = 0;
+859     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numInvalidMoves = 0;
+860     \textcolor{keywordtype}{double} diffSerialParallelCodelength = 0.0;
+861     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} emptyTarget = numNodes; \textcolor{comment}{// Use last node index + 1 as index for empty module target.}
+862     \textcolor{keywordtype}{int} numNodesInt = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(numNodes);
+863 
+864 \textcolor{comment}{//#pragma omp parallel for schedule(static)}
+865 \textcolor{preprocessor}{#pragma omp parallel for schedule(dynamic) // Use dynamic scheduling as some threads could end early}
+866     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < numNodesInt; ++i)
+867     \{
+868 \textcolor{comment}{//      printf("Node %d processed by thread %d\(\backslash\)n", i, omp\_get\_thread\_num());}
+869         \textcolor{comment}{// Pick nodes in random order}
+870         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flip = randomOrder[i];
+871         NodeType& current = getNode(*Super::m\_activeNetwork[flip]);
+872 
+873         \textcolor{keywordflow}{if} (!current.dirty)
+874             \textcolor{keywordflow}{continue};
+875 
+876         \textcolor{comment}{// If other nodes have moved here, don't move away on first loop}
+877         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::isFirstLoop() && m\_config.
+      tuneIterationLimit != 1)
+878             \textcolor{keywordflow}{continue};
+879 
+880         \textcolor{comment}{// Don't decrease the number of modules if already equal the preferred number}
+881         \textcolor{keywordflow}{if} (Super::isTopLevel() && Super::numActiveModules() == m\_config.preferredNumberOfModules && 
+      Super::m\_moduleMembers[current.index] == 1)
+882             \textcolor{keywordflow}{continue};
+883 
+884         \textcolor{comment}{// If no links connecting this node with other nodes, it won't move into others,}
+885         \textcolor{comment}{// and others won't move into this. TODO: Always best leave it alone?}
+886 \textcolor{comment}{//      if (current.degree() == 0)}
+887         \textcolor{keywordflow}{if} (current.degree() == 0 ||
+888             (Super::m\_config.includeSelfLinks &&
+889             (current.outDegree() == 1 && current.inDegree() == 1) &&
+890             (**current.begin\_outEdge()).target == current))
+891         \{
+892             DEBUG\_OUT(\textcolor{stringliteral}{"SKIPPING isolated node "} << current << \textcolor{stringliteral}{"\(\backslash\)n"});
+893             \textcolor{comment}{//TODO: If not skipping self-links, this yields different results from
+       moveNodesToPredefinedModules!!}
+894             ASSERT(!m\_config.includeSelfLinks);
+895             current.dirty = \textcolor{keyword}{false};
+896             \textcolor{keywordflow}{continue};
+897         \}
+898 
+899         \textcolor{comment}{// Create map with module links}
+900         std::map<unsigned int, DeltaFlowType> deltaFlow;
+901 
+902         \textcolor{comment}{// If alone in the module, add virtual link to the module (used when adding teleportation)}
+903         deltaFlow[current.index] += DeltaFlowType(current.index, 0.0, 0.0);
+904 
+905         \textcolor{comment}{// For all outlinks}
+906         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+907                 edgeIt != endIt; ++edgeIt)
+908         \{
+909             EdgeType& edge = **edgeIt;
+910             \textcolor{keywordflow}{if} (edge.isSelfPointing())
+911                 \textcolor{keywordflow}{continue};
+912             NodeType& neighbour = getNode(edge.target);
+913 
+914             deltaFlow[neighbour.index] += DeltaFlowType(neighbour.index, edge.data.flow, 0.0);
+915         \}
+916         \textcolor{comment}{// For all inlinks}
+917         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+918                 edgeIt != endIt; ++edgeIt)
+919         \{
+920             EdgeType& edge = **edgeIt;
+921             \textcolor{keywordflow}{if} (edge.isSelfPointing())
+922                 \textcolor{keywordflow}{continue};
+923             NodeType& neighbour = getNode(edge.source);
+924 
+925             deltaFlow[neighbour.index] += DeltaFlowType(neighbour.index, 0.0, edge.data.flow);
+926         \}
+927 
+928 
+929         \textcolor{comment}{// Empty function if no teleportation coding model}
+930         Super::template addTeleportationDeltaFlowIfMove<DeltaFlowType>(current, deltaFlow);
+931 
+932         \textcolor{comment}{// Option to move to empty module (if node not already alone, and not already at the preferred
+       number of modules)}
+933         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} emptyModuleIndex = emptyTarget;
+934         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::m\_emptyModules.size() > 0 &&
+935                 (m\_config.preferredNumberOfModules == 0 || (Super::isTopLevel() && Super::numActiveModules(
+      ) != m\_config.preferredNumberOfModules)))
+936         \{
+937             emptyModuleIndex = Super::m\_emptyModules.back();
+938             deltaFlow[emptyModuleIndex] += DeltaFlowType(emptyModuleIndex, 0.0, 0.0);
+939         \}
+940 
+941         \textcolor{comment}{// Store the DeltaFlow of the current module}
+942         DeltaFlowType oldModuleDelta(deltaFlow[current.index]);
+943 
+944         \textcolor{comment}{// For memory networks}
+945         derived().addContributionOfMovingMemoryNodes(current, oldModuleDelta, deltaFlow);
+946 
+947 
+948         std::vector<DeltaFlowType> moduleDeltaEnterExit(deltaFlow.size());
+949         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numModuleLinks = 0;
+950         \textcolor{keywordflow}{for} (\textcolor{keyword}{typename} std::map<unsigned int, DeltaFlowType>::iterator it(deltaFlow.begin()); it != 
+      deltaFlow.end(); ++it)
+951         \{
+952             moduleDeltaEnterExit[numModuleLinks] = it->second;
+953             ++numModuleLinks;
+954         \}
+955 
+956         \textcolor{comment}{// Randomize link order for optimized search}
+957         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j < numModuleLinks - 1; ++j)
+958         \{
+959             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} randPos = j + Super::m\_rand.randInt(numModuleLinks - j - 1);
+960             swap(moduleDeltaEnterExit[j], moduleDeltaEnterExit[randPos]);
+961         \}
+962 
+963         DeltaFlowType bestDeltaModule(oldModuleDelta);
+964         \textcolor{keywordtype}{double} bestDeltaCodelength = 0.0;
+965         DeltaFlowType strongestConnectedModule(oldModuleDelta);
+966         \textcolor{keywordtype}{double} deltaCodelengthOnStrongestConnectedModule = 0.0;
+967 
+968         \textcolor{comment}{// Find the move that minimizes the description length}
+969         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j < numModuleLinks; ++j)
+970         \{
+971             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = moduleDeltaEnterExit[j].module;
+972             \textcolor{keywordflow}{if}(otherModule != current.index)
+973             \{
+974                 \textcolor{keywordtype}{double} deltaCodelength = Super::getDeltaCodelengthOnMovingNode(current, oldModuleDelta, 
+      moduleDeltaEnterExit[j]);
+975                 deltaCodelength += derived().getDeltaCodelengthOnMovingMemoryNode(oldModuleDelta, 
+      moduleDeltaEnterExit[j]);
+976 
+977                 \textcolor{keywordflow}{if} (deltaCodelength < bestDeltaCodelength - Super::m\_config.
+      minimumSingleNodeCodelengthImprovement)
+978                 \{
+979                     bestDeltaModule = moduleDeltaEnterExit[j];
+980                     bestDeltaCodelength = deltaCodelength;
+981                 \}
+982 
+983                 \textcolor{comment}{// Save strongest connected module to prefer if codelength improvement equal}
+984                 \textcolor{keywordflow}{if} (moduleDeltaEnterExit[j].deltaExit > strongestConnectedModule.deltaExit)
+985                 \{
+986                     strongestConnectedModule = moduleDeltaEnterExit[j];
+987                     deltaCodelengthOnStrongestConnectedModule = deltaCodelength;
+988                 \}
+989             \}
+990         \}
+991 
+992         \textcolor{comment}{// Prefer strongest connected module if equal delta codelength}
+993         \textcolor{keywordflow}{if} (strongestConnectedModule.module != bestDeltaModule.module &&
+994                 deltaCodelengthOnStrongestConnectedModule <= bestDeltaCodelength)\textcolor{comment}{// +
+       Super::m\_config.minimumCodelengthImprovement)}
+995         \{
+996             bestDeltaModule = strongestConnectedModule;
+997         \}
+998 
+999         \textcolor{comment}{// Make best possible move}
+1000         \textcolor{keywordflow}{if}(bestDeltaModule.module == current.index)
+1001         \{
+1002             current.dirty = \textcolor{keyword}{false};
+1003             \textcolor{keywordflow}{continue};
+1004         \}
+1005         \textcolor{keywordflow}{else}
+1006         \{
+1007 \textcolor{preprocessor}{#pragma omp critical (moveUpdate)}
+1008             \{
+1009                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bestModuleIndex = bestDeltaModule.module;
+1010                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oldModuleIndex = current.index;
+1011 
+1012                 \textcolor{keywordtype}{bool} validMove = \textcolor{keyword}{true};
+1013                 \textcolor{keywordflow}{if} (bestModuleIndex == emptyModuleIndex)    \{
+1014                     \textcolor{comment}{// Check validity of move to empty target}
+1015                     validMove = Super::m\_moduleMembers[current.index] > 1 && Super::m\_emptyModules.size() >
+       0;
+1016                 \}
+1017                 \textcolor{keywordflow}{else}
+1018                 \{
+1019                     \textcolor{comment}{// Not valid if the best module is empty now but not when decided}
+1020                     validMove = Super::m\_moduleMembers[bestModuleIndex] > 0;
+1021                 \}
+1022 
+1023                 \textcolor{keywordflow}{if} (validMove)
+1024                 \{
+1025 
+1026                     \textcolor{comment}{// Recalculate delta codelength for proposed move to see if still an improvement}
+1027                     DeltaFlowType oldModuleDelta(oldModuleIndex, 0.0, 0.0, 0.0, 0.0);
+1028                     DeltaFlowType newModuleDelta(bestModuleIndex, 0.0, 0.0, 0.0, 0.0);
+1029 
+1030                     Super::addTeleportationDeltaFlowOnOldModuleIfMove(current, oldModuleDelta);
+1031                     Super::addTeleportationDeltaFlowOnNewModuleIfMove(current, newModuleDelta);
+1032 
+1033                     \textcolor{comment}{// For all outlinks}
+1034                     \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge
+      ());
+1035                             edgeIt != endIt; ++edgeIt)
+1036                     \{
+1037                         EdgeType& edge = **edgeIt;
+1038                         \textcolor{keywordflow}{if} (edge.isSelfPointing())
+1039                             \textcolor{keywordflow}{continue};
+1040                         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = edge.target.index;
+1041                         \textcolor{keywordflow}{if} (otherModule == oldModuleIndex)
+1042                             oldModuleDelta.deltaExit += edge.data.flow;
+1043                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otherModule == bestModuleIndex)
+1044                             newModuleDelta.deltaExit += edge.data.flow;
+1045                     \}
+1046 
+1047                     \textcolor{comment}{// For all inlinks}
+1048                     \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge()
+      );
+1049                             edgeIt != endIt; ++edgeIt)
+1050                     \{
+1051                         EdgeType& edge = **edgeIt;
+1052                         \textcolor{keywordflow}{if} (edge.isSelfPointing())
+1053                             \textcolor{keywordflow}{continue};
+1054                         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = edge.source.index;
+1055                         \textcolor{keywordflow}{if} (otherModule == oldModuleIndex)
+1056                             oldModuleDelta.deltaEnter += edge.data.flow;
+1057                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otherModule == bestModuleIndex)
+1058                             newModuleDelta.deltaEnter += edge.data.flow;
+1059                     \}
+1060 
+1061 
+1062                     \textcolor{keywordtype}{double} deltaCodelength = Super::getDeltaCodelengthOnMovingNode(current, oldModuleDelta,
+       newModuleDelta);
+1063                     deltaCodelength += derived().getDeltaCodelengthOnMovingMemoryNode(oldModuleDelta, 
+      newModuleDelta);
+1064 
+1065                     \textcolor{keywordflow}{if} (deltaCodelength <= 0.0 - Super::m\_config.minimumSingleNodeCodelengthImprovement)
+1066                     \{
+1067                         \textcolor{comment}{//Update empty module vector}
+1068                         \textcolor{keywordflow}{if}(Super::m\_moduleMembers[bestModuleIndex] == 0)
+1069                         \{
+1070                             Super::m\_emptyModules.pop\_back();
+1071                         \}
+1072                         \textcolor{keywordflow}{if}(Super::m\_moduleMembers[oldModuleIndex] == 1)
+1073                         \{
+1074                             Super::m\_emptyModules.push\_back(oldModuleIndex);
+1075                         \}
+1076 
+1077                         \mbox{\hyperlink{classInfomapGreedySpecialized_a6f4ff75d89a26f1b474ca5a2190878c7}{Super::updateCodelengthOnMovingNode}}(current, 
+      oldModuleDelta, newModuleDelta);
+1078                         derived().updateCodelengthOnMovingMemoryNode(oldModuleDelta, newModuleDelta);
+1079 
+1080                         \textcolor{comment}{// Update physical node map on move for memory networks}
+1081                         derived().performMoveOfMemoryNode(current, oldModuleIndex, bestModuleIndex);
+1082 
+1083                         \textcolor{comment}{// Mark neighbours as dirty}
+1084                         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.
+      end\_outEdge());
+1085                                 edgeIt != endIt; ++edgeIt)
+1086                             (*edgeIt)->target.dirty = \textcolor{keyword}{true};
+1087                         for (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.
+      end\_inEdge());
+1088                                 edgeIt != endIt; ++edgeIt)
+1089                             (*edgeIt)->source.dirty = \textcolor{keyword}{true};
+1090 
+1091                         Super::m\_moduleMembers[oldModuleIndex] -= 1;
+1092                         Super::m\_moduleMembers[bestModuleIndex] += 1;
+1093 
+1094                         current.index = bestModuleIndex;
+1095                         ++numMoved;
+1096                         diffSerialParallelCodelength += bestDeltaCodelength - deltaCodelength;
+1097                     \}
+1098                     \textcolor{keywordflow}{else}
+1099                     \{
+1100                         ++numInvalidMoves;
+1101                     \}
+1102                 \}
+1103                 \textcolor{keywordflow}{else}
+1104                 \{
+1105                     ++numInvalidMoves;
+1106                 \}
+1107             \}
+1108         \}
+1109 
+1110     \}
+1111 
+1112 \textcolor{comment}{//  Log() << "\(\backslash\)n(#invalidMoves: " << numInvalidMoves <<}
+1113 \textcolor{comment}{//          ", diffSerialParallelCodelength: " << diffSerialParallelCodelength << ") ";}
+1114 
+1115 \textcolor{comment}{//  return numMoved;}
+1116     \textcolor{keywordflow}{return} numMoved + numInvalidMoves;
+1117 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_a5d0eb8fd059c6d308c53f8c4ed8f10f9}\label{classInfomapGreedyCommon_a5d0eb8fd059c6d308c53f8c4ed8f10f9}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable@{try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable}}
+\index{try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable@{try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable()}{tryMoveEachNodeIntoBestModuleParallelizable()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::try\+Move\+Each\+Node\+Into\+Best\+Module\+Parallelizable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Minimize the codelength by trying to move each node into best module.
+
+For each node\+:
+\begin{DoxyEnumerate}
+\item Calculate the change in codelength for a move to each of its neighbouring modules or to an empty module
+\item Move to the one that reduces the codelength the most, if any.
+\end{DoxyEnumerate}
+
+\begin{DoxyReturn}{Returns}
+The number of nodes moved. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+661 \{
+662     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = Super::m\_activeNetwork.size();
+663     \textcolor{comment}{// Get random enumeration of nodes}
+664     std::vector<unsigned int> randomOrder(numNodes);
+665     infomath::getRandomizedIndexVector(randomOrder, Super::m\_rand);
+666 
+667     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numMoved = 0;
+668     \textcolor{keywordtype}{int} numNodesInt = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(numNodes);
+669 
+670     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < numNodesInt; ++i)
+671     \{
+672         \textcolor{comment}{// Pick nodes in random order}
+673         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flip = randomOrder[i];
+674         NodeType& current = getNode(*Super::m\_activeNetwork[flip]);
+675 
+676         \textcolor{keywordflow}{if} (!current.dirty)
+677             \textcolor{keywordflow}{continue};
+678 
+679         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::isFirstLoop() && m\_config.
+      tuneIterationLimit != 1)
+680             \textcolor{keywordflow}{continue};
+681 
+682         \textcolor{comment}{// If no links connecting this node with other nodes, it won't move into others,}
+683         \textcolor{comment}{// and others won't move into this. TODO: Always best leave it alone?}
+684 \textcolor{comment}{//      if (current.degree() == 0)}
+685         \textcolor{keywordflow}{if} (current.degree() == 0 ||
+686             (Super::m\_config.includeSelfLinks &&
+687             (current.outDegree() == 1 && current.inDegree() == 1) &&
+688             (**current.begin\_outEdge()).target == current))
+689         \{
+690             DEBUG\_OUT(\textcolor{stringliteral}{"SKIPPING isolated node "} << current << \textcolor{stringliteral}{"\(\backslash\)n"});
+691             \textcolor{comment}{//TODO: If not skipping self-links, this yields different results from
+       moveNodesToPredefinedModules!!}
+692             ASSERT(!m\_config.includeSelfLinks);
+693             current.dirty = \textcolor{keyword}{false};
+694             \textcolor{keywordflow}{continue};
+695         \}
+696 
+697         \textcolor{comment}{// Create map with module links}
+698         std::map<unsigned int, DeltaFlowType> deltaFlow;
+699 
+700         \textcolor{comment}{// If alone in the module, add virtual link to the module (used when adding teleportation)}
+701         deltaFlow[current.index] += DeltaFlowType(current.index, 0.0, 0.0);
+702 
+703         \textcolor{comment}{// For all outlinks}
+704         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+705                 edgeIt != endIt; ++edgeIt)
+706         \{
+707             EdgeType& edge = **edgeIt;
+708             \textcolor{keywordflow}{if} (edge.isSelfPointing())
+709                 \textcolor{keywordflow}{continue};
+710             NodeType& neighbour = getNode(edge.target);
+711 
+712             deltaFlow[neighbour.index] += DeltaFlowType(neighbour.index, edge.data.flow, 0.0);
+713         \}
+714         \textcolor{comment}{// For all inlinks}
+715         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+716                 edgeIt != endIt; ++edgeIt)
+717         \{
+718             EdgeType& edge = **edgeIt;
+719             \textcolor{keywordflow}{if} (edge.isSelfPointing())
+720                 \textcolor{keywordflow}{continue};
+721             NodeType& neighbour = getNode(edge.source);
+722 
+723             deltaFlow[neighbour.index] += DeltaFlowType(neighbour.index, 0.0, edge.data.flow);
+724         \}
+725 
+726 
+727         \textcolor{comment}{// Empty function if no teleportation coding model}
+728         Super::template addTeleportationDeltaFlowIfMove<DeltaFlowType>(current, deltaFlow);
+729 
+730         \textcolor{comment}{// Option to move to empty module (if node not already alone)}
+731         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::m\_emptyModules.size() > 0)
+732             deltaFlow[Super::m\_emptyModules.back()] += DeltaFlowType(Super::m\_emptyModules.back(), 0.0, 0.0
+      );
+733 
+734         \textcolor{comment}{// Store the DeltaFlow of the current module}
+735         DeltaFlowType oldModuleDelta(deltaFlow[current.index]);
+736 
+737         \textcolor{comment}{// For memory networks}
+738         derived().addContributionOfMovingMemoryNodes(current, oldModuleDelta, deltaFlow);
+739 
+740 
+741         std::vector<DeltaFlowType> moduleDeltaEnterExit(deltaFlow.size());
+742         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numModuleLinks = 0;
+743         \textcolor{keywordflow}{for} (\textcolor{keyword}{typename} std::map<unsigned int, DeltaFlowType>::iterator it(deltaFlow.begin()); it != 
+      deltaFlow.end(); ++it)
+744         \{
+745             moduleDeltaEnterExit[numModuleLinks] = it->second;
+746             ++numModuleLinks;
+747         \}
+748 
+749         \textcolor{comment}{// Randomize link order for optimized search}
+750         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j < numModuleLinks - 1; ++j)
+751         \{
+752             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} randPos = j + Super::m\_rand.randInt(numModuleLinks - j - 1);
+753             swap(moduleDeltaEnterExit[j], moduleDeltaEnterExit[randPos]);
+754         \}
+755 
+756         DeltaFlowType bestDeltaModule(oldModuleDelta);
+757         \textcolor{keywordtype}{double} bestDeltaCodelength = 0.0;
+758         DeltaFlowType strongestConnectedModule(oldModuleDelta);
+759         \textcolor{keywordtype}{double} deltaCodelengthOnStrongestConnectedModule = 0.0;
+760 
+761         \textcolor{comment}{// Find the move that minimizes the description length}
+762         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j < numModuleLinks; ++j)
+763         \{
+764             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = moduleDeltaEnterExit[j].module;
+765             \textcolor{keywordflow}{if}(otherModule != current.index)
+766             \{
+767                 \textcolor{keywordtype}{double} deltaCodelength = Super::getDeltaCodelengthOnMovingNode(current, oldModuleDelta, 
+      moduleDeltaEnterExit[j]);
+768                 deltaCodelength += derived().getDeltaCodelengthOnMovingMemoryNode(oldModuleDelta, 
+      moduleDeltaEnterExit[j]);
+769 
+770                 \textcolor{keywordflow}{if} (deltaCodelength < bestDeltaCodelength - Super::m\_config.
+      minimumSingleNodeCodelengthImprovement)
+771                 \{
+772                     bestDeltaModule = moduleDeltaEnterExit[j];
+773                     bestDeltaCodelength = deltaCodelength;
+774                 \}
+775 
+776                 \textcolor{comment}{// Save strongest connected module to prefer if codelength improvement equal}
+777                 \textcolor{keywordflow}{if} (moduleDeltaEnterExit[j].deltaExit > strongestConnectedModule.deltaExit)
+778                 \{
+779                     strongestConnectedModule = moduleDeltaEnterExit[j];
+780                     deltaCodelengthOnStrongestConnectedModule = deltaCodelength;
+781                 \}
+782             \}
+783         \}
+784 
+785         \textcolor{comment}{// Prefer strongest connected module if equal delta codelength}
+786         \textcolor{keywordflow}{if} (strongestConnectedModule.module != bestDeltaModule.module &&
+787                 deltaCodelengthOnStrongestConnectedModule <= bestDeltaCodelength + Super::m\_config.
+      minimumCodelengthImprovement)
+788         \{
+789             bestDeltaModule = strongestConnectedModule;
+790         \}
+791 
+792         \textcolor{comment}{// Make best possible move}
+793         \textcolor{keywordflow}{if}(bestDeltaModule.module != current.index)
+794         \{
+795             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bestModuleIndex = bestDeltaModule.module;
+796             \textcolor{comment}{//Update empty module vector}
+797             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[bestModuleIndex] == 0)
+798             \{
+799                 Super::m\_emptyModules.pop\_back();
+800             \}
+801             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[current.index] == 1)
+802             \{
+803                 Super::m\_emptyModules.push\_back(current.index);
+804             \}
+805 
+806             \mbox{\hyperlink{classInfomapGreedySpecialized_a6f4ff75d89a26f1b474ca5a2190878c7}{Super::updateCodelengthOnMovingNode}}(current, oldModuleDelta,
+       bestDeltaModule);
+807             derived().updateCodelengthOnMovingMemoryNode(oldModuleDelta, bestDeltaModule);
+808 
+809             Super::m\_moduleMembers[current.index] -= 1;
+810             Super::m\_moduleMembers[bestModuleIndex] += 1;
+811 
+812             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oldModuleIndex = current.index;
+813             current.index = bestModuleIndex;
+814 
+815             \textcolor{comment}{// Update physical node map on move for memory networks}
+816             derived().performMoveOfMemoryNode(current, oldModuleIndex, bestModuleIndex);
+817 
+818             ++numMoved;
+819 
+820             \textcolor{comment}{// Mark neighbours as dirty}
+821             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+822                     edgeIt != endIt; ++edgeIt)
+823                 (*edgeIt)->target.dirty = \textcolor{keyword}{true};
+824             for (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+825                     edgeIt != endIt; ++edgeIt)
+826                 (*edgeIt)->source.dirty = \textcolor{keyword}{true};
+827         \}
+828         \textcolor{keywordflow}{else}
+829             current.dirty = \textcolor{keyword}{false};
+830 
+831     \}
+832 
+833     \textcolor{keywordflow}{return} numMoved;
+834 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classInfomapGreedyCommon_ac1026d8aaeb5a5ceeb6c272d6adba431}\label{classInfomapGreedyCommon_ac1026d8aaeb5a5ceeb6c272d6adba431}} 
+\index{Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}!try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module@{try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module}}
+\index{try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module@{try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module}!Infomap\+Greedy\+Common@{Infomap\+Greedy\+Common}}
+\subsubsection{\texorpdfstring{try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module()}{tryMoveEachNodeIntoStrongestConnectedModule()}}
+{\footnotesize\ttfamily template$<$typename Infomap\+Greedy\+Derived\+Type $>$ \\
+unsigned int \mbox{\hyperlink{classInfomapGreedyCommon}{Infomap\+Greedy\+Common}}$<$ Infomap\+Greedy\+Derived\+Type $>$\+::try\+Move\+Each\+Node\+Into\+Strongest\+Connected\+Module (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Try fast and crude minimization of the codelength by trying to move nodes into strongest connected modules. \begin{DoxyReturn}{Returns}
+The number of nodes moved. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+1127 \{
+1128     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numNodes = Super::m\_activeNetwork.size();
+1129     \textcolor{comment}{// Get random enumeration of nodes}
+1130     std::vector<unsigned int> randomOrder(numNodes);
+1131     infomath::getRandomizedIndexVector(randomOrder, Super::m\_rand);
+1132 
+1133     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} numMoved = 0;
+1134     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < numNodes; ++i)
+1135     \{
+1136         \textcolor{comment}{// Pick nodes in random order}
+1137         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flip = randomOrder[i];
+1138         NodeType& current = getNode(*Super::m\_activeNetwork[flip]);
+1139 
+1140         \textcolor{keywordflow}{if} (!current.dirty) \textcolor{comment}{//TODO: Only skip stable nodes until converged, then start over as a fine tune?}
+1141             \textcolor{keywordflow}{continue};
+1142 
+1143         \textcolor{keywordflow}{if} (Super::m\_moduleMembers[current.index] > 1 && Super::isFirstLoop() && m\_config.
+      tuneIterationLimit != 1)
+1144             \textcolor{keywordflow}{continue};
+1145 
+1146         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} strongestConnectedModule = current.index;
+1147         \textcolor{keywordtype}{double} maxFlow = 0.0;
+1148 
+1149         \textcolor{comment}{// For all outlinks}
+1150         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+1151                 edgeIt != endIt; ++edgeIt)
+1152         \{
+1153             EdgeType& edge = **edgeIt;
+1154             \textcolor{keywordflow}{if} (edge.data.flow > maxFlow) \{
+1155                 maxFlow = edge.data.flow;
+1156                 strongestConnectedModule = edge.target.index;
+1157             \}
+1158         \}
+1159         \textcolor{comment}{// For all inlinks}
+1160         \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+1161                 edgeIt != endIt; ++edgeIt)
+1162         \{
+1163             EdgeType& edge = **edgeIt;
+1164             \textcolor{keywordflow}{if} (edge.data.flow > maxFlow) \{
+1165                 maxFlow = edge.data.flow;
+1166                 strongestConnectedModule = edge.source.index;
+1167             \}
+1168         \}
+1169 
+1170         \textcolor{comment}{// Move to strongest connected module}
+1171         \textcolor{keywordflow}{if}(strongestConnectedModule != current.index)
+1172         \{
+1173 
+1174             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} newM = strongestConnectedModule;
+1175             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oldM = current.index;
+1176 
+1177             DeltaFlowType oldModuleDelta(oldM, 0.0, 0.0, 0.0, 0.0);
+1178             DeltaFlowType newModuleDelta(newM, 0.0, 0.0, 0.0, 0.0);
+1179 
+1180             \textcolor{comment}{// For all outlinks}
+1181             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+1182                     edgeIt != endIt; ++edgeIt)
+1183             \{
+1184                 EdgeType& edge = **edgeIt;
+1185                 \textcolor{keywordflow}{if} (edge.isSelfPointing())
+1186                     \textcolor{keywordflow}{continue};
+1187                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = edge.target.index;
+1188                 \textcolor{keywordflow}{if} (otherModule == oldM)
+1189                     oldModuleDelta.deltaExit += edge.data.flow;
+1190                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otherModule == newM)
+1191                     newModuleDelta.deltaExit += edge.data.flow;
+1192             \}
+1193 
+1194             \textcolor{comment}{// For all inlinks}
+1195             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+1196                     edgeIt != endIt; ++edgeIt)
+1197             \{
+1198                 EdgeType& edge = **edgeIt;
+1199                 \textcolor{keywordflow}{if} (edge.isSelfPointing())
+1200                     \textcolor{keywordflow}{continue};
+1201                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} otherModule = edge.source.index;
+1202                 \textcolor{keywordflow}{if} (otherModule == oldM)
+1203                     oldModuleDelta.deltaEnter += edge.data.flow;
+1204                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otherModule == newM)
+1205                     newModuleDelta.deltaEnter += edge.data.flow;
+1206             \}
+1207 
+1208 
+1209             \textcolor{comment}{//Update empty module vector}
+1210             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[newM] == 0)
+1211             \{
+1212                 Super::m\_emptyModules.pop\_back();
+1213             \}
+1214             \textcolor{keywordflow}{if}(Super::m\_moduleMembers[oldM] == 1)
+1215             \{
+1216                 Super::m\_emptyModules.push\_back(oldM);
+1217             \}
+1218 
+1219             derived().performMoveOfMemoryNode(current, oldM, newM);
+1220             Super::updateFlowOnMovingNode(current, oldModuleDelta, newModuleDelta);
+1221 
+1222             Super::m\_moduleMembers[oldM] -= 1;
+1223             Super::m\_moduleMembers[newM] += 1;
+1224 
+1225             current.index = strongestConnectedModule;
+1226 
+1227             ++numMoved;
+1228 
+1229             \textcolor{comment}{// Mark neighbours as dirty}
+1230             \textcolor{keywordflow}{for} (NodeBase::edge\_iterator edgeIt(current.begin\_outEdge()), endIt(current.end\_outEdge());
+1231                     edgeIt != endIt; ++edgeIt)
+1232                 (*edgeIt)->target.dirty = \textcolor{keyword}{true};
+1233             for (NodeBase::edge\_iterator edgeIt(current.begin\_inEdge()), endIt(current.end\_inEdge());
+1234                     edgeIt != endIt; ++edgeIt)
+1235                 (*edgeIt)->source.dirty = \textcolor{keyword}{true};
+1236         \}
+1237         \textcolor{keywordflow}{else}
+1238             current.dirty = \textcolor{keyword}{false};
+1239     \}
+1240 
+1241     \textcolor{keywordflow}{return} numMoved;
+1242 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dsmacc/graph/infomap/src/infomap/Infomap\+Greedy\+Common.\+h\end{DoxyCompactItemize}
