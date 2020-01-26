@@ -1,5 +1,6 @@
 #
 import argparse,os,sys
+import dsmacc.run.checks as checks
 
 print (__file__)
 
@@ -27,22 +28,6 @@ print ('initialisation arguments:')
 print (args)
 
 
-def checkmatch(start,  model='model',
-        ignore = ['TEMP', 'LAT', 'LON', 'JDAY', 'H2O', 'ALBEDO', 'PRESS', 'NOx', 'DEPOS', 'FEMISS', 'SPINUP','NOX']
-        ):
-        '''
-        A function to check if the species within the ics file match those of the compiled model!
-        '''
-        import h5py,re
-
-        with h5py.File(start, 'r') as f:
-            icspecs = [i.decode('utf-8') for i in f['icspecs']]
-            specs = re.split(r'\s+',os.popen('./%s 0 0 --species'%(model)).read())
-            specs.extend(ignore)
-
-            diff = set(icspecs)-set(specs)
-        diff = list(filter(lambda x: x[0] != 'X',diff))
-        return diff
 
 
 
@@ -95,7 +80,10 @@ if args.run!=False:
     os.system('rm Outputs/* && mkdir Outputs')
 
     try:args.start
-    except:print('add selector for filename')
+    except:sys.exit('No filename supplied.')
+
+
+
 
     obs =''
     if args.obs: obs = '--obs'
@@ -104,10 +92,12 @@ if args.run!=False:
 
 
     if args.safe:
-        mismatch = checkmatch(args.start)
+        mismatch = checks.checkmatch(args.start)
         if len(mismatch)>0:
             mismatch.sort()
             sys.exit('\n\nWARNING - Init Cons and model do not match! \n'+str(mismatch) )
+
+        ncores = checks.coreupdate(ncores,args.start)
 
 
     cmd = 'mpiexec -n %d python %s %s %s'%(ncores,mpiout,args.start,obs)
