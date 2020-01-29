@@ -19,7 +19,8 @@ chemistry schemes for use within global models, *ATMOS CHEM PHYS*,
 **9(5)**, pp1831-1845 [doi:
 10.5194/acp-9-1831-2009](http://dx.doi.org/10.5194/acp-9-1831-2009) .
 
-
+### Development tip
+To view changes in a specific file, open it in the browser, then repalce `github.com` with `github.githistory.xyz`
 
 
 ## Install
@@ -61,7 +62,7 @@ To check the version, species or equations in a model you can run `./model 0 0` 
 ### Runtime checks
 Runtime checks to ensure model species match those of the ics are automatically enabled as part of dsmacc.run.
 
-These may be disabled using `-n` or `--nosafe` flags. 
+These may be disabled using `-n` or `--nosafe` flags.
 
 
 
@@ -95,6 +96,14 @@ In running using the spinup flag, this is automatically reset to 0, and the diur
 f90 model output is presented in the temp.txt file. This should be your first point of call for problems with no visible output.
 
 It is then important to check that an initial conditions file `Init_cons.dat` has been created, and that the model has been compiled. Try `./model 0 0 --version` and `./model 0 0` to run the first set of initial conditions.
+
+
+### Model hanging on TUV
+This happens when the last line in the `./Outputs/<run number (0)>.sdout` is `SZA = ...` or
+ `Ozone column ...` or
+ `Albedo not specified ...`. But *NOT* followed by `Photolysis rates calculated`.
+
+ To solve this you
 
 
 

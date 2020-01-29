@@ -3,8 +3,8 @@ A dataframe generated file,,,,,,
 Index,Species,Constrain,APHH,ClearFlo_SUMMER_2014_ClearFlo_WINTER_2014,BukitAtur_Sabah_Borneo,CVNOX_CapeVerde
 ii,TIME,0,432000,432000,432000,432000
 ii,TEMP,0,298,298,298,298
-ii,LAT,0,36.9,36.9,36.9,36.9
-ii,LON,0,116.31,116.31,116.31,116.31
+ii,LAT,0,39.9,51.0,0.9,16.5
+ii,LON,0,116.3,0.0,114.5,23.4
 ii,JDAY,0,173.5,173.5,173.5,173.5
 ii,H2O,0,0.02,0.02,0.02,0.02
 ii,ALBEDO,0,0,0,0,0

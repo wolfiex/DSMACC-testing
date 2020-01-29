@@ -123,37 +123,50 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
 
 
-
     ic_file = re.sub('\.\./InitCons/|\.csv|\.\./src/background','', '_'.join(file_list))
 
-    line = re.compile(r"(.{1,75}[\s\n ])",re.M|re.S)# 75 char per line
+    line = re.compile(r"([^\n]{70})",re.M|re.S)# 75 char per line re.M| [\s\n ]
+    linero2 = re.compile(r"([^\n]{70}\+)",re.M|re.S)# 75 char per line re.M| [\s\n ]
     with open("mechanisms/formatted_"+ic_file+'_%s.kpp'%depos, 'w') as f:
         for l in tofile:
 
 
-            #split into kpp happy lengths
-            split = line.findall(l)
+            #split into kpp happy lengths and filter ''
+            split = list(filter(None,line.split(l) ))
 
             if len(split)>1 :
 
+                for i in split:
+                    if len(i)>70: print('RegexFail',i,split)
 
                 if re.match('\s*//.*', l):
-                    f.write('\n//'.join(split)  )
+                    f.write('\n' +'\n//'.join(split)  )
                 else :
-                    f.write('\n'.join(split) )
+                    f.write('\n' + '\n'.join(split) )
             else:
-                f.write('\n'+l)
+                f.write('\n'+l )
+
 
         for i in inline:
+
             for l in i.split('\n'):
-                split = line.findall(l)
-                if len(split)>1 :f.write('&\n'.join(split) )
+                split = list(filter(None,linero2.split(l) ))
+
+                if len(split)>1 :f.write('\n' + '&\n'.join(split) )
                 else:f.write('\n'+l)
 
 
+    '''
+    check file
+    '''
+    filed = tuple(open("mechanisms/formatted_"+ic_file+'_%s.kpp'%depos))
+    ll = [len(i) for i in filed]
+    print('\n --------- \nFilestats: max_length = %d, mean_length = %d, min_length = %d, no_lines = %d\n --------- \n'%(max(ll),sum(ll)/len(ll),min(ll),len(ll)))
 
+    #print(list(filter(None,line.split(filed[ll.index(max(ll))]))),filed[ll.index(max(ll))])
 
     print(( "\n formatted_"+ic_file+' written'))
+
 
 
 
