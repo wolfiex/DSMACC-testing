@@ -526,9 +526,10 @@ SO3 = IGNORE;
  !end of USE statements 
  !
  ! start of executable statements
- RO2 = C(ind_CH3O2) + C(ind_C2H5O2) + C(ind_IC3H7O2) + C(ind_NC3H7O2) + &
-C(ind_HOCH2CH2O2) + C(ind_CH3CO3) + C(ind_HCOCH2O2) + C(ind_CH3COCH2O2) + &
-C(ind_IPROPOLO2) + C(ind_C2H5CO3) + C(ind_HO1C3O2) + C(ind_HYPROPO2) + &
-C(ind_HOCH2CO3) + C(ind_CH3CHOHCO3) + C(ind_HOC2H4CO3) + C(ind_HCOCO3) 
+ 
+RO2 = C(ind_C2H5CO3) + C(ind_C2H5O2) + C(ind_CH3CHOHCO3) + C(ind_CH3CO3) &
++ C(ind_CH3COCH2O2) + C(ind_CH3O2) + C(ind_HCOCH2O2) + C(ind_HCOCO3) &
++ C(ind_HO1C3O2) + C(ind_HOC2H4CO3) + C(ind_HOCH2CH2O2) + C(ind_HOCH2CO3) &
++ C(ind_HYPROPO2) + C(ind_IC3H7O2) + C(ind_IPROPOLO2) + C(ind_NC3H7O2) 
  CALL mcm_constants(time, temp, M, N2, O2, RO2, H2O) 
  #ENDINLINE

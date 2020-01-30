@@ -155,7 +155,8 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	#cd $(KPP_PATH)/src && make > kpp.log
 	python -m dsmacc.parsekpp -m
 	cp src/constants.f90 ./model_constants.f90
-	-$(KPP_PATH)/bin/kpp model.kpp
+	touch kpp.log ; rm kpp.log
+	-$(KPP_PATH)/bin/kpp model.kpp 2>&1 | tee kpp.log
 	sed -i '/END\sDO\sTimeLoop/a \\nWRITE (JACSP_UNIT) TIME, Jac0\nWRITE (FLUX_UNIT) time, A(:NREACT)\nWRITE (VDOT_UNIT) time, FCN !VDOT' model_Integrator.f90
 	sed -i '/END/b;/MODULE\smodel_Integrator/a \\nUSE model_Function, ONLY: Fun,A' model_Integrator.f90
 reformat:

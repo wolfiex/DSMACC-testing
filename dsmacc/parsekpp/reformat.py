@@ -64,7 +64,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
     fullstr='~'.join(file_text)
 
 
-    inline = re.findall(r'[\n\b\s]#inline.+?#endinline',fullstr,re.IGNORECASE|re.M|re.S)
+    inline = re.findall(r'[\n\b\s]*#inline.+?#endinline',fullstr,re.IGNORECASE|re.M|re.S)
 
     minfull = re.sub(r' |\n|\t|\s|\r','', fullstr).upper()
 
@@ -78,7 +78,9 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
     for e in eqn:specs.extend(re.findall(r"[\w']+", e[0]))
 
-    specs = list(set((nocoeff.sub(r'\1',i) for i in specs)))
+    specs = list(nocoeff.sub(r'\1',i) for i in specs)
+    specs.append('CH4')
+    specs = list(set(specs))
     specs.sort()
 
 
@@ -88,7 +90,10 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
             eqn.append([i + ' = DUMMY',decayrate])
 
     #replace RO2str
-    ro2str ='\nRO2 = C(ind_'+ ') + C(ind_'.join(re.findall(r'ind_([\W\d\w]+?\b)',minfull,re.I))+')'
+    ro2spec = re.findall(r'ind_([\W\d\w]+?\b)',minfull,re.I)
+    ro2spec.sort()
+    ro2str ='\nRO2 = C(ind_'+ ') + C(ind_'.join(ro2spec)+')'.replace('\n','')
+    #print(ro2str,'ro2str')
 
     for i in range(len(inline)):
         if 'RO2 =' in inline[i]:#re.match(r'\bRO2 *=',inline[i]):
@@ -125,8 +130,10 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
     ic_file = re.sub('\.\./InitCons/|\.csv|\.\./src/background','', '_'.join(file_list))
 
-    line = re.compile(r"([^\n]{70})",re.M|re.S)# 75 char per line re.M| [\s\n ]
-    linero2 = re.compile(r"([^\n]{70}\+)",re.M|re.S)# 75 char per line re.M| [\s\n ]
+    line = re.compile(r"([^\n]{60,?}[^\w\d\.\_\(\)\}\{])",re.M|re.S)# 75 char per line re.M| [\s\n ]
+    linero2 = re.compile(r"([^\n]{60,}?[^\w\d\.\_\(\)])",re.M|re.S)# 75 char per line re.M| [\s\n ]
+    #print(linero2)
+
     with open("mechanisms/formatted_"+ic_file+'_%s.kpp'%depos, 'w') as f:
         for l in tofile:
 
@@ -140,7 +147,7 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
                     if len(i)>70: print('RegexFail',i,split)
 
                 if re.match('\s*//.*', l):
-                    f.write('\n' +'\n//'.join(split)  )
+                    f.write('\n' +'\n// '.join(split)  )
                 else :
                     f.write('\n' + '\n'.join(split) )
             else:
@@ -149,8 +156,11 @@ def reformat_kpp(inorganics,depos,available_cores = 1,co2 = False,decayrate = (1
 
         for i in inline:
 
+            #print (inline)
             for l in i.split('\n'):
+
                 split = list(filter(None,linero2.split(l) ))
+                #print (l,split)
 
                 if len(split)>1 :f.write('\n' + '&\n'.join(split) )
                 else:f.write('\n'+l)

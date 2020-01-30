@@ -97,6 +97,9 @@ f90 model output is presented in the temp.txt file. This should be your first po
 
 It is then important to check that an initial conditions file `Init_cons.dat` has been created, and that the model has been compiled. Try `./model 0 0 --version` and `./model 0 0` to run the first set of initial conditions.
 
+### KPP not finishing
+Check that kpp has finished using the kpp.log file. If this does not complete there are no fortran files to compile.
+KPP is very finicy and all new mechanism files need to be reformatted with `python -m dsmacc.parsekpp.reformat`
 
 ### Model hanging on TUV
 This happens when the last line in the `./Outputs/<run number (0)>.sdout` is `SZA = ...` or

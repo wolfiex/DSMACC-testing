@@ -1,0 +1,39 @@
+[94m
+This is KPP-2.2.4_gc.
+[0m
+[34m
+KPP is parsing the equation file.[0m
+[34m
+KPP is computing Jacobian sparsity structure.[0m
+[34m
+KPP is starting the code generation.[0m
+
+KPP is initializing the code generation.
+KPP is generating the monitor data:
+    - model_Monitor
+KPP is generating the utility data:
+    - model_Util
+KPP is generating the global declarations:
+    - model_Main
+KPP is generating the ODE function:
+    - model_Function
+KPP is generating the ODE Jacobian:
+    - model_Jacobian
+    - model_JacobianSP
+KPP is generating the linear algebra routines:
+    - model_LinearAlgebra
+KPP is generating the utility functions:
+    - model_Util
+KPP is generating the rate laws:
+    - model_Rates
+KPP is generating the parameters:
+    - model_Parameters
+KPP is generating the global data:
+    - model_Global
+KPP is generating the driver from ./src/driver.f90:
+    - model_Main[34m
+KPP is starting the code post-processing.[0m
+[94m
+
+KPP has succesfully created the model "model".
+[0m
