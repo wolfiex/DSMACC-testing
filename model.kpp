@@ -2,7 +2,7 @@
     // include file with definition of the chemical species
     // and chemical equations
     #INCLUDE ./src/background/mechswitches.kpp //KEEP!
-    #INCLUDE mechanisms/formatted_propane_inorganics_True.kpp
+    #INCLUDE mechanisms/formatted_thesis2_inorganics_True.kpp
 
     #INCLUDE ./src/util.inc
     #INCLUDE ./src/global.inc
