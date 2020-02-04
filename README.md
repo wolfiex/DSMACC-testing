@@ -65,7 +65,6 @@ Runtime checks to ensure model species match those of the ics are automatically 
 These may be disabled using `-n` or `--nosafe` flags.
 
 
-
 ## SPINUP
 There are two methods of spinning up a model- these are with or without constraint to observations. To activate this the python -run library must be run with the spinup flag. *NOTE: using a negative time no longer does anything*
 
@@ -92,6 +91,35 @@ In running using the spinup flag, this is automatically reset to 0, and the diur
 - For multiple runs, a description helps with identification.
 - (disabled) save parameter in description name to access archived (compiled) model setups. This allows a single initial conditions file to run multiple mechanisms for comparison.
 
+## Saving a compiled model
+With KPP being by far the most inefficient part of the process, it is
+convenient to be able to compare several pre-compiled mechanisms within
+the same initial condition run. This can be done using a saved model.
+
+### To run
+Use the `-a` flag as part of `python -m dsmacc.run -c -r -a` and ensure
+any runs which contain a saved model have the
+model name and description seperated by a
+tilde:`<savedmodelname>~<description>`. Using this flag disables pre-run checks (ToDo - incorporate them later)
+
+### To save a model
+To save use the dsmacc.model.save module followed by the save name (e.g.
+aphh). This backs the compiled file back up to the save folder.
+
+```python
+(base) earth0_21:03 DSMACC-testing/ python -m dsmacc.model.save aphh
+saved name: aphh
+latest commit: https://github.com/wolfiex/DSMACC-testing
+/tree/61f89a93ab655ca8092f2c4c723cef9a9533a85c
+
+model archived to save/aphh/model
+```
+### Restore a model
+`python -m dsmacc.model.restore`
+This replaces the base ./model . Not usually needed as archived models can be run from the ics file.
+
+
+
 ## Model debugging
 f90 model output is presented in the temp.txt file. This should be your first point of call for problems with no visible output.
 
@@ -106,8 +134,10 @@ This happens when the last line in the `./Outputs/<run number (0)>.sdout` is `SZ
  `Ozone column ...` or
  `Albedo not specified ...`. But *NOT* followed by `Photolysis rates calculated`.
 
- To solve this you
+ To solve this you need to `make clean` the data in the TUV file and then rerun `make new`
 
+### Hanging on make process
+Check KPP reordering is enabled (useReorder=1 in scanner.h). This greatly reduces the size of the LinearAlgebra for the model.
 
 
 ### Compiler Notes
@@ -156,9 +186,13 @@ or
 - `python -m dsmacc.observations.constrain <csvfilenamewithdata>`
 - `python -m dsmacc.run -r -c -o`
 
+## ICsTools
 
+### split a multi-icsfile
+`python -m dsmacc.icstools.ics_split` - creates individual ics files from each column.
 
-
+### Get species from ics for mechanism gen
+`python -m dsmacc.icstools.speclist`
 
 
 

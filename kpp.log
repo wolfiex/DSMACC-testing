@@ -1,0 +1,58 @@
+[94m
+This is KPP-2.2.4_gc.
+[0m
+[34m
+KPP is parsing the equation file.[0m
+Warning :mechanisms/formatted_aphh_inorganics_True.kpp:10556: [93m
+Duplicate equation:  (eqn<7586> = eqn<7587> )[0m
+
+[34m
+KPP is computing Jacobian sparsity structure.[0m
+[34m
+KPP is starting the code generation.[0m
+
+KPP is initializing the code generation.
+KPP is generating the monitor data:
+    - model_Monitor
+KPP is generating the utility data:
+    - model_Util
+KPP is generating the global declarations:
+    - model_Main
+KPP is generating the ODE function:
+    - model_Function
+ Warning: 121 continuation lines for Vdot(2951) = ...
+ Warning: 101 continuation lines for Vdot(2953) = ...
+KPP is generating the ODE Jacobian:
+    - model_Jacobian
+    - model_JacobianSP
+ Warning: 217 continuation lines for JUV(2951) = ...
+ Warning: 132 continuation lines for JUV(2953) = ...
+ Warning: 169 continuation lines for JUV(2958) = ...
+ Warning: 257 continuation lines for JTUV(2951) = ...
+ Warning: 145 continuation lines for JTUV(2954) = ...
+ Warning: 143 continuation lines for JTUV(2956) = ...
+ Warning: 150 continuation lines for JTUV(2958) = ...
+KPP is generating the linear algebra routines:
+    - model_LinearAlgebra
+ Warning: 262 continuation lines for X(2951) = ...
+ Warning: 137 continuation lines for X(2953) = ...
+ Warning: 177 continuation lines for X(2958) = ...
+ Warning: 278 continuation lines for XX(2951) = ...
+ Warning: 164 continuation lines for XX(2954) = ...
+ Warning: 151 continuation lines for XX(2956) = ...
+ Warning: 196 continuation lines for XX(2958) = ...
+KPP is generating the utility functions:
+    - model_Util
+KPP is generating the rate laws:
+    - model_Rates
+KPP is generating the parameters:
+    - model_Parameters
+KPP is generating the global data:
+    - model_Global
+KPP is generating the driver from ./src/driver.f90:
+    - model_Main[34m
+KPP is starting the code post-processing.[0m
+[94m
+
+KPP has succesfully created the model "model".
+[0m

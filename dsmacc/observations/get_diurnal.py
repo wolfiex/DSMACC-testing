@@ -39,7 +39,8 @@ mpl.use('Agg')#headless
 
 df = pd.DataFrame()
 
-f = list(filter(lambda x : x != 'True',sys.argv[1:]))
+
+f = list(filter(lambda x : x not in 'True ppbv'.split(),sys.argv[1:]))
 
 for entry in f:
     try:
@@ -89,6 +90,8 @@ df.drop_duplicates(inplace = True)
 #df = df.groupby(list(set(df.columns)),as_index = False).mean()
 df.reset_index(inplace=True)
 
+df.columns = [i.upper() for i in df.columns]
+
 
 dr = '_'.join([i.split('.')[0] for i in f])
 
@@ -109,11 +112,15 @@ df['MONTH'] = df.DATE.apply(lambda x: float(str(x).split(' ')[0].split('/')[-2])
 
 print(set(df.MONTH*12))
 thismonth = int(input('Enter month to save:\n'))
+
     
 
 # parse each item 
 for item in df.columns:    
+    
     #rescale variable
+    if 'LEVEL' in item : continue
+    
     scale = None
     if ('PPTV' in item):
         scale = 1e-12
@@ -121,6 +128,10 @@ for item in df.columns:
         scale = 1e-9
     elif sys.argv[-1]=='True':
         scale = 1
+    elif sys.argv[-1]=='ppbv':
+        scale = 1e-9
+
+
 
 
     try:# rm int column names
@@ -142,15 +153,17 @@ for item in df.columns:
     X = df1['HOUR MONTH'.split()].values#.reshape(-1, 1)
     Y = np.log10(df1[item]*scale).values 
     X = np.array(X,dtype=float).reshape(-1, 2)
+    nn = 0
+    del nn
 
-    
-
+    #print((df1[item]*scale).describe(),np.mean(Y))
+    if Y.shape[0] == 0 : continue
 
     # make the Neural Network
     nn = MLPRegressor(
         hidden_layer_sizes=(10,),  activation='tanh', solver='lbfgs', alpha=0.001, batch_size='auto',
-        learning_rate='adaptive', learning_rate_init=0.005, power_t=0.5, max_iter=2000, shuffle=True,
-        random_state=9, tol=1e-4, verbose=False , warm_start=False, momentum=0.9, nesterovs_momentum=True,
+        learning_rate='adaptive', learning_rate_init=0.005, power_t=0.5, max_iter=7000, shuffle=True,
+        random_state=9, tol=1e-5, verbose=False , warm_start=False, momentum=0.9, nesterovs_momentum=True,
         early_stopping=False, validation_fraction=0.4, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
 
     # Fit our data to the NN
@@ -225,7 +238,11 @@ for item in df.columns:
     #ax.xaxis.tick_top()
     ax.spines['left'].set_position(('data', start))
     
-    os.system('echo "%15s,%e" >> %sdata.txt'%(item.replace(',','.'),10**nn.predict([[0.5,thismonth]])[0],'./data/'+dr+'/'))
+    print(10**nn.predict([[0.5,thismonth/12]])[0],thismonth,scale)
+    
+    
+    
+    os.system('echo "%15s,%e" >> %sdata.txt'%(item.replace(',','.'),10**nn.predict([[0.5,thismonth/12]])[0],'./data/'+dr+'/'))
     item = re.findall(r'[A-z0-9_\.-]+',re.sub(r',+','',item))[0]
     print(item)
     plt.savefig('./data/'+dr+'/'+item+'.pdf')

@@ -42,6 +42,7 @@ if ncpus > 130:
 
 obs=False
 groups = None
+runsaved = False
 debug='' #'for boradcast'
 savelist = ['spec','rate','flux','vdot','jacsp']
 
@@ -54,22 +55,25 @@ for i in sys.argv[1:]:
     elif i == '--spinup':
             if not obs: obs = -1
             print('Spinup period active')
+    elif i == '--archive':
+            runsaved = True
+            print('Archive-runs')
     if '.h5' in i :
         filename = i.strip()
-        
-    
+
+
     if '--debug' not in i:
         debug = '1>>temp.txt'# 2>&1
 
 #print ('dsfds',__file__,os.popen('pwd').read())
 
 try:
-    
+
     if rank == 0:
         #remove temp file - once
         print(('ncpu rank', ncpus , rank , soft))
         os.system('touch temp.txt && rm temp.txt')
-        
+
         ###read args
         extend = True
         rewind = False
@@ -79,8 +83,8 @@ try:
 
         import h5py
         hf = h5py.File(filename, 'a')
-        
-        
+
+
         ids = ''.join( reversed(list(open('model_Parameters.f90').readlines() ) )).replace(' ','')
         ids = re.findall('ind_([\w\d]+)=(\d+)',ids)
         ids = dict(([key,value] for value,key in ids))
@@ -101,19 +105,19 @@ try:
         ##################### DEL
 
         print('duration' , hf.attrs['ictime'])
-        
-        
+
+
         #print (np.array(head))
-        
+
         np.savetxt('Init_cons.dat', hf['icruns'], fmt='%15e', delimiter='!', newline='\n', header= head,comments='')
-        
+
         #print(os.popen('less Init_cons.dat').read())
 
         groups = [[int(item.attrs['id']),item.name] for item in list(hf.values()) if isinstance(item, h5py.Group)]
 
-        
-        
-        
+
+
+
     sys.stdout.flush()
     comm.Barrier()
     #print ('barrier')
@@ -126,12 +130,12 @@ try:
     #sys.stdout.flush()
     #print ('barrier:bcast')
     comm.Barrier()
-    
+
     n=rank-1
 
     if rank>0:
         import subprocess
-        
+
 
         while n < lgroups:
 
@@ -140,11 +144,13 @@ try:
                 #set the model
                 model='model'
                 
-                if '-' in g[1]:
-                    if runsaved: 
-                        model='save/exec/%s/model'%(g[1].split('-')[-1])
-                        
                 description = g[1]
+                if ('~' in description) and runsaved:
+                        description = g[1].split('~')
+                        model='save/%s/model'%(description[0])
+                        description = description[-1]
+
+                
 
 
                 #run cmd
@@ -155,7 +161,7 @@ try:
                 ##the actual run
                 start = time.strftime("%s");
                 warn = os.popen(run).read()
-                    
+
                 if warn.replace(' ','') != '':
                     warn = '\n --- Run No %d - %s ---\n%s'%(n,str(description),warn)
                 wall = int(time.strftime("%s")) - int(start)
@@ -172,29 +178,29 @@ try:
     else:
         warn = ''
         for i in range(lgroups):
-                
+
                 print('Progress: %02d '%((float(i)/lgroups)*100.))
-                
+
                 req = comm.recv(source=MPI.ANY_SOURCE,tag=MPI.ANY_TAG)
                 #req.Wait()
                 g = hf[req['group']]
-                
+
                 print('Finished' , req, '. Cleaning and Saving.')
 
-                
+
 
                 g.attrs['version'] = req['vers']
                 g.attrs['wall']= req['wall']
                 g.attrs['warn']= req['warn']
                 warn += req['warn']
-                
+
                 for dataset in savelist:
                     data = readfun('Outputs/%s.%s'%(req['id'],dataset))
-                    
+
                     if data[1].shape[0] == 0:
                         print(( 'no values found, skipping: ',  dataset))
                         continue
-                    
+
 
                     if dataset == 'jacsp':
                         dataarr = ['TIME']
@@ -266,11 +272,11 @@ try:
 
     if rank ==0 :
         print("\033]0; Simulation Finished \007")
-        
+
         if len(warn)>0:
             import warnings
             warnings.warn(warn)
-        
+
         hf.close()
         print('written' , filename)
 
@@ -288,5 +294,3 @@ except Exception as e:
     traceback.print_exc()
 
     comm.Abort()
-
-

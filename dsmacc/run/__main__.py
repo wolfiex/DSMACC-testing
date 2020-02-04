@@ -14,6 +14,7 @@ parser.add_argument('-k','--kill', dest='kill', action='store_true', default=Fal
 parser.add_argument('--createobs', dest='createobs', action='store_true', default=False, help='create obs')
 parser.add_argument('-r','--run', dest='run',nargs='?', action='store', default=False, help='run code')
 parser.add_argument('-n','--notsafe', dest='safe',nargs='?', action='store', default=True, help='skip prerun checks')
+parser.add_argument('-a','--archive', dest='archive', action='store_true', default=False, help='run code')
 
 
 #parser.add_argument('-c','--ics', dest='ics', action='store_true', default=False, help='create new ics h5')
@@ -27,13 +28,7 @@ args = parser.parse_args()
 print ('initialisation arguments:')
 print (args)
 
-
-
-
-
-
-
-
+rows, columns = os.popen('stty size', 'r').read().split()
 
 
 #for debugging#
@@ -42,8 +37,6 @@ if args.dev:
     import ipyReload as ipr
 
     def fn():
-
-
         import os
         print ('alternative command')
         print (os.system('mpirun -np 3 python %s'%mpiout))
@@ -66,6 +59,11 @@ print ('cpus' ,ncores )
 
 
 if args.ics != False:
+    print ('-'*int(columns))
+    print ('Creating the initial conditions')
+    print ('-'*int(columns))
+    
+    
     from . import ics
     filename = ics.create_ics(fileic=args.ics, spin = args.spinup,last = args.last)
     if args.run==None:args.start = filename
@@ -91,13 +89,24 @@ if args.run!=False:
 
 
 
-    if args.safe:
+    if args.archive:
+        '''
+        If this is selected, checks are not performed
+        '''
+        obs += ' --archive'
+        print('checks disabled - using saved models')
+    elif args.safe:
         mismatch = checks.checkmatch(args.start)
         if len(mismatch)>0:
             mismatch.sort()
             sys.exit('\n\nWARNING - Init Cons and model do not match! \n'+str(mismatch) )
 
-        ncores = checks.coreupdate(ncores,args.start)
+    print ('-'*int(columns))
+    print ('Starting the run')
+    print ('-'*int(columns))
+        
+    # update the number of cores. 
+    ncores = checks.coreupdate(ncores,args.start)
 
 
     cmd = 'mpiexec -n %d python %s %s %s'%(ncores,mpiout,args.start,obs)
@@ -114,7 +123,8 @@ if args.verbose:
          print (i)
 
 
+print ('-'*int(columns))
 print ('End of dsmacc.run')
-
+print ('-'*int(columns))
 #path to module os.path.dirname(amodule.__file__)
 #if name is main run main
