@@ -47,7 +47,9 @@ SRCS2 = $(wildcard TUV_5.2.1/*.f)
 OBJS1 := $(SRCS1:.f90=.o)
 OBJS2 := $(SRCS2:.f=.o)
 
-MAKEFILE_INC = depend.mk
+MAKEFILE_INC = depend.mk 
+# touch$(MAKEFILE_INC)
+_dummy := $(shell touch ${MAKEFILE_INC})
 DSMACC_HOME := $(shell pwd)
 # If you don't have the perl script sfmakedepend, get it from:
 # http://www.arsc.edu/~kate/Perl
@@ -112,8 +114,7 @@ distclean: clean clear # clean all !
 	@rm -f params
 	@rm -f *.png
 	@rm -f *.pyc
-	@cd TUV_5.2.1 && make clean
-
+	@cd TUV_5.2.1 && test -f Makefile && make clean || echo 'No TUV, run make new'
 tuv: # compile tuv!
 	@rm -rf DATAJ1/ DATAE1/ DATAS1/ params
 	@cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params .
@@ -152,7 +153,7 @@ kpp: clean | ./Outputs #ini  # makes kpp using the model.kpp file in src!
 	touch include.obs
 	@rm model model.kpp include.obs
 	touch include.obs
-	#cd $(KPP_PATH)/src && make > kpp.log
+	test -f $(KPP_PATH)/bin/kpp && echo "kpp at $(KPP_PATH)" || cd $(KPP_PATH)/src && make > kpp.log
 	python -m dsmacc.parsekpp -m
 	cp src/constants.f90 ./model_constants.f90
 	-$(KPP_PATH)/bin/kpp model.kpp
