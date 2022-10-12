@@ -7,7 +7,7 @@
   "devDependencies": {
     "electron": "^7.2.4",
     "electron-reload": "^1.2.0",
-    "electron-packager": "^8.1.0"
+    "electron-packager": "^16.0.0"
   },
   "repository": {},
   "scripts": {
